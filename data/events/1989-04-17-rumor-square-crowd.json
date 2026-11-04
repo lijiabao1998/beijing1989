@@ -1,0 +1,13 @@
+{
+  "id": "1989-04-17-rumor-square-crowd",
+  "date": "1989-04-17",
+  "place": "（遊戲內）北京街頭",
+  "kind": "fiction",
+  "confidence": "uncertain",
+  "title": { "zh": "街頭傳言：廣場上已經很多人", "en": "Street rumor: the Square is already crowded" },
+  "summary": {
+    "zh": "這是遊戲虛構的傳言，用來呈現「資訊有限」：玩家當下無法確認，只能選擇相信、轉述或親自去看。人數等細節沒有史料依據。",
+    "en": "A fictional rumor showing limited information: the player cannot confirm it in the moment. Numbers and details are not sourced."
+  },
+  "sources": []
+}

@@ -1,0 +1,23 @@
+name: CI
+on:
+  push: { branches: [main] }
+  pull_request: { branches: [main] }
+  workflow_dispatch:
+permissions: { contents: read }
+jobs:
+  build-and-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: npm }
+      - run: npm ci
+      - run: npm run validate
+      - run: npm run build
+      - name: Puppeteer smoke test of the 4/17 slice (phone + desktop)
+        run: npm run smoke
+        env: { CHROME_PATH: /usr/bin/google-chrome, SHOTS: shots }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: smoke-screenshots, path: shots }

@@ -1,0 +1,17 @@
+{
+  "id": "1989-04-15-hu-yaobang-death",
+  "date": "1989-04-15",
+  "place": "北京",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": { "zh": "胡耀邦逝世", "en": "Death of Hu Yaobang" },
+  "summary": {
+    "zh": "前中共中央總書記胡耀邦於 1989 年 4 月 15 日病逝。悼念他的海報隨即出現在北京各高校。",
+    "en": "Former General Secretary Hu Yaobang died on 15 April 1989. Posters mourning him soon appeared on Beijing campuses."
+  },
+  "sources": [
+    { "title": "Hu Yaobang, Ex-Party Chief in China, Dies at 73", "publisher": "The New York Times, 1989-04-16", "url": "https://www.nytimes.com/1989/04/16/obituaries/hu-yaobang-ex-party-chief-in-china-dies-at-73.html" },
+    { "title": "A Brief Chronology of Events at Tiananmen Square (1989)", "publisher": "Columbia University, Asia for Educators", "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm" },
+    { "title": "Tiananmen Square, 1989", "publisher": "U.S. Department of State, Office of the Historian (Milestones)", "url": "https://history.state.gov/milestones/1989-1992/tiananmen-square" }
+  ]
+}

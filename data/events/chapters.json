@@ -1,0 +1,16 @@
+{
+  "chapters": [
+    { "id": "ch0-0417", "date": "1989-04-17", "title": { "zh": "四月十七日，夜", "en": "17 April, night" }, "playable": true, "events": ["1989-04-15-hu-yaobang-death", "1989-04-17-campus-to-square", "1989-04-17-rumor-square-crowd"] },
+    { "id": "ch1-0422", "date": "1989-04-22", "title": { "zh": "四月二十二日至二十七日", "en": "22-27 April" }, "playable": false, "events": [] },
+    { "id": "ch2-0513", "date": "1989-05-13", "title": { "zh": "五月十三日", "en": "13 May" }, "playable": false, "events": [] },
+    { "id": "ch3-0520", "date": "1989-05-20", "title": { "zh": "五月二十日", "en": "20 May" }, "playable": false, "events": [] },
+    { "id": "ch4-0530", "date": "1989-05-30", "title": { "zh": "五月三十日", "en": "30 May" }, "playable": false, "events": [] },
+    { "id": "ch5-0603", "date": "1989-06-03", "title": { "zh": "六月三日至四日", "en": "3-4 June" }, "playable": false, "events": [] }
+  ],
+  "viewpoints": [
+    { "id": "student", "zh": "學生", "en": "Student", "playable": true },
+    { "id": "worker", "zh": "工人", "en": "Worker", "playable": false },
+    { "id": "journalist", "zh": "記者", "en": "Journalist", "playable": false },
+    { "id": "resident", "zh": "市民", "en": "Resident", "playable": false }
+  ]
+}

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+<title>北京，一九八九 — An Ordinary Spring</title>
+<link rel="icon" href="./favicon.svg" />
+<link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud" hidden>
+  <div id="date">1989 年 4 月 17 日・晚</div>
+  <div id="btns"><button id="b-diary">日記</button><button id="b-src">史料</button><button id="b-menu">選單</button></div>
+</div>
+<div id="stick" hidden><div id="knob"></div></div>
+<button id="act" hidden></button>
+<div id="dlg" hidden><div id="who"></div><div id="txt"></div><button id="srcbtn" hidden>查看史料來源</button><div id="ch"></div></div>
+<div id="modal" hidden><div class="card"><button class="x" id="mclose">×</button><div id="mbody"></div></div></div>
+<div id="title">
+  <div class="card t">
+    <h1>北京，一九八九</h1>
+    <h2>An Ordinary Spring・一個平凡的春天</h2>
+    <p class="lead">歷史的結果已經確定。你是一個普通人：看到了什麼、相信了什麼、幫助了誰、最後留下了什麼。</p>
+    <p class="small">第一章：1989 年 4 月 17 日晚。一名虛構的北京大學學生。所有人物皆為虛構；史實事件附來源，可隨時打開查看。沒有戰鬥，沒有分數，也沒有「正確答案」。</p>
+    <div class="row"><button id="b-new">開始</button><button id="b-cont" hidden>繼續</button></div>
+  </div>
+</div>
+<div id="fade"><div id="fadetxt"></div></div>
+<script type="module" src="./src/main.ts"></script>
+</body>
+</html>

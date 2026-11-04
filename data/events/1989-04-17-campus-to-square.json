@@ -1,0 +1,16 @@
+{
+  "id": "1989-04-17-campus-to-square",
+  "date": "1989-04-17",
+  "place": "北京各高校 → 天安門廣場",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": { "zh": "悼念活動從校園走向廣場", "en": "Mourning spreads from campuses to the Square" },
+  "summary": {
+    "zh": "4 月 17 日起，學生的悼念活動從北京各校園擴散到天安門廣場。遊戲中的具體人物、對話與路線都是虛構的。",
+    "en": "From 17 April student mourning spread from Beijing campuses to Tiananmen Square. The specific characters, dialogue and route in the game are fictional."
+  },
+  "sources": [
+    { "title": "The Tiananmen Papers (excerpt: April 17-18)", "publisher": "The New York Times Books archive", "url": "https://archive.nytimes.com/www.nytimes.com/books/first/l/liang-tiananmen.html", "note": "The authenticity of some Tiananmen Papers documents has been debated; used here only for the date." },
+    { "title": "The Death That Kindled the Uprising at Tiananmen Square", "publisher": "The New York Times Sinosphere, 2014-04-15", "url": "https://archive.nytimes.com/sinosphere.blogs.nytimes.com/2014/04/15/the-death-that-kindled-the-uprising-at-tiananmen-square/" }
+  ]
+}

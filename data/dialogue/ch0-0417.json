@@ -1,0 +1,454 @@
+{
+  "chapter": "ch0-0417",
+  "note": "所有人物皆為虛構。不替任何真實人物編寫台詞或行動。All characters are fictional.",
+  "characters": {
+    "me": {
+      "name": "我（陳立）",
+      "role": "北大物理系二年級學生",
+      "fictional": true
+    },
+    "zhou": {
+      "name": "老周",
+      "role": "室友，河北人",
+      "fictional": true
+    },
+    "lin": {
+      "name": "林小梅",
+      "role": "中文系同學",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "報刊亭的大爺",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王師傅",
+      "role": "下夜班的工人",
+      "fictional": true
+    },
+    "youth": {
+      "name": "戴眼鏡的學生",
+      "role": "別校學生，正往南走",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "start": "intro",
+  "hotspots": [
+    {
+      "id": "zhou",
+      "scene": "campus",
+      "pos": [
+        -6,
+        3
+      ],
+      "label": "老周",
+      "start": "zhou_1"
+    },
+    {
+      "id": "board",
+      "scene": "campus",
+      "pos": [
+        2,
+        -4
+      ],
+      "label": "布告欄",
+      "start": "board_1"
+    },
+    {
+      "id": "lin",
+      "scene": "campus",
+      "pos": [
+        5,
+        -2
+      ],
+      "label": "林小梅",
+      "start": "lin_1"
+    },
+    {
+      "id": "gate",
+      "scene": "campus",
+      "pos": [
+        0,
+        -16
+      ],
+      "label": "校門",
+      "start": "gate_1"
+    },
+    {
+      "id": "kiosk",
+      "scene": "street",
+      "pos": [
+        -6,
+        -3.5
+      ],
+      "label": "報刊亭",
+      "start": "sun_1"
+    },
+    {
+      "id": "speaker",
+      "scene": "street",
+      "pos": [
+        6,
+        -3
+      ],
+      "label": "喇叭",
+      "start": "speaker_1"
+    },
+    {
+      "id": "wang",
+      "scene": "street",
+      "pos": [
+        2,
+        -4.5
+      ],
+      "label": "王師傅",
+      "start": "wang_1"
+    },
+    {
+      "id": "youth",
+      "scene": "street",
+      "pos": [
+        -3,
+        -7
+      ],
+      "label": "往南走的學生",
+      "start": "youth_1"
+    },
+    {
+      "id": "home",
+      "scene": "street",
+      "pos": [
+        14,
+        2
+      ],
+      "label": "胡同口",
+      "start": "home_1"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 17 日，星期一，晚上。宿舍樓的走廊裡有人在收音機旁小聲說話。兩天前，胡耀邦去世了。",
+      "event": "1989-04-15-hu-yaobang-death",
+      "choices": [
+        {
+          "text": "下樓看看",
+          "diary": "4/17 晚。樓道裡大家都壓低聲音。"
+        }
+      ]
+    },
+    "zhou_1": {
+      "speaker": "zhou",
+      "text": "你要出去？我姐住東城胡同裡，這封信你要是順路幫我帶一下。不順路就算了，路上別逞強。",
+      "choices": [
+        {
+          "text": "收下信，答應送到",
+          "item": "letter",
+          "rel": {
+            "zhou": 1
+          },
+          "set": "has_letter",
+          "next": "zhou_2"
+        },
+        {
+          "text": "我帶一壺熱水和饅頭去給同學",
+          "item": "thermos",
+          "set": "has_thermos",
+          "next": "zhou_3"
+        },
+        {
+          "text": "我還沒想好",
+          "next": "zhou_4"
+        }
+      ]
+    },
+    "zhou_2": {
+      "speaker": "zhou",
+      "text": "信封上寫著地址。她家門口有棵大槐樹，好找。",
+      "choices": [
+        {
+          "text": "好",
+          "diary": "幫老周帶信給他姐姐。"
+        }
+      ]
+    },
+    "zhou_3": {
+      "speaker": "zhou",
+      "text": "暖壺是食堂的，記得還回來啊。",
+      "choices": [
+        {
+          "text": "知道",
+          "diary": "帶了一壺熱水和兩個饅頭。"
+        }
+      ]
+    },
+    "zhou_4": {
+      "speaker": "zhou",
+      "text": "那你想好了再來找我。",
+      "choices": [
+        {
+          "text": "嗯"
+        }
+      ]
+    },
+    "board_1": {
+      "speaker": "narr",
+      "text": "布告欄上貼滿了新的紙，墨跡還沒全乾。有輓聯，有詩，也有人只寫了幾個大字：「悼念耀邦」。",
+      "event": "1989-04-15-hu-yaobang-death",
+      "choices": [
+        {
+          "text": "抄一段在本子上",
+          "diary": "布告欄上的字，抄了一段。字很多，我只看懂一半人的心情。",
+          "set": "read_board"
+        },
+        {
+          "text": "看看就走",
+          "set": "read_board"
+        }
+      ]
+    },
+    "lin_1": {
+      "speaker": "lin",
+      "text": "聽說今天下午就有別的學校的人去了廣場。有人說今晚還會有更多人去，也有人說只是傳言。你信嗎？",
+      "event": "1989-04-17-campus-to-square",
+      "choices": [
+        {
+          "text": "我信，晚上我也想去看看",
+          "rel": {
+            "lin": 1
+          },
+          "set": "rumor_believed",
+          "diary": "小梅說有人去了廣場。我想親眼看看。",
+          "next": "lin_2"
+        },
+        {
+          "text": "去問問別人，再決定",
+          "set": "rumor_verify",
+          "diary": "小梅聽到的消息，我還不知道真假。",
+          "next": "lin_3"
+        },
+        {
+          "text": "這種話先別亂傳",
+          "rel": {
+            "lin": -1
+          },
+          "next": "lin_4"
+        }
+      ]
+    },
+    "lin_2": {
+      "speaker": "lin",
+      "text": "我得先回去寫作業。你要去的話，回來跟我說說看到了什麼。",
+      "choices": [
+        {
+          "text": "好"
+        }
+      ]
+    },
+    "lin_3": {
+      "speaker": "lin",
+      "text": "也對。誰說的都不一定準。",
+      "choices": [
+        {
+          "text": "嗯"
+        }
+      ]
+    },
+    "lin_4": {
+      "speaker": "lin",
+      "text": "……我也只是聽說。",
+      "choices": [
+        {
+          "text": "嗯"
+        }
+      ]
+    },
+    "gate_1": {
+      "speaker": "narr",
+      "text": "校門口停著一排二八自行車。門衛室亮著燈，有人推車出去，有人剛回來。",
+      "choices": [
+        {
+          "text": "騎車進城",
+          "requires": "has_item",
+          "goto": "street"
+        },
+        {
+          "text": "再在校園裡轉轉"
+        }
+      ]
+    },
+    "sun_1": {
+      "speaker": "sun",
+      "text": "晚報賣完了。小伙子，大學生吧？今兒晚上往南去的騎車的多。",
+      "choices": [
+        {
+          "text": "大爺，聽說廣場上人很多？",
+          "requires": "rumor_relayed",
+          "next": "sun_2"
+        },
+        {
+          "text": "買一份明天的？還沒來呢吧",
+          "next": "sun_3"
+        }
+      ]
+    },
+    "sun_2": {
+      "speaker": "sun",
+      "text": "我坐這兒哪知道。聽說的多了，自己看見的才算數。",
+      "set": "talked_sun",
+      "choices": [
+        {
+          "text": "說得是",
+          "diary": "報亭大爺：「自己看見的才算數。」"
+        }
+      ]
+    },
+    "sun_3": {
+      "speaker": "sun",
+      "text": "還早呢。明兒一早來。",
+      "choices": [
+        {
+          "text": "好"
+        }
+      ]
+    },
+    "speaker_1": {
+      "speaker": "narr",
+      "text": "電線杆上的喇叭沙沙響，正在播天氣：明天晴，有風。路過的人沒有停下來聽。",
+      "choices": [
+        {
+          "text": "繼續走"
+        }
+      ]
+    },
+    "wang_1": {
+      "speaker": "wang",
+      "text": "剛下夜班。廠裡也有人在議論。我是不懂你們學生想什麼，就是物價這兩年漲得心裡沒底。",
+      "choices": [
+        {
+          "text": "聽他說下去",
+          "rel": {
+            "wang": 1
+          },
+          "next": "wang_2"
+        },
+        {
+          "text": "跟他說校園裡貼的字",
+          "requires": "read_board",
+          "next": "wang_3"
+        }
+      ]
+    },
+    "wang_2": {
+      "speaker": "wang",
+      "text": "家裡還有孩子。早點回去吧，夜裡涼。",
+      "choices": [
+        {
+          "text": "您也慢點",
+          "diary": "遇到一位下夜班的師傅，他擔心的是物價和孩子。"
+        }
+      ]
+    },
+    "wang_3": {
+      "speaker": "wang",
+      "text": "寫字的人是有心的。看的人各有各的想法。",
+      "choices": [
+        {
+          "text": "嗯",
+          "diary": "跟一位師傅說了布告欄的事。"
+        }
+      ]
+    },
+    "youth_1": {
+      "speaker": "youth",
+      "text": "我們往廣場去。聽說那邊已經上萬人了——我也是聽說的。你一塊兒走？",
+      "event": "1989-04-17-rumor-square-crowd",
+      "choices": [
+        {
+          "text": "相信，跟他們一起往南",
+          "set": "follow_crowd",
+          "diary": "跟著一群別校的學生往南騎。",
+          "end": "south"
+        },
+        {
+          "text": "把這話轉述給報亭大爺",
+          "set": "rumor_relayed",
+          "next": "youth_2"
+        },
+        {
+          "text": "我先去送東西",
+          "next": "youth_3"
+        }
+      ]
+    },
+    "youth_2": {
+      "speaker": "narr",
+      "text": "你把話記在心裡。後來你才知道，「上萬」這個數字誰也說不準。",
+      "choices": [
+        {
+          "text": "記下來",
+          "diary": "聽說廣場上上萬人。我沒看見，不能確定。"
+        }
+      ]
+    },
+    "youth_3": {
+      "speaker": "youth",
+      "text": "行，那回頭見。",
+      "choices": [
+        {
+          "text": "回頭見"
+        }
+      ]
+    },
+    "home_1": {
+      "speaker": "narr",
+      "text": "胡同口有一棵老槐樹，院門上貼著褪了色的春聯。",
+      "choices": [
+        {
+          "text": "把信交給老周的姐姐",
+          "requires": "has_letter",
+          "rel": {
+            "zhou": 1
+          },
+          "diary": "信送到了。她留我喝了碗熱水，問學校裡怎麼樣。",
+          "end": "letter"
+        },
+        {
+          "text": "把熱水送給在路口等人的同學",
+          "requires": "has_thermos",
+          "diary": "熱水送到。他們說晚點要往南走。",
+          "end": "thermos"
+        },
+        {
+          "text": "今晚先回學校",
+          "end": "home"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "south": {
+      "title": "往南",
+      "text": "你跟著人群往南騎。夜風很涼，車鈴一路響。你還不知道那裡是什麼樣子，也不知道接下來的幾個星期會發生什麼。"
+    },
+    "letter": {
+      "title": "一封信",
+      "text": "信送到了。回學校的路上，街上的人比來時多。你決定明天再來城裡看看。"
+    },
+    "thermos": {
+      "title": "一壺熱水",
+      "text": "暖壺空了。你騎車回學校，想著那些往南走的人今晚會在哪裡過夜。"
+    },
+    "home": {
+      "title": "回宿舍",
+      "text": "你回到宿舍。老周還沒睡，問你外面怎麼樣。你想了一下，說：「說不清。」"
+    }
+  },
+  "epilogue": "第一章完。歷史的走向已經確定；你帶著的是自己的見聞。下一章：四月二十二日。"
+}
