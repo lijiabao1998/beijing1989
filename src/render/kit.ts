@@ -2,14 +2,17 @@ import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
 /** A part of a merged, vertex-coloured mesh: box (default) or cylinder. */
-export interface Part { p: [number, number, number]; s: [number, number, number]; c: number; ry?: number; rx?: number; rz?: number; cyl?: boolean; seg?: number }
+export interface Part { p: [number, number, number]; s: [number, number, number]; c: number; ry?: number; rx?: number; rz?: number; cyl?: boolean; seg?: number; roof?: boolean; sphere?: boolean }
 
 /** Merge many coloured parts into ONE geometry (one draw call). */
 export function mergeParts(parts: Part[]): THREE.BufferGeometry {
   const geos: THREE.BufferGeometry[] = [];
   const col = new THREE.Color();
   for (const pt of parts) {
-    let g: THREE.BufferGeometry = pt.cyl ? new THREE.CylinderGeometry(0.5, 0.5, 1, pt.seg ?? 8) : new THREE.BoxGeometry(1, 1, 1);
+    let g: THREE.BufferGeometry;
+    if (pt.roof) { g = new THREE.CylinderGeometry(0, Math.SQRT1_2, 1, 4, 1); g.rotateY(Math.PI / 4); } // hip-roof pyramid, unit square base
+    else if (pt.sphere) g = new THREE.IcosahedronGeometry(0.5, 1);
+    else g = pt.cyl ? new THREE.CylinderGeometry(0.5, 0.5, 1, pt.seg ?? 8) : new THREE.BoxGeometry(1, 1, 1);
     g = g.toNonIndexed();
     g.scale(pt.s[0], pt.s[1], pt.s[2]);
     if (pt.rx) g.rotateX(pt.rx);

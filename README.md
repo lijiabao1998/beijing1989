@@ -45,3 +45,14 @@ npm run smoke      # Puppeteer 跑一遍第一章（需 Chrome，CHROME_PATH 可
 ```
 
 Copyright (c) 2026 李家宝. All rights reserved. 部分技術模式來自同作者的 shanghaisurvival，見 [NOTICE.md](NOTICE.md)。
+
+
+## 地標與場景
+
+- 北大西校門（三開間紅柱、灰瓦、石獅、「北京大學」匾）
+- 長安街・天安門：城樓、畫像、兩側標語、金水橋、華表、華燈、雙節無軌電車與架空線、自行車道護欄；遠處人民英雄紀念碑、人民大會堂。
+- 參考照片清單見 `docs/references.md`。
+
+## 打包
+
+純靜態 Vite 輸出（`base: './'`），日後可直接用 Electron / Tauri 包成 Windows 安裝檔。

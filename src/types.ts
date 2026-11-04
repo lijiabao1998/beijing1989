@@ -17,4 +17,4 @@ export interface Chapter {
   hotspots: Hotspot[]; nodes: Record<string, DNode>;
   endings: Record<string, { title: string; text: string }>; epilogue: string;
 }
-export type SceneId = 'campus' | 'street';
+export type SceneId = 'campus' | 'street' | 'changan';

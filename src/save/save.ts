@@ -1,6 +1,6 @@
 // localStorage save: chapter, flags, items, relationships, diary, current scene.
 export interface SaveState {
-  v: 1; chapter: string; scene: 'campus' | 'street'; flags: string[]; items: string[];
+  v: 1; chapter: string; scene: 'campus' | 'street' | 'changan'; flags: string[]; items: string[];
   rel: Record<string, number>; diary: string[]; ending?: string;
 }
 const KEY = 'beijing1989.save.v1';

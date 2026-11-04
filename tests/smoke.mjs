@@ -35,6 +35,7 @@ async function run(name, viewport) {
   await go('zhou'); await pick(0); await pick(0);
   await go('lin'); await pick(1); await pick(0);
   await go('gate');
+  if (shots) await page.screenshot({ path: `${shots}/${name}-2b-gate.png` });
   if (shots) { await ev(() => window.__b89.choose(1)); await sleep(150); await ev(() => window.__b89.teleport('board')); await ev(() => {}); await sleep(600); await page.screenshot({ path: `${shots}/${name}-2-campus.png` }); await go('gate'); }
   const opts = await ev(() => window.__b89.choices());
   if (!opts[0].includes('騎車')) throw new Error('gate should offer ride once an item is carried: ' + opts);
@@ -54,9 +55,22 @@ async function run(name, viewport) {
   if (st.ending !== 'letter') throw new Error('expected letter ending, got ' + st.ending);
   if (st.diary.length < 4) throw new Error('diary too short');
   if (shots) await page.screenshot({ path: `${shots}/${name}-5-ending.png` });
-  console.log(name, JSON.stringify({ perf, ending: st.ending, diary: st.diary.length }));
-  if (perf.calls > 60) throw new Error('draw calls over budget: ' + perf.calls);
-  if (perf.sceneTriangles > 300000) throw new Error('triangles over budget: ' + perf.sceneTriangles);
+  // 長安街 / 天安門 (the heaviest scene)
+  await ev(() => { document.getElementById('mclose').click(); window.__b89.teleport('tam'); });
+  await page.waitForFunction(() => window.__b89.scene === 'changan' && window.__b89.near === 'tam', { timeout: 20000 });
+  await sleep(800);
+  const perfC = await ev(() => window.__b89.perf());
+  if (shots) await page.screenshot({ path: `${shots}/${name}-6-changan-north.png` });
+  await ev(() => window.__b89.setYaw(Math.PI)); await sleep(800);
+  if (shots) await page.screenshot({ path: `${shots}/${name}-7-changan-square.png` });
+  await ev(() => window.__b89.setYaw(0));
+  await go('square'); await pick(0);
+  await page.waitForFunction(() => window.__b89.state.ending === 'south', { timeout: 15000 });
+  console.log(name, JSON.stringify({ street: perf, changan: perfC, ending: st.ending, diary: st.diary.length }));
+  for (const p of [perf, perfC]) {
+    if (p.calls > 60) throw new Error('draw calls over budget: ' + p.calls);
+    if (p.sceneTriangles > 300000) throw new Error('triangles over budget: ' + p.sceneTriangles);
+  }
   await page.close();
 }
 try {
