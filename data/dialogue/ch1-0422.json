@@ -1,0 +1,689 @@
+{
+  "chapter": "ch1-0422",
+  "title": "第二章　四月二十一日夜至二十二日",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。",
+  "labels": {
+    "campus": "1989 年 4 月 21 日・夜・北大校園",
+    "march": "1989 年 4 月 21 日・深夜・往南的路上",
+    "square": "1989 年 4 月 22 日・清晨・天安門廣場"
+  },
+  "transitions": {
+    "march": "隊伍出了校門……",
+    "square": "後半夜，隊伍走進廣場。天快亮了……"
+  },
+  "start": "intro",
+  "spawn": {
+    "campus": [
+      0,
+      5
+    ]
+  },
+  "characters": {
+    "me": {
+      "name": "我（陳立）",
+      "role": "北大物理系二年級學生",
+      "fictional": true
+    },
+    "zhou": {
+      "name": "老周",
+      "role": "室友",
+      "fictional": true
+    },
+    "lin": {
+      "name": "林小梅",
+      "role": "中文系同學",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王師傅",
+      "role": "下夜班的工人",
+      "fictional": true
+    },
+    "picket": {
+      "name": "糾察隊的同學",
+      "role": "別系學生，臂上纏著白布",
+      "fictional": true
+    },
+    "auntie": {
+      "name": "拎暖壺的大媽",
+      "role": "沿街住戶",
+      "fictional": true
+    },
+    "rumor": {
+      "name": "騎車的男生",
+      "role": "別校學生",
+      "fictional": true
+    },
+    "stu2": {
+      "name": "那天坐在地上的女生",
+      "role": "別校學生（第一章見過）",
+      "fictional": true
+    },
+    "stu3": {
+      "name": "裹著軍大衣的女生",
+      "role": "別校學生",
+      "fictional": true
+    },
+    "oldman": {
+      "name": "推三輪的大爺",
+      "role": "前門一帶的住戶",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "c2zhou",
+      "scene": "campus",
+      "pos": [
+        -6,
+        3
+      ],
+      "label": "老周",
+      "start": "zhou_1"
+    },
+    {
+      "id": "c2lin",
+      "scene": "campus",
+      "pos": [
+        5,
+        -2
+      ],
+      "label": "林小梅",
+      "start": "lin_1"
+    },
+    {
+      "id": "c2board",
+      "scene": "campus",
+      "pos": [
+        2,
+        -4
+      ],
+      "label": "布告欄",
+      "start": "board_1"
+    },
+    {
+      "id": "c2gate",
+      "scene": "campus",
+      "pos": [
+        0,
+        -22
+      ],
+      "label": "西校門",
+      "start": "gate_1"
+    },
+    {
+      "id": "picket",
+      "scene": "march",
+      "pos": [
+        -10,
+        -8
+      ],
+      "label": "糾察線",
+      "start": "picket_1",
+      "npc": "navy"
+    },
+    {
+      "id": "auntie",
+      "scene": "march",
+      "pos": [
+        6,
+        -3.5
+      ],
+      "label": "拎暖壺的大媽",
+      "start": "auntie_1",
+      "npc": "red"
+    },
+    {
+      "id": "c2wang",
+      "scene": "march",
+      "pos": [
+        2,
+        -4.5
+      ],
+      "label": "王師傅",
+      "start": "wang_1",
+      "npc": "blue",
+      "requires": "rel:wang>=1"
+    },
+    {
+      "id": "rumor",
+      "scene": "march",
+      "pos": [
+        -20,
+        -12
+      ],
+      "label": "騎車的男生",
+      "start": "rumor_1",
+      "npc": "green"
+    },
+    {
+      "id": "south",
+      "scene": "march",
+      "pos": [
+        30,
+        -10
+      ],
+      "label": "往南",
+      "start": "south_1"
+    },
+    {
+      "id": "speaker2",
+      "scene": "square",
+      "pos": [
+        -30,
+        -280
+      ],
+      "label": "喇叭",
+      "start": "bcast_1"
+    },
+    {
+      "id": "oldman",
+      "scene": "square",
+      "pos": [
+        -10,
+        -262
+      ],
+      "label": "推三輪的大爺",
+      "start": "old_1",
+      "npc": "grey"
+    },
+    {
+      "id": "stu2b",
+      "scene": "square",
+      "pos": [
+        -42,
+        -300
+      ],
+      "label": "那個女生",
+      "start": "stu2_1",
+      "npc": "khaki",
+      "requires": "rel:stu2>=1"
+    },
+    {
+      "id": "stu3",
+      "scene": "square",
+      "pos": [
+        -42,
+        -300
+      ],
+      "label": "裹軍大衣的女生",
+      "start": "stu3_1",
+      "npc": "green",
+      "requires": "!rel:stu2>=1"
+    },
+    {
+      "id": "steps",
+      "scene": "square",
+      "pos": [
+        -72,
+        -320
+      ],
+      "label": "大會堂台階",
+      "start": "steps_1"
+    },
+    {
+      "id": "hearse",
+      "scene": "square",
+      "pos": [
+        -50,
+        -345
+      ],
+      "label": "人群裡的議論",
+      "start": "hearse_1"
+    },
+    {
+      "id": "leave",
+      "scene": "square",
+      "pos": [
+        20,
+        -240
+      ],
+      "label": "回學校",
+      "start": "leave_1"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 21 日，星期五，夜。廣播說明天上午天安門廣場封閉，舉行胡耀邦追悼大會。樓下有人在喊：各系到操場集合，帶上吃的喝的。",
+      "event": "1989-04-21-night-march",
+      "variants": [
+        {
+          "requires": "ch0:end:letter",
+          "text": "1989 年 4 月 21 日，星期五，夜。四天前你把老周的信送到了東城。廣播說明天上午天安門廣場封閉，舉行胡耀邦追悼大會。樓下有人在喊：各系集合。"
+        },
+        {
+          "requires": "ch0:end:south",
+          "text": "1989 年 4 月 21 日，星期五，夜。四天前你在廣場北邊站到很晚。廣播說明天上午廣場封閉，舉行胡耀邦追悼大會。樓下有人在喊：各系集合。"
+        },
+        {
+          "requires": "ch0:end:home",
+          "text": "1989 年 4 月 21 日，星期五，夜。四天前你說「說不清」。今晚樓下有人在喊：各系集合，去廣場。廣播說明天上午廣場封閉。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "下樓",
+          "diary": "4/21 夜。廣播說明天廣場封閉。樓下在集合。"
+        }
+      ]
+    },
+    "zhou_1": {
+      "speaker": "zhou",
+      "text": "你也要去？明天要開追悼會，聽說廣場一早就封。要去就今晚去。",
+      "variants": [
+        {
+          "requires": "ch0:end:letter",
+          "text": "我姐說，那天你送信去，她留你喝了碗熱水。她讓我跟你說：明天別往前擠。……今晚我也去。"
+        },
+        {
+          "requires": "has_letter",
+          "text": "那封信，後來我自己寄了。你今晚去不去？"
+        }
+      ],
+      "choices": [
+        {
+          "text": "一起走吧",
+          "requires": "rel:zhou>=1",
+          "set": "zhou_joins",
+          "rel": {
+            "zhou": 1
+          },
+          "diary": "老周和我一起走。",
+          "next": "zhou_2"
+        },
+        {
+          "text": "帶上你的軍用水壺",
+          "item": "canteen",
+          "set": "has_water",
+          "diary": "借了老周的軍用水壺，灌滿了開水。",
+          "next": "zhou_3"
+        },
+        {
+          "text": "我一個人先去",
+          "next": "zhou_3"
+        }
+      ]
+    },
+    "zhou_2": {
+      "speaker": "zhou",
+      "text": "那說好，走散了就在紀念碑北邊等。",
+      "choices": [
+        {
+          "text": "好",
+          "item": "canteen",
+          "set": "has_water"
+        }
+      ]
+    },
+    "zhou_3": {
+      "speaker": "zhou",
+      "text": "路上小心。",
+      "choices": [
+        {
+          "text": "嗯"
+        }
+      ]
+    },
+    "lin_1": {
+      "speaker": "lin",
+      "text": "中文系也去。你聽說了嗎？有人說明天會有人出來接學生的請願書。",
+      "event": "1989-04-22-rumor-meeting",
+      "variants": [
+        {
+          "requires": "rel:lin<=-1",
+          "text": "（她看見你，點了點頭，沒有多說。上次你讓她別亂傳話。）……中文系也去。"
+        },
+        {
+          "requires": "rumor_verify",
+          "text": "上次你說要先問問再決定。這回你問到什麼了嗎？反正有人說，明天會有人出來接請願書。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "誰說的？",
+          "set": "rumor2_doubt",
+          "diary": "小梅說明天會有人出來接請願書。說不清是誰說的。",
+          "next": "lin_2"
+        },
+        {
+          "text": "但願是真的",
+          "set": "rumor2_hope",
+          "rel": {
+            "lin": 1
+          },
+          "diary": "但願明天有人出來。",
+          "next": "lin_2"
+        },
+        {
+          "text": "一起走",
+          "requires": "!rel:lin<=-1",
+          "set": "lin_joins",
+          "rel": {
+            "lin": 1
+          },
+          "next": "lin_2"
+        }
+      ]
+    },
+    "lin_2": {
+      "speaker": "lin",
+      "text": "我也不知道。大家都這麼傳。",
+      "choices": [
+        {
+          "text": "嗯"
+        }
+      ]
+    },
+    "board_1": {
+      "speaker": "narr",
+      "text": "布告欄上又多了幾張紙，有的寫著集合時間和路線，有的只是悼詞。字跡很匆忙。",
+      "choices": [
+        {
+          "text": "記下集合時間",
+          "set": "read_board2",
+          "diary": "布告欄上寫著集合時間。"
+        },
+        {
+          "text": "走開"
+        }
+      ]
+    },
+    "gate_1": {
+      "speaker": "narr",
+      "text": "校門口全是人。各系的旗子舉起來了，有人在點名。",
+      "choices": [
+        {
+          "text": "跟上隊伍",
+          "goto": "march"
+        },
+        {
+          "text": "再等等"
+        }
+      ]
+    },
+    "picket_1": {
+      "speaker": "picket",
+      "text": "手拉手，別讓外人混進來！走在中間，別掉隊。",
+      "event": "1989-04-21-night-march",
+      "choices": [
+        {
+          "text": "拉住旁邊人的手",
+          "diary": "夜裡的隊伍，手拉著手。誰也不認識誰。",
+          "set": "in_line"
+        },
+        {
+          "text": "問他要走多久",
+          "next": "picket_2"
+        }
+      ]
+    },
+    "picket_2": {
+      "speaker": "picket",
+      "text": "後半夜能到。別問了，跟著走。",
+      "choices": [
+        {
+          "text": "好"
+        }
+      ]
+    },
+    "auntie_1": {
+      "speaker": "auntie",
+      "text": "孩子們喝口熱水再走！這麼晚了……",
+      "event": "1989-04-22-residents-support",
+      "choices": [
+        {
+          "text": "接過一碗，謝謝大媽",
+          "rel": {
+            "auntie": 1
+          },
+          "diary": "路邊的大媽端出熱水。她沒問我們去哪。"
+        },
+        {
+          "text": "把自己的水壺也灌滿",
+          "requires": "has_water",
+          "set": "water_full",
+          "diary": "大媽給我的水壺灌滿了熱水。"
+        },
+        {
+          "text": "點點頭，沒停下"
+        }
+      ]
+    },
+    "wang_1": {
+      "speaker": "wang",
+      "text": "又碰上了！那天晚上你跟我說了半天。今天我們廠也有人過來看看。",
+      "choices": [
+        {
+          "text": "師傅，您也去廣場？",
+          "next": "wang_2"
+        }
+      ]
+    },
+    "wang_2": {
+      "speaker": "wang",
+      "text": "我就送到路口。明天還得上班。你們……當心點。",
+      "choices": [
+        {
+          "text": "您也是",
+          "rel": {
+            "wang": 1
+          },
+          "diary": "又遇見王師傅。他送我們到路口。"
+        }
+      ]
+    },
+    "rumor_1": {
+      "speaker": "rumor",
+      "text": "前面說，廣場八點封！要趕在天亮前進去。還有人說明天總理會出來見學生。",
+      "event": "1989-04-22-rumor-meeting",
+      "choices": [
+        {
+          "text": "信",
+          "set": "rumor2_hope",
+          "diary": "聽說明天會有人出來見學生。"
+        },
+        {
+          "text": "這話從哪來的？",
+          "set": "rumor2_doubt",
+          "next": "rumor_2"
+        },
+        {
+          "text": "轉頭告訴後面的人",
+          "set": "rumor2_relayed",
+          "diary": "把聽來的話傳給後面的人。傳到最後會變成什麼樣，我不知道。"
+        }
+      ]
+    },
+    "rumor_2": {
+      "speaker": "rumor",
+      "text": "誰知道，大家都這麼說。",
+      "choices": [
+        {
+          "text": "嗯"
+        }
+      ]
+    },
+    "south_1": {
+      "speaker": "narr",
+      "text": "隊伍拐上大路，一直往南。路燈一盞一盞往後退。",
+      "choices": [
+        {
+          "text": "走下去",
+          "goto": "square"
+        },
+        {
+          "text": "再看看周圍"
+        }
+      ]
+    },
+    "bcast_1": {
+      "speaker": "narr",
+      "text": "十點左右，廣場上的喇叭響起追悼大會的轉播。人群慢慢安靜下來，很多人摘下帽子，站直了。",
+      "event": "1989-04-22-memorial-broadcast",
+      "choices": [
+        {
+          "text": "跟著站好",
+          "set": "heard_broadcast",
+          "diary": "4/22 上午。喇叭裡在轉播追悼會。廣場上幾萬人一下子安靜了。"
+        }
+      ]
+    },
+    "old_1": {
+      "speaker": "oldman",
+      "text": "孩子，吃個饅頭。一宿沒睡吧？我家就在前門那邊。",
+      "event": "1989-04-22-residents-support",
+      "choices": [
+        {
+          "text": "接過來，道謝",
+          "rel": {
+            "oldman": 1
+          },
+          "diary": "前門的大爺推著三輪送饅頭。"
+        },
+        {
+          "text": "把水壺裡的熱水分給大爺車邊的同學",
+          "requires": "has_water",
+          "set": "shared_water",
+          "diary": "把老周水壺裡的水分完了。"
+        }
+      ]
+    },
+    "stu2_1": {
+      "speaker": "stu2",
+      "text": "是你！那天晚上在廣場北邊。……你也來了。",
+      "choices": [
+        {
+          "text": "在她旁邊站著",
+          "rel": {
+            "stu2": 1
+          },
+          "set": "with_stu2",
+          "diary": "又遇見那天的女生。這次我們互相說了學校的名字。"
+        }
+      ]
+    },
+    "stu3_1": {
+      "speaker": "stu3",
+      "text": "你從哪個學校來的？我們這邊一宿沒睡，天太冷了。",
+      "choices": [
+        {
+          "text": "北大的",
+          "diary": "一個不認識的女生，說話時嘴裡冒白氣。"
+        },
+        {
+          "text": "把水壺遞給她",
+          "requires": "has_water",
+          "set": "shared_water",
+          "diary": "把水壺遞給了一個不認識的女生。"
+        }
+      ]
+    },
+    "steps_1": {
+      "speaker": "narr",
+      "text": "人群前面是幾排警察，再往前是大會堂的台階。追悼會還沒開始，大家在等。",
+      "variants": [
+        {
+          "requires": "heard_broadcast",
+          "text": "追悼會結束了。遠處，大會堂東邊的台階上，有三個學生跪著，舉著一卷東西。隔得太遠，你看不清他們的臉，只聽見前面的人一陣一陣地喊。"
+        }
+      ],
+      "event": "1989-04-22-petition-kneeling",
+      "choices": [
+        {
+          "text": "往前擠一點",
+          "requires": "heard_broadcast",
+          "set": "pushed_forward",
+          "diary": "往前擠了幾步，只看到台階上的幾個小人影。",
+          "next": "steps_2"
+        },
+        {
+          "text": "留在原地看",
+          "requires": "heard_broadcast",
+          "set": "watched",
+          "diary": "三個學生跪在台階上。我們在下面等，很久沒有人出來。後來聽說的說法也不一樣。",
+          "next": "steps_2"
+        },
+        {
+          "text": "再等等"
+        }
+      ]
+    },
+    "steps_2": {
+      "speaker": "narr",
+      "text": "人群一次次往前湧，又被喊住。有人說有人出來了，有人說沒有。你沒看見。",
+      "event": "1989-04-22-petition-kneeling",
+      "choices": [
+        {
+          "text": "記下來",
+          "diary": "有人說有人出來接了，有人說沒有。我沒看見。"
+        }
+      ]
+    },
+    "hearse_1": {
+      "speaker": "narr",
+      "text": "旁邊有人說：靈車不從廣場過了，已經從別的路走了。也有人說還沒走。",
+      "event": "1989-04-22-hearse-route",
+      "choices": [
+        {
+          "text": "問問是誰說的",
+          "set": "hearse_doubt",
+          "diary": "靈車到底走沒走，問了一圈也沒人說得準。"
+        },
+        {
+          "text": "不說話"
+        }
+      ]
+    },
+    "leave_1": {
+      "speaker": "narr",
+      "text": "中午過後，隊伍開始往回走。很多人一夜沒睡，腳步很慢。",
+      "choices": [
+        {
+          "text": "跟老周一起走回去",
+          "requires": "zhou_joins",
+          "end": "together"
+        },
+        {
+          "text": "再站一會兒，看著台階",
+          "requires": "watched",
+          "end": "stayed"
+        },
+        {
+          "text": "把水壺還給老周的路上，想起分出去的水",
+          "requires": "shared_water",
+          "end": "water"
+        },
+        {
+          "text": "走吧",
+          "end": "early"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "together": {
+      "title": "一起回去",
+      "text": "你和老周沿著長安街往西走。誰也沒說話。走到西單，他說：「明天上課嗎？」你說不知道。"
+    },
+    "stayed": {
+      "title": "台階下",
+      "text": "你在廣場上站到很晚。台階上的人後來站起來了。你一直不確定那天到底有沒有人出來接過那卷紙。"
+    },
+    "water": {
+      "title": "一壺水",
+      "text": "水壺空了，很輕。你想起那位大媽和那位大爺，他們沒問你們要做什麼。"
+    },
+    "early": {
+      "title": "回校",
+      "text": "你跟著人群往回走。路邊站了很多人在看。回到宿舍，你倒頭就睡著了。"
+    }
+  },
+  "epilogue": "4 月 22 日傍晚，西安、長沙發生騷亂（見史料）。北京的學生開始談論罷課。歷史的走向不因你的選擇改變；改變的是你記住了誰。",
+  "epilogueEvent": "1989-04-22-xian-changsha"
+}

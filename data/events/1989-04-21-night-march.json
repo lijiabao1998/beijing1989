@@ -1,0 +1,37 @@
+{
+  "id": "1989-04-21-night-march",
+  "date": "1989-04-21",
+  "place": "海淀 → 天安門廣場",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "4月21日夜：學生遊行進入廣場過夜",
+    "en": "Night of 21 April: students march to the Square and stay overnight"
+  },
+  "summary": {
+    "zh": "官方宣布 4 月 22 日追悼會期間封閉天安門廣場。21 日晚，各校學生從海淀出發遊行，午夜後進入廣場並留下過夜。人數各報不一：Wikipedia 稱約十萬學生；NYT 稱人群一度超過十萬；UPI 稱當晚集會逾十萬人。",
+    "en": "Authorities announced the Square would be closed for the 22 April memorial. On the evening of 21 April students marched from the university district, entered the Square after midnight and stayed. Estimates vary (c. 100,000)."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Hu Yaobang's funeral (citing D. Zhao 2001, pp.152–153)",
+      "publisher": "Wikipedia (English), accessed 2026-11-04",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Hu_Yaobang's_funeral"
+    },
+    {
+      "title": "Funeral for Hu begins",
+      "publisher": "UPI, 1989-04-22",
+      "url": "https://www.upi.com/Archives/1989/04/21/Funeral-for-Hu-begins/8030913414016/"
+    },
+    {
+      "title": "Hu Yaobang's Funeral (excerpts NYT 1989-04-22 + reconstruction)",
+      "publisher": "Standoff at Tiananmen (Eddie Cheng), 2008 — secondary account",
+      "url": "http://www.standoffattiananmen.com/2008/04/hu-yaobangs-funeral.html"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    }
+  ]
+}

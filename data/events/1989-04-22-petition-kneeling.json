@@ -1,0 +1,32 @@
+{
+  "id": "1989-04-22-petition-kneeling",
+  "date": "1989-04-22",
+  "place": "人民大會堂東門台階",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "三名學生跪在大會堂台階上遞請願書",
+    "en": "Three students kneel on the Great Hall steps with a petition"
+  },
+  "summary": {
+    "zh": "追悼會後，幾名學生越過警戒線，其中三人跪在大會堂東側台階上，舉著請願書，要求見國務院總理。據 Wikipedia（引 D. Zhao 2001）沒有領導人出來；UPI 當天報導則稱學生把要求清單交給一名走出來的官員。兩種說法並存，遊戲不做裁定。遊戲中主角只在遠處看見，不描寫任何真實人物的言行細節。",
+    "en": "After the memorial, three students knelt on the eastern steps of the Great Hall holding a petition and asking to see the Premier. Wikipedia (citing D. Zhao 2001) says no leader emerged; UPI that day reported an official took the list. The game does not adjudicate."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Hu Yaobang's funeral (citing D. Zhao 2001, pp.152–153)",
+      "publisher": "Wikipedia (English), accessed 2026-11-04",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Hu_Yaobang's_funeral"
+    },
+    {
+      "title": "Thousands demonstrate at Beijing funeral",
+      "publisher": "UPI, 1989-04-22",
+      "url": "https://www.upi.com/Archives/1989/04/22/Thousands-demonstrate-at-Beijing-funeral/9240609220800/"
+    },
+    {
+      "title": "Hu Yaobang's Funeral (excerpts NYT 1989-04-22 + reconstruction)",
+      "publisher": "Standoff at Tiananmen (Eddie Cheng), 2008 — secondary account",
+      "url": "http://www.standoffattiananmen.com/2008/04/hu-yaobangs-funeral.html"
+    }
+  ]
+}

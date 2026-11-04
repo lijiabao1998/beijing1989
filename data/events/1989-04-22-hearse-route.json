@@ -1,0 +1,27 @@
+{
+  "id": "1989-04-22-hearse-route",
+  "date": "1989-04-22",
+  "place": "天安門廣場",
+  "kind": "testimony",
+  "confidence": "uncertain",
+  "title": {
+    "zh": "「靈車不從廣場過了」",
+    "en": "'The hearse won't pass the Square'"
+  },
+  "summary": {
+    "zh": "有二手整理稱，學生原本等靈車繞廣場以便送別，後來得知靈車已從別處離開，情緒因此激動；UPI 則引新華社稱約百萬人沿街看靈車經過。路線細節未能以一手資料確認，標為無法確認。",
+    "en": "A secondary account says students waited for the hearse to circle the Square but it left another way; UPI (citing Xinhua) said about a million lined the streets. Route details unconfirmed."
+  },
+  "sources": [
+    {
+      "title": "Hu Yaobang's Funeral (excerpts NYT 1989-04-22 + reconstruction)",
+      "publisher": "Standoff at Tiananmen (Eddie Cheng), 2008 — secondary account",
+      "url": "http://www.standoffattiananmen.com/2008/04/hu-yaobangs-funeral.html"
+    },
+    {
+      "title": "Thousands demonstrate at Beijing funeral",
+      "publisher": "UPI, 1989-04-22",
+      "url": "https://www.upi.com/Archives/1989/04/22/Thousands-demonstrate-at-Beijing-funeral/9240609220800/"
+    }
+  ]
+}

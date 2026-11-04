@@ -8,7 +8,7 @@ export interface World {
   id: SceneId; scene: THREE.Scene; spawn: [number, number];
   bounds: [number, number, number, number]; // minX,maxX,minZ,maxZ
   update(dt: number, t: number): void;
-  camDist?: number; speed?: number;
+  camDist?: number; speed?: number; cam?: { h: number; ahead: number; y: number };
 }
 
 function base(fogColor: number, near = 18, far = 70): THREE.Scene {
@@ -110,7 +110,8 @@ export function buildCampus(): World {
   return { id: 'campus', scene: s, spawn: [0, 5], bounds: [-18, 18, -27, 7], update() { /* static */ } };
 }
 
-export function buildStreet(): World {
+export function buildStreet(mode: 'night' | 'march' = 'night'): World {
+  const march = mode === 'march';
   const s = base(0x121423);
   const stat: Part[] = [], glow: Part[] = [];
   const r = rng(1989);
@@ -162,7 +163,7 @@ export function buildStreet(): World {
   // moving traffic: riders (instanced), one bus, walkers heading south/east
   const jackets = [C.navy, C.khaki, 0x4e5a4a, 0x5d4c3a, 0x2f3540, 0x6a2f3a];
   const riderGeo = mergeParts(bike(C.navy));
-  const N = 22;
+  const N = march ? 6 : 22;
   const riders = new THREE.InstancedMesh(riderGeo, litMat(), N);
   const rs = Array.from({ length: N }, (_, i) => ({ x: -60 + r() * 120, z: -12.8 + r() * 2.2 + (i % 2 ? 0 : 4.2), v: (i % 2 ? 1 : -1) * (3.2 + r() * 1.6) }));
   rs.forEach((_, i) => riders.setColorAt(i, new THREE.Color(0xffffff).lerp(new THREE.Color(jackets[i % jackets.length]), 0.0)));
@@ -170,15 +171,32 @@ export function buildStreet(): World {
   const busMesh = new THREE.Group();
   busMesh.add(new THREE.Mesh(mergeParts(trolleybus()), litMat()), new THREE.Mesh(mergeParts(trolleyWindows()), glowMat()));
   s.add(new THREE.Mesh(mergeParts(wires(-60, 60, [-11.15, -11.85, -7.9, -8.6], -5.2, -14.8, 14)), litMat()));
-  busMesh.position.set(-40, 0, -11.5); s.add(busMesh);
+  busMesh.position.set(-40, 0, -11.5); if (!march) s.add(busMesh);
   const walkGeo = mergeParts(person(0x4a4e58));
   const W = 10; const walkers = new THREE.InstancedMesh(walkGeo, litMat(), W);
   const ws = Array.from({ length: W }, () => ({ x: -50 + r() * 100, z: -3.2 + r() * 0.6, v: (r() < 0.6 ? 1 : -1) * (1 + r() * 0.5) }));
   s.add(walkers);
   const o = new THREE.Object3D();
+  // 4/21 night: the march fills the avenue (instanced marchers in columns + banners), picket lines at the edges
+  const M = march ? 260 : 0, ms = Array.from({ length: M }, (_, i) => ({ x: -60 + (i % 52) * 2.3 + r(), z: -7.2 - Math.floor(i / 52) * 1.4 - r() * 0.3 }));
+  const marchers = new THREE.InstancedMesh(mergeParts(person(0x3a3f48)), litMat(), Math.max(1, M));
+  const mcol = [C.navy, C.khaki, 0x2f3540, 0x5d4c3a, 0x4e5a4a, 0x6a2f3a]; ms.forEach((_, i) => marchers.setColorAt(i, new THREE.Color(mcol[i % 6]).multiplyScalar(2.2)));
+  const B = march ? 10 : 0, flags = new THREE.InstancedMesh(mergeParts([{ p: [0, 2.2, 0], s: [0.05, 2.6, 0.05], c: 0x6b5a40 }, { p: [0.75, 3.1, 0], s: [1.5, 0.9, 0.03], c: 0xb3251c }]), litMat(), Math.max(1, B));
+  if (march) {
+    s.add(marchers, flags);
+    const pk: Part[] = []; for (let x = -56; x <= 56; x += 1.1) pk.push(...place(person(0xd8d4c8), x, -5.9, Math.PI / 2), ...place(person(0xd8d4c8), x + 0.5, -14.1, Math.PI / 2));
+    s.add(new THREE.Mesh(mergeParts(pk), litMat()));
+    sodium(s, -28, -9, 22); sodium(s, 28, -9, 22); sodium(s, -14, -12, 18); sodium(s, 14, -12, 18);
+  }
   return {
-    id: 'street', scene: s, spawn: [-14, -4], bounds: [-40, 40, -18, 8],
+    id: march ? 'march' : 'street', scene: s, spawn: march ? [-30, -6] : [-14, -4], bounds: [-40, 40, -18, 8], camDist: march ? 12 : undefined, cam: march ? { h: 0.55, ahead: 8, y: 0 } : undefined,
     update(dt, t) {
+      if (march) {
+        ms.forEach((m, i) => { m.x += 1.1 * dt; if (m.x > 60) m.x = -60; o.position.set(m.x, Math.abs(Math.sin(t * 5 + i)) * 0.05, m.z); o.rotation.set(0, Math.PI / 2, 0); o.updateMatrix(); marchers.setMatrixAt(i, o.matrix); });
+        marchers.instanceMatrix.needsUpdate = true;
+        for (let i = 0; i < B; i++) { const m = ms[i * 26]; o.position.set(m.x + 0.3, 0, m.z); o.rotation.set(0, 0, 0); o.updateMatrix(); flags.setMatrixAt(i, o.matrix); }
+        flags.instanceMatrix.needsUpdate = true;
+      }
       rs.forEach((b, i) => {
         b.x += b.v * dt; if (b.x > 60) b.x = -60; if (b.x < -60) b.x = 60;
         o.position.set(b.x, Math.sin(t * 9 + i) * 0.015, b.z); o.rotation.set(0, b.v > 0 ? 0 : Math.PI, 0); o.updateMatrix(); riders.setMatrixAt(i, o.matrix);
@@ -226,8 +244,9 @@ function sloganTexture(text: string) {
 }
 
 /** 長安街 at 天安門: real proportions (compressed only to the south of the Square so the Monument and Great Hall read). */
-export function buildChangan(): World {
-  const s = base(0x1b2030, 120, 650);
+export function buildChangan(mode: 'night' | 'dawn' = 'night'): World {
+  const dawn = mode === 'dawn';
+  const s = base(dawn ? 0xb4bfcc : 0x1b2030, dawn ? 160 : 120, dawn ? 900 : 650);
   const stat: Part[] = [], glow: Part[] = [], flood: Part[] = [];
   const r = rng(417), o = new THREE.Object3D();
   // ground: avenue (z -38..-88), bike lanes behind railings, Square paving to the south
@@ -259,7 +278,7 @@ export function buildChangan(): World {
   stat.push(...place(bike(), -38.6, -88.6, 0.2));
   for (let i = 0; i < 26; i++) stat.push(...place(person([C.navy, C.khaki, 0x2f3540, 0x5d4c3a][i % 4]), -60 + r() * 120, -105 - r() * 200, r() * 6));
   s.add(new THREE.Mesh(mergeParts(stat), litMat()));
-  s.add(new THREE.Mesh(mergeParts(flood), new THREE.MeshLambertMaterial({ vertexColors: true, emissive: 0x4a2a18 })));
+  s.add(new THREE.Mesh(mergeParts(flood), new THREE.MeshLambertMaterial({ vertexColors: true, emissive: dawn ? 0x140a06 : 0x4a2a18 })));
   s.add(new THREE.Mesh(mergeParts(glow), glowMat()));
   s.add(instanced(mergeParts(tree(true)), litMat(), pops));
   s.add(instanced(mergeParts(lampPole()), litMat(), lamps));
@@ -275,6 +294,12 @@ export function buildChangan(): World {
     m.position.set(x, 10.6, -18.62); m.rotation.y = Math.PI; s.add(m);
   }
   // floodlight on the gate + a few lights on the avenue
+  if (dawn) {
+    const sky = textTexture(8, 256, g => { const gr = g.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, '#6f8fb8'); gr.addColorStop(0.55, '#b9c4d2'); gr.addColorStop(0.8, '#e6cdb0'); gr.addColorStop(1, '#d8c8b4'); g.fillStyle = gr; g.fillRect(0, 0, 8, 256); });
+    s.background = sky; (s.fog as THREE.Fog).color.set(0xd2c9bb);
+    const hemi = new THREE.HemisphereLight(0xdfe7f2, 0x6b604c, 1.25); hemi.name = 'day'; s.add(hemi);
+    const sun = new THREE.DirectionalLight(0xffdcb4, 1.6); sun.name = 'day'; sun.position.set(300, 90, -120); s.add(sun);
+  }
   const fl = new THREE.SpotLight(0xffd9a0, 2.2, 160, 0.5, 0.6, 0); fl.position.set(0, 6, -70); fl.target.position.set(0, 18, -10); s.add(fl, fl.target);
   for (const x of [-40, 0, 40]) { const l = new THREE.PointLight(0xfff0d0, 30, 40, 1.4); l.position.set(x, 8, -63); s.add(l); }
   // Square: floodlit Monument, lit facades, lamp pools
@@ -282,14 +307,34 @@ export function buildChangan(): World {
   for (const sg of [-1, 1]) { const f = new THREE.SpotLight(0xffe6b8, 2.4, 260, 0.6, 0.6, 0); f.position.set(sg * 60, 3, -300); f.target.position.set(sg * 115, 14, -320); s.add(f, f.target); }
   s.add(new THREE.HemisphereLight(0x6a7590, 0x2a2418, 0.5));
   const pool = new THREE.InstancedMesh(new THREE.CircleGeometry(9, 20).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xffd9a0, transparent: true, opacity: 0.16, depthWrite: false, fog: true }), hd.length);
-  hd.forEach((h, i) => { o.position.set(h.x, 0.04, h.z); o.rotation.set(0, 0, 0); o.updateMatrix(); pool.setMatrixAt(i, o.matrix); }); s.add(pool);
+  hd.forEach((h, i) => { o.position.set(h.x, 0.04, h.z); o.rotation.set(0, 0, 0); o.updateMatrix(); pool.setMatrixAt(i, o.matrix); }); if (!dawn) s.add(pool);
+  if (dawn) {
+    [fl, fm].forEach(l => l.visible = false);
+    // 4/22 dawn: tens of thousands face the Great Hall; rows of police at its steps; three tiny kneeling figures (distant, not detailed)
+    const crowd: { x: number; z: number; ry: number }[] = [];
+    for (let i = 0; i < 1400; i++) { const x = -88 + r() * 120, z = -235 - r() * 165; if (Math.abs(x) < 36 && z < -295 && z > -365) continue; crowd.push({ x, z, ry: -Math.PI / 2 + (r() - 0.5) * 0.8 }); }
+    const cm = instanced(mergeParts(person(0x3a3f48)), litMat(), crowd);
+    const cc = [C.navy, C.khaki, 0x2f3540, 0x5d4c3a, 0x4e5a4a, 0x6a2f3a, 0x8a8a80]; crowd.forEach((_, i) => cm.setColorAt(i, new THREE.Color(cc[i % 7]).multiplyScalar(2.2))); s.add(cm);
+    const police: { x: number; z: number; ry: number }[] = []; for (let row = 0; row < 5; row++) for (let z = -270; z <= -370; z -= 0.9) police.push({ x: -93 - row * 0.9, z: z - row * 0.3, ry: Math.PI / 2 });
+    s.add(instanced(mergeParts(person(0x4a5a3a, 0x3a4630, 0x2a2e26)), litMat(), police));
+    const kneel: Part[] = []; for (const z of [-321.5, -320, -318.5]) kneel.push({ p: [-102.5, 3.4, z], s: [0.5, 0.8, 0.45], c: 0x3a3f48 }, { p: [-102.2, 3.95, z], s: [0.22, 0.24, 0.22], c: 0xc8a07a }, { p: [-102.0, 4.1, z], s: [0.1, 0.4, 0.5], c: 0xf0ece0 });
+    s.add(new THREE.Mesh(mergeParts(kneel), litMat()));
+    for (const [x, z, t] of [[-70, -300, '沉痛悼念'], [-55, -345, '悼念耀邦'], [-30, -270, '民主　自由']] as [number, number, string][]) {
+      const tex = textTexture(512, 128, g => { g.fillStyle = '#f2efe6'; g.fillRect(0, 0, 512, 128); g.fillStyle = '#141414'; g.font = 'bold 84px "Noto Serif CJK TC",serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(t, 256, 68); });
+      const b = new THREE.Mesh(new THREE.PlaneGeometry(8, 2), new THREE.MeshLambertMaterial({ map: tex, side: THREE.DoubleSide })); b.position.set(x, 3.6, z); b.rotation.y = Math.PI / 2; s.add(b);
+    }
+    // loudspeaker poles on the Square
+    const sp: Part[] = []; for (const [x, z] of [[-30, -282], [20, -260], [-60, -360]]) sp.push({ p: [x, 4, z], s: [0.25, 8, 0.25], c: 0x55554f, cyl: true }, { p: [x, 7.8, z], s: [0.9, 0.6, 0.6], c: 0x6b6f63, cyl: true, rz: 1.2 });
+    s.add(new THREE.Mesh(mergeParts(sp), litMat()));
+    s.traverse(o => { const l = o as THREE.Light; if (l.isLight && l.name !== 'day') l.visible = false; });
+  }
   // traffic: riders in the bike lanes, trolleybuses under the wires
   const N = 40, riders = new THREE.InstancedMesh(mergeParts(bike(C.navy)), litMat(), N);
   const rs = Array.from({ length: N }, (_, i) => ({ x: -200 + r() * 400, z: (i % 2 ? -42.5 : -82.5) + r() * 2.5, v: (i % 2 ? -1 : 1) * (3 + r() * 2) }));
   s.add(riders);
   const tb = [0, 1].map(i => { const g = new THREE.Group(); g.add(new THREE.Mesh(mergeParts(trolleybus()), litMat()), new THREE.Mesh(mergeParts(trolleyWindows()), glowMat())); g.position.set(i ? 60 : -90, 0, i ? -58 : -68); if (i) g.rotation.y = Math.PI; s.add(g); return g; });
   return {
-    id: 'changan', scene: s, spawn: [-60, -86], bounds: [-200, 200, -300, -38], camDist: 30, speed: 8,
+    id: dawn ? 'square' : 'changan', scene: s, spawn: dawn ? [-20, -262] : [-60, -86], bounds: dawn ? [-95, 60, -400, -95] : [-200, 200, -300, -38], camDist: dawn ? 20 : 30, speed: 8,
     update(dt, t) {
       rs.forEach((b, i) => { b.x += b.v * dt; if (b.x > 200) b.x = -200; if (b.x < -200) b.x = 200; o.position.set(b.x, Math.sin(t * 9 + i) * 0.015, b.z); o.rotation.set(0, b.v > 0 ? 0 : Math.PI, 0); o.updateMatrix(); riders.setMatrixAt(i, o.matrix); });
       riders.instanceMatrix.needsUpdate = true;

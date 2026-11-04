@@ -1,0 +1,27 @@
+{
+  "id": "1989-04-22-residents-support",
+  "date": "1989-04-22",
+  "place": "天安門廣場周邊",
+  "kind": "testimony",
+  "confidence": "testimony",
+  "title": {
+    "zh": "市民圍觀、送水送吃的",
+    "en": "Residents watch and bring water and food"
+  },
+  "summary": {
+    "zh": "UPI 報導 22 日「工人和家庭再次湧向廣場，多數是圍觀者，有些人加入悼念、支持學生」；二手整理提到天亮後越來越多市民加入。具體誰送了什麼，屬於一般性證言；遊戲中的送水大媽、大爺都是虛構人物。",
+    "en": "UPI reported workers and families flocking to the Square, some supporting the students. Specific acts of giving water/food here are fictional, modelled on general testimony."
+  },
+  "sources": [
+    {
+      "title": "Funeral for Hu begins",
+      "publisher": "UPI, 1989-04-22",
+      "url": "https://www.upi.com/Archives/1989/04/21/Funeral-for-Hu-begins/8030913414016/"
+    },
+    {
+      "title": "Hu Yaobang's Funeral (excerpts NYT 1989-04-22 + reconstruction)",
+      "publisher": "Standoff at Tiananmen (Eddie Cheng), 2008 — secondary account",
+      "url": "http://www.standoffattiananmen.com/2008/04/hu-yaobangs-funeral.html"
+    }
+  ]
+}

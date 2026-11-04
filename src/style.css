@@ -22,3 +22,5 @@ button:active{background:#5a442a}
 .card a{color:#9cc3e6}.card li{margin:6px 0}
 #fade{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .8s}
 #fade.on{opacity:1;pointer-events:auto}#fadetxt{font-size:22px;letter-spacing:4px}
+.fh{margin-top:10px;color:#e9c27a;font-size:14px;border-top:1px solid #4a3a28;padding-top:4px}.fc{font-size:14px;padding:2px 0}.fc.on{color:#f6e2b0}.fc.dim{color:#8d846f}.fc.lock{color:#5a5446}
+#chsel button{display:block;width:100%;margin:6px 0;font-size:15px}

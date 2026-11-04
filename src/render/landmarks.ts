@@ -88,7 +88,7 @@ export function monument(): Part[] {
 
 /** 人民大會堂 / 中國革命歷史博物館 (facade faces +x; caller mirrors). */
 export function greatHall(museum = false): Part[] {
-  const wall = museum ? 0xb7a98a : 0xbcae8f, col = 0xe3dac2, trim = 0x9a7f4a;
+  const wall = museum ? 0xb7a98a : 0xbcae8f, col = 0xe3dac2, trim = 0xb07a3a; // glazed amber eaves
   const p: Part[] = [
     { p: [0, 1.5, 0], s: [76, 3, 310], c: 0x8f8775 },                          // podium
     { p: [-4, 15, 0], s: [64, 24, 300], c: wall },                             // main block
@@ -105,6 +105,11 @@ export function greatHall(museum = false): Part[] {
   const n = museum ? 8 : 12, span = 84;
   for (let i = 0; i < n; i++) p.push({ p: [42, 15.5, -span / 2 + i * span / (n - 1)], s: [2.4, 25, 2.4], c: col, cyl: true, seg: 8 });
   if (museum) for (const sg of [-1, 1]) for (let i = 0; i < 6; i++) p.push({ p: [30, 15, sg * (60 + i * 7)], s: [2, 22, 2], c: col, cyl: true, seg: 8 }); // open colonnades
+  if (!museum) {
+    // national emblem over the portico (generic gold/red disc) + the row of roof flagpoles
+    p.push({ p: [44.4, 27.8, 0], s: [7, 0.6, 7], c: 0xd8b04a, cyl: true, rz: Math.PI / 2, seg: 16 }, { p: [44.8, 27.8, 0], s: [5.2, 0.4, 5.2], c: 0xb8261c, cyl: true, rz: Math.PI / 2, seg: 16 });
+    for (let z = -144; z <= 144; z += 16) p.push({ p: [24, 36.5, z], s: [0.25, 12, 0.25], c: 0xd8d8d0, cyl: true, seg: 5 });
+  }
   for (let i = 0; i < 4; i++) p.push({ p: [46 + i * 1.6, 0.4 + i * 0.35, 0], s: [1.6, 0.8 + i * 0.7, 80], c: 0xa59d8a });
   return p;
 }

@@ -1,0 +1,22 @@
+{
+  "id": "1989-04-22-xian-changsha",
+  "date": "1989-04-22",
+  "place": "西安、長沙",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "西安、長沙發生騷亂",
+    "en": "Rioting in Xi'an and Changsha"
+  },
+  "summary": {
+    "zh": "4 月 22 日傍晚，西安與長沙發生嚴重騷亂。",
+    "en": "Near dusk on 22 April serious rioting broke out in Changsha and Xi'an."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Rioting on 22 April",
+      "publisher": "Wikipedia (English), accessed 2026-11-04",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Rioting_on_22_April"
+    }
+  ]
+}
