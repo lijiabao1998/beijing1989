@@ -63,6 +63,11 @@ async function run(name, viewport) {
   if (shots) await page.screenshot({ path: `${shots}/${name}-6-changan-north.png` });
   await ev(() => window.__b89.setYaw(Math.PI)); await sleep(800);
   if (shots) await page.screenshot({ path: `${shots}/${name}-7-changan-square.png` });
+  if (shots) for (const [n, x, z, y] of [['8-monument', 0, -250, Math.PI], ['9-greathall', -60, -300, -Math.PI / 2], ['10-museum', 60, -300, Math.PI / 2]]) {
+    await ev((a) => { window.__b89.placeAt(a[0], a[1]); window.__b89.setYaw(a[2]); }, [x, z, y]); await sleep(700);
+    await page.screenshot({ path: `${shots}/${name}-${n}.png` });
+  }
+  if (shots) await ev(() => window.__b89.teleport('square'));
   await ev(() => window.__b89.setYaw(0));
   await go('square'); await pick(0);
   await page.waitForFunction(() => window.__b89.state.ending === 'south', { timeout: 15000 });
