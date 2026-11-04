@@ -22,10 +22,15 @@ async function run(name, viewport) {
   if (shots) await page.screenshot({ path: `${shots}/${name}-0-title.png` });
   await page.click('#b-new'); await sleep(400);
   const ev = (f, ...a) => page.evaluate(f, ...a);
-  const pick = async i => { await ev(i => window.__b89.choose(i), i); await sleep(150); };
+  const pick = async i => { await page.waitForFunction(i => window.__b89.choices().length > i, { timeout: 15000 }, i); await ev(i => window.__b89.choose(i), i); await sleep(150); };
   if (!(await ev(() => window.__b89.dialog))) throw new Error('intro dialog missing');
   await pick(0);
-  const go = async id => { await ev(id => window.__b89.teleport(id), id); await sleep(250); await ev(() => window.__b89.interact()); await sleep(200); };
+  const go = async id => {
+    await ev(id => window.__b89.teleport(id), id);
+    await page.waitForFunction(id => window.__b89.near === id, { timeout: 15000 }, id); // a frame must run so the hotspot is detected
+    await ev(() => window.__b89.interact());
+    await page.waitForFunction(() => window.__b89.dialog, { timeout: 15000 });
+  };
   await go('board'); if (shots) await page.screenshot({ path: `${shots}/${name}-1-board.png` }); await pick(0);
   await go('zhou'); await pick(0); await pick(0);
   await go('lin'); await pick(1); await pick(0);
@@ -33,7 +38,9 @@ async function run(name, viewport) {
   if (shots) { await ev(() => window.__b89.choose(1)); await sleep(150); await ev(() => window.__b89.teleport('board')); await ev(() => {}); await sleep(600); await page.screenshot({ path: `${shots}/${name}-2-campus.png` }); await go('gate'); }
   const opts = await ev(() => window.__b89.choices());
   if (!opts[0].includes('騎車')) throw new Error('gate should offer ride once an item is carried: ' + opts);
-  await pick(0); await sleep(2600);
+  await pick(0);
+  await page.waitForFunction(() => window.__b89.scene === 'street', { timeout: 20000 }).catch(() => {});
+  await sleep(1200);
   if ((await ev(() => window.__b89.scene)) !== 'street') throw new Error('did not reach street');
   await ev(() => window.__b89.teleport('kiosk')); await sleep(700);
   const perf = await ev(() => window.__b89.perf());
@@ -41,7 +48,8 @@ async function run(name, viewport) {
   await go('youth'); await pick(1); await pick(0);
   await go('home');
   if (shots) await page.screenshot({ path: `${shots}/${name}-4-home.png` });
-  await pick(0); await sleep(300);
+  await pick(0);
+  await page.waitForFunction(() => !!window.__b89.state.ending, { timeout: 15000 });
   const st = await ev(() => window.__b89.state);
   if (st.ending !== 'letter') throw new Error('expected letter ending, got ' + st.ending);
   if (st.diary.length < 4) throw new Error('diary too short');
