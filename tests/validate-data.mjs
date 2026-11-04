@@ -10,7 +10,8 @@ for (const f of readdirSync('data/events').filter(f => f.startsWith('1989-'))) {
   if (e.kind !== 'fiction' && !(e.sources?.length > 0)) fail(f + ' historical event needs sources');
   for (const s of e.sources) if (!/^https:\/\//.test(s.url)) fail(f + ' source url');
 }
-const ch = JSON.parse(readFileSync('data/dialogue/ch0-0417.json', 'utf8'));
+for (const file of ['ch0-0417', 'ch1-0422']) {
+const ch = JSON.parse(readFileSync('data/dialogue/' + file + '.json', 'utf8'));
 for (const [id, c] of Object.entries(ch.characters)) if (c.fictional !== true) fail('character not fictional: ' + id);
 const nodes = ch.nodes;
 if (!nodes[ch.start]) fail('start');
@@ -20,6 +21,8 @@ for (const [id, n] of Object.entries(nodes)) {
   if (n.event && !events[n.event]) fail('event ref ' + id);
   for (const c of n.choices) { if (c.next && !nodes[c.next]) fail('next ' + id); if (c.end && !ch.endings[c.end]) fail('end ' + id); }
 }
+if (ch.epilogueEvent && !events[ch.epilogueEvent]) fail('epilogue event');
 const banned = /score|分數|正確答案|kill|擊殺/i;
-if (banned.test(JSON.stringify(nodes))) fail('scoring/combat language in dialogue');
-console.log(process.exitCode ? 'data invalid' : `data ok: ${Object.keys(events).length} events, ${Object.keys(nodes).length} nodes`);
+if (banned.test(JSON.stringify(nodes))) fail('scoring/combat language in dialogue: ' + file);
+}
+console.log(process.exitCode ? 'data invalid' : `data ok: ${Object.keys(events).length} events`);
