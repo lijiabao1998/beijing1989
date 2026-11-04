@@ -27,7 +27,7 @@ export class Player {
 }
 
 /** Oblique follow camera, looking along yaw (0 = north). Adapted from shanghaisurvival's street camera. */
-export function followCam(cam: THREE.PerspectiveCamera, p: Player, dist: number, yaw: number, snap = false, focus?: THREE.Vector3, fd = 18) {
+export function followCam(cam: THREE.PerspectiveCamera, p: Player, dist: number, yaw: number, snap = false, focus?: THREE.Vector3, fd = 18, prof?: { h: number; ahead: number; y: number }) {
   const tgt = new THREE.Vector3(p.pos.x, 1, p.pos.y);
   if (focus) { // frame a landmark: camera on the far side of the player, low, looking at it
     const dx = tgt.x - focus.x, dz = tgt.z - focus.z, l = Math.hypot(dx, dz) || 1;
@@ -35,7 +35,8 @@ export function followCam(cam: THREE.PerspectiveCamera, p: Player, dist: number,
     if (snap) cam.position.copy(want); else cam.position.lerp(want, 0.08);
     cam.lookAt(focus); return;
   }
-  const want = new THREE.Vector3(tgt.x - Math.sin(yaw) * dist * 0.62, tgt.y + dist * (dist > 15 ? 0.32 : 1.0), tgt.z - Math.cos(yaw) * dist * 0.62);
+  const far = dist > 15, h = prof ? prof.h : far ? 0.32 : 1.0, ah = prof ? prof.ahead : far ? 20 : 0, ly = prof ? prof.y : far ? 11 : 0;
+  const want = new THREE.Vector3(tgt.x - Math.sin(yaw) * dist * 0.62, tgt.y + dist * h, tgt.z - Math.cos(yaw) * dist * 0.62);
   if (snap) cam.position.copy(want); else cam.position.lerp(want, 0.12);
-  cam.lookAt(tgt.x + Math.sin(yaw) * (dist > 15 ? 20 : 0), tgt.y + (dist > 15 ? 11 : 0), tgt.z + Math.cos(yaw) * (dist > 15 ? 20 : 0));
+  cam.lookAt(tgt.x + Math.sin(yaw) * ah, tgt.y + ly, tgt.z + Math.cos(yaw) * ah);
 }

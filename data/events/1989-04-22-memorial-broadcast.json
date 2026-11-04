@@ -1,0 +1,37 @@
+{
+  "id": "1989-04-22-memorial-broadcast",
+  "date": "1989-04-22",
+  "place": "人民大會堂・天安門廣場",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "胡耀邦追悼大會；廣場上的學生聽廣播",
+    "en": "Hu Yaobang's state memorial; students listen outside"
+  },
+  "summary": {
+    "zh": "4 月 22 日上午，胡耀邦追悼大會在人民大會堂舉行，約四十分鐘，全國電視直播。廣場上的學生肅立收聽。大會堂前有數排警察與士兵。廣場上用喇叭轉播一事見於 Wikipedia（「broadcast live to the students」）與二手整理。",
+    "en": "On 22 April the c. 40-minute memorial was held inside the Great Hall and televised nationally; the students in the Square stood in silence. Rows of police and soldiers lined the Great Hall."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Hu Yaobang's funeral (citing D. Zhao 2001, pp.152–153)",
+      "publisher": "Wikipedia (English), accessed 2026-11-04",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Hu_Yaobang's_funeral"
+    },
+    {
+      "title": "Thousands demonstrate at Beijing funeral",
+      "publisher": "UPI, 1989-04-22",
+      "url": "https://www.upi.com/Archives/1989/04/22/Thousands-demonstrate-at-Beijing-funeral/9240609220800/"
+    },
+    {
+      "title": "Funeral for Hu begins",
+      "publisher": "UPI, 1989-04-22",
+      "url": "https://www.upi.com/Archives/1989/04/21/Funeral-for-Hu-begins/8030913414016/"
+    },
+    {
+      "title": "Hu Yaobang's Funeral (excerpts NYT 1989-04-22 + reconstruction)",
+      "publisher": "Standoff at Tiananmen (Eddie Cheng), 2008 — secondary account",
+      "url": "http://www.standoffattiananmen.com/2008/04/hu-yaobangs-funeral.html"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "1989-04-22-rumor-meeting",
+  "date": "1989-04-22",
+  "place": "天安門廣場",
+  "kind": "fiction",
+  "confidence": "uncertain",
+  "title": {
+    "zh": "傳言：「會有人出來接請願書」",
+    "en": "Rumor: 'someone will come out to take the petition'"
+  },
+  "summary": {
+    "zh": "遊戲虛構的傳言，用來表現資訊有限。現實中當天是否有官員出來接請願書，各來源說法不同（見「三名學生跪在大會堂台階上」條）。",
+    "en": "A fictional rumor modelling limited information; sources disagree on whether any official came out."
+  },
+  "sources": []
+}

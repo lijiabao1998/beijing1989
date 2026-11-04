@@ -71,8 +71,48 @@ async function run(name, viewport) {
   await ev(() => window.__b89.setYaw(0));
   await go('square'); await pick(0);
   await page.waitForFunction(() => window.__b89.state.ending === 'south', { timeout: 15000 });
-  console.log(name, JSON.stringify({ street: perf, changan: perfC, ending: st.ending, diary: st.diary.length }));
-  for (const p of [perf, perfC]) {
+  // ---- Chapter 2 (4/21 night – 4/22), carrying over chapter 1 ----
+  await page.waitForFunction(() => !!document.getElementById('nextch'), { timeout: 15000 });
+  await ev(() => window.__b89.next());
+  await page.waitForFunction(() => window.__b89.state.chapter === 'ch1-0422' && window.__b89.dialog, { timeout: 20000 });
+  const t0 = await ev(() => document.getElementById('txt').textContent);
+  if (!t0.includes('廣場北邊')) throw new Error('ch2 intro should reflect the ch1 "south" ending: ' + t0);
+  await pick(0);
+  await go('c2zhou'); if (!(await ev(() => window.__b89.choices()))[0].includes('一起走')) throw new Error('zhou carry-over missing'); await pick(0); await pick(0);
+  await go('c2lin'); await pick(0); await pick(0);
+  await go('c2gate'); await pick(0);
+  await page.waitForFunction(() => window.__b89.scene === 'march', { timeout: 20000 }); await sleep(1200);
+  await ev(() => window.__b89.teleport('picket')); await sleep(700);
+  const perfM = await ev(() => window.__b89.perf());
+  if (shots) await page.screenshot({ path: `${shots}/${name}-c2-1-march.png` });
+  await go('auntie'); await pick(1);
+  await go('rumor'); await pick(0);
+  await go('south'); await pick(0);
+  await page.waitForFunction(() => window.__b89.scene === 'square', { timeout: 20000 }); await sleep(1500);
+  const perfS = await ev(() => window.__b89.perf());
+  if (shots) {
+    await page.screenshot({ path: `${shots}/${name}-c2-2-square-dawn.png` });
+    for (const [n, x, z, y] of [['c2-3-greathall', -40, -322, -Math.PI / 2], ['c2-4-north', -10, -300, 0], ['c2-5-monument', 0, -240, Math.PI]]) {
+      await ev((a) => { window.__b89.placeAt(a[0], a[1]); window.__b89.setYaw(a[2]); }, [x, z, y]); await sleep(800);
+      await page.screenshot({ path: `${shots}/${name}-${n}.png` });
+    }
+    await ev(() => window.__b89.setYaw(-Math.PI / 2));
+  }
+  await go('speaker2'); await pick(0);
+  await go('oldman'); await pick(1);
+  await go('stu2b'); await pick(0);
+  await go('steps'); if (shots) await page.screenshot({ path: `${shots}/${name}-c2-6-steps.png` }); await pick(1); await pick(0);
+  await go('leave'); await pick(0);
+  await page.waitForFunction(() => window.__b89.state.ending === 'together', { timeout: 15000 });
+  if (shots) await page.screenshot({ path: `${shots}/${name}-c2-7-ending.png` });
+  await ev(() => window.__b89.flow()); await sleep(300);
+  const fl = await ev(() => document.getElementById('mbody').innerHTML);
+  if (!fl.includes('fc on') || !fl.includes('？？？')) throw new Error('flowchart missing taken/unexplored');
+  if (shots) await page.screenshot({ path: `${shots}/${name}-c2-8-flowchart.png` });
+  const st2 = await ev(() => window.__b89.state);
+  if (!st2.flags.includes('ch0:end:south') || !st2.history['ch0-0417']) throw new Error('carry-over state missing');
+  console.log(name, JSON.stringify({ street: perf, changan: perfC, march: perfM, square: perfS, ending: st.ending, diary: st.diary.length }));
+  for (const p of [perf, perfC, perfM, perfS]) {
     if (p.calls > 60) throw new Error('draw calls over budget: ' + p.calls);
     if (p.sceneTriangles > 300000) throw new Error('triangles over budget: ' + p.sceneTriangles);
   }
