@@ -36,6 +36,16 @@
       "name": "",
       "role": "旁白",
       "fictional": true
+    },
+    "repairer": {
+      "name": "修車的老師傅",
+      "role": "長安街邊擺攤修自行車",
+      "fictional": true
+    },
+    "stu2": {
+      "name": "坐在地上的女生",
+      "role": "別校學生",
+      "fictional": true
     }
   },
   "start": "intro",
@@ -75,9 +85,9 @@
       "scene": "campus",
       "pos": [
         0,
-        -16
+        -22
       ],
-      "label": "校門",
+      "label": "西校門",
       "start": "gate_1"
     },
     {
@@ -129,6 +139,46 @@
       ],
       "label": "胡同口",
       "start": "home_1"
+    },
+    {
+      "id": "tam",
+      "scene": "changan",
+      "pos": [
+        10,
+        -80
+      ],
+      "label": "天安門",
+      "start": "tam_1"
+    },
+    {
+      "id": "repair",
+      "scene": "changan",
+      "pos": [
+        -40,
+        -87
+      ],
+      "label": "修車攤",
+      "start": "repair_1"
+    },
+    {
+      "id": "square",
+      "scene": "changan",
+      "pos": [
+        8,
+        -93
+      ],
+      "label": "廣場邊的學生",
+      "start": "square_1"
+    },
+    {
+      "id": "turnback",
+      "scene": "changan",
+      "pos": [
+        40,
+        -86
+      ],
+      "label": "路口",
+      "start": "turn_1"
     }
   ],
   "nodes": {
@@ -271,7 +321,7 @@
     },
     "gate_1": {
       "speaker": "narr",
-      "text": "校門口停著一排二八自行車。門衛室亮著燈，有人推車出去，有人剛回來。",
+      "text": "西校門的紅柱子和「北京大學」匾在燈下很亮，門前一對石獅子。門口停著一排二八自行車，有人推車出去，有人剛回來。",
       "choices": [
         {
           "text": "騎車進城",
@@ -374,7 +424,7 @@
           "text": "相信，跟他們一起往南",
           "set": "follow_crowd",
           "diary": "跟著一群別校的學生往南騎。",
-          "end": "south"
+          "goto": "changan"
         },
         {
           "text": "把這話轉述給報亭大爺",
@@ -426,8 +476,109 @@
           "end": "thermos"
         },
         {
+          "text": "騎去長安街看看",
+          "diary": "送完東西，還是想去長安街看一眼。",
+          "goto": "changan"
+        },
+        {
           "text": "今晚先回學校",
           "end": "home"
+        }
+      ]
+    },
+    "tam_1": {
+      "speaker": "narr",
+      "text": "長安街很寬，車鈴聲從兩邊的自行車道傳過來。北邊是天安門城樓，燈照著紅牆和黃瓦，城樓下的兩條標語在夜裡也看得清。南邊就是廣場。",
+      "event": "1989-04-17-campus-to-square",
+      "choices": [
+        {
+          "text": "停下來看一會兒",
+          "diary": "第一次在夜裡騎到天安門前。城樓比想像中大。"
+        },
+        {
+          "text": "繼續騎"
+        }
+      ]
+    },
+    "repair_1": {
+      "speaker": "repairer",
+      "text": "打氣兩分，補胎五毛。今兒晚上過去的學生不少，我這兒也忙。",
+      "choices": [
+        {
+          "text": "大爺，廣場上真有上萬人？",
+          "requires": "rumor_relayed",
+          "next": "repair_2"
+        },
+        {
+          "text": "給車打個氣",
+          "diary": "在長安街邊打了氣，花了兩分錢。",
+          "next": "repair_3"
+        }
+      ]
+    },
+    "repair_2": {
+      "speaker": "repairer",
+      "text": "上萬？我沒數。你自己往那邊瞧瞧不就知道了。",
+      "choices": [
+        {
+          "text": "轉身看廣場",
+          "diary": "修車的大爺也說不準有多少人。自己看，比聽說的少，也比想像的安靜。"
+        }
+      ]
+    },
+    "repair_3": {
+      "speaker": "repairer",
+      "text": "好了。夜裡騎慢點。",
+      "choices": [
+        {
+          "text": "謝謝您"
+        }
+      ]
+    },
+    "square_1": {
+      "speaker": "stu2",
+      "text": "我們學校的人在那邊。我也不知道要待到幾點，就是覺得應該來。",
+      "choices": [
+        {
+          "text": "在她旁邊坐一會兒",
+          "rel": {
+            "stu2": 1
+          },
+          "diary": "在廣場北邊坐了一會兒。旁邊的人小聲說話，沒人知道明天會怎樣。",
+          "end": "south"
+        },
+        {
+          "text": "把熱水分給她們",
+          "requires": "has_thermos",
+          "diary": "熱水在廣場邊分完了。",
+          "end": "thermos"
+        },
+        {
+          "text": "點點頭，往回走"
+        }
+      ]
+    },
+    "turn_1": {
+      "speaker": "narr",
+      "text": "再往東就是王府井了。夜深了，回學校還要騎很久。",
+      "choices": [
+        {
+          "text": "往廣場那邊走",
+          "next": "turn_2"
+        },
+        {
+          "text": "回學校",
+          "end": "home"
+        }
+      ]
+    },
+    "turn_2": {
+      "speaker": "narr",
+      "text": "你推著車，走到廣場北邊的邊上。",
+      "choices": [
+        {
+          "text": "好",
+          "end": "south"
         }
       ]
     }
@@ -435,7 +586,7 @@
   "endings": {
     "south": {
       "title": "往南",
-      "text": "你跟著人群往南騎。夜風很涼，車鈴一路響。你還不知道那裡是什麼樣子，也不知道接下來的幾個星期會發生什麼。"
+      "text": "你在廣場北邊站了很久。夜風很涼，人群很安靜。你還不知道接下來的幾個星期會發生什麼。"
     },
     "letter": {
       "title": "一封信",

@@ -1,18 +1,20 @@
 import * as THREE from 'three';
 import { C, Part, glowMat, instanced, litMat, mergeParts, place, rng, textTexture, vertText } from './kit';
-import { bike, bus, busWindows, lampHead, lampPole, person, tree } from './props';
+import { bike, lampHead, lampPole, person, tree } from './props';
+import { greatHall, huadengGlobes, huadengPole, monument, pkuWestGate, tiananmen, trolleybus, trolleyWindows } from './landmarks';
 import type { SceneId } from '../types';
 
 export interface World {
   id: SceneId; scene: THREE.Scene; spawn: [number, number];
   bounds: [number, number, number, number]; // minX,maxX,minZ,maxZ
   update(dt: number, t: number): void;
+  camDist?: number; speed?: number;
 }
 
-function base(fogColor: number): THREE.Scene {
+function base(fogColor: number, near = 18, far = 70): THREE.Scene {
   const s = new THREE.Scene();
   s.background = new THREE.Color(fogColor);
-  s.fog = new THREE.Fog(fogColor, 18, 70);
+  s.fog = new THREE.Fog(fogColor, near, far);
   s.add(new THREE.HemisphereLight(0x55607a, 0x1c1810, 0.9));
   const moon = new THREE.DirectionalLight(0x8090b0, 0.35); moon.position.set(-10, 20, 8); s.add(moon);
   return s;
@@ -80,11 +82,10 @@ export function buildCampus(): World {
   stat.push({ p: [2, 1.4, -4.4], s: [6.6, 2.9, 0.25], c: C.wood }, { p: [2, 3.0, -4.4], s: [7, 0.25, 0.6], c: 0x3a2a1c });
   stat.push({ p: [-1.6, 2, -4.4], s: [0.15, 4, 0.15], c: C.wood }, { p: [5.6, 2, -4.4], s: [0.15, 4, 0.15], c: C.wood });
   stat.push({ p: [-3, 3, -5], s: [0.12, 6, 0.12], c: 0x404040, cyl: true }, { p: [-2.7, 5.6, -5], s: [0.5, 0.35, 0.35], c: 0x6b6f63, ry: 0.6, cyl: true });
-  // campus gate: two pillars, beam, red doors folded back, guard house
-  stat.push({ p: [-4, 2.5, -16], s: [1.4, 5, 1.4], c: 0x7a3a2c }, { p: [4, 2.5, -16], s: [1.4, 5, 1.4], c: 0x7a3a2c });
-  stat.push({ p: [0, 5.3, -16], s: [10.5, 1.2, 1.6], c: 0x5a2a20 }, { p: [0, 6.1, -16], s: [11.5, 0.4, 2.4], c: 0x2b2f2c });
-  stat.push({ p: [-6.6, 1.4, -15.2], s: [3, 2.8, 2.6], c: C.plaster });
-  glow.push({ p: [-6.6, 1.6, -13.88], s: [1.4, 0.9, 0.04], c: 0xfff0b0 });
+  // 北京大學西校門 (modelled from Commons photos; faces the road, south of campus here)
+  stat.push(...place(pkuWestGate(), 0, -16));
+  stat.push({ p: [-10.5, 1.4, -15.2], s: [3, 2.8, 2.6], c: C.plaster }, { p: [-30, 1.4, -14.5], s: [36, 2.8, 0.5], c: 0x8a3a2c }, { p: [30, 1.4, -14.5], s: [36, 2.8, 0.5], c: 0x8a3a2c });
+  glow.push({ p: [-10.5, 1.6, -16.52], s: [1.4, 0.9, 0.04], c: 0xfff0b0 });
   stat.push({ p: [0, 0.01, -22], s: [70, 0.04, 8], c: C.asphalt });
   // people (fictional NPCs at hotspots + passers-by)
   stat.push(...place(person(C.khaki), -6, 3, -0.6), ...place(person(0x6a2f3a, 0x2d2d33), 5, -2, 2.2));
@@ -94,7 +95,7 @@ export function buildCampus(): World {
   // posters
   const board = new THREE.Mesh(new THREE.PlaneGeometry(6.2, 2.6), new THREE.MeshLambertMaterial({ map: posterTexture(), emissive: 0x2a2418 }));
   board.position.set(2, 1.4, -4.54); board.rotation.y = Math.PI; s.add(board);
-  signPlane(s, '北 京 大 學', 0, 5.3, -16.82, 6, 1, '#5a2a20', '#e8d9a8', Math.PI);
+  signPlane(s, '北京大學', 0, 4.75, -19.0, 3.0, 0.95, '#141210', '#d8b45a', Math.PI);
   // trees (pagoda trees on campus), parked bikes, lamps
   const trees = []; for (let i = 0; i < 8; i++) trees.push({ x: (i % 2 ? 1 : -1) * (9 + r() * 3), z: -14 + i * 2.6 + r(), ry: r() * 6, s: 0.8 + r() * 0.4 });
   for (let i = 0; i < 10; i++) trees.push({ x: -16 + i * 3.6, z: 4.5 + r(), ry: r() * 6, s: 0.9 });
@@ -102,11 +103,11 @@ export function buildCampus(): World {
   const bikes = []; for (let i = 0; i < 18; i++) bikes.push({ x: 6 + i * 0.55, z: -13 + (i % 2) * 0.2, ry: Math.PI / 2 + (r() - 0.5) * 0.2 });
   for (let i = 0; i < 12; i++) bikes.push({ x: -14 + i * 0.55, z: 6.5, ry: -Math.PI / 2 });
   s.add(instanced(mergeParts(bike()), litMat(), bikes));
-  const lamps = [{ x: -2.5, z: -10 }, { x: 2.5, z: 0 }, { x: 8, z: 4 }, { x: -8, z: 4 }, { x: 3, z: -17 }];
+  const lamps = [{ x: -2.5, z: -10 }, { x: 2.5, z: 0 }, { x: 8, z: 4 }, { x: -8, z: 4 }, { x: 9, z: -21 }, { x: -9, z: -21, ry: Math.PI }];
   s.add(instanced(mergeParts(lampPole()), litMat(), lamps));
   s.add(instanced(mergeParts(lampHead()), glowMat(), lamps));
-  sodium(s, 3.4, -2, 16); sodium(s, -1.6, -10, 12); sodium(s, 0, 7, 10); sodium(s, 3.9, -17, 12);
-  return { id: 'campus', scene: s, spawn: [0, 5], bounds: [-18, 18, -20, 7], update() { /* static */ } };
+  sodium(s, 3.4, -2, 16); sodium(s, -1.6, -10, 12); sodium(s, 0, 7, 10); sodium(s, 0, -21, 18);
+  return { id: 'campus', scene: s, spawn: [0, 5], bounds: [-18, 18, -27, 7], update() { /* static */ } };
 }
 
 export function buildStreet(): World {
@@ -167,7 +168,8 @@ export function buildStreet(): World {
   rs.forEach((_, i) => riders.setColorAt(i, new THREE.Color(0xffffff).lerp(new THREE.Color(jackets[i % jackets.length]), 0.0)));
   s.add(riders);
   const busMesh = new THREE.Group();
-  busMesh.add(new THREE.Mesh(mergeParts(bus()), litMat()), new THREE.Mesh(mergeParts(busWindows()), glowMat()));
+  busMesh.add(new THREE.Mesh(mergeParts(trolleybus()), litMat()), new THREE.Mesh(mergeParts(trolleyWindows()), glowMat()));
+  s.add(new THREE.Mesh(mergeParts(wires(-60, 60, [-11.15, -11.85, -7.9, -8.6], -5.2, -14.8, 14)), litMat()));
   busMesh.position.set(-40, 0, -11.5); s.add(busMesh);
   const walkGeo = mergeParts(person(0x4a4e58));
   const W = 10; const walkers = new THREE.InstancedMesh(walkGeo, litMat(), W);
@@ -188,6 +190,106 @@ export function buildStreet(): World {
         o.position.set(w.x, Math.abs(Math.sin(t * 6 + i)) * 0.04, w.z); o.rotation.set(0, w.v > 0 ? 0 : Math.PI, 0); o.updateMatrix(); walkers.setMatrixAt(i, o.matrix);
       });
       walkers.instanceMatrix.needsUpdate = true;
+    },
+  };
+}
+
+/** Overhead trolleybus wires plus span poles. */
+function wires(x0: number, x1: number, zs: number[], poleZa: number, poleZb: number, step: number): Part[] {
+  const p: Part[] = [];
+  for (const z of zs) p.push({ p: [(x0 + x1) / 2, 5.9, z], s: [x1 - x0, 0.03, 0.03], c: 0x222222 });
+  for (let x = x0; x <= x1; x += step) {
+    p.push({ p: [x, 3.1, poleZa], s: [0.2, 6.2, 0.2], c: 0x4a4a46, cyl: true, seg: 6 }, { p: [x, 3.1, poleZb], s: [0.2, 6.2, 0.2], c: 0x4a4a46, cyl: true, seg: 6 });
+    p.push({ p: [x, 6.0, (poleZa + poleZb) / 2], s: [0.03, 0.03, Math.abs(poleZa - poleZb)], c: 0x222222 });
+  }
+  return p;
+}
+
+function portraitTexture() {
+  // Stylised, low-detail rendering of the portrait that hangs over the central arch (not a reproduction of the painting).
+  return textTexture(256, 340, g => {
+    g.fillStyle = '#c9b48a'; g.fillRect(0, 0, 256, 340); g.fillStyle = '#6b5a3a'; g.fillRect(8, 8, 240, 324);
+    const grd = g.createLinearGradient(0, 0, 0, 340); grd.addColorStop(0, '#8a8f7e'); grd.addColorStop(1, '#5d6457'); g.fillStyle = grd; g.fillRect(16, 16, 224, 308);
+    g.fillStyle = '#4c5246'; g.beginPath(); g.moveTo(30, 324); g.quadraticCurveTo(128, 180, 226, 324); g.fill();  // grey tunic
+    g.fillStyle = '#d9b38c'; g.beginPath(); g.ellipse(128, 140, 52, 66, 0, 0, 7); g.fill();                         // face
+    g.fillStyle = '#1e1a16'; g.beginPath(); g.ellipse(128, 92, 56, 30, 0, Math.PI, 0); g.fill();                    // hair
+    g.fillStyle = 'rgba(80,50,30,.35)'; g.fillRect(100, 132, 18, 5); g.fillRect(138, 132, 18, 5); g.fillRect(118, 178, 22, 4);
+  });
+}
+
+function sloganTexture(text: string) {
+  return textTexture(1024, 128, g => {
+    g.fillStyle = '#b3251c'; g.fillRect(0, 0, 1024, 128);
+    g.fillStyle = '#f7f1e2'; g.font = 'bold 86px "Noto Sans CJK TC","Noto Serif CJK TC",sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText(text, 512, 68);
+  });
+}
+
+/** 長安街 at 天安門: real proportions (compressed only to the south of the Square so the Monument and Great Hall read). */
+export function buildChangan(): World {
+  const s = base(0x1b2030, 120, 650);
+  const stat: Part[] = [], glow: Part[] = [], flood: Part[] = [];
+  const r = rng(417);
+  // ground: avenue (z -38..-88), bike lanes behind railings, Square paving to the south
+  stat.push({ p: [0, -0.05, -63], s: [700, 0.1, 50], c: 0x26262a });
+  for (let x = -340; x < 340; x += 9) for (const z of [-56, -63, -70]) stat.push({ p: [x, 0.01, z], s: [4.5, 0.02, 0.2], c: 0x9a978c });
+  stat.push({ p: [0, 0.01, -63], s: [700, 0.02, 0.35], c: 0xc9b860 });
+  for (const z of [-42, -84]) {
+    stat.push({ p: [0, 0.6, z + (z < -60 ? 3.5 : -3.5)], s: [700, 0.08, 0.08], c: 0x4c7aa8 }, { p: [0, 0.25, z + (z < -60 ? 3.5 : -3.5)], s: [700, 0.06, 0.06], c: 0xd8d8d0 });
+    for (let x = -340; x < 340; x += 3) stat.push({ p: [x, 0.3, z + (z < -60 ? 3.5 : -3.5)], s: [0.06, 0.6, 0.06], c: 0x4c7aa8 }); // blue-white railings
+  }
+  stat.push({ p: [0, -0.04, -260], s: [180, 0.1, 340], c: 0x7d776c });          // Square paving
+  stat.push({ p: [0, -0.06, -15], s: [700, 0.1, 50], c: 0x3a3833 });
+  for (let x = -85; x <= 85; x += 10) stat.push({ p: [x, 0.0, -260], s: [0.25, 0.03, 340], c: 0x6b665c });
+  // landmarks
+  flood.push(...tiananmen());
+  flood.push(...place(monument(), 0, -330));
+  flood.push(...place(greatHall(), -150, -320), ...place(greatHall(), 150, -320, Math.PI));
+  stat.push({ p: [0, 15, -112], s: [0.35, 30, 0.35], c: 0xc8c8c0, cyl: true }, { p: [1.8, 28.5, -112], s: [3.6, 2.4, 0.05], c: 0xc21f1a }); // flagpole
+  // red lanterns under the eaves of the gate
+  for (const x of [-21, -15, -9, -3, 3, 9, 15, 21]) glow.push({ p: [x, 20.6, -13.2], s: [1.5, 1.8, 1.5], c: 0xe0402a, sphere: true });
+  for (let i = 0; i < 10; i++) glow.push({ p: [-22 + i * 4.9, 17.5, -12.25], s: [3.2, 4.5, 0.05], c: 0xffd48a });   // lit hall windows
+  // poplars along the avenue + pagoda trees by the wall, period sodium lamps beyond the Tiananmen section
+  const pops = []; for (let x = -330; x < 330; x += 7) { if (Math.abs(x) < 80) continue; pops.push({ x: x + r() * 2, z: -36 - r(), ry: r() * 6, s: 1.3 }, { x: x + r() * 2 + 3, z: -90 - r(), ry: r() * 6, s: 1.3 }); }
+  const lamps = []; for (let x = -320; x <= 320; x += 32) if (Math.abs(x) > 90) lamps.push({ x, z: -41, s: 1.3 }, { x: x + 16, z: -85, ry: Math.PI, s: 1.3 });
+  const hd = []; for (let x = -80; x <= 80; x += 20) hd.push({ x, z: -40 }, { x, z: -86 }); for (let z = -110; z > -420; z -= 40) hd.push({ x: -86, z }, { x: 86, z });
+  // fictional people: students at the Square's north edge, a bicycle repairer, passers-by
+  stat.push(...place(person(0x2f3540), 6, -95, 2), ...place(person(C.khaki), 8, -96.5, 1.2), ...place(person(0x5b5f3c), 9.5, -94.5, 2.8), ...place(person(C.navy), 12, -96, 3.6));
+  stat.push(...place(person(0x4b4a45, C.black, 0x999999), -40, -88.5, Math.PI / 2), { p: [-41, 0.25, -88.5], s: [0.8, 0.5, 0.5], c: 0x5a3e28 });
+  stat.push(...place(bike(), -38.6, -88.6, 0.2));
+  for (let i = 0; i < 26; i++) stat.push(...place(person([C.navy, C.khaki, 0x2f3540, 0x5d4c3a][i % 4]), -60 + r() * 120, -105 - r() * 200, r() * 6));
+  s.add(new THREE.Mesh(mergeParts(stat), litMat()));
+  s.add(new THREE.Mesh(mergeParts(flood), new THREE.MeshLambertMaterial({ vertexColors: true, emissive: 0x3a1c10 })));
+  s.add(new THREE.Mesh(mergeParts(glow), glowMat()));
+  s.add(instanced(mergeParts(tree(true)), litMat(), pops));
+  s.add(instanced(mergeParts(lampPole()), litMat(), lamps));
+  s.add(instanced(mergeParts(lampHead()), glowMat(), lamps));
+  s.add(instanced(mergeParts(huadengPole()), litMat(), hd));
+  s.add(instanced(mergeParts(huadengGlobes().map(g => ({ ...g, s: g.s.map(v => v * 0.7) as [number, number, number] }))), glowMat(), hd));
+  s.add(new THREE.Mesh(mergeParts(wires(-340, 340, [-57.4, -58.1, -67.9, -68.6], -44.5, -81.5, 40)), litMat()));
+  // portrait + the two slogan boards
+  const por = new THREE.Mesh(new THREE.PlaneGeometry(4.8, 6.4), new THREE.MeshBasicMaterial({ map: portraitTexture(), fog: true }));
+  por.position.set(0, 12.0, -18.62); por.rotation.y = Math.PI; s.add(por);
+  for (const [x, t] of [[19, '中華人民共和國萬歲'], [-19, '世界人民大團結萬歲']] as [number, string][]) {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(17, 2.1), new THREE.MeshBasicMaterial({ map: sloganTexture(t), fog: true }));
+    m.position.set(x, 10.6, -18.62); m.rotation.y = Math.PI; s.add(m);
+  }
+  // floodlight on the gate + a few lights on the avenue
+  const fl = new THREE.SpotLight(0xffd9a0, 2.2, 160, 0.5, 0.6, 0); fl.position.set(0, 6, -70); fl.target.position.set(0, 18, -10); s.add(fl, fl.target);
+  for (const x of [-40, 0, 40]) { const l = new THREE.PointLight(0xfff0d0, 30, 40, 1.4); l.position.set(x, 8, -63); s.add(l); }
+  // traffic: riders in the bike lanes, trolleybuses under the wires
+  const N = 40, riders = new THREE.InstancedMesh(mergeParts(bike(C.navy)), litMat(), N);
+  const rs = Array.from({ length: N }, (_, i) => ({ x: -200 + r() * 400, z: (i % 2 ? -42.5 : -82.5) + r() * 2.5, v: (i % 2 ? -1 : 1) * (3 + r() * 2) }));
+  s.add(riders);
+  const tb = [0, 1].map(i => { const g = new THREE.Group(); g.add(new THREE.Mesh(mergeParts(trolleybus()), litMat()), new THREE.Mesh(mergeParts(trolleyWindows()), glowMat())); g.position.set(i ? 60 : -90, 0, i ? -58 : -68); if (i) g.rotation.y = Math.PI; s.add(g); return g; });
+  const o = new THREE.Object3D();
+  return {
+    id: 'changan', scene: s, spawn: [-60, -86], bounds: [-200, 200, -110, -38], camDist: 30, speed: 8,
+    update(dt, t) {
+      rs.forEach((b, i) => { b.x += b.v * dt; if (b.x > 200) b.x = -200; if (b.x < -200) b.x = 200; o.position.set(b.x, Math.sin(t * 9 + i) * 0.015, b.z); o.rotation.set(0, b.v > 0 ? 0 : Math.PI, 0); o.updateMatrix(); riders.setMatrixAt(i, o.matrix); });
+      riders.instanceMatrix.needsUpdate = true;
+      tb[0].position.x += 7 * dt; if (tb[0].position.x > 300) tb[0].position.x = -300;
+      tb[1].position.x -= 7 * dt; if (tb[1].position.x < -300) tb[1].position.x = 300;
     },
   };
 }
