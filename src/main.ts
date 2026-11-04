@@ -115,12 +115,14 @@ function resize() {
 addEventListener('resize', resize); resize();
 
 const clock = new THREE.Clock();
+const GATE_FOCUS = new THREE.Vector3(0, 4.6, -16);
 world = getWorld('campus'); world.scene.add(player.mesh); player.place(0, 5);
 function frame() {
   const dt = Math.min(clock.getDelta(), 0.05), t = clock.elapsedTime;
   if (playing && !inDialog && $('modal').hidden) player.step(dt, controls.axis(), world.bounds, yaw);
   world.update(dt, t);
-  followCam(cam, player, (world.camDist ?? 11) * controls.zoom * (playing ? 1 : 1.3), yaw, snap); snap = false;
+  const nearGate = world.id === 'campus' && player.pos.y < -18 && Math.abs(player.pos.x) < 9;
+  followCam(cam, player, (world.camDist ?? 11) * controls.zoom * (playing ? 1 : 1.3), yaw, snap, nearGate ? GATE_FOCUS : undefined, 19 / Math.min(1, cam.aspect * 1.25)); snap = false;
   near = null; let best = 2.4;
   const reach = world.id === 'changan' ? 6 : 2.4; best = reach;
   for (const h of CHAPTER0.hotspots) if (h.scene === world.id) {
@@ -139,6 +141,7 @@ frame();
   get dialog() { return inDialog; },
   perf() { let tris = 0; world.scene.traverse(o => { const m = o as THREE.Mesh; if (m.isMesh && m.geometry) { const g = m.geometry; const n = (g.index ? g.index.count : g.getAttribute('position').count) / 3; tris += n * ((m as THREE.InstancedMesh).isInstancedMesh ? (m as THREE.InstancedMesh).count : 1); } }); return { calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, sceneTriangles: tris }; },
   setYaw(r: number) { yaw = r; snap = true; },
+  placeAt(x: number, z: number) { player.place(x, z); snap = true; },
   teleport(id: string) { const h = CHAPTER0.hotspots.find(x => x.id === id)!; if (world.id !== h.scene) enter(h.scene); player.place(h.pos[0], h.pos[1] - 1.2); snap = true; },
   interact() { controls.onInteract(); },
   choose(i: number) { ($('ch').children[i] as HTMLButtonElement)?.click(); },

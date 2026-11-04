@@ -64,23 +64,48 @@ export function tiananmen(): Part[] {
 
 /** 人民英雄紀念碑: two-tier terrace and a 37.9 m obelisk. */
 export function monument(): Part[] {
-  return [
-    { p: [0, 0.8, 0], s: [50, 1.6, 62], c: L.marble }, { p: [0, 2.4, 0], s: [32, 1.6, 40], c: L.marble },
-    { p: [0, 4.4, 0], s: [14, 2.4, 18], c: 0xc7c3b7 },
-    { p: [0, 20, 0], s: [6.5, 29, 8], c: 0xbcb7aa }, { p: [0, 35.7, 0], s: [7.6, 1.6, 9.2], c: 0xb0aa9c },
-    { p: [0, 37.4, 0], s: [7.2, 1.8, 8.8], c: 0xa59f90, roof: true },
+  const m = L.marble, g = 0xcfcabd;
+  const p: Part[] = [
+    // lower terrace (two-tier, cross-shaped plan) with balustrades
+    { p: [0, 0.75, 0], s: [61, 1.5, 51], c: m }, { p: [0, 0.75, 0], s: [40, 1.5, 61], c: m },
+    { p: [0, 2.25, 0], s: [44, 1.5, 36], c: m }, { p: [0, 2.25, 0], s: [30, 1.5, 44], c: m },
+    // upper base: Sumeru plinth with relief band + small plinth
+    { p: [0, 3.9, 0], s: [17, 1.8, 20], c: g }, { p: [0, 5.3, 0], s: [15.6, 1.0, 18.6], c: 0x9d978a },
+    { p: [0, 6.3, 0], s: [14, 1.0, 17], c: g }, { p: [0, 7.4, 0], s: [9, 1.2, 10.5], c: 0xb5b0a3 },
+    // stele (slight taper) with inscription panels
+    { p: [0, 22, 0], s: [6.2, 28, 7.6], c: 0xc4bfb1 },
+    { p: [0, 25, 3.83], s: [2.6, 18, 0.06], c: 0xd8b25a }, { p: [0, 25, -3.83], s: [2.6, 18, 0.06], c: 0x8f8a7e },
+    // cap: cornice + 廡殿-style roof
+    { p: [0, 36.4, 0], s: [7.4, 0.8, 8.8], c: 0xb0aa9c }, { p: [0, 37.4, 0], s: [8.2, 1.2, 9.6], c: 0x9e988b },
+    { p: [0, 39.2, 0], s: [8.4, 2.4, 9.8], c: 0x8b8578, roof: true },
   ];
+  for (const [w, d, y] of [[61, 51, 1.85], [44, 36, 3.35]]) for (const sg of [-1, 1]) {
+    p.push({ p: [0, y, sg * d / 2], s: [w, 0.7, 0.3], c: 0xe4e0d4 }, { p: [sg * w / 2, y, 0], s: [0.3, 0.7, d], c: 0xe4e0d4 });
+  }
+  for (const sg of [-1, 1]) p.push({ p: [0, 1.6, sg * 30], s: [10, 0.2, 6], c: 0xb9b4a6 }); // stairs
+  return p;
 }
 
-/** 人民大會堂 (facade faces +x) and the museum opposite (mirrored by the caller). Low-poly colonnade. */
-export function greatHall(): Part[] {
+/** 人民大會堂 / 中國革命歷史博物館 (facade faces +x; caller mirrors). */
+export function greatHall(museum = false): Part[] {
+  const wall = museum ? 0xb7a98a : 0xbcae8f, col = 0xe3dac2, trim = 0x9a7f4a;
   const p: Part[] = [
-    { p: [0, 2, 0], s: [70, 4, 300], c: 0x8f8775 }, { p: [0, 16, 0], s: [60, 28, 300], c: 0xb8ac8e },
-    { p: [0, 31, 0], s: [62, 2, 302], c: 0x9a7f4a }, { p: [-6, 36, 0], s: [40, 8, 120], c: 0xb0a486 },
-    { p: [27, 18, 0], s: [14, 30, 90], c: 0x6e6a60 },                    // shaded portico
-    { p: [33, 33.5, 0], s: [4, 5, 92], c: 0xb8ac8e },                    // entablature
+    { p: [0, 1.5, 0], s: [76, 3, 310], c: 0x8f8775 },                          // podium
+    { p: [-4, 15, 0], s: [64, 24, 300], c: wall },                             // main block
+    { p: [-4, 28, 0], s: [66, 2.2, 304], c: trim },                            // flat roof eave (cornice)
+    { p: [-4, 29.6, 0], s: [62, 1.2, 298], c: 0xa79a7b },                      // parapet
+    { p: [-12, 33, 0], s: [36, 7, museum ? 70 : 110], c: 0xa99d80 },           // raised centre
   ];
-  for (let i = 0; i < 12; i++) p.push({ p: [33.5, 17, -40 + i * 7.3], s: [2.2, 28, 2.2], c: 0xd4cbb2, cyl: true, seg: 8 });
+  // pilasters along the facade wings
+  for (let z = -145; z <= 145; z += 6) if (Math.abs(z) > 48) p.push({ p: [28.3, 15, z], s: [0.9, 22, 1.4], c: 0xd0c6ab });
+  for (let z = -142; z <= 142; z += 6) if (Math.abs(z) > 48) p.push({ p: [28.1, 13, z], s: [0.3, 9, 2.8], c: 0x5c5546 }); // windows (dark bands)
+  // central portico: deep shadow, columns, entablature, steps
+  p.push({ p: [24, 16, 0], s: [8, 26, 96], c: 0x4c463c });
+  p.push({ p: [36, 29, 0], s: [16, 3, 100], c: trim }, { p: [36, 31.2, 0], s: [16, 1.4, 98], c: 0xa79a7b });
+  const n = museum ? 8 : 12, span = 84;
+  for (let i = 0; i < n; i++) p.push({ p: [42, 15.5, -span / 2 + i * span / (n - 1)], s: [2.4, 25, 2.4], c: col, cyl: true, seg: 8 });
+  if (museum) for (const sg of [-1, 1]) for (let i = 0; i < 6; i++) p.push({ p: [30, 15, sg * (60 + i * 7)], s: [2, 22, 2], c: col, cyl: true, seg: 8 }); // open colonnades
+  for (let i = 0; i < 4; i++) p.push({ p: [46 + i * 1.6, 0.4 + i * 0.35, 0], s: [1.6, 0.8 + i * 0.7, 80], c: 0xa59d8a });
   return p;
 }
 

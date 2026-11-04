@@ -229,7 +229,7 @@ function sloganTexture(text: string) {
 export function buildChangan(): World {
   const s = base(0x1b2030, 120, 650);
   const stat: Part[] = [], glow: Part[] = [], flood: Part[] = [];
-  const r = rng(417);
+  const r = rng(417), o = new THREE.Object3D();
   // ground: avenue (z -38..-88), bike lanes behind railings, Square paving to the south
   stat.push({ p: [0, -0.05, -63], s: [700, 0.1, 50], c: 0x26262a });
   for (let x = -340; x < 340; x += 9) for (const z of [-56, -63, -70]) stat.push({ p: [x, 0.01, z], s: [4.5, 0.02, 0.2], c: 0x9a978c });
@@ -244,7 +244,7 @@ export function buildChangan(): World {
   // landmarks
   flood.push(...tiananmen());
   flood.push(...place(monument(), 0, -330));
-  flood.push(...place(greatHall(), -150, -320), ...place(greatHall(), 150, -320, Math.PI));
+  flood.push(...place(greatHall(), -150, -320), ...place(greatHall(true), 150, -320, Math.PI));
   stat.push({ p: [0, 15, -112], s: [0.35, 30, 0.35], c: 0xc8c8c0, cyl: true }, { p: [1.8, 28.5, -112], s: [3.6, 2.4, 0.05], c: 0xc21f1a }); // flagpole
   // red lanterns under the eaves of the gate
   for (const x of [-21, -15, -9, -3, 3, 9, 15, 21]) glow.push({ p: [x, 20.6, -13.2], s: [1.5, 1.8, 1.5], c: 0xe0402a, sphere: true });
@@ -259,7 +259,7 @@ export function buildChangan(): World {
   stat.push(...place(bike(), -38.6, -88.6, 0.2));
   for (let i = 0; i < 26; i++) stat.push(...place(person([C.navy, C.khaki, 0x2f3540, 0x5d4c3a][i % 4]), -60 + r() * 120, -105 - r() * 200, r() * 6));
   s.add(new THREE.Mesh(mergeParts(stat), litMat()));
-  s.add(new THREE.Mesh(mergeParts(flood), new THREE.MeshLambertMaterial({ vertexColors: true, emissive: 0x3a1c10 })));
+  s.add(new THREE.Mesh(mergeParts(flood), new THREE.MeshLambertMaterial({ vertexColors: true, emissive: 0x4a2a18 })));
   s.add(new THREE.Mesh(mergeParts(glow), glowMat()));
   s.add(instanced(mergeParts(tree(true)), litMat(), pops));
   s.add(instanced(mergeParts(lampPole()), litMat(), lamps));
@@ -277,14 +277,19 @@ export function buildChangan(): World {
   // floodlight on the gate + a few lights on the avenue
   const fl = new THREE.SpotLight(0xffd9a0, 2.2, 160, 0.5, 0.6, 0); fl.position.set(0, 6, -70); fl.target.position.set(0, 18, -10); s.add(fl, fl.target);
   for (const x of [-40, 0, 40]) { const l = new THREE.PointLight(0xfff0d0, 30, 40, 1.4); l.position.set(x, 8, -63); s.add(l); }
+  // Square: floodlit Monument, lit facades, lamp pools
+  const fm = new THREE.SpotLight(0xfff4e0, 3, 260, 0.35, 0.5, 0); fm.position.set(0, 4, -200); fm.target.position.set(0, 22, -330); s.add(fm, fm.target);
+  for (const sg of [-1, 1]) { const f = new THREE.SpotLight(0xffe6b8, 2.4, 260, 0.6, 0.6, 0); f.position.set(sg * 60, 3, -300); f.target.position.set(sg * 115, 14, -320); s.add(f, f.target); }
+  s.add(new THREE.HemisphereLight(0x6a7590, 0x2a2418, 0.5));
+  const pool = new THREE.InstancedMesh(new THREE.CircleGeometry(9, 20).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xffd9a0, transparent: true, opacity: 0.16, depthWrite: false, fog: true }), hd.length);
+  hd.forEach((h, i) => { o.position.set(h.x, 0.04, h.z); o.rotation.set(0, 0, 0); o.updateMatrix(); pool.setMatrixAt(i, o.matrix); }); s.add(pool);
   // traffic: riders in the bike lanes, trolleybuses under the wires
   const N = 40, riders = new THREE.InstancedMesh(mergeParts(bike(C.navy)), litMat(), N);
   const rs = Array.from({ length: N }, (_, i) => ({ x: -200 + r() * 400, z: (i % 2 ? -42.5 : -82.5) + r() * 2.5, v: (i % 2 ? -1 : 1) * (3 + r() * 2) }));
   s.add(riders);
   const tb = [0, 1].map(i => { const g = new THREE.Group(); g.add(new THREE.Mesh(mergeParts(trolleybus()), litMat()), new THREE.Mesh(mergeParts(trolleyWindows()), glowMat())); g.position.set(i ? 60 : -90, 0, i ? -58 : -68); if (i) g.rotation.y = Math.PI; s.add(g); return g; });
-  const o = new THREE.Object3D();
   return {
-    id: 'changan', scene: s, spawn: [-60, -86], bounds: [-200, 200, -110, -38], camDist: 30, speed: 8,
+    id: 'changan', scene: s, spawn: [-60, -86], bounds: [-200, 200, -300, -38], camDist: 30, speed: 8,
     update(dt, t) {
       rs.forEach((b, i) => { b.x += b.v * dt; if (b.x > 200) b.x = -200; if (b.x < -200) b.x = 200; o.position.set(b.x, Math.sin(t * 9 + i) * 0.015, b.z); o.rotation.set(0, b.v > 0 ? 0 : Math.PI, 0); o.updateMatrix(); riders.setMatrixAt(i, o.matrix); });
       riders.instanceMatrix.needsUpdate = true;
