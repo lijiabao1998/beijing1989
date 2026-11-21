@@ -1,0 +1,32 @@
+{
+  "id": "1989-05-19-hunger-strike-ends",
+  "date": "1989-05-19",
+  "place": "天安門廣場",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "5月19日晚廣場學生宣布停止絕食改為靜坐",
+    "en": "Night of 19 May: students in the Square announce end of hunger strike, shifting to a sit-in"
+  },
+  "summary": {
+    "zh": "5 月 19 日凌晨，中共中央總書記趙紫陽曾到廣場探望並勸說學生停止絕食。當晚九時許，在連日絕食與戒嚴傳聞交織之下，廣場學生廣播宣布停止絕食，改為靜坐請願；然而數小時後當局隨即正式宣布戒嚴。",
+    "en": "After CCP General Secretary Zhao Ziyang visited the Square before dawn on 19 May to plead with students to stop fasting, student broadcasts at the Square around 9 p.m. announced the end of the hunger strike in favor of a peaceful sit-in—just hours before martial law was declared."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Martial law",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Martial_law"
+    },
+    {
+      "title": "Tiananmen Square, 1989",
+      "publisher": "U.S. Department of State, Office of the Historian (Milestones)",
+      "url": "https://history.state.gov/milestones/1989-1992/tiananmen-square"
+    },
+    {
+      "title": "Tiananmen Square, 1989: The Declassified History (Electronic Briefing Book No. 16)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB16/"
+    }
+  ]
+}

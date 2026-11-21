@@ -1,0 +1,32 @@
+{
+  "id": "1989-05-13-hunger-strike",
+  "date": "1989-05-13",
+  "place": "北京大學 → 天安門廣場",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "學生於天安門廣場開始絕食請願",
+    "en": "Students begin a hunger strike in Tiananmen Square"
+  },
+  "summary": {
+    "zh": "1989 年 5 月 13 日下午，數百名來自北京高校的學生宣讀〈絕食書〉後進駐天安門廣場開始絕食靜坐，要求當局撤回四二六社論定性並與學生展開公開平等對話。隨後數日間加入絕食的學生增至數千人，引發全城廣泛關注與聲援。遊戲中的具體人物與對話均為虛構。",
+    "en": "On the afternoon of 13 May 1989, hundreds of Beijing university students marched to Tiananmen Square and began a hunger strike, demanding retraction of the April 26 editorial and open, equal dialogue with the authorities. Numbers grew to several thousand over the following days."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Hunger strikes begin",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Hunger_strikes_begin"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    },
+    {
+      "title": "Tiananmen Square, 1989",
+      "publisher": "U.S. Department of State, Office of the Historian (Milestones)",
+      "url": "https://history.state.gov/milestones/1989-1992/tiananmen-square"
+    }
+  ]
+}

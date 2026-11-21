@@ -1,0 +1,16 @@
+{
+  "id": "1989-05-14-rumor-tv-broadcast",
+  "date": "1989-05-14",
+  "place": "（遊戲內）天安門廣場營地",
+  "kind": "fiction",
+  "confidence": "uncertain",
+  "title": {
+    "zh": "傳言：「電視台今晚將現場直播廣場對話」",
+    "en": "Rumor: 'Television will broadcast the Square dialogue live tonight'"
+  },
+  "summary": {
+    "zh": "這是遊戲虛構的現場傳言，用來呈現資訊混亂與等待中的焦慮：現實中 5 月 14 日對話是否現場直播確曾引發激烈爭執且最終未能落實，玩家在廣場營地內只能聽見片斷耳語，當下無法核實真偽。",
+    "en": "A fictional camp rumor illustrating confusion and anxious waiting: in reality, disputes over live television coverage of the 14 May talks broke down, leaving people in the Square with conflicting fragments of news."
+  },
+  "sources": []
+}

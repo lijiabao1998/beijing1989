@@ -1,0 +1,683 @@
+{
+  "chapter": "ch-0427",
+  "title": "四月二十六日至二十七日　長街人潮",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "campus",
+  "clockStart": 1170,
+  "spawn": {
+    "campus": [0, 5],
+    "overpass": [-26, -3],
+    "march_day": [-30, -6]
+  },
+  "labels": {
+    "campus": "1989 年 4 月 26 日・夜・北大校園",
+    "overpass": "1989 年 4 月 27 日・午前・立交橋警戒線",
+    "march_day": "1989 年 4 月 27 日・午後・長安街沿線"
+  },
+  "transitions": {
+    "overpass": "四月二十七日清晨，各校學生沿學院路與白石橋徒步南下，天橋與路口聚集了大批圍觀市民……",
+    "march_day": "挽起手臂走過立交橋封鎖線後，寬闊的大道兩側擠滿了鼓掌與遞水的北京市民……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（陳立）",
+      "role": "北大物理系二年級學生",
+      "fictional": true
+    },
+    "zhou": {
+      "name": "老周",
+      "role": "室友，河北人",
+      "fictional": true
+    },
+    "lin": {
+      "name": "林小梅",
+      "role": "中文系同學",
+      "fictional": true
+    },
+    "picket": {
+      "name": "糾察隊隊長",
+      "role": "別系高年級學生，負責維持隊列秩序",
+      "fictional": true
+    },
+    "citizen": {
+      "name": "天橋上遞水的市民",
+      "role": "沿街聲援的北京居民",
+      "fictional": true
+    },
+    "rumor": {
+      "name": "騎車傳話的學生",
+      "role": "趕來匯合的別校學生",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王師傅",
+      "role": "北京第二機床廠車工",
+      "fictional": true
+    },
+    "stu2": {
+      "name": "外校女生",
+      "role": "四月時在廣場照面的外校學生",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "海淀報刊亭大爺",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "evidenceCatalog": {
+    "ev_0426_editorial_radio": {
+      "id": "ev_0426_editorial_radio",
+      "kind": "official_print",
+      "title": "《人民日報》四二六社論廣播抄錄",
+      "summary": "四月二十六日晚間中央電台提前播發次日《人民日報》頭版社論，將學生抗議定性為「動亂」。",
+      "sourceLabel": "中央廣播與次日《人民日報》",
+      "dayKey": "1989-04-27",
+      "chapterId": "ch-0427",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "route": "student",
+      "confidence": "documented",
+      "tags": ["0426社論", "官方刊載"]
+    },
+    "ev_0427_cordon_witness": {
+      "id": "ev_0427_cordon_witness",
+      "kind": "witness",
+      "title": "立交橋警戒線口親歷筆記",
+      "summary": "四月二十七日上午學生挽臂排隊走向警戒線，沿途多處警戒線在人潮壓力下未爆發衝突而讓開通路。",
+      "sourceLabel": "陳立隨身物理筆記本",
+      "dayKey": "1989-04-27",
+      "chapterId": "ch-0427",
+      "event": "1989-04-27-april27-march",
+      "route": "student",
+      "confidence": "testimony",
+      "tags": ["四二七遊行", "立交橋"]
+    },
+    "ev_0427_avenue_support": {
+      "id": "ev_0427_avenue_support",
+      "kind": "witness",
+      "title": "廠門口與天橋市民遞水紀錄",
+      "summary": "沿途職工與市民站在路邊與立交橋欄杆旁鼓掌遞水；不同來源對參與與圍觀人數估計自數萬至更龐大群眾不等。",
+      "sourceLabel": "陳立筆記本・王師傅口述",
+      "dayKey": "1989-04-27",
+      "chapterId": "ch-0427",
+      "event": "1989-04-27-april27-march",
+      "route": "student",
+      "confidence": "documented",
+      "tags": ["四二七遊行", "市民聲援"]
+    },
+    "ev_0427_gate_rumor": {
+      "id": "ev_0427_gate_rumor",
+      "kind": "rumor",
+      "title": "街頭聽聞：「今晚全城高校將封鎖校門不許返校」",
+      "summary": "遊行隊伍中途傳來的口耳消息，事後證實學生隊伍仍於當晚和平返回各自校園。",
+      "sourceLabel": "路邊騎車傳話者",
+      "dayKey": "1989-04-27",
+      "chapterId": "ch-0427",
+      "route": "student",
+      "confidence": "uncertain",
+      "tags": ["四二七遊行", "未經核實"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "pair_0427_march_corroborated",
+      "cards": ["ev_0427_cordon_witness", "ev_0427_avenue_support"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "立交橋警戒線親歷與長街沿線職工市民聲援紀錄在時間、路線與和平進退上彼此吻合。",
+      "diary": "把立交橋上看見的警戒線讓道與大道旁市民遞水的紀錄合在一起，兩邊所見一致。"
+    },
+    {
+      "id": "pair_0427_rumor_vs_march",
+      "cards": ["ev_0427_gate_rumor", "ev_0427_avenue_support"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "途中口耳相傳「校門封鎖不許返校」與當日和平遊行並於晚間返校的史料記載存在出入。",
+      "diary": "途中聽見封門傳言時心頭一緊，回頭對照實際返校經過，傳聞與事實並不相符。"
+    },
+    {
+      "id": "pair_0427_editorial_context",
+      "cards": ["ev_0426_editorial_radio", "ev_0427_cordon_witness"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "四二六社論的嚴厲定性正是隔日各校學生清晨上街遊行、市民沿街圍觀聲援的直接觸因。",
+      "diary": "昨晚廣播裡的社論字句與今晨各校匯上大道的人潮，前後脈絡清清楚楚。"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "c0427_zhou",
+      "scene": "campus",
+      "pos": [-6, 3],
+      "label": "老周與收音機",
+      "start": "c0427_zhou_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0427_board",
+      "scene": "campus",
+      "pos": [2, -4],
+      "label": "三角地布告欄",
+      "start": "c0427_board_1",
+      "kind": "inspect",
+      "autoHint": true
+    },
+    {
+      "id": "c0427_lin",
+      "scene": "campus",
+      "pos": [5, -2],
+      "label": "林小梅",
+      "start": "c0427_lin_1",
+      "npc": "red",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0427_gate",
+      "scene": "campus",
+      "pos": [0, -22],
+      "label": "西校門・清晨出發",
+      "start": "c0427_gate_1",
+      "kind": "portal",
+      "isExit": true,
+      "autoHint": true
+    },
+    {
+      "id": "c0427_cordon",
+      "scene": "overpass",
+      "pos": [-12, -4],
+      "label": "立交橋口・挽臂糾察隊",
+      "start": "c0427_cordon_1",
+      "npc": "navy",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0427_bridge",
+      "scene": "overpass",
+      "pos": [-4, -5],
+      "label": "天橋欄杆邊聲援市民",
+      "start": "c0427_bridge_1",
+      "npc": "red",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0427_rumor",
+      "scene": "overpass",
+      "pos": [24, -4],
+      "label": "騎車傳話的別校學生",
+      "start": "c0427_rumor_1",
+      "npc": "green",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0427_avenue",
+      "scene": "overpass",
+      "pos": [32, -5],
+      "label": "越過立交橋進長街",
+      "start": "c0427_avenue_1",
+      "kind": "portal",
+      "isExit": true,
+      "autoHint": true
+    },
+    {
+      "id": "c0427_workers",
+      "scene": "march_day",
+      "pos": [-14, -5],
+      "label": "路邊遞水的王師傅",
+      "start": "c0427_workers_1",
+      "npc": "blue",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0427_stu2",
+      "scene": "march_day",
+      "pos": [2, -6],
+      "label": "遊行隊伍裡的外校女生",
+      "start": "c0427_stu2_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0427_sun",
+      "scene": "march_day",
+      "pos": [-6, -3.5],
+      "label": "街邊報攤的孫大爺",
+      "start": "c0427_sun_1",
+      "npc": "grey",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0427_return",
+      "scene": "march_day",
+      "pos": [28, -8],
+      "label": "暮色折返海淀",
+      "start": "c0427_return_1",
+      "kind": "portal",
+      "isExit": true,
+      "autoHint": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 26 日，星期三，夜。晚間新聞聯播剛播完次日《人民日報》社論全文，整座三樓宿舍走廊一下子安靜得嚇人。廣播裡念出的「必須旗幟鮮明地反對動亂」幾個字，讓幾乎每個寢室都亮起燈，誰也沒法早睡。",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "variants": [
+        {
+          "requires": "ch1:end:together",
+          "text": "1989 年 4 月 26 日，夜。四月二十二日從西單並肩走回學校才過了四天，今晚電台卻突然提前播發次日《人民日報》社論全文。聽到「動亂」兩個字從收音機裡壓過來時，樓道裡好幾扇門同時「砰」地推開。"
+        },
+        {
+          "requires": "ch1:end:stayed",
+          "text": "1989 年 4 月 26 日，夜。自從大會堂台階下退回校園後，罷課與復課的爭論還沒停；今晚新聞廣播卻播出了《人民日報》社論全文，把這場學潮正式定性為「動亂」。整個宿舍樓頓時躁動起來。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "走下樓道，看看老周與同學們在聽什麼",
+          "diary": "4/26 夜。新聞聯播提前播了次日《人民日報》社論全文，將學潮定性為「動亂」，全樓一晚沒睡。",
+          "timeCost": 15,
+          "autoHint": true
+        }
+      ]
+    },
+    "c0427_zhou_1": {
+      "speaker": "zhou",
+      "text": "陳立，你聽見廣播裡那幾句話了吧？系裡幾個高年級學生剛剛串宿舍，說明天一早各校要上街抗議社論定性。這回跟四月十七、二十一號不一樣，上面話說得這麼硬，我心裡直打鼓。",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "variants": [
+        {
+          "requires": "rel:zhou>=1",
+          "text": "陳立，收音機我又倒回去聽了一遍，字字都挺沉。明天真要上街的話，咱們得提前說好：遇上路口堵截千萬別動手，也把學生證和一隻軍用水壺帶在身上。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "記下廣播播出的社論關鍵句，收好老周遞來的軍用水壺",
+          "item": "canteen",
+          "keepsake": "canteen",
+          "evidence": "ev_0426_editorial_radio",
+          "rel": { "zhou": 1 },
+          "set": "c0427_heard_radio",
+          "diary": "老周替我灌滿了軍用水壺，說明天若上街一定守住和平、別起衝突。",
+          "timeCost": 20,
+          "autoHint": true,
+          "next": "c0427_zhou_2"
+        },
+        {
+          "text": "問老周明日是不是所有高校都會一早出動",
+          "timeCost": 15,
+          "next": "c0427_zhou_3"
+        }
+      ]
+    },
+    "c0427_zhou_2": {
+      "speaker": "zhou",
+      "text": "我今晚把宿舍鎖和電話看住，明天你在路上跟著整齊隊列走，別單獨往偏僻巷子鑽。",
+      "choices": [
+        {
+          "text": "記住了，老周",
+          "autoHint": true
+        }
+      ]
+    },
+    "c0427_zhou_3": {
+      "speaker": "zhou",
+      "text": "剛才清華、人大和北師大那邊都有騎車過來聯絡的人。大家心裡都憋著一口氣，非要走一趟街面把「不是動亂」這句話講清楚不可。",
+      "choices": [
+        {
+          "text": "我這就去布告欄再看一眼通知"
+        }
+      ]
+    },
+    "c0427_board_1": {
+      "speaker": "narr",
+      "text": "手電筒光柱一束束晃在三角地木框布告欄上。新貼的幾張白報紙墨跡還沒乾透，寫著「我們不是動亂」「維護憲法・和平請願」，旁邊有人抄錄了社論原文逐段批註，也寫明「嚴禁過激口號，一律挽臂同行」。",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "choices": [
+        {
+          "text": "抄下「和平請願・挽臂同行」的遊行守則夾進筆記本",
+          "keepsake": "notebook",
+          "set": "c0427_copied_rules",
+          "diary": "三角地連夜貼滿抗議「四二六社論」的紙條，字裡行間反覆叮囑保持和平克制。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "記住明早集合時間，退回人群外圍",
+          "timeCost": 10
+        }
+      ]
+    },
+    "c0427_lin_1": {
+      "speaker": "lin",
+      "text": "陳立！我們中文系連夜畫了兩條白布橫幅，大家還說好了明天都穿著平常乾淨衣裳、不戴蒙臉布、不喊過火詞句。好多同學臨睡前給家裡寫了封簡短的信壓在枕頭底下，誰也不知道明天路口到底放不放行。",
+      "variants": [
+        {
+          "requires": "rel:lin>=1",
+          "text": "陳立，還好遇見你。四月二十二號那天我們已經體會過什麼叫通宵走長街了，今晚聽完社論廣播，系裡反倒安靜下來——大家都明白明天那道門檻只會更難跨。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "幫她把捲好的白布橫幅綁在竹竿上，約好明早校門集合",
+          "rel": { "lin": 1 },
+          "set": "c0427_helped_lin",
+          "diary": "夜裡幫林小梅綁好明天遊行的橫幅竹竿。有人在燈下默默給家裡寫信，空氣凝重而克制。",
+          "timeCost": 20,
+          "autoHint": true,
+          "next": "c0427_lin_2"
+        },
+        {
+          "text": "問她聽說多少學校明早要一起走",
+          "timeCost": 15,
+          "next": "c0427_lin_3"
+        }
+      ]
+    },
+    "c0427_lin_2": {
+      "speaker": "lin",
+      "text": "睡兩個鐘頭吧，明早六點半西校門外頭匯合。",
+      "choices": [
+        {
+          "text": "好，天亮見",
+          "autoHint": true
+        }
+      ]
+    },
+    "c0427_lin_3": {
+      "speaker": "lin",
+      "text": "聽說幾十所高校都通了消息，分幾路往城裡匯合。人越多越得靠糾察線穩住秩序。",
+      "choices": [
+        {
+          "text": "明天路上彼此照應"
+        }
+      ]
+    },
+    "c0427_gate_1": {
+      "speaker": "narr",
+      "text": "四月二十七日清晨，天空藍得乾淨。西校門外站滿了各系學生，白楊樹葉被春風吹得沙沙作響。前面已經傳出隊伍在幾道大路口遇上警戒線的消息。",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "背上書包跟著系裡隊伍出校門，往城裡進發",
+          "goto": "overpass",
+          "timeCost": 45,
+          "autoHint": true
+        },
+        {
+          "text": "再回頭看一眼宿舍窗口"
+        }
+      ]
+    },
+    "c0427_cordon_1": {
+      "speaker": "picket",
+      "text": "後排同學把手臂挽緊！前面立交橋底下排了兩排警戒線，大家不許推擠、不許喊罵，就唱著歌穩穩往前挪。你看——兩旁樓房窗口跟橋上站滿了老百姓看著咱們呢！",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "挽緊左右同學的胳膊，跟著節拍平穩穿過緩緩讓開的警戒線",
+          "evidence": "ev_0427_cordon_witness",
+          "set": "c0427_linked_cordon",
+          "rel": { "picket": 1 },
+          "diary": "4/27 上午，立交橋前大家手挽著手往前走。警戒線在人潮與街坊圍觀下慢慢讓出空隙，沒有動手。",
+          "timeCost": 35,
+          "autoHint": true,
+          "next": "c0427_cordon_2"
+        },
+        {
+          "text": "站在隊列外側幫糾察維持整齊行距",
+          "evidence": "ev_0427_cordon_witness",
+          "set": "c0427_linked_cordon",
+          "timeCost": 30,
+          "next": "c0427_cordon_2"
+        }
+      ]
+    },
+    "c0427_cordon_2": {
+      "speaker": "picket",
+      "text": "前面的人都過去了！維持住隊形，別踩進綠化帶！",
+      "choices": [
+        {
+          "text": "繼續跟緊隊伍前進",
+          "autoHint": true
+        }
+      ]
+    },
+    "c0427_bridge_1": {
+      "speaker": "citizen",
+      "text": "孩子們加油啊！我們早就在立交橋上等著啦——這兩提北冰洋汽水和幾個麵包，接穩了！昨晚聽完廣播我們整院街坊都氣不過，你們和平走路講道理，老百姓心裡明白！",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "雙手接過市民從橋邊遞來的汽水和麵包，抬頭朝欄杆上大聲道謝",
+          "evidence": "ev_0427_avenue_support",
+          "set": "c0427_cheered_bridge",
+          "rel": { "citizen": 1 },
+          "diary": "立交橋上站滿拍手的北京居民，有人順著欄杆遞下汽水與麵包。那一刻覺得整條街都在托著我們往前走。",
+          "timeCost": 25,
+          "autoHint": true,
+          "next": "c0427_bridge_2"
+        },
+        {
+          "text": "揮手致意後把汽水遞給後面嗓子冒煙的女生",
+          "evidence": "ev_0427_avenue_support",
+          "set": "c0427_cheered_bridge",
+          "timeCost": 20,
+          "next": "c0427_bridge_2"
+        }
+      ]
+    },
+    "c0427_bridge_2": {
+      "speaker": "citizen",
+      "text": "太陽高起來了，別跑太急，喝口水慢慢走，傍晚記得平平安安回學校！",
+      "choices": [
+        {
+          "text": "謝謝大爺大媽！",
+          "autoHint": true
+        }
+      ]
+    },
+    "c0427_rumor_1": {
+      "speaker": "rumor",
+      "text": "前頭打聽消息的人說，好幾所大學校門已經上鎖了，今晚恐怕不讓遊行學生回宿舍！也不知誰在車隊後頭喊起來的。",
+      "choices": [
+        {
+          "text": "把這傳聞標上問號記進筆記，等傍晚回校親自確認",
+          "evidence": "ev_0427_gate_rumor",
+          "set": "c0427_noted_rumor",
+          "diary": "中途有人騎車傳話說今晚各校要鎖門不許返校，隊伍裡有人緊張起來，不知真假。",
+          "timeCost": 15,
+          "autoHint": true
+        },
+        {
+          "text": "勸周圍同學別慌，先看緊前後隊友",
+          "timeCost": 10
+        }
+      ]
+    },
+    "c0427_avenue_1": {
+      "speaker": "narr",
+      "text": "幾道警戒線陸續在人流與歡呼聲中化開。午后陽光照在長安街沿線的楊樹梢頭，各校橫幅連成一片，街兩邊人行道上擠滿了拍手喝彩的工人與市民。",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "跟著旗幟與人潮走上寬闊的大道",
+          "goto": "march_day",
+          "timeCost": 45,
+          "autoHint": true
+        },
+        {
+          "text": "在橋坡口等後面同學匯齊"
+        }
+      ]
+    },
+    "c0427_workers_1": {
+      "speaker": "wang",
+      "text": "同學們辛苦了！歇口氣喝碗涼白開吧——這是我們廠門口班組剛燒晾好的水！從早上九點到現在，這條路上的隊伍走了幾個鐘頭也沒斷過，看著都叫人提氣！",
+      "event": "1989-04-27-april27-march",
+      "variants": [
+        {
+          "requires": "rel:wang>=1",
+          "text": "哎，那不是北大那個戴眼鏡的小陳嗎！四月十七、二十二夜裡見過兩回，今兒白天大街上又撞著了！來來，這一大壺涼白開先灌進你那軍用水壺裡！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "接過王師傅舀來的涼白開喝了一口，也替旁邊同學道謝",
+          "set": "c0427_worker_water",
+          "rel": { "wang": 1 },
+          "diary": "在沿街廠門口遇到王師傅和一群工人師傅擺出大桶涼白開給學生解渴，兩邊路人不停鼓掌。",
+          "timeCost": 25,
+          "autoHint": true,
+          "next": "c0427_workers_2"
+        },
+        {
+          "text": "問問王師傅廠裡師傅們對四二六社論怎麼看",
+          "timeCost": 20,
+          "next": "c0427_workers_3"
+        }
+      ]
+    },
+    "c0427_workers_2": {
+      "speaker": "wang",
+      "text": "走一整天腿腳該酸了，隊伍若傍晚往回撤，打我們廠門口過時水桶還留著給你們墊底。",
+      "choices": [
+        {
+          "text": "謝謝王師傅",
+          "autoHint": true
+        }
+      ]
+    },
+    "c0427_workers_3": {
+      "speaker": "wang",
+      "text": "誰家孩子不是認真唸書的？把大家都說成「動亂」，老百姓聽著都不順耳。只是別忘了見好就收、平平安安回校。",
+      "choices": [
+        {
+          "text": "明白，我們走完這段就會整隊回校"
+        }
+      ]
+    },
+    "c0427_stu2_1": {
+      "speaker": "stu2",
+      "text": "陳立！我們校的隊伍在前面匯進來了！今兒到底來了多少人啊？剛才旁邊有人說五萬，有人說十萬學生加上沿街群眾怕有幾十萬呢，根本數不過來！",
+      "event": "1989-04-27-april27-march",
+      "variants": [
+        {
+          "requires": "rel:stu2>=1",
+          "text": "四月二十二號那天清晨在台階邊分過一壺水，沒想到今天大太陽底下全北京的人都出來了！你看馬路對面樓頂上都有人揮毛巾呢。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "把水壺裡的涼白開分她半蓋，記下今天一路和平走過的經歷",
+          "rel": { "stu2": 1 },
+          "diary": "人海裡又遇見那位外校女生。今天到底走了幾萬或十多萬人沒人算得清，只知道一路沒有衝突，天黑前開始分隊返校。",
+          "timeCost": 20,
+          "autoHint": true,
+          "next": "c0427_stu2_2"
+        },
+        {
+          "text": "問她大家傍晚打算從哪條路走回校園",
+          "timeCost": 15,
+          "next": "c0427_stu2_2"
+        }
+      ]
+    },
+    "c0427_stu2_2": {
+      "speaker": "stu2",
+      "text": "糾察說走完長安街就不久留了，咱們天黑前回學校。聽說好多人連夜沒睡，回去得趕緊歇著。",
+      "choices": [
+        {
+          "text": "嗯，平平安安回校最要緊",
+          "autoHint": true
+        }
+      ]
+    },
+    "c0427_sun_1": {
+      "speaker": "sun",
+      "text": "小伙子走一天啦？報亭旁邊這幾位街坊剛才都在說，今天遊行這麼平和又齊整，估計月底上面很快就要找學生代表坐下來談談了！這回可真是走出了大家心裡的口氣。",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "買一份當日《人民日報》夾在筆記本裡作對照，謝謝孫大爺",
+          "keepsake": "四二六社論印本與四二七紀事",
+          "rel": { "sun": 1 },
+          "diary": "向孫大爺買了印著四二六社論的報紙夾進筆記本。白紙黑字寫著「動亂」，大道上卻全是送水與鼓掌的市民。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "向孫大爺問問今早報紙銷量和平時一樣嗎",
+          "timeCost": 10
+        }
+      ]
+    },
+    "c0427_return_1": {
+      "speaker": "narr",
+      "text": "夕陽把長安街邊的行道樹拉出長長的影子。各高校隊伍依序朝西返校，沿途仍有市民鼓掌目送；至於白天途中有傳言說「校門已鎖」，走到海淀街口遠遠望去，西校門的紅燈與歡迎隊伍的同學正等在門邊。這天結束時，你記得最深的是什麼？",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "想起立交橋前大家挽緊手臂、警戒線緩緩讓開的那一刻",
+          "requires": "c0427_linked_cordon",
+          "diary": "4/27 夜回校。立交橋下挽著手臂往前走時那份克制與互相支撐，大概很久都不會忘。",
+          "autoHint": true,
+          "end": "linked_arms"
+        },
+        {
+          "text": "想起立交橋欄杆上垂下來的一瓶冰涼汽水與市民喊加油的聲音",
+          "requires": "c0427_cheered_bridge",
+          "diary": "4/27 夜回校。記得橋上街坊遞下來的汽水和麵包。",
+          "end": "overpass_cheers"
+        },
+        {
+          "text": "想起王師傅在廠門口舀來的一碗涼白開，和街邊無數普通的臉孔",
+          "requires": "c0427_worker_water",
+          "diary": "4/27 夜回校。街邊工廠門口那一桶桶涼白開，比任何標語都更實在。",
+          "end": "shared_avenue_water"
+        },
+        {
+          "text": "跟著隊伍和平走回西校門，趁夜色回三樓宿舍泡一壺熱茶",
+          "diary": "4/27 晚間各校和平返校，先前聽見的鎖門傳言並未發生。",
+          "autoHint": true,
+          "end": "peaceful_return"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "linked_arms": {
+      "title": "挽臂過橋",
+      "text": "回到宿舍脫下滿是灰塵的球鞋時，肩膀和胳膊肘還隱隱作酸。那一整天沒有一塊磚頭被丟出去，無數素不相識的人在立交橋與長街上看見了彼此的克制。"
+    },
+    "overpass_cheers": {
+      "title": "橋上的汽水瓶",
+      "text": "書包裡還剩半塊沒吃完的甜麵包，是立交橋上素昧平生的住戶塞進手裡的。昨晚收音機裡那股讓人喘不過氣的寒意，在午后的大太陽底下暫時散開了。"
+    },
+    "shared_avenue_water": {
+      "title": "廠門口的涼白開",
+      "text": "軍用水壺裡還留著半壺從王師傅廠門口灌來的涼白開。走出校園才真切知道，北京大街上的普通工人與市民也在聽同一場廣播、想同一件事。"
+    },
+    "peaceful_return": {
+      "title": "和平返校",
+      "text": "晚間十點前各校隊伍陸續走回海淀校門，走廊裡傳來開水瓶相碰的清脆響聲。四月二十七日就這樣和平地落了幕，大家都盼著月底即將展開的對話。"
+    }
+  },
+  "epilogue": "1989 年 4 月 27 日，為回應《人民日報》「四二六社論」定性，北京數萬至十萬名以上大學生上街遊行，越過多道警方警戒線並在大量市民聲援下於當晚和平返校，當局隨後於月底展開初步對話接觸。下一階段：五月四日。",
+  "epilogueEvent": "1989-04-27-april27-march"
+}

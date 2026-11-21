@@ -1,0 +1,417 @@
+{
+  "chapter": "r-0603",
+  "title": "第六章　六月三日夜至五日，留著門燈（尾聲）",
+  "note": "所有說話角色皆為虛構。依設計文件以敘事與尾聲處理六月三日至四日之夜，不做成對抗關卡；絕不編造醫院收治與傷亡數字，不同公開來源之記載差異見史料條目。All characters are fictional.",
+  "startScene": "siheyuan_room",
+  "clockStart": 1120,
+  "spawn": {
+    "siheyuan_room": [0, 2.5],
+    "courtyard": [0, 3],
+    "morning_market": [-12, -3]
+  },
+  "labels": {
+    "siheyuan_room": "1989 年 6 月 3 日・傍晚・西單四合院正房",
+    "courtyard": "1989 年 6 月 3 日深夜至 4 日黎明・大雜院門燈下",
+    "morning_market": "1989 年 6 月 5 日・清晨・掃淨的胡同與糧店門口"
+  },
+  "transitions": {
+    "courtyard": "你擰小桌上電台音量，拎著保溫壺與無菌紗布走出正房，在門燈下把紅漆大門的插銷推開……",
+    "morning_market": "六月四日的長夜與黎明過去了。六月五日一早，你拎起大掃帚走到巷口，把落了一地的槐花掃成整齊的一堆……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（沈淑芬）",
+      "role": "53歲，西單四合院居民、退休紡織廠醫務室護師",
+      "fictional": true
+    },
+    "xiaojun": {
+      "name": "小軍",
+      "role": "18歲技校學生，沈淑芬的外甥",
+      "fictional": true
+    },
+    "zhangye": {
+      "name": "張大爺",
+      "role": "西單大雜院裡的長輩老鄰居",
+      "fictional": true
+    },
+    "wangjie": {
+      "name": "王姐",
+      "role": "胡同口國營糧油副食店營業員",
+      "fictional": true
+    },
+    "hongmen": {
+      "name": "紅門院大媽",
+      "role": "住在海淀胡同紅門院裡的親戚",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "r8_room_radio",
+      "scene": "siheyuan_room",
+      "pos": [2.6, 2.4],
+      "label": "桌上收音機與藥箱・六月三日緊急通告",
+      "start": "r8_radio_1",
+      "kind": "inspect",
+      "autoHint": true
+    },
+    {
+      "id": "r8_room_door",
+      "scene": "siheyuan_room",
+      "pos": [-1.6, -2.8],
+      "label": "出屋守住紅漆院門門燈",
+      "start": "r8_door_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "r8_courtyard_gate",
+      "scene": "courtyard",
+      "pos": [0, -10],
+      "label": "門燈下・與張大爺等小軍回來",
+      "start": "r8_gate_1",
+      "npc": "green",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "r8_courtyard_exit",
+      "scene": "courtyard",
+      "pos": [0, -14],
+      "label": "六月五日清晨・出紅門掃巷口",
+      "start": "r8_exit_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "r8_swept_alley",
+      "scene": "morning_market",
+      "pos": [-15.0, 0.2],
+      "label": "掃淨的巷口糧店・王姐與紅門院大媽",
+      "start": "r8_alley_1",
+      "npc": "red",
+      "kind": "dialogue"
+    },
+    {
+      "id": "r8_chronicle_end",
+      "scene": "morning_market",
+      "pos": [14.5, 3.0],
+      "label": "槐樹胡同口・收起這個春天的帳本與門燈",
+      "start": "r8_end_1",
+      "kind": "checkpoint",
+      "autoHint": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 6 月 3 日，星期六，傍晚六點四十分。窗外的天色剛暗下來，屋裡桌上的收音機與街口高音喇叭便反覆一遍遍播送起緊急通告，要求全體市民切勿上街、遠離天安門廣場、留在家中以策安全。可小軍下午騎車去同學那兒取實習工具，這會兒還沒進院門。",
+      "event": "1989-06-03-emergency-notice",
+      "variants": [
+        {
+          "requires": "r7_advised_xiaojun",
+          "text": "1989 年 6 月 3 日，傍晚。前幾天小軍一直聽話在家裡畫實習圖紙，今天下午出門還說天黑前準時回來。可剛過六點半，收音機與電視裡一遍又一遍重播著「切勿上街」的緊急通告，院裡人都把木門插銷拉上了，你的心一下子懸到嗓子眼。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "先守在桌旁聽清電台通告，把醫務室紗布盒和保溫水壺備在門邊",
+          "diary": "6/3 傍晚。廣播反覆播送緊急通告要求市民留在家中。我在等小軍安全進門。",
+          "autoHint": true
+        }
+      ]
+    },
+    "r8_radio_1": {
+      "speaker": "narr",
+      "text": "電台每隔幾分鐘就重播一遍通告的字句，其間只剩單調的間奏聲。桌角整齊壓著這七週寫下的短波抄本、市鎮糧油副食本，還有一包未拆封的無菌紗布與碘伏棉球。",
+      "event": "1989-06-03-emergency-notice",
+      "choices": [
+        {
+          "text": "把醫務室紗布包和糧油本、筆記本一併收妥在桌邊籃子裡，把暖壺灌滿溫水",
+          "keepsake": "clinic_kit",
+          "item": "clinic_kit",
+          "set": "r8_heard_notice",
+          "evidence": "r8_ev_emergency_notice",
+          "timeCost": 30,
+          "diary": "6/3 晚。記下電台緊急通告的播送時間，備妥無菌紗布與溫開水，準備開著院裡的門燈。",
+          "next": "r8_radio_2",
+          "autoHint": true
+        },
+        {
+          "text": "在短波頻率抄本末頁工整寫下「六月三日傍晚緊急通告」，連同七週的紙條放進木匣",
+          "keepsake": "shortwave_notes",
+          "set": "r8_ledger_kept",
+          "evidence": "r8_ev_emergency_notice",
+          "timeCost": 25,
+          "diary": "6/3 晚。把四月十七日以來積攢的廣播抄本與紙條收進木匣，一筆一劃都不含糊。",
+          "next": "r8_radio_3"
+        }
+      ]
+    },
+    "r8_radio_2": {
+      "speaker": "narr",
+      "text": "你又擰亮走廊外頭那盞積了灰的防風燈——這麼暗的夜裡，少一扇落栓的門，過路的孩子和自家外甥就能少走一截冤枉夜路。",
+      "choices": [
+        {
+          "text": "提上開水壺出正房門"
+        }
+      ]
+    },
+    "r8_radio_3": {
+      "speaker": "narr",
+      "text": "木匣蓋合上時發出輕輕一聲響。當過半輩子護師，最要緊的就是在人心慌的時候把手頭物件歸置整齊。",
+      "choices": [
+        {
+          "text": "拎起紗布兜出屋看院門"
+        }
+      ]
+    },
+    "r8_door_1": {
+      "speaker": "narr",
+      "text": "推開正房木門，四合院裡的幾戶街坊都已熄了外窗燈，只有屋簷底下那盞黃燈泡照著青磚台階。胡同外頭偶爾掠過急促的腳步或自行車鈴聲。",
+      "choices": [
+        {
+          "text": "走到大雜院紅漆大門前，與張大爺一塊兒留著門燈守候",
+          "goto": "courtyard",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "回頭再看一眼正房桌上的收音機"
+        }
+      ]
+    },
+    "r8_gate_1": {
+      "speaker": "xiaojun",
+      "text": "老姨！大門果然沒落栓……剛才西邊大馬路那頭亂糟糟的，好多騎車的人喊著前面封路了往回撤，我一路繞著黑漆漆的岔胡同推車往回走，遠遠看見咱院門燈還亮著，這才摸進來……",
+      "event": "1989-06-04-square-clearing",
+      "variants": [
+        {
+          "requires": "world:xr:curfew_lane_guarded",
+          "text": "老姨！還好您跟張大爺開著門燈——十一點多我剛從海淀那頭騎出來想走近路回家，在胡同口撞見機床廠的王建國王師傅和紅門院大媽！王師傅死死抓住我車把不讓我往南邊大路拐，硬是塞給我半壺溫水，讓我看準院門燈貼著北邊小胡同繞回來！"
+        },
+        {
+          "requires": "world:xr:curfew_hospital_warned",
+          "text": "老姨！別嚇著，我好好的沒受傷——半道上碰見顧明遠記者那頭從醫院外廊捎話回來的熟人，一再喊著叫騎車的年輕人千萬別靠近西長安街與木樨地幹道！我一聽就掉頭貼著北邊小巷繞回來了。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "把紅門虛掩著不上大栓、門燈整夜開到天明，先倒碗溫開水給小軍壓驚並擦洗蹭破的手背",
+          "set": "r8_gate_kept_open",
+          "rel": { "xiaojun": 1 },
+          "evidence": "r8_ev_dawn_accounts",
+          "timeCost": 60,
+          "diary": "6/3 深夜至 6/4 黎明。我們整夜沒落紅門大栓、留著門燈。小軍平平安安繞小巷回到院裡，外頭遠處的動靜誰也看不見全貌。",
+          "next": "r8_gate_2",
+          "autoHint": true
+        },
+        {
+          "text": "拉小軍進屋歇著，再與張大爺挨戶確認院裡幾家老人全都安穩無恙",
+          "set": "r8_ledger_kept",
+          "rel": { "zhangye": 1, "grandpa_zhang": 1, "xiaojun": 1 },
+          "evidence": "r8_ev_dawn_accounts",
+          "timeCost": 60,
+          "diary": "6/3 深夜至 6/4 黎明。確認全院老小和小軍都在屋裡平平安安，挨著窗聽收音機等到天色泛白。",
+          "next": "r8_gate_2"
+        }
+      ]
+    },
+    "r8_gate_2": {
+      "speaker": "zhangye",
+      "text": "回來就好、回來就好……六月四號這天亮透以後，收音機與口頭傳來的消息零零碎碎：戒嚴部隊深夜推進並於清晨完成廣場清場，留守學生於天明前撤離；至於那一夜究竟有多少傷亡，各處公開說法之間至今相差極大。咱們小院能做的，就是人都在、心不散，安靜等外頭恢復常態。",
+      "event": "1989-06-04-square-clearing",
+      "variants": [
+        {
+          "requires": "world:xr:curfew_hospital_warned",
+          "text": "人平安歸院勝過一切！昨晚不光是小軍，胡同裡另外兩個小伙子也聽見了醫院和新聞界熟人繞道捎來的避險提醒，沒往主幹道上撞。外頭那一夜各方記載出入極大，咱們院裡這幾口人平安，已是莫大的萬幸。"
+        },
+        {
+          "requires": "world:xr:curfew_lane_guarded",
+          "text": "多虧王師傅和紅門院大媽在海淀那邊把住胡同口！這兩天外頭公車都停了，關於那一夜的經過和傷亡數目，公開來源之間說法相去甚遠；咱們老百姓只願身邊叫得出名字的都平平安安。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "點點頭，陪著張大爺和小軍坐在門廊下直到天色徹底亮起來",
+          "set": "r8_gate_kept_open"
+        }
+      ]
+    },
+    "r8_exit_1": {
+      "speaker": "narr",
+      "text": "又過了一晝夜。到了六月五日清晨，胡同深處靜得出奇，遠處偶爾傳來幾聲車鈴。院門外落了一層昨晚被風吹落的槐花和紙屑，該出去把巷口掃乾淨、看看糧店和老鄰居怎樣了。",
+      "choices": [
+        {
+          "text": "拿起大竹掃帚，走出四合院紅門去掃胡同",
+          "goto": "morning_market",
+          "timeCost": 30,
+          "autoHint": true
+        },
+        {
+          "text": "再回頭看一眼院裡的燈"
+        }
+      ]
+    },
+    "r8_alley_1": {
+      "speaker": "wangjie",
+      "text": "淑芬姐早啊……您看這條巷子讓您掃得真乾淨。這兩天市內公車大多還停著，街面冷清清的，可咱們糧店早上還是拉開半扇捲閘門——越是這種時候，幾位行動不便的獨居老人越不能斷了麵粉和鹽。對了，紅門院的大媽剛一早走過半個城過來看你們呢！",
+      "event": "1989-06-05-workplace-aftermath",
+      "choices": [
+        {
+          "text": "幫王姐把預留給獨居老人的兩份米麵和鹽分裝妥當，又接住走過來的紅門院大媽",
+          "set": "r8_shared_provisions",
+          "rel": { "wangjie": 1, "wang_clerk": 1, "hongmen": 1, "hongmen_auntie": 1 },
+          "evidence": "r8_ev_morning_alley",
+          "timeCost": 20,
+          "diary": "6/5 清晨。掃淨巷口槐花，幫王姐把留給獨居老人的米麵分裝妥當；紅門院大媽一早步行來報平安，說海淀那頭熟人都好好的。",
+          "next": "r8_alley_2",
+          "autoHint": true
+        },
+        {
+          "text": "聽紅門院大媽講講海淀巷口與王師傅這兩天互相照應的情況，一一記在筆記頁尾",
+          "set": "r8_ledger_kept",
+          "rel": { "hongmen": 1, "hongmen_auntie": 1 },
+          "evidence": "r8_ev_morning_alley",
+          "timeCost": 20,
+          "next": "r8_alley_3"
+        }
+      ]
+    },
+    "r8_alley_2": {
+      "speaker": "hongmen",
+      "text": "淑芬啊，見著你跟小軍、張大爺全好好站在陽光底下，我這顆懸了兩天的心總算落下來了！我們那邊胡同口跟機床廠王師傅、北大小陳都互相問過安，沒事兒——日子還長著呢，咱們把院子掃亮堂了，一頓一頓好好吃飯。",
+      "choices": [
+        {
+          "text": "謝謝大媽走這麼遠來報信，進門喝碗剛熬好的小米粥"
+        }
+      ]
+    },
+    "r8_alley_3": {
+      "speaker": "hongmen",
+      "text": "王師傅今兒一早也回機床廠一車間點卯去了，大家都彼此照應著。咱們這幾家平平安安迎來天亮，已經比什麼都強。",
+      "choices": [
+        {
+          "text": "嗯，大家都保重"
+        }
+      ]
+    },
+    "r8_end_1": {
+      "speaker": "narr",
+      "text": "六月五日上午的日光柔和地落在掃淨的胡同磚地上。從四月十七日晚上提著菜籃走進副食店開始，七個星期轉眼走過。不同公開來源對這場春天尤其六月三日至四日之夜的記載至今各有差異；而屬於你這位西城普通護師的春天，最後定格在哪一個畫面裡？",
+      "event": "1989-06-04-square-clearing",
+      "choices": [
+        {
+          "text": "回頭望著那扇六月三日夜裡始終不落栓、亮著門燈的紅漆院門",
+          "requires": "r8_gate_kept_open",
+          "diary": "守住一盞不滅的門燈與一扇沒上栓的門，讓小軍與街坊都在長夜裡平安回家。",
+          "end": "red_gate_open"
+        },
+        {
+          "text": "把醫務室藥箱、短波抄本與七週來核對過的筆記妥善放回木匣",
+          "requires": "r8_ledger_kept",
+          "diary": "收好紗布盒與短波筆記本。在真假傳言翻湧的日子裡，分清「親眼所見」與「聽人說起」，是普通人守住清醒的方式。",
+          "end": "clinic_ledger"
+        },
+        {
+          "text": "拎起剛替院裡老人分好的兩袋白麵，與王姐、紅門院大媽互道一聲「保重」",
+          "requires": "r8_shared_provisions",
+          "diary": "沒有轟轟烈烈的壯舉，只是一碗水、一籠饅頭、兩袋按時送到的白麵，撐過了整個春天。",
+          "end": "shared_grain"
+        },
+        {
+          "text": "把大竹掃帚靠回槐樹牆根，聽見巷口慢慢響起熟悉的自行車鈴聲",
+          "diary": "1989 年 6 月 5 日清晨。胡同掃淨了，生活在一片安靜裡一寸一寸往前接續。",
+          "end": "quiet_alley"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "red_gate_open": {
+      "title": "不落栓的紅漆門",
+      "text": "六月三日夜裡那盞多留了一宿的走廊門燈，沒有寫進任何報紙與檔案，卻實實在在照亮了小軍繞進胡同時最後三十步路。院門裡外這幾口人都平平安安地迎來了六月清晨。"
+    },
+    "clinic_ledger": {
+      "title": "醫務室藥箱與對照本",
+      "text": "白鐵藥盒裡還留著最後兩捲備用紗布，旁邊壓著你用鋼筆分兩欄抄寫的電台紀錄與報刊剪角。大歷史的種種數字與爭論交由史冊並陳；這本小本子記住的，是一位護師七個星期裡的冷靜與分寸。"
+    },
+    "shared_grain": {
+      "title": "巷口分糧與熱水缸",
+      "text": "早上從糧店扛回的富強粉整齊擺在張大爺屋簷下，大紅暖壺與無菌紗布的故事也在街坊口中輕輕落定。七週風雨裡，胡同百姓靠著這點柴米油鹽的體己，各自護住了身邊的人。"
+    },
+    "quiet_alley": {
+      "title": "掃淨的槐花巷",
+      "text": "晨風把最後幾片槐花吹到牆角。遠處街道依舊冷清，偶爾有騎車人無聲掠過；你把掃帚倚回牆根，轉身進院燒水做早飯——對普通北京居民來說，活著迎來平常的一天，本身就是春天之後的答案。"
+    }
+  },
+  "epilogue": "全章完（市民視角）。1989 年 6 月 3 日夜至 4 日清晨，戒嚴部隊進駐並完成廣場清場；關於傷亡與經過，不同公開來源記載差異極大（見史料條目）。在無法改寫的歷史進程裡，一位退休護師守住的，是一盞門燈、幾捲無菌紗布、一冊核實的筆記，與整個院子的平安。",
+  "epilogueEvent": "1989-06-04-square-clearing",
+  "evidenceCatalog": {
+    "r8_ev_emergency_notice": {
+      "id": "r8_ev_emergency_notice",
+      "kind": "official_print",
+      "title": "六月三日傍晚緊急通告廣播紀錄",
+      "summary": "1989 年 6 月 3 日傍晚六時許起，電台與電視台反覆播送緊急通告，要求全體市民切勿上街、遠離廣場並留在家中。",
+      "sourceLabel": "電台廣播實錄",
+      "dayKey": "1989-06-03",
+      "chapterId": "r-0603",
+      "event": "1989-06-03-emergency-notice",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0603", "通告"]
+    },
+    "r8_ev_dawn_accounts": {
+      "id": "r8_ev_dawn_accounts",
+      "kind": "witness",
+      "title": "六月四日清晨清場與各說法差異筆記",
+      "summary": "記錄六月三日夜至四日清晨部隊推進與廣場清場後之實況與各自歸家見聞；不同公開資料對傷亡人數記載差異極大，不作私下臆測。",
+      "sourceLabel": "胡同守夜與公開史料",
+      "dayKey": "1989-06-04",
+      "chapterId": "r-0603",
+      "event": "1989-06-04-square-clearing",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0604", "史料差異"]
+    },
+    "r8_ev_morning_alley": {
+      "id": "r8_ev_morning_alley",
+      "kind": "witness",
+      "title": "六月五日清晨胡同糧店與街坊互報平安",
+      "summary": "公車大多停擺、街市冷清之際，胡同糧店照常照應獨居長者，鄰里與海淀親友相互確認各自平安。",
+      "sourceLabel": "沈淑芬・6/05 早晨筆記",
+      "dayKey": "1989-06-05",
+      "chapterId": "r-0603",
+      "event": "1989-06-05-workplace-aftermath",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0605", "街坊互助"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "r8_pair_notice_clearing",
+      "cards": ["r8_ev_emergency_notice", "r8_ev_dawn_accounts"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "六月三日傍晚緊急通告的播送時點，與當夜部隊推進至四日清晨完成清場的公開時間線完全銜接。",
+      "diary": "兩份時間線完全對上：從六點半的反覆通告到天明前清場消息，胡同裡一整夜沒有闔眼。",
+      "set": "r8_dossier_timeline"
+    },
+    {
+      "id": "r8_pair_clearing_alley",
+      "cards": ["r8_ev_dawn_accounts", "r8_ev_morning_alley"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "六月四日清晨過後的交通停擺與市面冷清，與六月五日早市巷口公車未復、街坊徒步互報平安的情況一致。",
+      "diary": "記錄互相吻合：大局動盪之後，生活首先靠鄰里互問平安和腳踏實地的米麵重新接上。",
+      "set": "r8_dossier_aftermath"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "1989-05-20-citizens-block-convoys",
+  "date": "1989-05-20",
+  "place": "北京各主要路口（六里橋、呼家樓等）",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "北京市民在六里橋、呼家樓等路口攔阻進城車隊並與士兵交談",
+    "en": "Beijing residents block advancing convoys at Liuliqiao, Hujialou, and major intersections"
+  },
+  "summary": {
+    "zh": "戒嚴令頒布當夜至 5 月 20 日起數日間，數以十萬計的北京市民、工人與學生湧上街頭，在六里橋、呼家樓、豐台、木樨地等主要進城路口以公共汽車、無軌電車與人牆攔阻軍車車隊。許多市民向車上士兵送去飲食並交談說明城內實情，使進城部隊在郊外與環線停滯數日。",
+    "en": "From the night of 19 May into 20 May and the days after, massive crowds of Beijing residents, workers, and students gathered at Liuliqiao, Hujialou, Fengtai, and Muxidi, using buses, trolleybuses, and human chains to block military convoys while offering food and water and talking with soldiers."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Martial law",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Martial_law"
+    },
+    {
+      "title": "Tiananmen Square, 1989: The Declassified History (Electronic Briefing Book No. 16)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB16/"
+    },
+    {
+      "title": "Tiananmen Square incident",
+      "publisher": "Encyclopædia Britannica",
+      "url": "https://www.britannica.com/event/Tiananmen-Square-incident"
+    }
+  ]
+}

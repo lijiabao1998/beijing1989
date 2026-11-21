@@ -1,0 +1,32 @@
+{
+  "id": "1989-04-27-april27-march",
+  "date": "1989-04-27",
+  "place": "北京各高校至長安街・天安門廣場周邊",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "四二七學生大遊行：突破封鎖線與沿途市民聲援",
+    "en": "April 27 student march: crossing police lines amid widespread resident support"
+  },
+  "summary": {
+    "zh": "1989 年 4 月 27 日，為回應前一日《人民日報》「四二六社論」將學生抗議定性為「動亂」，北京多所高校學生清晨自海淀等校區出發上街遊行，沿途越過多道警方警戒線前往天安門廣場周邊及長安街沿線，並於晚間和平返校。大批北京市民與職工沿街駐足圍觀、遞水並鼓掌聲援；各公開史料對參與人數估計不一（多估計遊行學生約五萬至十萬人以上，連同沿途群眾規模更為龐大），當局隨後亦於月底同意與部分學生展開初步對話接觸。",
+    "en": "On 27 April 1989, in response to the previous day's People's Daily editorial branding the protests 'turmoil,' students from Beijing universities marched from campus districts, crossed multiple police lines toward the perimeter of Tiananmen Square and along Chang'an Avenue, and returned peacefully to campus that evening. Large crowds of residents and workers lined the avenues to watch, offer water, and voice support; published estimates vary (commonly putting marchers at 50,000 to over 100,000, joined by vast numbers of onlookers), and authorities soon held preliminary talks with students."
+  },
+  "sources": [
+    {
+      "title": "April 26 Editorial",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/April_26_Editorial"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    },
+    {
+      "title": "Tiananmen Square, 1989",
+      "publisher": "U.S. Department of State, Office of the Historian (Milestones)",
+      "url": "https://history.state.gov/milestones/1989-1992/tiananmen-square"
+    }
+  ]
+}

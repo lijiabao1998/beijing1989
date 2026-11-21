@@ -1,0 +1,462 @@
+{
+  "chapter": "ch5-0603",
+  "title": "第六章　六月三日夜至四日（尾聲）",
+  "note": "所有說話角色皆為虛構。依設計文件以敘事與尾聲處理六月三日至四日之夜，不做成對抗關卡。真實人物不出現；不同公開來源之記載差異見史料條目。All characters are fictional.",
+  "startScene": "hutong",
+  "spawn": {
+    "hutong": [14.5, -2],
+    "aftermath": [0, -19]
+  },
+  "labels": {
+    "hutong": "1989 年 6 月 3 日・深夜・海淀胡同口",
+    "aftermath": "1989 年 6 月 5 日・清晨・空寂的北大校園"
+  },
+  "transitions": {
+    "aftermath": "六月三日的深夜過去，六月四日的黎明與白晝也過去了。六月五日清晨，霧氣落在空寂的校園裡……"
+  },
+  "start": "intro",
+  "evidenceCatalog": {
+    "ev_ch5_emergency_notice": {
+      "id": "ev_ch5_emergency_notice",
+      "kind": "official_print",
+      "title": "六月三日晚間緊急通告廣播抄記",
+      "summary": "六月三日傍晚六點半起電台與電視台反覆播送緊急通告，要求市民留在家中切勿上街或前往廣場。",
+      "sourceLabel": "胡同口晶體管收音機",
+      "dayKey": "1989-06-05",
+      "chapterId": "ch5-0603",
+      "event": "1989-06-03-emergency-notice",
+      "route": "student",
+      "confidence": "documented",
+      "tags": ["緊急通告", "六月三日夜"]
+    },
+    "ev_ch5_lane_guarded": {
+      "id": "ev_ch5_lane_guarded",
+      "kind": "witness",
+      "title": "海淀胡同口守望與折返人群口述",
+      "summary": "深夜在胡同口聽見從南面折返的騎車人提醒「別往南走了」，王師傅與鄰居守住巷口勸返年輕學生。",
+      "sourceLabel": "陳立筆記本・王師傅口述",
+      "dayKey": "1989-06-05",
+      "chapterId": "ch5-0603",
+      "event": "1989-06-04-square-clearing",
+      "route": "student",
+      "confidence": "testimony",
+      "tags": ["胡同守望", "折返提醒"]
+    },
+    "ev_ch5_clearing_records": {
+      "id": "ev_ch5_clearing_records",
+      "kind": "official_print",
+      "title": "六月四日廣場清場與公開來源差異註記",
+      "summary": "六月四日黎明廣場完成清場；關於那一夜經過與傷亡數字，各公開官方聲明、外交電文與民間尋訪紀錄差異極大。",
+      "sourceLabel": "公開史料並陳對照",
+      "dayKey": "1989-06-05",
+      "chapterId": "ch5-0603",
+      "event": "1989-06-04-square-clearing",
+      "route": "student",
+      "confidence": "documented",
+      "tags": ["六四清場", "史料差異"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "pair_ch5_notice_and_lane",
+      "cards": ["ev_ch5_emergency_notice", "ev_ch5_lane_guarded"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "晚間緊急通告廣播後，夜半從南路口折返的人群與胡同口守望攔勸彼此印證了城西路況的劇烈變化。",
+      "diary": "收音機裡的通告時間與巷口折返人群的提醒，拼出那一夜在海淀巷口聽見的真實輪廓。"
+    },
+    {
+      "id": "pair_ch5_clearing_divergence",
+      "cards": ["ev_ch5_lane_guarded", "ev_ch5_clearing_records"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "身處海淀胡同口無法親見遠方廣場與長安街全貌；關於六月三日至四日之具體經過與傷亡數字，不同公開來源記載差異懸殊，須並存查證。",
+      "diary": "站在胡同口只聽見折返的人影與遠處悶響，沒親眼看見的事情只能保留多種公開史料的差異。"
+    }
+  ],
+  "characters": {
+    "me": {
+      "name": "我（陳立）",
+      "role": "北大物理系二年級學生",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王師傅",
+      "role": "機器廠夜班工人",
+      "fictional": true
+    },
+    "auntie": {
+      "name": "紅門院裡的大媽",
+      "role": "胡同裡的老住戶",
+      "fictional": true
+    },
+    "zhou": {
+      "name": "老周",
+      "role": "室友，河北人",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "c6radio",
+      "scene": "hutong",
+      "pos": [-6, -3.5],
+      "label": "亭邊的小收音機",
+      "start": "c6radio_1"
+    },
+    {
+      "id": "c6wang",
+      "scene": "hutong",
+      "pos": [2, -4.5],
+      "label": "王師傅",
+      "start": "c6wang_1",
+      "npc": "blue"
+    },
+    {
+      "id": "c6auntie",
+      "scene": "hutong",
+      "pos": [14, 2],
+      "label": "紅門院裡的大媽",
+      "start": "c6auntie_1",
+      "npc": "red"
+    },
+    {
+      "id": "c6wait",
+      "scene": "hutong",
+      "pos": [-16, -6],
+      "label": "守到天亮",
+      "start": "c6wait_1",
+      "isExit": true
+    },
+    {
+      "id": "c6board",
+      "scene": "aftermath",
+      "pos": [2, -4],
+      "label": "洗淨的布告欄",
+      "start": "c6board_1"
+    },
+    {
+      "id": "c6zhou",
+      "scene": "aftermath",
+      "pos": [-6, 3],
+      "label": "老周",
+      "start": "c6zhou_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "c6desk",
+      "scene": "aftermath",
+      "pos": [0, 7],
+      "label": "宿舍書桌與日記本",
+      "start": "c6desk_1",
+      "isExit": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 6 月 3 日，星期六，深夜。傍晚六點半起，廣播電台和電視台反覆播送緊急通告，要北京市民與學生「不要上街、不要到天安門廣場去，切勿留在街道上」。你沒有去廣場，而是在離學校不遠的胡同口，守著一盞廚房透出來的燈和矮凳上的收音機。",
+      "event": "1989-06-03-emergency-notice",
+      "variants": [
+        {
+          "requires": "ch4:end:persuaded_lin",
+          "text": "1989 年 6 月 3 日，深夜。那天晚上林小梅回校之後就沒再出門，傍晚時你們聽見電台一再重複「請全體市民留在家中」的緊急通告。夜深了，你走到胡同口，借著紅門門燈的微光聽著街邊矮凳上的收音機。"
+        },
+        {
+          "requires": "ch4:end:farewell_zhou",
+          "text": "1989 年 6 月 3 日，深夜。傍晚六點半起，電台一遍又一遍播著「不要上街」的緊急通告。車站一帶已經進不去，老周也沒能走成。你在胡同口矮凳邊停下腳步，風裡傳來遠處城市另一頭說不清的悶響。"
+        },
+        {
+          "requires": "ch4:end:returned_thermos",
+          "text": "1989 年 6 月 3 日，深夜。桌下的暖壺安安穩穩放著，傍晚起各個電台卻不斷播送緊急通告，警告市民今夜留在家中、切勿前往廣場或長安街。夜風從胡同口吹進來，報刊亭關了木板門，矮凳上只亮著收音機小小的刻度燈。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "走到收音機和鄰居們站的地方",
+          "diary": "6/3 深夜。傍晚起廣播反覆播放緊急通告，要求市民留在家中不要上街。"
+        }
+      ]
+    },
+    "c6radio_1": {
+      "speaker": "narr",
+      "text": "已經拉下木板的報刊亭前放著一張小木凳，晶體管收音機正發出嘶嘶的電流雜音。本地頻道還在每隔幾分鐘念一次緊急通告，轉到短波卻只能聽見斷斷續續的呼號。沒有人親眼看見遠方木樨地或廣場發生了什麼，只聽見南邊天際偶爾傳來幾聲低沉的轟響。",
+      "event": "1989-06-03-emergency-notice",
+      "choices": [
+        {
+          "text": "把緊急通告的時點與這夜聽見的聲音記在心裡",
+          "set": "c6_kept_diary",
+          "evidence": "ev_ch5_emergency_notice",
+          "autoHint": true,
+          "diary": "6/3 夜至 6/4 凌晨。坐在胡同口收音機旁，只能聽見雜音與南面遠處隱約傳來的動靜。",
+          "next": "c6radio_2"
+        },
+        {
+          "text": "關小一點音量，站著聽街口有沒有騎車回來的人",
+          "next": "c6radio_2"
+        }
+      ]
+    },
+    "c6radio_2": {
+      "speaker": "narr",
+      "text": "深夜一點過後，街上空蕩得只剩路邊楊樹葉子的聲音。有兩個騎得飛快的影子打南面路口拐進來，喊了一句「別往南走了」，就匆匆鑽進巷子深處。",
+      "variants": [
+        {
+          "requires": "world:xr:curfew_lane_guarded",
+          "text": "深夜一點過後，街上空蕩得只剩楊樹葉子的聲音。紅門燈影下，王師傅早已把平板三輪斜停在巷口守著，把兩個想往南騎去的愣頭青年攔下來勸回屋裡。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "記住那句提醒，沒有往大馬路去",
+          "autoHint": true
+        }
+      ]
+    },
+    "c6wang_1": {
+      "speaker": "wang",
+      "text": "小伙子，千萬別往前騎了！我後半夜蹬著車往三環邊上探了一截，迎面退回來好多人，都喊著前面的路口已經過不去。我就守在這兒攔著點，怕有哪個毛頭學生愣頭愣腦往南衝。",
+      "variants": [
+        {
+          "requires": "rel:wang>=1",
+          "text": "陳立，還好你在這兒，沒往長安街去！剛才我騎到南邊路口又折回來了——那邊火光跟聲音都不對勁，馬路上全是折返的人。你站這兒別走遠，我盯著巷口，不讓半大小子再往南闖。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "陪王師傅坐在車座旁，守著這段安靜的胡同口",
+          "rel": {
+            "wang": 1
+          },
+          "set": "c6_remembered_names",
+          "evidence": "ev_ch5_lane_guarded",
+          "autoHint": true,
+          "diary": "胡同口遇見王師傅。他守在路口攔住想往南騎的人，說「活著把這個春天記下來，比什麼都強」。",
+          "next": "c6wang_2"
+        },
+        {
+          "text": "問王師傅有沒有聽到廣場那邊確切的消息",
+          "next": "c6wang_3"
+        }
+      ]
+    },
+    "c6wang_2": {
+      "speaker": "wang",
+      "text": "咱們都是普通人，能顧住身邊一兩個熟人平平安安，就是今晚最大的本事。你那本筆記本要是記滿了，好好收起來。",
+      "variants": [
+        {
+          "requires": "world:xr:curfew_hospital_warned",
+          "text": "剛才還聽一個打醫院聯絡處繞回來的晨報記者托人帶口信，叫城西胡同裡的人千萬別再往木樨地與南面大道騎車，繞進巷子裡最穩妥。你那本筆記本記滿了，好好收起來。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "記住王師傅的話",
+          "autoHint": true
+        }
+      ]
+    },
+    "c6wang_3": {
+      "speaker": "wang",
+      "text": "現在說什麼的都有，誰也看不見全貌。等天亮以後，再打聽熟人的消息吧。",
+      "choices": [
+        {
+          "text": "好，天亮再說"
+        }
+      ]
+    },
+    "c6auntie_1": {
+      "speaker": "auntie",
+      "text": "進院裡來喝口溫水吧，桌上有乾淨毛巾和半壺晾好的涼白開。大晚上的誰也睡不著，我把門燈開著，過路的鄰居孩子都能看見這道紅門。",
+      "variants": [
+        {
+          "requires": "ch0:end:letter",
+          "text": "哎呀，你不是四月十七號晚上幫這院裡頭老周他姐送信來的那個學生嗎？這會兒別在黑地裡站著，進來坐會兒。門燈亮著呢，剛才東城那邊通電話說她院裡人都好好的，你們宿舍老周呢？"
+        },
+        {
+          "requires": "rel:auntie>=1",
+          "text": "孩子，又是你……從四月二十一號那宿大馬路上端熱水，五月二十號西單電車旁遞雞蛋，轉眼怎麼成了這樣兒的夜晚。進院子喝口水，別著涼。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "在木桌旁寫一張簡短平安字條，托人轉寄給家裡與熟人",
+          "rel": {
+            "auntie": 1
+          },
+          "set": "c6_wrote_letter",
+          "diary": "借紅門燈下寫了張字條，只寫四個字：「我們都好，勿念。」",
+          "next": "c6auntie_2"
+        },
+        {
+          "text": "接過溫水喝一口，幫大媽看著院門口",
+          "next": "c6auntie_3"
+        }
+      ]
+    },
+    "c6auntie_2": {
+      "speaker": "auntie",
+      "text": "寫得好，信封我這兒有。等天亮街面開了，我讓郵局旁的老鄰居幫你一道寄出去。",
+      "variants": [
+        {
+          "requires": "world:xr:curfew_hospital_warned",
+          "text": "寫得好，信封我這兒有。剛才有報社與醫院那頭捎回來繞行避險的口信，大雜院的親戚也都關緊門燈安穩待著了；天亮後我托老鄰居一道替你把平安信寄出去。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "多謝大媽",
+          "autoHint": true
+        }
+      ]
+    },
+    "c6auntie_3": {
+      "speaker": "auntie",
+      "text": "別怕，這扇紅門夜裡不鎖插銷，街坊們都在院裡坐著呢。",
+      "choices": [
+        {
+          "text": "謝謝大媽"
+        }
+      ]
+    },
+    "c6wait_1": {
+      "speaker": "narr",
+      "text": "夜色慢慢淡成了青灰色。六月四日清晨，收音機與後來零星聽見的口述拼湊出那一夜的輪廓：軍隊開進市區與廣場，留在紀念碑一帶的最後一批學生於黎明前撤出；而關於那一夜的具體經過與傷亡數字，不同公開來源之間的記載至今存在懸殊差異。又過了一天，當你重新走回北大校園時，只剩下清晨薄霧。",
+      "event": "1989-06-04-square-clearing",
+      "choices": [
+        {
+          "text": "走進六月五日清晨的校園",
+          "goto": "aftermath",
+          "evidence": "ev_ch5_clearing_records",
+          "autoHint": true,
+          "diary": "6/4–6/5。那一夜之後，廣場清場了。各處說法與數字相差極遠；我們普通人能抓緊的，只有各自還平安的面孔。"
+        },
+        {
+          "text": "再在胡同口看一眼天色"
+        }
+      ]
+    },
+    "c6board_1": {
+      "speaker": "narr",
+      "text": "曾經貼滿大字報、輓聯、詩抄與《絕食書》的木框布告欄，如今被沖刷得乾乾淨淨，只剩幾點泡濕後扯破的紙角粘在木板上。風吹過白楊樹梢，沒有一點聲音。",
+      "event": "1989-06-04-square-clearing",
+      "choices": [
+        {
+          "text": "站在木板前，在心裡默念四月以來遇見過的所有人名",
+          "set": "c6_remembered_names",
+          "evidence": "ev_ch5_clearing_records",
+          "autoHint": true,
+          "diary": "洗淨的布告欄前，我記起孫大爺、王師傅、推三輪送饅頭的大爺、端水的大媽、小梅，和那個外校女生。"
+        },
+        {
+          "text": "伸手碰了碰微濕的木框，往宿舍走去"
+        }
+      ]
+    },
+    "c6zhou_1": {
+      "speaker": "zhou",
+      "text": "陳立，你回來了。前天夜裡火車站進不去，我沒走成，一直在三樓守著。剛才中文系那邊傳話過來，說林小梅平安待在親戚家裡；我姐那邊也托鄰居口信捎過來了，說院子裡都無恙。",
+      "variants": [
+        {
+          "requires": "ch4:end:farewell_zhou",
+          "text": "那天晚上捆好的書箱還沒來得及扛上火車，城市就全停擺了。好在昨天傍晚聽到消息：小梅在海淀親戚那兒安頓著，我東城的姐姐也平安。……你那晚在胡同口沒事吧？"
+        },
+        {
+          "requires": "rel:zhou>=1",
+          "text": "還好你那天聽話沒往大路中央跑。我昨天繞到中文系樓下打聽過了，小梅和她幾個同班同學都好好待在學校邊上的家屬區裡；那個外校女生聽說也跟著隊伍在四號早晨撤回學校了。這下大家總算都在。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "告訴老周這幾天自己記下的日記都還在書包裡",
+          "set": "c6_kept_diary",
+          "keepsake": "notebook",
+          "rel": {
+            "zhou": 1
+          },
+          "autoHint": true,
+          "diary": "老周告訴我，林小梅、他東城的姐姐、還有那個外校女生都平安。能確定她們都在，已經是最大的安慰。",
+          "next": "c6zhou_2"
+        },
+        {
+          "text": "問老周過幾天還回河北嗎",
+          "next": "c6zhou_3"
+        }
+      ]
+    },
+    "c6zhou_2": {
+      "speaker": "zhou",
+      "text": "收好它。什麼都能忘，這個春天誰給誰遞過一碗水、誰在路口攔過一聲，別忘就行。",
+      "choices": [
+        {
+          "text": "嗯，我會好好收著"
+        }
+      ]
+    },
+    "c6zhou_3": {
+      "speaker": "zhou",
+      "text": "等車通了就先回一趟家，讓爸媽放心。到了秋天開學……不管怎樣，我們還會在這屋裡見面的。",
+      "choices": [
+        {
+          "text": "好，秋天見"
+        }
+      ]
+    },
+    "c6desk_1": {
+      "speaker": "narr",
+      "text": "宿舍樓門前只停著三輛落了薄灰的二八自行車。窗台下的桌上擺著老周的鋁殼暖壺、四月沒寫完的習題集，和那本陪你走過四月十七日到六月五日的日記本。這個春天就要合上了，你最後留下的是什麼？",
+      "choices": [
+        {
+          "text": "把日記本夾進電磁學課本最裡層，妥善收好每一頁見聞",
+          "requires": "c6_kept_diary",
+          "keepsake": "夾進課本的藍色方格日記本",
+          "autoHint": true,
+          "diary": "把日記夾進舊物理課本裡。歷史不因普通人改寫，但這些真實的日子有人記著。",
+          "end": "diary_kept"
+        },
+        {
+          "text": "把寫好的平安信裝進信封，走出校門投進綠色郵筒",
+          "requires": "c6_wrote_letter",
+          "diary": "把信投進校門外的郵筒。郵差還會收信，生活還會繼續往前走。",
+          "end": "letter_sent"
+        },
+        {
+          "text": "在日記末頁寫下每一位照拂過彼此的普通人名字",
+          "requires": "c6_remembered_names",
+          "diary": "最後一頁只寫名字：老周、林小梅、孫大爺、王師傅、大媽、大爺、外校女生。",
+          "end": "remembered_names"
+        },
+        {
+          "text": "輕輕關上宿舍窗戶，在六月的晨風裡安靜坐一會兒",
+          "diary": "1989 年的春天過去了。窗外槐樹正綠，校園安靜得像什麼都還沒開始，又像什麼都已經結束。",
+          "end": "ordinary_spring"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "diary_kept": {
+      "title": "夾進課本的春天",
+      "text": "你把藍色方格筆記本平平整整地夾進書箱底層的電磁學課本裡。上面寫的沒有宏大口號，只有一個普通學生在七週裡親眼見過的燈影、傳言、茶水和彼此照應。"
+    },
+    "letter_sent": {
+      "title": "綠色郵筒",
+      "text": "信封「啪」地落進門口的綠色郵筒裡。寫給家人的話只有短短兩行，卻花光了整個春天的力氣。回頭看時，西校門的紅柱子安靜地立在晨霧當中。"
+    },
+    "remembered_names": {
+      "title": "沒有寫進大事件的名字",
+      "text": "歷史書通常只記錄日期、社論與公告；而你的本子上留著送綠豆湯的工人師傅、深夜燒開水的胡同大媽、只會說「自己看見的才算數」的報亭大爺，和在台階下分過一壺水的同學。"
+    },
+    "ordinary_spring": {
+      "title": "1989 年的春天",
+      "text": "你推開一點窗縫，初夏的風吹進這間空了一半的三樓宿舍。四月十七日那天晚上出門時，誰也沒有想到會走過這樣長的幾十天；而現在，天已經亮了。"
+    }
+  },
+  "epilogue": "全六章完。1989 年 6 月 3 日夜至 4 日清晨，戒嚴部隊進駐並完成廣場清場；關於傷亡與經過，不同公開來源記載差異極大（見史料條目）。在結果已經確定的歷史中，你沒有改變任何節點——你只是記住了自己在那個春天裡見過誰、相信過什麼、幫助過誰。",
+  "epilogueEvent": "1989-06-04-square-clearing"
+}

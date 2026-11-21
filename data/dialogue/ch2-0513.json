@@ -1,0 +1,788 @@
+{
+  "chapter": "ch2-0513",
+  "title": "第三章　五月十三日至十五日",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "campus",
+  "spawn": {
+    "campus": [0, 5]
+  },
+  "labels": {
+    "campus": "1989 年 5 月 13 日・午後・北大校園",
+    "street": "1989 年 5 月 14 日・傍晚・海淀街道",
+    "camp": "1989 年 5 月 15 日・午後・天安門廣場營地"
+  },
+  "transitions": {
+    "street": "五月十四日傍晚，你推出二八自行車，往海淀南路與城裡騎去……",
+    "camp": "五月十五日午後，穿過滿街腳踏車與人流，廣場北側搭起了連片的帆布棚……"
+  },
+  "start": "intro",
+  "evidenceCatalog": {
+    "ev_ch2_hunger_manifesto": {
+      "id": "ev_ch2_hunger_manifesto",
+      "kind": "witness",
+      "title": "三角地《絕食書》手抄摘錄",
+      "summary": "五月十三日午後校園布告欄新貼出《絕食書》，不少同學紅著眼圈摘抄。",
+      "sourceLabel": "陳立物理筆記本",
+      "dayKey": "1989-05-15",
+      "chapterId": "ch2-0513",
+      "event": "1989-05-13-hunger-strike",
+      "route": "student",
+      "confidence": "documented",
+      "tags": ["絕食", "校園布告欄"]
+    },
+    "ev_ch2_tv_rumor": {
+      "id": "ev_ch2_tv_rumor",
+      "kind": "rumor",
+      "title": "街頭傳言：「中央電視台今晚現場直播對話」",
+      "summary": "五月十四日傍晚海淀報刊亭外流傳今晚將電視現場直播對話，引發人潮湧向廣場。",
+      "sourceLabel": "海淀街頭傳聞",
+      "dayKey": "1989-05-15",
+      "chapterId": "ch2-0513",
+      "event": "1989-05-14-rumor-tv-broadcast",
+      "route": "student",
+      "confidence": "uncertain",
+      "tags": ["電視直播傳言", "未經核實"]
+    },
+    "ev_ch2_sun_doubt": {
+      "id": "ev_ch2_sun_doubt",
+      "kind": "witness",
+      "title": "報刊亭孫大爺對直播傳言的質疑",
+      "summary": "孫大爺提醒無人親自在電視台聽到排播，多半是口耳相傳，須到現場眼見為實。",
+      "sourceLabel": "孫大爺口述",
+      "dayKey": "1989-05-15",
+      "chapterId": "ch2-0513",
+      "event": "1989-05-14-rumor-tv-broadcast",
+      "route": "student",
+      "confidence": "testimony",
+      "tags": ["電視直播傳言", "街頭核實"]
+    },
+    "ev_ch2_medical_lane": {
+      "id": "ev_ch2_medical_lane",
+      "kind": "witness",
+      "title": "廣場東側急救通道與市民送水紀錄",
+      "summary": "五月十五日前後協和與紅十字救護車穿梭廣場東側，市民與工人推車送水並自發拉繩讓道。",
+      "sourceLabel": "陳立筆記本・急救通道目擊",
+      "dayKey": "1989-05-15",
+      "chapterId": "ch2-0513",
+      "event": "1989-05-15-citizens-medical-support",
+      "route": "student",
+      "confidence": "documented",
+      "tags": ["急救通道", "市民聲援"]
+    },
+    "ev_ch2_scholars_mediation": {
+      "id": "ev_ch2_scholars_mediation",
+      "kind": "witness",
+      "title": "知識界老師赴廣場協調紀要",
+      "summary": "五月十四至十五日多名教師進廣場勸停絕食、協助傳遞對話意見，惟現場人聲嘈雜難以收攏。",
+      "sourceLabel": "系裡老師口述",
+      "dayKey": "1989-05-15",
+      "chapterId": "ch2-0513",
+      "event": "1989-05-14-intellectuals-mediation",
+      "route": "student",
+      "confidence": "documented",
+      "tags": ["知識界協調", "戈巴契夫訪華"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "pair_ch2_tv_rumor_vs_doubt",
+      "cards": ["ev_ch2_tv_rumor", "ev_ch2_sun_doubt"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "街頭盛傳今晚電視現場直播對話，但報刊亭與廣場現場並無核實排播紀錄，兩者存在落差。",
+      "diary": "把街上傳的「電視直播」和孫大爺的提醒拿來對照，這消息果然沒有實據。"
+    },
+    {
+      "id": "pair_ch2_support_and_mediation",
+      "cards": ["ev_ch2_medical_lane", "ev_ch2_scholars_mediation"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "市民與醫護全力保住兩公尺寬救護通道，與知識界在戈巴契夫訪華期間焦急進場協調救人，反映同一日廣場緊迫處境。",
+      "diary": "救護車鳴笛聲和老師們勸人保重身體的聲音疊在一起，彼此互相印證。"
+    }
+  ],
+  "characters": {
+    "me": {
+      "name": "我（陳立）",
+      "role": "北大物理系二年級學生",
+      "fictional": true
+    },
+    "zhou": {
+      "name": "老周",
+      "role": "室友，河北人",
+      "fictional": true
+    },
+    "lin": {
+      "name": "林小梅",
+      "role": "中文系同學，在廣場廣播站幫忙",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "報刊亭的大爺",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王師傅",
+      "role": "機器廠工人，借來板車送綠豆湯",
+      "fictional": true
+    },
+    "medic": {
+      "name": "救護車志願者",
+      "role": "醫學院實習生，紅十字會志願者",
+      "fictional": true
+    },
+    "stu2": {
+      "name": "絕食棚邊的同學",
+      "role": "四月時在廣場認識的外校女生",
+      "fictional": true
+    },
+    "scholar": {
+      "name": "勸說的老師",
+      "role": "隨知識界赴廣場協調的系裡老師",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "c3zhou",
+      "scene": "campus",
+      "pos": [-6, 3],
+      "label": "老周",
+      "start": "c3zhou_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "c3lin",
+      "scene": "campus",
+      "pos": [5, -2],
+      "label": "林小梅",
+      "start": "c3lin_1",
+      "npc": "red"
+    },
+    {
+      "id": "c3board",
+      "scene": "campus",
+      "pos": [2, -4],
+      "label": "布告欄《絕食書》",
+      "start": "c3board_1"
+    },
+    {
+      "id": "c3gate",
+      "scene": "campus",
+      "pos": [0, -22],
+      "label": "西校門",
+      "start": "c3gate_1",
+      "isExit": true
+    },
+    {
+      "id": "c3kiosk",
+      "scene": "street",
+      "pos": [-6, -3.5],
+      "label": "報刊亭孫大爺",
+      "start": "c3kiosk_1",
+      "npc": "grey"
+    },
+    {
+      "id": "c3wang",
+      "scene": "street",
+      "pos": [2, -4.5],
+      "label": "王師傅送綠豆湯三輪車",
+      "start": "c3wang_1",
+      "npc": "blue"
+    },
+    {
+      "id": "c3medic",
+      "scene": "street",
+      "pos": [-14, -6],
+      "label": "救護車志願者",
+      "start": "c3medic_1",
+      "npc": "green"
+    },
+    {
+      "id": "c3south",
+      "scene": "street",
+      "pos": [18, -8],
+      "label": "往廣場營地",
+      "start": "c3south_1",
+      "isExit": true
+    },
+    {
+      "id": "c3broadcast",
+      "scene": "camp",
+      "pos": [-18, -265],
+      "label": "廣播站帳篷・林小梅",
+      "start": "c3bcast_1",
+      "npc": "red"
+    },
+    {
+      "id": "c3tent",
+      "scene": "camp",
+      "pos": [14, -278],
+      "label": "絕食棚邊的同學",
+      "start": "c3tent_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "c3scholars",
+      "scene": "camp",
+      "pos": [-8, -305],
+      "label": "紀念碑北側勸說的老師",
+      "start": "c3scholars_1",
+      "npc": "navy"
+    },
+    {
+      "id": "c3leave",
+      "scene": "camp",
+      "pos": [0, -245],
+      "label": "急救通道旁",
+      "start": "c3leave_1",
+      "isExit": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 13 日，星期六，午後。四月底的社論與大遊行過後，課堂一直沒能真正安靜下來。下午三點多，校園裡突然傳開：幾百名學生已經繫上白布條，出校往天安門廣場絕食去了。",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "variants": [
+        {
+          "requires": "ch1:end:together",
+          "text": "1989 年 5 月 13 日，午後。四月二十二日在西單分開時，老周問過你「明天上課嗎」，那時誰也沒想到四二六社論和四二七大遊行會把春天推到這一步。下午三點，樓下有人喊：第一批去廣場絕食的同學已經出發了。"
+        },
+        {
+          "requires": "ch1:end:stayed",
+          "text": "1989 年 5 月 13 日，午後。從四月二十二日大會堂台階下算起，已經過去三個星期。四二六社論發表後的遊行剛平息沒幾天，今天下午，校園裡又圍滿了送別絕食隊伍的人。"
+        },
+        {
+          "requires": "ch1:end:water",
+          "text": "1989 年 5 月 13 日，午後。三個星期前你提著空水壺走回校園，這幾天楊樹飛絮落盡，天氣突然熱起來。四二六社論與大遊行之後，今天下午傳來消息：有人帶頭往廣場去絕食了。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "到樓下院子看看",
+          "diary": "5/13 午後。聽說第一批學生往廣場去絕食了。空氣一下子沉下來。"
+        }
+      ]
+    },
+    "c3zhou_1": {
+      "speaker": "zhou",
+      "text": "你要騎車進城的話，先把這壺涼白開和兩包葡萄糖粉帶上。五月天中午曬得慌，別光顧著往前衝。",
+      "variants": [
+        {
+          "requires": "rel:zhou>=1",
+          "text": "前幾回你都沒落空。我剛去小賣部排隊買了兩包葡萄糖粉，全倒進軍用水壺裡了。你要去看大家，就把水壺捎上。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "收下葡萄糖水壺，讓老周留神宿舍",
+          "item": "glucose",
+          "keepsake": "glucose",
+          "set": "c3_has_supplies",
+          "rel": {
+            "zhou": 1
+          },
+          "diary": "老周在小賣部買了葡萄糖粉沖進水壺，塞給我帶去廣場。",
+          "autoHint": true,
+          "next": "c3zhou_2"
+        },
+        {
+          "text": "把物理筆記本塞進書包，當作記事本用",
+          "item": "notebook",
+          "keepsake": "notebook",
+          "set": "c3_taking_notes",
+          "diary": "隨手抓起半本物理筆記本，準備記下這幾天的見聞。",
+          "next": "c3zhou_3"
+        },
+        {
+          "text": "問老周自己去不去",
+          "next": "c3zhou_4"
+        }
+      ]
+    },
+    "c3zhou_2": {
+      "speaker": "zhou",
+      "text": "我晚上還得替值班表留個人看電話。見到小梅和別的熟人，捎句話說我們都好。",
+      "choices": [
+        {
+          "text": "一定帶到"
+        }
+      ]
+    },
+    "c3zhou_3": {
+      "speaker": "zhou",
+      "text": "這本子別寫丟了。往後再翻看，才知道今天這天氣有多悶。",
+      "choices": [
+        {
+          "text": "嗯，放書包裡了"
+        }
+      ]
+    },
+    "c3zhou_4": {
+      "speaker": "zhou",
+      "text": "後天戈巴契夫要來，這幾天城裡車肯定亂。我去不去再看，先顧好自己。",
+      "choices": [
+        {
+          "text": "好，你小心"
+        }
+      ]
+    },
+    "c3lin_1": {
+      "speaker": "lin",
+      "text": "我們系裡幾個同學正在打包油印機和蓄電池。廣場那邊需要搭廣播站，今晚我就跟車過去。你要有空，明天來紀念碑西邊找我。",
+      "event": "1989-05-13-hunger-strike",
+      "variants": [
+        {
+          "requires": "rel:lin>=1",
+          "text": "陳立，還好碰上你。中文系正往廣場運蓄電池和蠟紙，我跟過去管廣播站。四月底那次大遊行之後大家都累壞了，誰知道這回真走上絕食這一步……明天你過來看看好不好？"
+        },
+        {
+          "requires": "rel:lin<=-1",
+          "text": "我們正要往車上搬油印紙。廣場那邊缺人照看廣播器材，我先過去。你要是進城，別信路邊亂傳的話，自己到紀念碑旁看一眼。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "幫她把兩卷白布和蠟紙綁上車後座",
+          "rel": {
+            "lin": 1
+          },
+          "set": "c3_helped_lin_prep",
+          "diary": "幫小梅把油印蠟紙和喇叭線綁在自行車後座，她今晚去廣場廣播站。",
+          "next": "c3lin_2"
+        },
+        {
+          "text": "問她為什麼選在這個時候絕食",
+          "next": "c3lin_3"
+        }
+      ]
+    },
+    "c3lin_2": {
+      "speaker": "lin",
+      "text": "綁牢了。過兩天蘇聯客人就到北京，大家都想趁這幾天把話說出去……我先走了。",
+      "choices": [
+        {
+          "text": "路上小心，廣場見"
+        }
+      ]
+    },
+    "c3lin_3": {
+      "speaker": "lin",
+      "text": "四二七遊行之後對話一直沒談攏，有人急了，覺得再不拿出樣子來，事情就要涼下去了。說實話，我看著那些紮白布條的人，心裡也發緊。",
+      "choices": [
+        {
+          "text": "明天我進城看看你",
+          "rel": {
+            "lin": 1
+          }
+        }
+      ]
+    },
+    "c3board_1": {
+      "speaker": "narr",
+      "text": "木框布告欄前裡三層外三層。中間新貼了一張長長的《絕食書》，墨跡又急又濃；旁邊還留著四月底關於《人民日報》社論的油印傳單與手抄詩。",
+      "event": "1989-05-13-hunger-strike",
+      "choices": [
+        {
+          "text": "抄下《絕食書》裡的幾句話",
+          "set": "c3_taking_notes",
+          "keepsake": "notebook",
+          "evidence": "ev_ch2_hunger_manifesto",
+          "autoHint": true,
+          "diary": "布告欄新貼出《絕食書》。有人在旁邊紅著眼圈抄，誰也不大聲說話。"
+        },
+        {
+          "text": "靜靜看完，退到外圍"
+        }
+      ]
+    },
+    "c3gate_1": {
+      "speaker": "narr",
+      "text": "西校門外停滿了二八自行車。校衛站在紅柱子邊看著人群出入，沒有阻攔。白楊樹影底下，一群群人正往南面主路彙合。",
+      "choices": [
+        {
+          "text": "推車出西校門，進城看看",
+          "goto": "street",
+          "autoHint": true
+        },
+        {
+          "text": "再回校園裡跟人說幾句話"
+        }
+      ]
+    },
+    "c3kiosk_1": {
+      "speaker": "sun",
+      "text": "小伙子，晚報還沒卸下來就被搶光了！剛才兩個騎車從建國門過來的說，中央電視台今晚要現場直播廣場對話——聽個響兒罷了，你也趕著去聽？",
+      "event": "1989-05-14-rumor-tv-broadcast",
+      "variants": [
+        {
+          "requires": "world:xr:rumor_0514_tv_verified",
+          "text": "小伙子，晚報早搶光啦！剛才有個《首都晨報》的顧記者從這兒經過，特地跟我核對過——他說電視台今晚壓根沒有安排現場直播對話，街上傳的都是空穴來風，可這人流還是一股腦兒往南湧！"
+        },
+        {
+          "requires": "world:xr:rumor_0514_tv_panic",
+          "text": "小伙子，晚報還沒卸下來就被搶光了！剛才一路上不知誰傳得有鼻子有眼，說中央電視台今晚肯定現場直播廣場對話，連大雜院裡都跟著往南騎車！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "真的要直播？我趕緊往廣場騎",
+          "set": "c3_rumor_believed",
+          "evidence": "ev_ch2_tv_rumor",
+          "diary": "報亭門口有人傳說電視台今晚現場直播對話。真假還沒聽清，街上已經往南湧。"
+        },
+        {
+          "text": "大爺，這話是誰親眼在電視台聽說的？",
+          "set": "c3_rumor_verify",
+          "evidence": "ev_ch2_tv_rumor",
+          "autoHint": true,
+          "next": "c3kiosk_2"
+        },
+        {
+          "text": "把聽來的話記在本子上，不做聲",
+          "set": "c3_taking_notes",
+          "evidence": "ev_ch2_tv_rumor",
+          "diary": "5/14 傍晚海淀傳言：「電視台今晚現場直播廣場對話。」尚未證實。"
+        }
+      ]
+    },
+    "c3kiosk_2": {
+      "speaker": "sun",
+      "text": "誰親眼見著了？還不是你傳我、我傳你。聽見風就是雨，真要信了，還不如自己進城走到跟前看看實景。",
+      "choices": [
+        {
+          "text": "記下您的話，我進廣場自己看",
+          "set": "c3_taking_notes",
+          "evidence": "ev_ch2_sun_doubt",
+          "autoHint": true,
+          "diary": "孫大爺提醒我別光聽傳言。今晚到底有沒有談成，只能親自去廣場邊看看。"
+        }
+      ]
+    },
+    "c3wang_1": {
+      "speaker": "wang",
+      "text": "哎，讓讓道！我們廠後勤幾個老師傅湊錢熬了兩大桶綠豆湯，借了這輛平板三輪往城裡推。天悶，廣場上喝不著涼水可受不了。",
+      "event": "1989-05-15-citizens-medical-support",
+      "variants": [
+        {
+          "requires": "rel:wang>=1",
+          "text": "陳立！又是你這小伙子！四月半夜碰見兩回，沒想到五月天兒你還往城裡跑。來搭把手，這三輪車沉得很，車斗裡兩桶綠豆湯剛放涼，還有兩個熱水瓶。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "幫忙推一把三輪車上坡",
+          "rel": {
+            "wang": 1
+          },
+          "set": "c3_helped_wang",
+          "worldEmit": "xr:slope_push_helped",
+          "autoHint": true,
+          "diary": "遇見王師傅蹬著借來的平板三輪送綠豆湯。車斗沉甸甸的，我幫他推過斜坡。",
+          "next": "c3wang_2"
+        },
+        {
+          "text": "問問廠裡這幾天大家怎麼議論",
+          "next": "c3wang_3"
+        }
+      ]
+    },
+    "c3wang_2": {
+      "speaker": "wang",
+      "text": "好樣的！到前頭路口我自己就能蹬走。你要是到廣場東邊救急車道那塊兒，準能碰見別的車間送冰棍兒和糖水去的師傅。",
+      "choices": [
+        {
+          "text": "您路上慢點騎"
+        }
+      ]
+    },
+    "c3wang_3": {
+      "speaker": "wang",
+      "text": "廠裡誰不揪心哪。前些日子物價漲得緊，大夥兒也有牢騷，這回見孩子們坐到太陽底下不吃飯，夜班下了都自己掏十塊五塊買礦泉水。",
+      "choices": [
+        {
+          "text": "替同學謝謝師傅們",
+          "rel": {
+            "wang": 1
+          }
+        }
+      ]
+    },
+    "c3medic_1": {
+      "speaker": "medic",
+      "text": "麻煩大家往路邊讓一讓！從協和跟人民醫院調過來的救護車要過去，葡萄糖水跟遮陽布得趕緊送進廣場東口！",
+      "event": "1989-05-15-citizens-medical-support",
+      "variants": [
+        {
+          "requires": "world:xr:clinic_gauze_shared",
+          "text": "麻煩大家往路邊讓一讓！剛才西城大雜院一位退休護師大媽才送來一大包紡織廠醫務室的備用無菌紗布和乾淨涼水，現在協和跟人民醫院的救護車正要搶這條急救通道進廣場東口！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "幫忙拉開行人，替救護車喊出一條窄道",
+          "set": "c3_kept_lane",
+          "evidence": "ev_ch2_medical_lane",
+          "autoHint": true,
+          "diary": "幫紅十字志願者在街邊維持救護車通路。鳴笛聲一響，騎車的市民全都自發靠邊讓道。",
+          "next": "c3medic_2"
+        },
+        {
+          "text": "問問廣場上倒下的人多不多",
+          "next": "c3medic_3"
+        }
+      ]
+    },
+    "c3medic_2": {
+      "speaker": "medic",
+      "text": "多謝你！明天廣場上人只會更多，急救通道一定得保住，不然裡頭昏倒的人拉不出來。",
+      "choices": [
+        {
+          "text": "明白，我明天也會去廣場東邊看看"
+        }
+      ]
+    },
+    "c3medic_3": {
+      "speaker": "medic",
+      "text": "已經有好幾十個脫水送醫院了。白天太陽曬、半夜地上潮，好多市民自己蹬著三輪給送遮雨塑膠布。",
+      "choices": [
+        {
+          "text": "辛苦你們了"
+        }
+      ]
+    },
+    "c3south_1": {
+      "speaker": "narr",
+      "text": "5 月 15 日中午，廣播說戈巴契夫的專機已經降落首都機場，原定在天安門廣場舉行的歡迎儀式臨時改在了機場停機坪。長安街上全是自發上街的北京市民和各單位隊伍，人聲嗡嗡地響成一片。",
+      "event": "1989-05-15-gorbachev-visit",
+      "choices": [
+        {
+          "text": "隨人流擠進廣場營地",
+          "goto": "camp",
+          "autoHint": true,
+          "diary": "5/15 戈巴契夫來訪，歡迎儀式改到機場舉行。廣場上搭起了成片的絕食帳篷。"
+        },
+        {
+          "text": "再在路口待一會兒"
+        }
+      ]
+    },
+    "c3bcast_1": {
+      "speaker": "lin",
+      "text": "陳立，你真來了！桌底下這幾塊蓄電池快沒電了，話筒剛才還雜音不斷。昨晚大家一直在等電視台直播對話的消息，結果等到後半夜，還是各說各的。",
+      "event": "1989-05-14-rumor-tv-broadcast",
+      "variants": [
+        {
+          "requires": "rel:lin>=1",
+          "text": "你可算來了！昨天傳了一晚的電視直播消息，結果誰也沒有真正看見對上的話。我嗓子都喊啞了，桌子上是成疊沒發出去的油印新聞簡報和蓄電池。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "幫她把備用蓄電池接上，整理桌上的油印紙",
+          "set": "c3_helped_bcast",
+          "rel": {
+            "lin": 1
+          },
+          "diary": "在廣場廣播站幫林小梅接電線、理油印紙。喇叭離耳朵近，整個人腦袋嗡嗡作響。",
+          "next": "c3bcast_2"
+        },
+        {
+          "text": "問她這裡頭的學生現在到底是想談還是想留",
+          "next": "c3bcast_3"
+        }
+      ]
+    },
+    "c3bcast_2": {
+      "speaker": "lin",
+      "text": "謝謝你。外頭喊聲一浪蓋過一浪，在帳篷裡反而什麼都聽不清，只怕話傳著傳著就走樣了。",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_lent",
+          "text": "謝謝你。對了，剛才還有一位機床廠的老師傅把自家一隻大紅殼鋁暖壺留在隔壁絕食棚邊給大家裝熱水呢——外頭喊聲再亂，這些實實在在的人情叫人心裡一熱。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "別硬撐，記得喝水",
+          "autoHint": true
+        }
+      ]
+    },
+    "c3bcast_3": {
+      "speaker": "lin",
+      "text": "人太多了，各校有各校的廣播。我想起四月那晚你叫我別亂傳話，可現在這裡每分鐘都有十個人拿著紙條往喇叭口遞。",
+      "choices": [
+        {
+          "text": "我記下了",
+          "set": "c3_taking_notes"
+        }
+      ]
+    },
+    "c3tent_1": {
+      "speaker": "stu2",
+      "text": "你又來了……我們校在這排帳篷邊上。頭上這條白布條汗濕了又曬乾。今早有人昏過去兩個，好在救護車很快拉走了。",
+      "variants": [
+        {
+          "requires": "shared_water",
+          "text": "是你……四月二十二號那天清晨你把一壺熱水分給我們。沒想到五月這麼熱，我們換成了白布條和塑膠帆布棚。你還好嗎？"
+        },
+        {
+          "requires": "ch1:end:water",
+          "text": "那天早上在水壺邊見過你！現在我們在這兒排了第三天了，太陽毒得很，幸虧邊上市民拉起了繩子留出救護車道。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "遞出老周準備的葡萄糖水壺，讓她抿一口潤唇",
+          "requires": "c3_has_supplies",
+          "rel": {
+            "stu2": 1
+          },
+          "set": "c3_tended_stu2",
+          "diary": "把葡萄糖水壺遞給帳篷邊的外校女生。她只抿了一口潤濕嘴唇，說其餘的留給旁邊更暈的人。",
+          "next": "c3tent_2"
+        },
+        {
+          "text": "幫她把帆布棚的竹竿重新撐穩，免得下午曬進來",
+          "rel": {
+            "stu2": 1
+          },
+          "set": "c3_tended_stu2",
+          "diary": "在絕食棚邊幫忙撐好帆布角。陽光白晃晃的，棚下只剩一窄條陰涼。",
+          "next": "c3tent_2"
+        },
+        {
+          "text": "問她還撐得住嗎",
+          "next": "c3tent_3"
+        }
+      ]
+    },
+    "c3tent_2": {
+      "speaker": "stu2",
+      "text": "謝謝……剛才救護車剛從東邊道上拉走一個，你走的時候記得別堵著繩子裡面。",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_gauze_tag",
+          "text": "謝謝……你看棚腳那隻借來的大紅殼暖壺，剛才有位退休醫務室大媽怕大家弄混，還特地在把手上繫了條乾淨醫用紗布作記號。走的時候別堵著急救繩子裡面。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "好，我會看著點",
+          "autoHint": true
+        }
+      ]
+    },
+    "c3tent_3": {
+      "speaker": "stu2",
+      "text": "撐不住的都先送醫院了。我們幾個人互相看著，隔一小時報一次名字。",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_lent",
+          "text": "撐不住的都先送醫院了。幸好剛才機床廠的師傅給棚邊留下一隻結實的大紅殼暖壺，夜裡有溫水喝，我們幾個人隔一小時報一次名字。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "保重"
+        }
+      ]
+    },
+    "c3scholars_1": {
+      "speaker": "scholar",
+      "text": "這不是陳立嗎？我們十幾個教書的昨天就進來了，跟那邊代表對話的幾位老師一直在勸：戈巴契夫這兩天就在北京，先把絕食停下來，人命最要緊，別把話說絕了。",
+      "event": "1989-05-14-intellectuals-mediation",
+      "choices": [
+        {
+          "text": "聽老師講完昨天協調的經過，記進本子",
+          "set": "c3_taking_notes",
+          "evidence": "ev_ch2_scholars_mediation",
+          "autoHint": true,
+          "diary": "紀念碑北側遇到系裡的老師。知識界進去協調勸停絕食，可廣場聲音太雜，誰也壓不住誰。",
+          "next": "c3scholars_2"
+        },
+        {
+          "text": "問老師今天國賓訪問有沒有影響",
+          "next": "c3scholars_3"
+        }
+      ]
+    },
+    "c3scholars_2": {
+      "speaker": "scholar",
+      "text": "寫下來好。哪一句是真的、哪一句是氣頭上喊出來的，過了這幾天沒人分得清。可這些孩子曬在水泥地上是真真切切的。",
+      "choices": [
+        {
+          "text": "老師說得是"
+        }
+      ]
+    },
+    "c3scholars_3": {
+      "speaker": "scholar",
+      "text": "原來的歡迎儀式改到機場了，這件事本身就已經說明局勢僵住了。我們只能站在這兒，能勸一個是一個。",
+      "event": "1989-05-15-gorbachev-visit",
+      "choices": [
+        {
+          "text": "明白，老師您也注意身體"
+        }
+      ]
+    },
+    "c3leave_1": {
+      "speaker": "narr",
+      "text": "傍晚的風把廣場上的白帆布吹得嘩啦作響。東側急救通道上又一輛救護車閃著紅藍頂燈緩緩駛出，繩子兩邊的人群自動閃開一條口子。王師傅蹬著空三輪往回趕，廣播帳篷裡還在試話筒。今晚你決定做什麼？",
+      "event": "1989-05-15-citizens-medical-support",
+      "choices": [
+        {
+          "text": "留在東側急救通道旁，替志願者拉住繩子遞水",
+          "requires": "c3_kept_lane",
+          "diary": "天黑了，我留在急救通道旁拉起繩子，讓每一輛救護車都能順暢開出去。",
+          "end": "channel"
+        },
+        {
+          "text": "回到林小梅的廣播帳篷，幫她扛電瓶整理簡報",
+          "requires": "c3_helped_bcast",
+          "diary": "回到廣播帳篷裡，伴著低沉的電流聲幫小梅守過黃昏。",
+          "end": "broadcast"
+        },
+        {
+          "text": "合上寫滿見聞的筆記本，把這兩天看到的事帶回去",
+          "requires": "c3_taking_notes",
+          "diary": "本子上寫滿了傳言、老師的嘆息、以及王師傅那兩桶綠豆湯。",
+          "end": "notes"
+        },
+        {
+          "text": "天快黑了，推出車沿長安街騎回海淀宿舍",
+          "diary": "傍晚騎車回學校。救護車的鳴笛聲一直追到西單路口才聽不見。",
+          "end": "return_campus"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "channel": {
+      "title": "急救通道",
+      "text": "你拉緊了手裡那根麻繩。一整晚救護車進出不停，沒有人問你的系別和名字，只喊著「讓道、遞水」。在數十萬人的廣場上，那兩公尺寬的通道是少數每個人都達成默契的地方。"
+    },
+    "broadcast": {
+      "title": "帆布棚下的電流聲",
+      "text": "林小梅把發熱的話筒關掉一會兒，遞給你半塊壓扁的麵包。帳篷外面人聲如潮，你們卻誰也看不見遠處談判桌的樣子，只能守著眼前的紙與電池。"
+    },
+    "notes": {
+      "title": "半本物理筆記",
+      "text": "筆記本前半截是電磁學公式，後半截記著「電視直播」的傳言、救護車班次和《絕食書》的句子。你知道這些零碎的字改不了什麼，卻還是把它小心放進書包最裡層。"
+    },
+    "return_campus": {
+      "title": "騎回海淀",
+      "text": "回程路上，長安街邊仍有市民朝東邊送水。回到宿舍樓下時，老周還沒睡，替你留了一暖壺熱水。"
+    }
+  },
+  "epilogue": "五月十五日，戈巴契夫訪華的歡迎儀式因廣場聚眾改於機場舉行；此後北京市民與醫護志願者連日湧向廣場照料絕食學生。下一章：五月十九日夜至二十日。",
+  "epilogueEvent": "1989-05-15-gorbachev-visit"
+}

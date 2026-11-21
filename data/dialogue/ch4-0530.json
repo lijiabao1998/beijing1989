@@ -1,0 +1,577 @@
+{
+  "chapter": "ch4-0530",
+  "title": "第五章　五月三十日",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "statue",
+  "spawn": {
+    "statue": [0, -190]
+  },
+  "labels": {
+    "statue": "1989 年 5 月 30 日・清晨至黃昏・天安門廣場北側",
+    "street": "1989 年 5 月 30 日・傍晚・海淀街道",
+    "campus": "1989 年 5 月 30 日・夜・北大校園"
+  },
+  "transitions": {
+    "street": "黃昏降臨，你推車離開廣場北口，沿路燈稀疏的大道騎回海淀……",
+    "campus": "夜色沉了下來，西校門裡外安靜了許多，只有幾盞鈉燈亮著……"
+  },
+  "start": "intro",
+  "evidenceCatalog": {
+    "ev_ch4_statue_witness": {
+      "id": "ev_ch4_statue_witness",
+      "kind": "witness",
+      "title": "廣場北側白色石膏雕像清晨目擊",
+      "summary": "五月三十日清晨美術院校學生於廣場北側腳手架上立起十公尺白色石膏像。",
+      "sourceLabel": "陳立廣場筆記",
+      "dayKey": "1989-05-30",
+      "chapterId": "ch4-0530",
+      "event": "1989-05-30-goddess-of-democracy",
+      "route": "student",
+      "confidence": "documented",
+      "tags": ["五月底廣場", "白色雕像"]
+    },
+    "ev_ch4_fatigue_debate": {
+      "id": "ev_ch4_fatigue_debate",
+      "kind": "witness",
+      "title": "五月底廣場去留爭論與校園冷清狀況",
+      "summary": "戒嚴第十天本地學生大批返校整理行李，廣場帳篷內與布告欄仍為「復課」或「堅守」爭論不休。",
+      "sourceLabel": "林小梅・布告欄紀錄",
+      "dayKey": "1989-05-30",
+      "chapterId": "ch4-0530",
+      "event": "1989-05-28-square-fatigue-debate",
+      "route": "student",
+      "confidence": "documented",
+      "tags": ["五月底廣場", "撤離爭議"]
+    },
+    "ev_ch4_thermos_return": {
+      "id": "ev_ch4_thermos_return",
+      "kind": "witness",
+      "title": "五月十五日所借水壺於月底輾轉歸還",
+      "summary": "王師傅收齊了大紅殼暖壺與「周」字軍用水壺並託陳立帶回宿舍，見證街頭彼此守信的人情。",
+      "sourceLabel": "海淀路口交接紀錄",
+      "dayKey": "1989-05-30",
+      "chapterId": "ch4-0530",
+      "event": "1989-05-28-square-fatigue-debate",
+      "route": "student",
+      "confidence": "testimony",
+      "tags": ["暖壺歸還", "互助交會"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "pair_ch4_statue_and_fatigue",
+      "cards": ["ev_ch4_statue_witness", "ev_ch4_fatigue_debate"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "廣場北側剛豎起的石膏雕像與帳篷內日漸沉重的疲態及退留爭論並存，與五月三十日公開史料相符。",
+      "diary": "廣場上剛立起石膏像時人聲鼎沸，走進舊帳篷與校園卻滿是疲憊和退意。"
+    },
+    {
+      "id": "pair_ch4_thermos_and_fatigue",
+      "cards": ["ev_ch4_thermos_return", "ev_ch4_fatigue_debate"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "五月中旬借出的水壺趕在月底撤離潮中陸續物歸原主，側面印證北京本地學生大部準備返校歇息。",
+      "diary": "連借出去的水壺都在五月底送回來了，看得出大家都隱約準備收尾。"
+    }
+  ],
+  "characters": {
+    "me": {
+      "name": "我（陳立）",
+      "role": "北大物理系二年級學生",
+      "fictional": true
+    },
+    "stu2": {
+      "name": "外校女生",
+      "role": "在舊帳篷區留守的外校學生",
+      "fictional": true
+    },
+    "lin": {
+      "name": "林小梅",
+      "role": "中文系同學，在撤離與留守之間反覆猶豫",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "海淀報刊亭大爺",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王師傅",
+      "role": "機器廠夜班工人",
+      "fictional": true
+    },
+    "zhou": {
+      "name": "老周",
+      "role": "室友，正在宿舍整理行李",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "c5statue",
+      "scene": "statue",
+      "pos": [0, -176],
+      "label": "白色石膏雕像前",
+      "start": "c5statue_1"
+    },
+    {
+      "id": "c5stu2",
+      "scene": "statue",
+      "pos": [12, -230],
+      "label": "舊帳篷邊的同學",
+      "start": "c5stu2_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "c5lin",
+      "scene": "statue",
+      "pos": [-15, -255],
+      "label": "林小梅",
+      "start": "c5lin_1",
+      "npc": "red"
+    },
+    {
+      "id": "c5north",
+      "scene": "statue",
+      "pos": [-20, -120],
+      "label": "往北離開廣場",
+      "start": "c5north_1",
+      "isExit": true
+    },
+    {
+      "id": "c5kiosk",
+      "scene": "street",
+      "pos": [-6, -3.5],
+      "label": "報刊亭孫大爺",
+      "start": "c5kiosk_1",
+      "npc": "grey"
+    },
+    {
+      "id": "c5wang",
+      "scene": "street",
+      "pos": [2, -4.5],
+      "label": "王師傅",
+      "start": "c5wang_1",
+      "npc": "blue"
+    },
+    {
+      "id": "c5back",
+      "scene": "street",
+      "pos": [-28, -6],
+      "label": "回北大校園",
+      "start": "c5back_1",
+      "isExit": true
+    },
+    {
+      "id": "c5zhou",
+      "scene": "campus",
+      "pos": [-6, 3],
+      "label": "老周",
+      "start": "c5zhou_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "c5board",
+      "scene": "campus",
+      "pos": [2, -4],
+      "label": "布告欄",
+      "start": "c5board_1"
+    },
+    {
+      "id": "c5dorm",
+      "scene": "campus",
+      "pos": [0, 7],
+      "label": "宿舍樓門口",
+      "start": "c5dorm_1",
+      "isExit": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 30 日，星期二。戒嚴已過了十天，廣場上曬得發白的帳篷群裡充斥著疲憊與爭論：北京各校不少人已經撤回宿舍，外地趕來的學生卻還在火車站外源源不斷湧進來。今天清晨，幾所美術院校的學生在廣場北側豎起了一尊十公尺高的白色石膏雕像。",
+      "event": "1989-05-30-goddess-of-democracy",
+      "variants": [
+        {
+          "requires": "ch3:end:with_lin",
+          "text": "1989 年 5 月 30 日。十天前清晨你陪林小梅走上長安街時，路面曾空闊得像沒有盡頭；如今廣場上滿是曬褪色的塑膠篷布與去留未決的爭吵。清晨時，廣場北側剛豎起了一尊十公尺高的白色石膏雕像，正望向城樓。"
+        },
+        {
+          "requires": "ch3:end:barricade",
+          "text": "1989 年 5 月 30 日。五月二十日路口電車橫停的那個早晨已經過去十天。僵持拖得太久，許多本地同學回了學校，廣場上卻添了更多外地口音的帳篷。今日一早，北側剛立起一尊白色石膏雕像。"
+        },
+        {
+          "requires": "ch3:end:phone_home",
+          "text": "1989 年 5 月 30 日。這十天裡城市表面恢復了部分通車，實際卻比四月更加沉悶。廣場上的疲態日深，關於撤不撤離的爭論沒完沒了；就在今天清晨，廣場北邊豎起了一尊高大的白色石膏雕像。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "走近北側空地看看這尊剛立起來的雕像",
+          "diary": "5/30。戒嚴第十天。美術院校的同學在廣場北側豎起了一尊白色石膏雕像。"
+        }
+      ]
+    },
+    "c5statue_1": {
+      "speaker": "narr",
+      "text": "鋼管腳手架搭成的底座上，一尊純白的石膏塑像迎風而立，幾段接縫處還看得出連夜補上的濕石膏痕跡。底下架著好幾部照相機和舉起的筆記本，人群裡有人驚呼，也有人默默抬頭看了很久不說話。",
+      "event": "1989-05-30-goddess-of-democracy",
+      "choices": [
+        {
+          "text": "繞著腳手架看了一圈，記下這幅光影",
+          "evidence": "ev_ch4_statue_witness",
+          "autoHint": true,
+          "diary": "石膏像在陽光下白得晃眼，接縫裡還帶著灰土。周圍的帳篷卻顯得又舊又累。",
+          "next": "c5statue_2"
+        },
+        {
+          "text": "站遠一點望著天安門方向",
+          "next": "c5statue_2"
+        }
+      ]
+    },
+    "c5statue_2": {
+      "speaker": "narr",
+      "text": "遠處幾排帳篷底下傳來高音喇叭的爭辯聲，風把字句吹散了一半。",
+      "choices": [
+        {
+          "text": "往南邊帳篷區走去看看熟人"
+        }
+      ]
+    },
+    "c5stu2_1": {
+      "speaker": "stu2",
+      "text": "我們系這頂棚裡原先住八個人，前天回去了五個，昨天又新來了三個從外地坐悶罐車趕來的同學。天天開會吵到底要不要退回校園，吵到半夜誰也沒力氣了。",
+      "event": "1989-05-28-square-fatigue-debate",
+      "variants": [
+        {
+          "requires": "rel:stu2>=1",
+          "text": "陳立，還以為這幾天不見你再來了。前天起就有外地同學剛從北京站走過來，說還想留到六月下旬；可我們這些打四月撐下來的，嘴唇都起泡了。大家現在連意見都湊不到一塊兒。"
+        },
+        {
+          "requires": "shared_water",
+          "text": "陳立！還記得四月二十二號那天清晨你分給我們的熱水嗎？這陣子廣場上空水壺堆得像小山，人卻一天比一天少、一天比一天累。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "問她這裡還有沒有人統籌醫療與飲水",
+          "rel": {
+            "stu2": 1
+          },
+          "diary": "帳篷區的女生看起來疲憊極了。北京本地學生去了一大半，新來的外地同學卻還想留。",
+          "next": "c5stu2_2"
+        },
+        {
+          "text": "把一個洗乾淨的備用軍用水壺交給她，讓她留著用",
+          "set": "c5_got_thermos",
+          "rel": {
+            "stu2": 1
+          },
+          "diary": "幫她收拾好棚邊的暖壺與空水瓶，提醒她記得多喝開水。",
+          "next": "c5stu2_3"
+        }
+      ]
+    },
+    "c5stu2_2": {
+      "speaker": "stu2",
+      "text": "紅十字的志願車這幾天少多了，主要是熱心街坊和外地學生會自己分發麵包。你回海淀的話，替我們看看小梅要不要也先回去洗個澡。",
+      "choices": [
+        {
+          "text": "我去找她說說看"
+        }
+      ]
+    },
+    "c5stu2_3": {
+      "speaker": "stu2",
+      "text": "這壺我先用著，等過兩天撤場了，再托你們北大的同學帶回宿舍去。",
+      "choices": [
+        {
+          "text": "不急，保重身體"
+        }
+      ]
+    },
+    "c5lin_1": {
+      "speaker": "lin",
+      "text": "這兩天廣場上的廣播越來越沒人聽得進去……昨晚大家又為「留還是撤」爭到三點。有些剛到北京的同學覺得剛立起雕像士氣正盛，可我看見好幾個發燒的同學連站都站不穩。",
+      "event": "1989-05-28-square-fatigue-debate",
+      "variants": [
+        {
+          "requires": "ch3:end:with_lin",
+          "text": "自從二十號清晨咱們沿長安街走進來，已經整整十天了。這兩天幾乎沒再見過完整的一班人馬。你看北邊那尊白色石膏像剛立起來，大家又在吵要不要撐過這陣子……我也不知道該留還是該回。"
+        },
+        {
+          "requires": "rel:lin>=1",
+          "text": "陳立，你怎麼進來了？我正收拾一半油印講義。好幾個系的廣播站都拆了，只剩幾支擴音器還在輪流講「堅持」還是「撤回」。老實說，我每天都想回校園睡一覺，又怕一走就像丟下還在棚裡的人。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "勸小梅今晚先回北大宿舍休息一晚，明天再打算",
+          "set": "c5_persuaded_lin",
+          "evidence": "ev_ch4_fatigue_debate",
+          "rel": {
+            "lin": 1
+          },
+          "autoHint": true,
+          "diary": "勸林小梅別在疲倦和爭論裡耗下去，今晚先回學校睡一覺。",
+          "next": "c5lin_2"
+        },
+        {
+          "text": "安靜陪她坐一會兒，聽她說完這十天的委屈",
+          "rel": {
+            "lin": 1
+          },
+          "diary": "在舊棚子陰影裡陪小梅坐了半小時。沒有誰拿得準明天該往哪走。",
+          "next": "c5lin_3"
+        }
+      ]
+    },
+    "c5lin_2": {
+      "speaker": "lin",
+      "text": "……好。我把這幾疊筆記交給留下值班的同學，傍晚推車跟你們後面回海淀。真想喝一碗食堂的大米粥。",
+      "choices": [
+        {
+          "text": "我在西校門和宿舍樓下等妳"
+        }
+      ]
+    },
+    "c5lin_3": {
+      "speaker": "lin",
+      "text": "謝謝你還肯來聽我說這些。街上的風吹起來比四月暖了，可心裡頭反倒空落落的。",
+      "choices": [
+        {
+          "text": "照顧好自己，隨時回學校"
+        }
+      ]
+    },
+    "c5north_1": {
+      "speaker": "narr",
+      "text": "太陽西斜，長安街上泛起一層橘紫色的灰塵。塑像白色的輪廓被遠處的燈柱打亮，留在身後。你推上二八自行車，準備回海淀去。",
+      "choices": [
+        {
+          "text": "騎車北上回海淀",
+          "goto": "street",
+          "autoHint": true
+        },
+        {
+          "text": "再回頭望一眼雕像"
+        }
+      ]
+    },
+    "c5kiosk_1": {
+      "speaker": "sun",
+      "text": "小伙子回來啦？這幾天傍晚買報的人少了一半，大家都懶得再翻頭版，只問明天早班公車能不能全線通。",
+      "event": "1989-05-28-square-fatigue-debate",
+      "choices": [
+        {
+          "text": "問大爺大家這幾天是不是都累了",
+          "next": "c5kiosk_2"
+        },
+        {
+          "text": "買份晚報夾在車後架上",
+          "diary": "在孫大爺的報亭買了份晚報，街上人行色匆匆，像想把日子拉回正軌。"
+        }
+      ]
+    },
+    "c5kiosk_2": {
+      "speaker": "sun",
+      "text": "能不累嗎？四月折騰到五月月底，賣菜的要進城，上學的要考試，誰家的日子都得接著過呀。",
+      "choices": [
+        {
+          "text": "嗯，大家都盼著早點平穩"
+        }
+      ]
+    },
+    "c5wang_1": {
+      "speaker": "wang",
+      "text": "下班正好碰上！前幾天借給學生使的那只大紅殼暖壺，昨晚居然有個外校小伙子專程蹬車給我送回來了，壺底上還貼著張寫著「謝謝」的紙條。",
+      "variants": [
+        {
+          "requires": "rel:wang>=1",
+          "text": "陳立！剛下班就看著你推車進海淀。這不，前陣子給廣場送湯的那隻鋁殼暖壺和軍用水壺，今兒全給收回來了——就是我瞧這軍用水壺蓋上刻著個「周」字，是不是你們宿舍老周的？"
+        },
+        {
+          "requires": "has_thermos",
+          "text": "小伙子，你這車後座上那暖壺眼熟！前些天送湯送水的大傢伙兒這兩天陸續把壺收回來了，這隻舊軍用水壺順道捎回你們宿舍吧。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "接過擦乾淨的舊暖壺，說一定親手還給老周",
+          "set": "c5_got_thermos",
+          "worldEmit": "xr:thermos_returned",
+          "evidence": "ev_ch4_thermos_return",
+          "keepsake": "canteen",
+          "rel": {
+            "wang": 1
+          },
+          "autoHint": true,
+          "diary": "王師傅把幾經輾轉留下的暖壺交還給我。壺蓋還完好無損，像四月裡借出的那樣。",
+          "next": "c5wang_2"
+        },
+        {
+          "text": "問王師傅最近廠裡情況還穩當嗎",
+          "next": "c5wang_3"
+        }
+      ]
+    },
+    "c5wang_2": {
+      "speaker": "wang",
+      "text": "東西有借有還，這才叫過日子。天氣一天比一天熱了，你們學生也早點回課堂或家裡歇歇吧。",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_gauze_tag",
+          "text": "東西有借有還，這才叫過日子——你看這大紅暖壺把手上還留著那天西城退休護師大媽繫上的乾淨醫用紗布條作記號呢，真是有心人！天氣熱了，你們學生也早點回校歇歇吧。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "多謝王師傅",
+          "autoHint": true
+        }
+      ]
+    },
+    "c5wang_3": {
+      "speaker": "wang",
+      "text": "我們車間照常倒班。街上大夥兒心氣都不高了，都怕這樣僵到六月不知怎麼收場。",
+      "choices": [
+        {
+          "text": "您下夜班騎車小心"
+        }
+      ]
+    },
+    "c5back_1": {
+      "speaker": "narr",
+      "text": "海淀路的白楊樹葉已經長得密實，把路燈光切成碎影。前面就是北大西校門的紅柱子。",
+      "choices": [
+        {
+          "text": "推車進西校門",
+          "goto": "campus",
+          "autoHint": true
+        },
+        {
+          "text": "在街角再站一會兒"
+        }
+      ]
+    },
+    "c5zhou_1": {
+      "speaker": "zhou",
+      "text": "你回來了？樓裡一半床鋪都空了，外省同學趁這兩天車還算通，好多買了硬座票先回老家了。我也托老鄉買了後天回河北的慢車票。",
+      "variants": [
+        {
+          "requires": "rel:zhou>=1",
+          "text": "陳立，正等著你呢。屋裡已經走了三個，我把電磁學和力學教材用麻繩捆起來了。我媽前兩天往系裡打了電報叫我先回去一趟，剛買到過兩天回河北的火車票。"
+        },
+        {
+          "requires": "ch0:end:letter",
+          "text": "我姐昨天託人捎口信來，說家裡老人惦記，催我趁還沒徹底停課先回家一趟。你那邊還好吧？"
+        }
+      ],
+      "choices": [
+        {
+          "text": "幫老周把書箱束緊，約好下學期開學再見",
+          "set": "c5_zhou_farewell",
+          "rel": {
+            "zhou": 1
+          },
+          "diary": "宿舍樓裡走空了一半。老周用麻繩捆好書箱，也準備搭火車回河北老家。",
+          "next": "c5zhou_2"
+        },
+        {
+          "text": "問老周自己留不留在北京",
+          "next": "c5zhou_3"
+        }
+      ]
+    },
+    "c5zhou_2": {
+      "speaker": "zhou",
+      "text": "別送了，到時候你一個人住這屋，晚上記得把暖氣管旁邊的窗戶關緊。有事就寫信到河北老家地址。",
+      "choices": [
+        {
+          "text": "一路平安，到家捎封信來"
+        }
+      ]
+    },
+    "c5zhou_3": {
+      "speaker": "zhou",
+      "text": "先回去看看爸媽，也把這一個多月亂糟糟的心思放一放。你若還留在北京，千萬別在夜裡獨自往大馬路中央跑。",
+      "choices": [
+        {
+          "text": "我記住你的話"
+        }
+      ]
+    },
+    "c5board_1": {
+      "speaker": "narr",
+      "text": "四月時貼滿輓聯與詩抄的布告欄，如今半邊已經空出木板底色。剩下的紙角被風吹得捲起，一邊貼著呼籲「復課」的短訊，另一邊仍留著號召「堅守廣場」的油印單。",
+      "event": "1989-05-28-square-fatigue-debate",
+      "choices": [
+        {
+          "text": "借著鈉燈光讀完這兩張立場相反的紙",
+          "evidence": "ev_ch4_fatigue_debate",
+          "autoHint": true,
+          "diary": "布告欄空了半邊。留下還是離開，誰也說服不了誰。"
+        },
+        {
+          "text": "默默轉身回宿舍"
+        }
+      ]
+    },
+    "c5dorm_1": {
+      "speaker": "narr",
+      "text": "五月三十日的夜晚異常安靜，樹葉間已經響起夏初第一聲蟬鳴。宿舍樓門口燈泡昏黃，台階邊停著幾輛落了灰的二八自行車。今晚你想把心安放在哪裡？",
+      "choices": [
+        {
+          "text": "在宿舍門口等一等，直到林小梅推著車進門",
+          "requires": "c5_persuaded_lin",
+          "diary": "晚上九點半，小梅真的推著車走進西校門。她只說了一句「先去打壺熱水」。",
+          "end": "persuaded_lin"
+        },
+        {
+          "text": "把擦淨的暖壺放回老周桌下，像這場春天從沒走遠過",
+          "requires": "c5_got_thermos",
+          "diary": "把暖壺安安穩穩放回桌角。有些東西轉了一整圈北京城，最後還是回到了原處。",
+          "end": "returned_thermos"
+        },
+        {
+          "text": "上樓坐在老周對面，陪他把最後一捆書繩打好結",
+          "requires": "c5_zhou_farewell",
+          "diary": "熄燈後和老周靠著鐵床欄說話，沒人提五月過完以後會發生什麼。",
+          "end": "farewell_zhou"
+        },
+        {
+          "text": "推開樓門上三樓，在空了一半的寢室裡早些睡下",
+          "diary": "五月三十日夜。校園安靜得出奇，像暴風雨前低低的氣壓。",
+          "end": "quiet_campus"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "persuaded_lin": {
+      "title": "車鈴進門",
+      "text": "十點差十分時，校門那頭傳來清脆的一聲「叮鈴」。林小梅推著車走進燈影裡，肩膀還沾著長安街的浮土，對你笑了一下。"
+    },
+    "returned_thermos": {
+      "title": "歸位的暖壺",
+      "text": "鋁殼暖壺上多了一兩處輕微的磕碰，你拿乾毛巾擦乾淨了，擺回水房門口。老周看了一眼，沒說話，只拍拍你的肩。"
+    },
+    "farewell_zhou": {
+      "title": "熄燈後的告別",
+      "text": "走廊裡腳步聲比四月少了三分之二。你們像剛入學那年一樣各躺上下鋪，聽著窗外楊樹葉沙沙響，誰也猜不到幾天後的六月會怎樣降臨。"
+    },
+    "quiet_campus": {
+      "title": "五月最後的安靜",
+      "text": "樓道裡亮著一盞十五瓦的燈泡。你把筆記本合上壓在枕頭底下，心裡隱約覺得，漫長而焦灼的五月就要走到盡頭了。"
+    }
+  },
+  "epilogue": "五月三十日，天安門廣場北側豎立起白色石膏雕像；與此同時，廣場留守人群與高校學生之間的去留分歧與疲態也日漸深重。下一章：六月三日夜至四日（尾聲）。",
+  "epilogueEvent": "1989-05-30-goddess-of-democracy"
+}

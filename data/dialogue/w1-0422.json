@@ -1,0 +1,497 @@
+{
+  "chapter": "w1-0422",
+  "title": "第二章　四月二十一日夜至二十二日",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "courtyard",
+  "spawn": {
+    "courtyard": [0, 3]
+  },
+  "labels": {
+    "courtyard": "1989 年 4 月 21 日・夜・大雜院",
+    "street": "1989 年 4 月 21 日・深夜・海淀街道",
+    "march": "1989 年 4 月 22 日・凌晨・長街與前門路口"
+  },
+  "transitions": {
+    "street": "拎起暖壺推開紅漆院門，深夜的馬路上已經傳來成排腳步聲……",
+    "march": "沿著路燈往前走，市民與工人三三兩兩站到街口邊上……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（王建國）",
+      "role": "北京第二機床廠五級車工（俗稱王師傅）",
+      "fictional": true
+    },
+    "zhao": {
+      "name": "老趙",
+      "role": "車間帶班老師傅",
+      "fictional": true
+    },
+    "xiufang": {
+      "name": "秀芳",
+      "role": "妻子，紡織廠擋車工",
+      "fictional": true
+    },
+    "li_auntie": {
+      "name": "院裡李大媽",
+      "role": "大雜院鄰居",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立（北大男生）",
+      "role": "北大物理系二年級學生（第一篇主角的交叉視角人物）",
+      "fictional": true
+    },
+    "lin": {
+      "name": "林小梅",
+      "role": "中文系女生",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "w2table",
+      "scene": "courtyard",
+      "pos": [0, -2],
+      "label": "院心飯桌・秀芳",
+      "start": "w2xiufang_1",
+      "npc": "red"
+    },
+    {
+      "id": "w2stove",
+      "scene": "courtyard",
+      "pos": [-5, -4],
+      "label": "煤爐旁・院裡李大媽",
+      "start": "w2auntie_1",
+      "npc": "grey"
+    },
+    {
+      "id": "w2gate",
+      "scene": "courtyard",
+      "pos": [0, -14],
+      "label": "大雜院紅漆門",
+      "start": "w2gate_1"
+    },
+    {
+      "id": "w2zhao",
+      "scene": "street",
+      "pos": [-6, -3.5],
+      "label": "老趙（下夜班趕來）",
+      "start": "w2zhao_1",
+      "npc": "blue"
+    },
+    {
+      "id": "w2chen",
+      "scene": "street",
+      "pos": [2, -4.5],
+      "label": "海淀路口・陳立與學生隊伍",
+      "start": "w2chen_1",
+      "npc": "navy"
+    },
+    {
+      "id": "w2lin",
+      "scene": "street",
+      "pos": [6, -3],
+      "label": "中文系女生林小梅",
+      "start": "w2lin_1",
+      "npc": "red"
+    },
+    {
+      "id": "w2south",
+      "scene": "street",
+      "pos": [18, -8],
+      "label": "往南進長街",
+      "start": "w2south_1"
+    },
+    {
+      "id": "w2residents",
+      "scene": "march",
+      "pos": [-10, -8],
+      "label": "沿街遞水的鄰居與工友",
+      "start": "w2res_1",
+      "npc": "grey"
+    },
+    {
+      "id": "w2union",
+      "scene": "march",
+      "pos": [6, -3.5],
+      "label": "廠裡工會聯絡點・老趙",
+      "start": "w2union_1",
+      "npc": "blue"
+    },
+    {
+      "id": "w2corner",
+      "scene": "march",
+      "pos": [-20, -12],
+      "label": "前門路口・目送隊伍",
+      "start": "w2corner_1",
+      "npc": "navy"
+    },
+    {
+      "id": "w2leave",
+      "scene": "march",
+      "pos": [30, -10],
+      "label": "黎明前折返上班",
+      "start": "w2leave_1"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 21 日，星期五，夜。剛吃過晚飯，胡同外頭就傳來一陣接一陣的腳步與歌聲。廣播說明天一早天安門廣場將封閉舉行胡耀邦追悼大會，各高校學生今晚正徒步往城裡進發。",
+      "event": "1989-04-21-night-march",
+      "variants": [
+        {
+          "requires": "w0:end:met_student",
+          "text": "1989 年 4 月 21 日，星期五，夜。四天前你在海淀路口遇見那個叫陳立的北大學生。今晚廣播說廣場明日一早封閉開追悼會，剛放下碗筷，就聽見胡同外大隊學生往南走的聲音。"
+        },
+        {
+          "requires": "w0:end:family_hearth",
+          "text": "1989 年 4 月 21 日，星期五，夜。四天前剛在煤爐邊喝完那碗熱湯，這幾天城裡的消息越來越密。今晚廣播說廣場明早封閉，外面馬路上已經排開了步行進城的學生隊伍。"
+        },
+        {
+          "requires": "w0:end:stayed_late",
+          "text": "1989 年 4 月 21 日，星期五，夜。這幾天廠裡白班夜班連軸轉，工友們耳朵都豎著聽收音機。今晚廣播宣布廣場明日上午封閉開追悼會，胡同口外頭正傳來密密麻麻的腳步聲。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "披上藍布工作服，到院心看看",
+          "diary": "4/21 夜。廣場明早封閉開追悼會，聽說海淀各校的學生今晚連夜走進城去。"
+        }
+      ]
+    },
+    "w2xiufang_1": {
+      "speaker": "xiufang",
+      "text": "建國，你要出去迎一迎？外頭夜風涼得很，我剛灌滿了一大壺熱花茶，還找了個舊鋁杯裝網兜裡。你別走太遠，明兒一早還得上白班呢。",
+      "variants": [
+        {
+          "requires": "rel:xiufang>=1",
+          "text": "就知道你坐不住。剛燒開的一壺花茶我裝進大紅殼暖壺裡了，蓋子擰緊了。你要去街口看看，就把暖壺拎著，可千萬別跟進廣場裡頭去，明兒早班點名呢。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "接過熱茶暖壺，答應秀芳只在沿街路口照應",
+          "item": "red_thermos",
+          "set": "w1_has_thermos",
+          "rel": { "xiufang": 1 },
+          "diary": "秀芳替我灌滿一壺熱花茶，再三叮囑我送到路口就回，明早還要趕車間早班。",
+          "next": "w2xiufang_2"
+        },
+        {
+          "text": "順手拿兩個剛蒸好的白麵饅頭揣兜裡",
+          "set": "w1_packed_tea",
+          "rel": { "xiufang": 1 },
+          "diary": "秀芳塞給我兩個溫熱的白麵饅頭，說夜裡走在路上墊墊肚子。",
+          "next": "w2xiufang_3"
+        }
+      ]
+    },
+    "w2xiufang_2": {
+      "speaker": "xiufang",
+      "text": "暖壺別摔了，大紅殼的那個是咱們結婚那年買的。早去早回，門我給你留著縫。",
+      "choices": [
+        {
+          "text": "放心，我就到前頭街口看看"
+        }
+      ]
+    },
+    "w2xiufang_3": {
+      "speaker": "xiufang",
+      "text": "外頭人多擠來擠去的，護好自己，別逞強。",
+      "choices": [
+        {
+          "text": "記下了"
+        }
+      ]
+    },
+    "w2auntie_1": {
+      "speaker": "li_auntie",
+      "text": "建國呀，我也剛在煤爐上坐了一鍋白開水。剛剛巷口過來幾撥娃娃，嘴唇乾得直起皮，走得一頭汗。咱們這大雜院雖然窄，水還是管夠的。",
+      "event": "1989-04-22-residents-support",
+      "choices": [
+        {
+          "text": "幫李大媽把鐵皮壺提到門墩邊涼著",
+          "rel": { "li_auntie": 1 },
+          "set": "w1_auntie_water",
+          "diary": "院裡李大媽熬了一大鍋白開水擺在門邊，讓過路的學生自己舀。",
+          "next": "w2auntie_2"
+        },
+        {
+          "text": "勸李大媽夜裡寒氣重，在院門裡遞水就好",
+          "next": "w2auntie_2"
+        }
+      ]
+    },
+    "w2auntie_2": {
+      "speaker": "li_auntie",
+      "text": "唉，看著這群孩子就想起自個兒家裡在廠裡當學徒的孫子。都不容易，喝口熱水算個什麼。",
+      "choices": [
+        {
+          "text": "大媽您多保重"
+        }
+      ]
+    },
+    "w2gate_1": {
+      "speaker": "narr",
+      "text": "紅漆街門半開著，石門墩外頭的胡同已經被手電筒和路燈映亮。遠處隱隱約約傳來幾萬人的腳步聲。",
+      "choices": [
+        {
+          "text": "拎起東西走出院門，上海淀街看看",
+          "goto": "street"
+        },
+        {
+          "text": "再回院裡看一眼"
+        }
+      ]
+    },
+    "w2zhao_1": {
+      "speaker": "zhao",
+      "text": "建國！我就猜你也在街口。我們剛交完班，車間裡幾個師傅說一起順道往南走幾站。工會老張剛才還打招呼，讓工人別亂離崗、別往遊行隊伍裡混，明早七點半機器要開工呢。",
+      "variants": [
+        {
+          "requires": "rel:zhao>=1",
+          "text": "建國，這兒！那天廠門口多虧你幫著帶上大門。今晚看學生隊伍這麼長，我和幾個老哥兒怕路上亂，過來看看情況，工會叮囑過咱們送到路口就得撤。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "跟老趙說咱們就在路邊照應，天亮前回去接早班",
+          "rel": { "zhao": 1 },
+          "set": "w1_zhao_agreed",
+          "diary": "在海淀路口碰見老趙，說好了只陪送到前面大路口，天亮前必須回廠趕早班。",
+          "next": "w2zhao_2"
+        },
+        {
+          "text": "問他廠裡小劉今晚有沒有出來",
+          "next": "w2zhao_3"
+        }
+      ]
+    },
+    "w2zhao_2": {
+      "speaker": "zhao",
+      "text": "對頭！心意到了就行，機床停不得。前頭各系舉著旗子過來了，咱們靠路牙子站著。",
+      "choices": [
+        {
+          "text": "好"
+        }
+      ]
+    },
+    "w2zhao_3": {
+      "speaker": "zhao",
+      "text": "那小子剛下班就想跟上去看熱鬧，讓我硬按回宿舍睡覺了——學徒工不愛惜身子骨，明天車床咬住袖口怎麼辦。",
+      "choices": [
+        {
+          "text": "還是您壓得住他"
+        }
+      ]
+    },
+    "w2chen_1": {
+      "speaker": "chen",
+      "text": "王師傅！您怎麼也在路口？我們各系集合出發了，一路要走到天安門廣場趕在八點封場之前進去。隊伍拉了好幾里地。",
+      "event": "1989-04-21-night-march",
+      "variants": [
+        {
+          "requires": "wk_saw_chen",
+          "text": "王師傅！真是您！四月十七號夜裡在這個路口跟您說過話，沒想到四天後又在這兒碰面。我們全校都出來了，我室友老周背著軍用水壺就在前頭。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "擰開大紅殼暖壺倒一碗熱花茶遞給陳立，提醒他夜裡當心",
+          "requires": "w1_has_thermos",
+          "rel": { "chen": 1 },
+          "set": "w1_shared_hot_water",
+          "diary": "深夜隊伍經過海淀街口，又遇見陳立。我給他倒了碗秀芳燒的熱花茶，告訴他我們廠也有師傅出來看看。",
+          "next": "w2chen_2"
+        },
+        {
+          "text": "拍拍他肩膀，問隊伍打算怎麼走進城",
+          "rel": { "chen": 1 },
+          "set": "wk_saw_chen",
+          "diary": "跟陳立並排走了半段路。學生手拉著手維持秩序，街邊站滿了默默看隊伍的北京市民。",
+          "next": "w2chen_3"
+        }
+      ]
+    },
+    "w2chen_2": {
+      "speaker": "chen",
+      "text": "這熱茶真頂事！師傅，您明天還得上班吧？別送太遠了，我們過了西單就快到了。",
+      "choices": [
+        {
+          "text": "我就送到前頭路口。你們當心點"
+        }
+      ]
+    },
+    "w2chen_3": {
+      "speaker": "chen",
+      "text": "沿路都是拎著暖壺出來送水的大媽和師傅，大家誰也不多說，就說「慢點走」。",
+      "choices": [
+        {
+          "text": "北京老百姓心裡有數，快跟上隊伍吧"
+        }
+      ]
+    },
+    "w2lin_1": {
+      "speaker": "lin",
+      "text": "老師傅您好！麻煩讓一下手裡的條幅桿——謝謝您剛才幫旁邊同學遞水。我們中文系走在中間，天黑路滑，前面的糾察隊一直喊手拉手別掉隊。",
+      "event": "1989-04-21-night-march",
+      "choices": [
+        {
+          "text": "把兜裡的白麵饅頭分給她和旁邊同學",
+          "requires": "w1_packed_tea",
+          "rel": { "lin": 1 },
+          "set": "w1_shared_food",
+          "diary": "把秀芳蒸的白麵饅頭塞給走得氣喘的中文系女生林小梅。",
+          "next": "w2lin_2"
+        },
+        {
+          "text": "提醒她鞋帶繫緊、別踩空馬路牙子",
+          "rel": { "lin": 1 },
+          "next": "w2lin_2"
+        }
+      ]
+    },
+    "w2lin_2": {
+      "speaker": "lin",
+      "text": "謝謝師傅！後半夜大概能走到廣場，天亮前應該能站穩。",
+      "choices": [
+        {
+          "text": "一路平安"
+        }
+      ]
+    },
+    "w2south_1": {
+      "speaker": "narr",
+      "text": "學生隊伍拐上往城裡去的主路。你和老趙推著車或並肩走在路邊人行道上，一路往南陪送這支看不見尾的長隊。",
+      "choices": [
+        {
+          "text": "跟著走到長街南段看看",
+          "goto": "march"
+        },
+        {
+          "text": "再在路口待一會兒"
+        }
+      ]
+    },
+    "w2res_1": {
+      "speaker": "narr",
+      "text": "後半夜三點多，寒氣透進鞋底。兩邊胡同陸續有人端著鋁鍋、提著竹殼暖壺走出來，沿街擺開一排碗，見過路的年輕人就喊一聲「喝口熱水再走」。",
+      "event": "1989-04-22-residents-support",
+      "choices": [
+        {
+          "text": "把大紅殼暖壺裡最後的熱花茶全都分給路邊歇腳的學生",
+          "requires": "w1_has_thermos",
+          "set": "w1_shared_hot_water",
+          "diary": "後半夜在長街邊把大紅殼暖壺裡的熱茶全倒光了。沒人問誰是哪個單位的，只盼別凍病了。"
+        },
+        {
+          "text": "幫沿街大媽把空熱水瓶歸攏到牆根",
+          "set": "w1_helped_residents",
+          "diary": "幫路邊大媽歸攏暖壺和鋁碗，夜裡北京街坊自發守著這些走路的孩子。"
+        }
+      ]
+    },
+    "w2union_1": {
+      "speaker": "zhao",
+      "text": "建國，前頭快到西單和長安街口了。廠工會值班的老王剛騎車過來傳話：各車間夜班已經快交接，讓咱們別往天安門廣場封鎖線裡頭湊，天亮必須按時進廠打卡。",
+      "choices": [
+        {
+          "text": "點頭應下：守好工人本分，交完這一程就回廠開早班",
+          "rel": { "zhao": 1 },
+          "set": "w1_union_duty",
+          "diary": "老趙和工會的人守在路口勸工友適可而止。我們要養家，機器也等著開。",
+          "next": "w2union_2"
+        },
+        {
+          "text": "跟老趙說想再往前走幾步，目送學生進廣場再回",
+          "next": "w2union_3"
+        }
+      ]
+    },
+    "w2union_2": {
+      "speaker": "zhao",
+      "text": "這就對了。咱們心裡明白誰辛苦誰難，可車床前少一個人，整條線都得卡殼。待會兒一塊兒往回走。",
+      "choices": [
+        {
+          "text": "行，我這就跟您會合"
+        }
+      ]
+    },
+    "w2union_3": {
+      "speaker": "zhao",
+      "text": "去吧，注意天亮前一定要往北撤，別讓警察跟隊伍擠在一塊兒。",
+      "choices": [
+        {
+          "text": "曉得了"
+        }
+      ]
+    },
+    "w2corner_1": {
+      "speaker": "narr",
+      "text": "天快亮時，東邊灰白的天色映出遠處前門與人民大會堂的輪廓。各校旗幟正一批批跨過路口開進廣場，路口站滿了前門一帶推車送早點的北京街坊。",
+      "event": "1989-04-21-night-march",
+      "choices": [
+        {
+          "text": "站在路口目送最後一列學生走進廣場，記下這一夜",
+          "set": "w1_walked_corner",
+          "diary": "黎明前站在前門路口，看著學生隊伍一排排走進廣場。街邊的人站著看了很久才散。"
+        },
+        {
+          "text": "摸摸微涼的暖壺壁，轉身往北走"
+        }
+      ]
+    },
+    "w2leave_1": {
+      "speaker": "narr",
+      "text": "東方已經泛起魚肚白，街邊早點攤的煤球爐剛生出青煙。距離北京第二機床廠七點半早班還有不到兩個鐘頭。",
+      "choices": [
+        {
+          "text": "回想前門路口學生進場的背影，踏上歸途",
+          "requires": "w1_walked_corner",
+          "end": "walked_corner"
+        },
+        {
+          "text": "拎著已經空了的大紅殼暖壺往海淀趕",
+          "requires": "w1_shared_hot_water",
+          "end": "hot_water"
+        },
+        {
+          "text": "跟老趙並肩騎回廠裡，準時換工服進一車間",
+          "requires": "w1_union_duty",
+          "end": "union_duty"
+        },
+        {
+          "text": "趁天光未大亮，沿大路趕回廠裡接早班",
+          "end": "dawn_shift"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "walked_corner": {
+      "title": "送到路口",
+      "text": "你在前門路口停住了腳步。學生走進了天安門廣場，而你調轉車頭往西往北騎。兩個世界在黎明前擦肩，卻都在同一座城裡屏息等待白天的追悼會。"
+    },
+    "hot_water": {
+      "title": "一壺熱茶",
+      "text": "大紅殼鋁暖壺見了底，拎在手裡輕飄飄的。你一路想著秀芳的話和沿街端水的大媽——普通人能給的，也就是夜裡這口熱湯。"
+    },
+    "union_duty": {
+      "title": "工會路口與早班",
+      "text": "你和老趙趕在七點半哨響前換好藍色工作服。車間卡盤照常飛轉，誰也沒有多問夜裡去了哪裡，只是眼神裡多了一分心照不宣的沉重。"
+    },
+    "dawn_shift": {
+      "title": "黎明換班",
+      "text": "早晨的北京風還是涼的。你在早點攤喝了一碗熱豆漿，推車進廠打卡。廣播裡開始播追悼大會的現場實況，車間裡暫時安靜下來。"
+    }
+  },
+  "epilogue": "四月二十二日上午胡耀邦追悼會後，西安、長沙出現騷亂，北京各高校隨即陸續罷課；四月底《人民日報》發表四二六社論並引發次日大遊行。下一章：五月十三日。",
+  "epilogueEvent": "1989-04-22-residents-support"
+}

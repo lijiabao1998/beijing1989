@@ -1,0 +1,453 @@
+{
+  "chapter": "r-0520",
+  "title": "第四章　五月二十日，公用電話與短波",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "siheyuan_room",
+  "clockStart": 470,
+  "spawn": {
+    "siheyuan_room": [0, 2.5],
+    "hutong": [14.5, -2],
+    "blockade": [-22, -5]
+  },
+  "labels": {
+    "siheyuan_room": "1989 年 5 月 20 日・清晨・西單四合院正房",
+    "hutong": "1989 年 5 月 20 日・上午・海淀紅門院胡同口",
+    "blockade": "1989 年 5 月 20 日・上午・無軌電車路障與公用電話亭"
+  },
+  "transitions": {
+    "hutong": "公車已經全線停駛，你揣著硬幣和紗布包步行穿過巷弄，先去海淀紅門院確認親戚與小軍消息……",
+    "blockade": "走出胡同口，奶油紅邊的雙節無軌電車橫停在馬路中央，街角公用電話亭前已經排起長長的人龍……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（沈淑芬）",
+      "role": "53歲，西單四合院居民、退休紡織廠醫務室護師",
+      "fictional": true
+    },
+    "zhangye": {
+      "name": "張大爺",
+      "role": "西單大雜院裡的長輩老鄰居",
+      "fictional": true
+    },
+    "hongmen": {
+      "name": "紅門院大媽",
+      "role": "住在海淀胡同紅門院裡的親戚",
+      "fictional": true
+    },
+    "xiaojun": {
+      "name": "小軍",
+      "role": "18歲技校學生，沈淑芬的外甥",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王建國（王師傅）",
+      "role": "北京第二機床廠五級車工（工人路線主角）",
+      "fictional": true
+    },
+    "gu": {
+      "name": "顧明遠",
+      "role": "《首都晨報》市政記者（記者路線主角）",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "r6_radio",
+      "scene": "siheyuan_room",
+      "pos": [2.6, 2.4],
+      "label": "正房短波收音機・戒嚴令播報與硬幣",
+      "start": "r6_radio_1",
+      "kind": "inspect",
+      "mechanic": "shortwave_dial",
+      "autoHint": true
+    },
+    {
+      "id": "r6_door",
+      "scene": "siheyuan_room",
+      "pos": [-1.6, -2.8],
+      "label": "揣上二分五分硬幣出門探信",
+      "start": "r6_door_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "r6_hongmen",
+      "scene": "hutong",
+      "pos": [14, 2],
+      "label": "紅門院門墩・紅門院大媽",
+      "start": "r6_hongmen_1",
+      "npc": "red",
+      "kind": "dialogue",
+      "timeWindow": [420, 720],
+      "autoHint": true
+    },
+    {
+      "id": "r6_hutong_exit",
+      "scene": "hutong",
+      "pos": [-16, -6],
+      "label": "出胡同口往路障與公用電話亭",
+      "start": "r6_exit_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "r6_payphone",
+      "scene": "blockade",
+      "pos": [-15, 1],
+      "label": "公用電話亭・維持排隊與地鐵傳言",
+      "start": "r6_phone_1",
+      "npc": "green",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "r6_barricade",
+      "scene": "blockade",
+      "pos": [-4, -7],
+      "label": "無軌電車旁・王師傅與市民送水",
+      "start": "r6_wang_1",
+      "npc": "blue",
+      "kind": "dialogue",
+      "autoHint": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 20 日，星期六，早上七點五十分。過去兩天剛經歷百萬市民遊行與人民大會堂對話電視播出，昨晚九點廣場才宣布停止絕食改為靜坐，沒想到後半夜便傳出緊急會議與自今天上午十時起北京部分地區正式實施戒嚴的通告。一大早外頭公車已經停了，正房桌上的短波收音機正沙沙作響。",
+      "event": "1989-05-18-dialogue-televised",
+      "variants": [
+        {
+          "requires": "r5_shared_gauze",
+          "text": "1989 年 5 月 20 日，早晨。五月中旬剛把十二捲醫用紗布交去醫院急救棚，緊接著十七、十八日百萬市民聲援與電視播出的對話依然沒能化解僵局。昨晚九點廣場宣布停止絕食，午夜過後卻宣布自今晨十時實施戒嚴；一大早巷子外頭已經聽不見無軌電車鈴聲了。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "擰開正房短波收音機聽清十點戒嚴的具體口徑",
+          "diary": "5/20 早。5/18 大會堂對話播出與 5/19 停止絕食之後，今晨發布自上午十時起在北京市部分地區實行戒嚴。",
+          "autoHint": true
+        }
+      ]
+    },
+    "r6_radio_1": {
+      "speaker": "narr",
+      "text": "收音機正重複播報昨夜停止絕食的消息，緊接著接上今早十時起實施戒嚴的命令。桌角小鐵盒裡放著一把二分和五分硬幣——待會兒萬一街面公車停擺、熟人聯絡不上，全靠公用電話亭這幾枚硬幣傳個平安。",
+      "event": "1989-05-20-martial-law",
+      "choices": [
+        {
+          "text": "調準短波頻率（4.8–15.5 MHz）聽完戒嚴通告時段與外台播報，抓起鐵盒裡的硬幣",
+          "mechanic": "shortwave_dial",
+          "keepsake": "shortwave_notes",
+          "item": "coins",
+          "evidence": "r6_ev_martial_radio",
+          "set": "r6_heard_martial",
+          "timeCost": 15,
+          "diary": "5/20 晨。短波核實了上午十時起實施戒嚴的官方通告；揣好二分、五分硬幣準備出門看紅門院親戚和小軍。",
+          "next": "r6_radio_2",
+          "autoHint": true
+        },
+        {
+          "text": "先記下中央台宣布的十點實施時間，揣好硬幣與小藥包準備出門",
+          "keepsake": "shortwave_notes",
+          "item": "coins",
+          "evidence": "r6_ev_martial_radio",
+          "set": "r6_heard_martial",
+          "timeCost": 15,
+          "next": "r6_radio_3"
+        }
+      ]
+    },
+    "r6_radio_2": {
+      "speaker": "narr",
+      "text": "短波裡各地台說法紛雜，有人說郊外軍車被市民攔在幾處環線路口，也有人小聲猜測地鐵是不是早停了。先去看看海淀紅門院的大媽，順便確認昨晚在外實習的小軍安不安全。",
+      "choices": [
+        {
+          "text": "把硬幣與紗布包塞進布袋往門口走"
+        }
+      ]
+    },
+    "r6_radio_3": {
+      "speaker": "narr",
+      "text": "跟張大爺叮囑一聲「守好院門別往馬路上走」，你拎起布袋準備出正房。",
+      "choices": [
+        {
+          "text": "出門走往胡同"
+        }
+      ]
+    },
+    "r6_door_1": {
+      "speaker": "narr",
+      "text": "屋外空氣發悶，平時清晨定點響起的無軌電車線嗡鳴今天完全聽不見。",
+      "choices": [
+        {
+          "text": "先走進海淀紅門院胡同口打聽親戚與小軍消息",
+          "goto": "hutong",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "再檢查一遍口袋裡的硬幣夠不夠"
+        }
+      ]
+    },
+    "r6_hongmen_1": {
+      "speaker": "hongmen",
+      "text": "淑芬你這麼早走過來啦？快進門喝口涼茶！昨晚半夜小軍騎車打這兒經過，看街上又是無軌電車橫停、又是傳戒嚴的，他沒敢亂走，在我們院裡歇了一刻鐘喝碗水，天亮前我就打發他沿北面小胡同繞回西單去了——你倆許是剛好錯開了！",
+      "event": "1989-05-19-hunger-strike-ends",
+      "choices": [
+        {
+          "text": "鬆了一大口氣，幫紅門院大媽把門墩旁兩桶溫茶與包子裝穩送給巷口守夜人",
+          "set": "r6_checked_hongmen",
+          "rel": { "hongmen": 1, "hongmen_auntie": 1 },
+          "timeCost": 15,
+          "diary": "到了海淀紅門院才鬆口氣：大媽說小軍天亮前已經沿北面小胡同往西單回家去了，沒往封鎖路口湊。",
+          "next": "r6_hongmen_2",
+          "autoHint": true
+        },
+        {
+          "text": "問問大媽外頭街口此刻什麼光景",
+          "rel": { "hongmen": 1, "hongmen_auntie": 1 },
+          "timeCost": 15,
+          "next": "r6_hongmen_3"
+        }
+      ]
+    },
+    "r6_hongmen_2": {
+      "speaker": "hongmen",
+      "text": "放心吧，這孩子聽你勸了。倒是前頭馬路口公用電話亭前擠得一團亂，都在排隊給親戚報平安，又在亂傳地鐵隧道藏兵的話。你出去要是順道，替大伙兒搭把手照看一下那條長隊吧！",
+      "choices": [
+        {
+          "text": "好，我去電話亭那邊看看"
+        }
+      ]
+    },
+    "r6_hongmen_3": {
+      "speaker": "hongmen",
+      "text": "路口的無軌電車全熄火橫停著，王師傅也在那兒跟司機站著呢。電話亭前擠滿了人，誰都急著給家裡打個電話。",
+      "choices": [
+        {
+          "text": "那我去路口瞧一瞧再回家"
+        }
+      ]
+    },
+    "r6_exit_1": {
+      "speaker": "narr",
+      "text": "西斜街胡同口外頭陽光斜斜照在柏油路上，兩輛奶油紅邊無軌電車橫停在大道中央，遠處公用電話亭旁圍著一圈又一圈著急打電話的北京市民。",
+      "choices": [
+        {
+          "text": "走出胡同口前往路障與公用電話亭",
+          "goto": "blockade",
+          "timeCost": 15,
+          "autoHint": true
+        },
+        {
+          "text": "再回頭跟紅門院大媽擺擺手"
+        }
+      ]
+    },
+    "r6_phone_1": {
+      "speaker": "narr",
+      "text": "公用電話亭前面排了二十來號人，前面一個拿著硬幣的小夥子跟後面插隊的人差點吵起來——人堆裡不知誰低聲傳開「地鐵全停運了，聽說隧道裡已經有部隊待命」，大伙兒越聽越慌，誰都想立刻搶先撥通電話。",
+      "event": "1989-05-20-rumor-subway-troops",
+      "variants": [
+        {
+          "requires": "world:xr:rumor_0520_subway_verified",
+          "text": "公用電話亭前本來吵嚷著「地鐵隧道裡已經有部隊待命」的傳言，幸虧隊尾一位剛從地鐵口上來的乘客帶來《首都晨報》顧明遠記者現場核對過的實情：地鐵站確實拉下鐵閘停運，但誰也沒有親眼見過隧道裡駐兵的證據，別越傳越玄。"
+        },
+        {
+          "requires": "world:xr:rumor_0520_subway_panic",
+          "text": "公用電話亭外頭擠得水洩不通！剛從路口趕來的幾撥人把「地鐵隧道有部隊」的說法越傳越嚇人，老人孩子全被擠在鐵門邊，隊伍眼看就要亂成一鍋粥。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "上前拿著老護師的架勢維持排隊秩序：每人限講兩分鐘、老人優先，並提醒大夥兒隧道駐兵並無實證、別亂推擠",
+          "set": "r6_managed_queue",
+          "evidence": "r6_ev_subway_rumor",
+          "timeCost": 20,
+          "diary": "在公用電話亭前站出來維持秩序，定下每人限時兩分鐘、長輩優先，又勸住大家別把未經證實的地鐵隧道傳言越傳越慌。",
+          "next": "r6_phone_2",
+          "autoHint": true
+        },
+        {
+          "text": "輪到自己時投進硬幣撥通西單附近鄰居傳呼電話，拜託帶話讓張大爺和小軍知道我平安",
+          "consumeItem": "coins",
+          "set": "r6_phoned_courtyard",
+          "evidence": "r6_ev_subway_rumor",
+          "timeCost": 15,
+          "diary": "投進硬幣給西單巷口打了傳呼電話，讓張大爺知道紅門院和小軍都平安。",
+          "next": "r6_phone_3"
+        }
+      ]
+    },
+    "r6_phone_2": {
+      "speaker": "narr",
+      "text": "原本爭吵的幾個人不好意思地退回白線內排成一列，連忙讓抱著小孩的母親和幾位白髮老人先拿話筒。站崗看亭子的大媽朝你點點頭，還遞來一隻搪瓷缸涼茶。",
+      "choices": [
+        {
+          "text": "再去無軌電車路障旁看看王師傅那邊怎麼樣"
+        }
+      ]
+    },
+    "r6_phone_3": {
+      "speaker": "narr",
+      "text": "對面雜貨店接電話的老鄰居高喊一聲「聽清了，讓張大爺別著急！」你放下話筒，順手幫後面排隊的老人撥好了號。",
+      "choices": [
+        {
+          "text": "去前面無軌電車旁看看王師傅"
+        }
+      ]
+    },
+    "r6_wang_1": {
+      "speaker": "wang",
+      "text": "沈大姐！剛才那頭電話亭多虧您穩住人龍啊！您瞧這大街上——從六里橋、公主墳到呼家樓，成千上萬北京市民跟工人都在路口攔住進城軍車車隊，還拎著暖壺、包子跟當日報紙去跟車上年輕小戰士說話。大夥兒都挺克制的，沒讓事情擦槍走火。",
+      "event": "1989-05-20-citizens-block-convoys",
+      "variants": [
+        {
+          "requires": "world:xr:clinic_gauze_shared",
+          "text": "沈大姐！前幾天您在醫院外門送出的那些無菌紗布和補液鹽，紅十字志願者也分了一點兒到這邊急救箱裡，太陽底下照應中暑的路人真頂事！剛才我們還幫電車司機燒了好幾壺溫開水送往西郊路口呢。"
+        },
+        {
+          "requires": "world:xr:rumor_0520_subway_verified",
+          "text": "沈大姐！剛才《首都晨報》顧記者打這兒經過，也跟我們說他親自核對了地鐵口只拉了鐵閘停運，隧道傳聞並無旁證。咱們越是守在路口，越要把真假消息分清楚，不能自己嚇自己。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "從布兜裡拿出幾包補液鹽遞給王師傅備在三輪車上，跟顧明遠一塊兒記下各路口平和勸阻車隊的目擊情況",
+          "set": "r6_convoy_witnessed",
+          "evidence": "r6_ev_convoy_witness",
+          "rel": { "wang": 1, "gu": 1 },
+          "timeCost": 20,
+          "diary": "在無軌電車路障旁把補液鹽分給王師傅。記者顧明遠與市民都目睹各地路口平和阻車、向士兵送水對話的情況。",
+          "next": "r6_end_1",
+          "autoHint": true
+        },
+        {
+          "text": "請王師傅和顧記者多保重，自己沿著沒有公車的大馬路慢慢走回西單看小軍",
+          "rel": { "wang": 1, "gu": 1 },
+          "evidence": "r6_ev_convoy_witness",
+          "timeCost": 15,
+          "next": "r6_end_1"
+        }
+      ]
+    },
+    "r6_end_1": {
+      "speaker": "narr",
+      "text": "上午十時過後，戒嚴令正式生效，頭頂電線下卻依舊沒有無軌電車開過。五月二十日這一個緊繃又克制的上午過去了，回到西單胡同前，你心裡記住了什麼？",
+      "choices": [
+        {
+          "text": "回頭看一眼公用電話亭前整齊排好的隊伍，危機裡沒亂了長幼禮數",
+          "requires": "r6_managed_queue",
+          "diary": "5/20 午。守住公用電話亭的一條長隊，讓白髮老人和急事家庭都能先打通一聲平安。",
+          "end": "r6_queue_calm"
+        },
+        {
+          "text": "拍拍衣袋裡的短波頻率抄本，今晨聽見的廣播與街頭所見已經對上",
+          "requires": "r6_heard_martial",
+          "diary": "5/20 午。把短波廣播裡的戒嚴令與親眼所見的路口情景放在同一頁，心裡總算有個底。",
+          "end": "r6_shortwave_record"
+        },
+        {
+          "text": "記著海淀紅門院大媽那句「小軍已經安全繞回西單」，親戚連著親戚總能兜住孩子",
+          "requires": "r6_checked_hongmen",
+          "diary": "5/20 午。紅門院大媽留住過小軍喝碗水又護他安全回西單，這份親情比什麼都重。",
+          "end": "r6_hongmen_kin"
+        },
+        {
+          "text": "提著空了一半的水壺步行走回西單四合院，盼著這場對峙早日和平收場",
+          "diary": "5/20 午。走回四合院的路上沒有公車，只有步行的街坊彼此點頭照應。",
+          "end": "r6_convoy_water"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "r6_queue_calm": {
+      "title": "玻璃電話亭前的長隊",
+      "text": "沒有人舉著喇叭指揮，但當你站出來定下兩分鐘輪替的規矩後，焦急的鄰居們自發站回線裡。在謠言與焦慮橫流的戒嚴首日，一條有秩序的排隊隊伍就是普通人的安定劑。"
+    },
+    "r6_shortwave_record": {
+      "title": "五月二十日的短波紀錄",
+      "text": "短波抄本記下了五月十九日停止絕食與五月二十日十時戒嚴的準確時刻，也記下了地鐵拉閘停運但並無隧道駐軍旁證的核實界線。清醒地看著一切發生，是你能為自己做的全部準備。"
+    },
+    "r6_hongmen_kin": {
+      "title": "紅門院捎來的平安話",
+      "text": "走出海淀胡同時你回望那扇紅門。小軍天明前從這裡繞回西單，證明兩座胡同院落之間那根看不見的親情線依然牢牢牽著孩子。"
+    },
+    "r6_convoy_water": {
+      "title": "沒有電車的步行歸途",
+      "text": "長安街到西單一帶寬闊而安靜，只有成群自行車與步行的市民。你把補液鹽分給了守路口的王師傅，轉身走回四合院煮午飯，祈願城內外的對峙不會演變成不可收拾的局面。"
+    }
+  },
+  "epilogue": "1989 年 5 月 20 日上午十時起北京部分地區正式實施戒嚴，市內多數公交與地鐵停運，數十萬市民與工人在六里橋、呼家樓等路口攔阻進城車隊並與士兵平和交談。接下來：五月三十日，糧店排隊。",
+  "epilogueEvent": "1989-05-20-martial-law",
+  "evidenceCatalog": {
+    "r6_ev_martial_radio": {
+      "id": "r6_ev_martial_radio",
+      "kind": "audio_tape",
+      "title": "五月二十日十時戒嚴通告短波紀錄",
+      "summary": "電台 7.35 MHz 重播五月十九日廣場停止絕食改為靜坐，並正式宣布自五月二十日上午十時起在北京市部分地區實行戒嚴。",
+      "sourceLabel": "中央台 7.35 MHz",
+      "dayKey": "1989-05-20",
+      "chapterId": "r-0520",
+      "event": "1989-05-20-martial-law",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["shortwave", "0520", "戒嚴"]
+    },
+    "r6_ev_subway_rumor": {
+      "id": "r6_ev_subway_rumor",
+      "kind": "rumor",
+      "title": "電話亭傳言：「地鐵隧道裡已經有部隊待命」",
+      "summary": "在公車停擺、地鐵拉閘關閉之際，排隊打電話的人群間流傳隧道內已有部隊待命；實際僅確認地鐵停運，隧道內說法無目擊旁證。",
+      "sourceLabel": "遊戲虛構・街頭傳言 11.85 MHz",
+      "dayKey": "1989-05-20",
+      "chapterId": "r-0520",
+      "event": "1989-05-20-rumor-subway-troops",
+      "route": "resident",
+      "confidence": "uncertain",
+      "tags": ["shortwave", "0520", "傳言"]
+    },
+    "r6_ev_convoy_witness": {
+      "id": "r6_ev_convoy_witness",
+      "kind": "witness",
+      "title": "無軌電車路障與市民攔阻車隊對話目擊",
+      "summary": "王建國與顧明遠各自轉述城西與環線主要路口情況：市民以公車和人牆攔阻進城車隊，同時向士兵遞水送食並和平交談。",
+      "sourceLabel": "王建國・顧明遠現場彙整",
+      "dayKey": "1989-05-20",
+      "chapterId": "r-0520",
+      "event": "1989-05-20-citizens-block-convoys",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0520", "市民攔車"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "r6_pair_martial_subway",
+      "cards": ["r6_ev_martial_radio", "r6_ev_subway_rumor"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "戒嚴令與地鐵停運均有公開紀錄可查，但「地鐵隧道裡駐軍待命」屬通訊受阻下無目擊憑據之耳語推測。",
+      "diary": "區分已查證的地鐵停運與無憑據的隧道傳言，不能替恐慌火上澆油。",
+      "set": "r6_dossier_subway_checked"
+    },
+    {
+      "id": "r6_pair_martial_convoy",
+      "cards": ["r6_ev_martial_radio", "r6_ev_convoy_witness"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "官方戒嚴命令頒布時間與市民在六里橋、呼家樓等路口攔停進城部隊並和平對話的目擊情況時間完全一致。",
+      "diary": "兩份紀錄吻合：正是因為五月二十日宣布戒嚴，才湧現全城路口市民阻車送水的場面。",
+      "set": "r6_dossier_corroborated"
+    }
+  ]
+}

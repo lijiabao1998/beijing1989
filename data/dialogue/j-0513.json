@@ -1,0 +1,463 @@
+{
+  "chapter": "j-0513",
+  "title": "第五章　五月十三日至十五日，陽台與傳言",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "beijing_hotel_balcony",
+  "spawn": {
+    "beijing_hotel_balcony": [0, 0],
+    "camp": [-15, -242]
+  },
+  "labels": {
+    "beijing_hotel_balcony": "1989 年 5 月 14 日・午後至傍晚・北京飯店十樓陽台",
+    "camp": "1989 年 5 月 15 日・午後・天安門廣場帳篷營地與急救通道"
+  },
+  "transitions": {
+    "camp": "五月十五日午後，蘇聯貴賓專機改於首都機場迎接，廣場北側的帆布棚連成了片……"
+  },
+  "clockStart": 810,
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（顧明遠）",
+      "role": "29歲《首都晨報》市政記者",
+      "fictional": true
+    },
+    "shen": {
+      "name": "老沈",
+      "role": "《首都晨報》夜班主編（電話聯絡）",
+      "fictional": true
+    },
+    "tang": {
+      "name": "小唐",
+      "role": "實習攝影記者",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立",
+      "role": "北大物理系學生",
+      "fictional": true
+    },
+    "fang": {
+      "name": "方醫生",
+      "role": "醫院急診與紅十字救護通道聯絡醫生",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "j5_balcony_dispatch",
+      "scene": "beijing_hotel_balcony",
+      "pos": [6.2, 4.2],
+      "label": "套間分機核實：「今晚電視台直播」傳言・老沈",
+      "start": "j5_dispatch_1",
+      "npc": "blue",
+      "kind": "dispatch",
+      "timeWindow": [780, 1140],
+      "deadlineMin": 900,
+      "autoHint": true
+    },
+    {
+      "id": "j5_balcony_lens",
+      "scene": "beijing_hotel_balcony",
+      "pos": [1.2, -1.0],
+      "label": "十樓陽台長焦觀景・小唐",
+      "start": "j5_lens_1",
+      "npc": "khaki",
+      "kind": "photo_vantage",
+      "timeWindow": [780, 1160],
+      "deadlineMin": 940
+    },
+    {
+      "id": "j5_balcony_exit",
+      "scene": "beijing_hotel_balcony",
+      "pos": [0, 5.2],
+      "label": "下樓進入廣場帳篷營地",
+      "start": "j5_exit_camp_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "j5_camp_mediation",
+      "scene": "camp",
+      "pos": [-20, -265],
+      "label": "廣播帳篷旁・陳立與學者勸說見聞",
+      "start": "j5_mediation_1",
+      "npc": "navy",
+      "kind": "dialogue",
+      "timeWindow": [800, 1220],
+      "deadlineMin": 990
+    },
+    {
+      "id": "j5_camp_triage",
+      "scene": "camp",
+      "pos": [24, -262],
+      "label": "東側急救通道・方醫生與紅暖壺",
+      "start": "j5_triage_1",
+      "npc": "red",
+      "kind": "checkpoint",
+      "timeWindow": [800, 1240],
+      "deadlineMin": 1030,
+      "autoHint": true
+    },
+    {
+      "id": "j5_camp_exit",
+      "scene": "camp",
+      "pos": [0, -245],
+      "label": "黃昏沿急救線外撤離寫稿",
+      "start": "j5_end_1",
+      "kind": "portal",
+      "isExit": true
+    }
+  ],
+  "photoTargets": [
+    {
+      "id": "j5_pt_balcony_camp",
+      "scene": "beijing_hotel_balcony",
+      "pos3": [-190, -14, -24],
+      "radius": 16,
+      "maxDist": 260,
+      "evidenceId": "j5_ev_photo_gorbachev",
+      "label": "五月十五日歡迎儀式改道機場後的天安門廣場遠景",
+      "event": "1989-05-15-gorbachev-visit"
+    },
+    {
+      "id": "j5_pt_balcony_avenue",
+      "scene": "beijing_hotel_balcony",
+      "pos3": [-110, -28, -68],
+      "radius": 18,
+      "maxDist": 220,
+      "evidenceId": "j5_ev_photo_gorbachev",
+      "label": "十樓陽台俯瞰長安街聲援車隊與人群",
+      "event": "1989-05-15-gorbachev-visit"
+    },
+    {
+      "id": "j5_pt_ambulance_lane",
+      "scene": "camp",
+      "pos3": [30, 1.8, -255],
+      "radius": 4,
+      "maxDist": 95,
+      "evidenceId": "j5_ev_triage_log",
+      "label": "廣場東側兩公尺寬紅十字救護車通道",
+      "event": "1989-05-15-citizens-medical-support"
+    }
+  ],
+  "evidenceCatalog": {
+    "j5_ev_tv_verify": {
+      "id": "j5_ev_tv_verify",
+      "kind": "official_print",
+      "title": "編播核對紀錄：五月十四日並無直播",
+      "summary": "經電話核對電視台播控通知與統戰部會場外記者回傳，五月十四日對話因代表性與轉播安排分歧未能達成現場直播，街頭所傳今晚直播並非事實。",
+      "sourceLabel": "編輯部查證電訊",
+      "dayKey": "1989-05-14",
+      "chapterId": "j-0513",
+      "event": "1989-05-14-rumor-tv-broadcast",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0514", "核實", "傳言"]
+    },
+    "j5_ev_tv_rumor": {
+      "id": "j5_ev_tv_rumor",
+      "kind": "rumor",
+      "title": "未核實急訊：「今晚電視現場直播對話」",
+      "summary": "廣場與街坊盛傳「中央電視台今晚現場直播廣場對話」，消息在等待的焦慮中越傳越快，令大批市民提前湧向大街。",
+      "sourceLabel": "街頭急訊傳聞（未核實）",
+      "dayKey": "1989-05-14",
+      "chapterId": "j-0513",
+      "event": "1989-05-14-rumor-tv-broadcast",
+      "route": "journalist",
+      "confidence": "uncertain",
+      "tags": ["0514", "傳言", "直播"]
+    },
+    "j5_ev_photo_gorbachev": {
+      "id": "j5_ev_photo_gorbachev",
+      "kind": "photo",
+      "title": "35mm 底片：改道首都機場之日",
+      "summary": "五月十五日戈巴契夫抵京，原定廣場歡迎儀式改至首都機場；長安街與廣場北側聚集大量聲援車隊與各校旗幟。",
+      "sourceLabel": "北京飯店陽台底片",
+      "dayKey": "1989-05-15",
+      "chapterId": "j-0513",
+      "event": "1989-05-15-gorbachev-visit",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0515", "底片", "外事"]
+    },
+    "j5_ev_mediation": {
+      "id": "j5_ev_mediation",
+      "kind": "witness",
+      "title": "知識界赴廣場勸說與現場分歧口述",
+      "summary": "五月十四日北京一批學者赴廣場呼籲克制並協調對話，然因現場訴求、直播爭議與互信不足未能取得撤離共識。",
+      "sourceLabel": "陳立與營地現場筆記",
+      "dayKey": "1989-05-14",
+      "chapterId": "j-0513",
+      "event": "1989-05-14-intellectuals-mediation",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0514", "勸說", "對話"]
+    },
+    "j5_ev_triage_log": {
+      "id": "j5_ev_triage_log",
+      "kind": "witness",
+      "title": "方醫生口述：兩公尺寬的生命急救線",
+      "summary": "絕食第三日炎熱加劇，紅十字救護車往返不歇；學生糾察與北京市民、工人師傅拉起麻繩維持東側通道，並送來綠豆湯、葡萄糖與消毒紗布。",
+      "sourceLabel": "急救線方醫生訪談",
+      "dayKey": "1989-05-15",
+      "chapterId": "j-0513",
+      "event": "1989-05-15-citizens-medical-support",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0515", "急救", "市民"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "j5_pair_tv_verify_rumor",
+      "cards": ["j5_ev_tv_verify", "j5_ev_tv_rumor"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "街坊盛傳「今晚直播」激起大批人潮上街，與編播室及對話現場回傳「並未達成直播」的查證紀錄存在明顯出入。",
+      "diary": "把「今晚直播」傳言與實際播控核實結果擺在一塊兒，更明白未核實消息怎樣在夜裡推著人流走。"
+    },
+    {
+      "id": "j5_pair_gorbachev_triage",
+      "cards": ["j5_ev_photo_gorbachev", "j5_ev_triage_log"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "五月十五日陽台底片拍下的廣場帳篷與急救車道，與方醫生口述的醫療物資運送及歡迎儀式改道機場同屬當日相互印證的實況。",
+      "diary": "外賓車隊改道機場與廣場內不間斷的救護車鳴笛，在同一天同時發生。"
+    },
+    {
+      "id": "j5_pair_mediation_rumor",
+      "cards": ["j5_ev_mediation", "j5_ev_tv_rumor"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "學者確曾到場協調勸說，但直播傳聞本身係資訊混亂下的街頭猜測，兩者無法互為佐證。"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 13 日至 15 日，北京比往年提前悶熱起來。幾百名學生繫上白布條在廣場開始絕食後，整座城的心弦一下子繃緊。五月十四日下午，你再次來到北京飯店十樓陽台，遠處長安街上全是往廣場趕的人群，而套間裡的分機響個沒停。",
+      "event": "1989-05-13-hunger-strike",
+      "variants": [
+        {
+          "requires": "world:xr:press_0504_published",
+          "text": "1989 年 5 月 14 日午後。五月四日那篇見報短訊讓編輯部同人曾短暫吐了口氣，可自從十三日學生開始絕食，氣氛瞬間又沉了下來。北京飯店十樓陽台外熱風滾滾，套間分機正傳來老沈急促的聲音。"
+        },
+        {
+          "requires": "world:xr:press_0504_spiked",
+          "text": "1989 年 5 月 14 日午後。五四夜班撤稿之後，新聞室裡的空氣一直很悶；如今廣場上學生已進入絕食第二天，外頭流言滿天飛，你與小唐再度回到十樓陽台盯緊現場。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "先接套間分機，聽老沈說剛收到的急訊",
+          "diary": "5/14 午後。廣場絕食進入第二天，街頭正傳著各種說不清來源的消息。",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j5_dispatch_1": {
+      "speaker": "shen",
+      "text": "明遠！報社剛剛接到三個電話，說街上從海淀到西單都在傳「今晚中央電視台要現場直播廣場對話」——連報刊亭、院子大媽都在打聽！咱們要是核實不清，這消息一傳十十傳百，晚上整條街又得塞死。你馬上打給電台與會場外頭的同行核對一下！",
+      "event": "1989-05-14-rumor-tv-broadcast",
+      "choices": [
+        {
+          "text": "逐線查對編播表與現場回傳，確認並無直播並立刻發出「尚無直播安排」的澄清電報",
+          "worldEmit": "xr:rumor_0514_tv_verified",
+          "evidence": "j5_ev_tv_verify",
+          "set": "j5_tv_verified",
+          "rel": { "shen": 1 },
+          "diary": "經核對播控與對話會場外同行：直播要求並未落實，當晚並無現場直播。我立即把澄清電報回傳編輯部與街頭聯絡點。",
+          "timeCost": 25,
+          "autoHint": true,
+          "next": "j5_dispatch_2"
+        },
+        {
+          "text": "擔心錯過突發動態，先把「盛傳今晚可能直播」的未證實消息直接抄進簡訊發出去",
+          "worldEmit": "xr:rumor_0514_tv_panic",
+          "evidence": "j5_ev_tv_rumor",
+          "set": "j5_tv_panic",
+          "diary": "來不及等電台最後回音便發出風聲，未經證實的直播傳聞隨即在街坊間越傳越急。",
+          "timeCost": 15,
+          "next": "j5_dispatch_3"
+        }
+      ]
+    },
+    "j5_dispatch_2": {
+      "speaker": "shen",
+      "text": "查得好！核實一條假消息比搶發十條風聲更重要。明兒一早外賓專機到京，你明午後下到廣場營地裡看清楚學者勸說與急救通道的情況。",
+      "choices": [
+        {
+          "text": "明白，我先去陽台跟小唐拍外圍形勢"
+        }
+      ]
+    },
+    "j5_dispatch_3": {
+      "speaker": "shen",
+      "text": "……算了，這風聲已經散出去了，外頭騎車往城裡趕的人今晚肯定又要多一倍。明兒你親自下到營地裡補寫一手實況，別再光憑傳言落筆。",
+      "choices": [
+        {
+          "text": "我知道了，明天一定下場核對"
+        }
+      ]
+    },
+    "j5_lens_1": {
+      "speaker": "tang",
+      "text": "顧老師！剛才樓下駐京外國記者全湧到走廊上了——聽說原本明天要在廣場舉行的戈巴契夫歡迎儀式，因為廣場全是絕食帳篷，臨時改到首都機場舉行！這角度可以拍下整個廣場與長安街的人潮，您按 F 看看取景框。",
+      "event": "1989-05-15-gorbachev-visit",
+      "choices": [
+        {
+          "text": "記錄歡迎儀式改道機場的事實，並切換取景模式拍下長安街聲援車隊",
+          "evidence": "j5_ev_photo_gorbachev",
+          "rel": { "tang": 1 },
+          "mechanic": "viewfinder",
+          "modeOverride": "camera_walk",
+          "diary": "5/15 戈巴契夫訪華，歡迎儀式改於首都機場進行；陽台鏡頭拍下廣場連片的白色帳篷與各單位聲援人潮。",
+          "timeCost": 25,
+          "autoHint": true
+        },
+        {
+          "text": "快速抄下各家媒體在走廊議論的行程變動時間表",
+          "evidence": "j5_ev_photo_gorbachev",
+          "mechanic": "viewfinder",
+          "modeOverride": "camera_walk",
+          "timeCost": 15
+        }
+      ]
+    },
+    "j5_exit_camp_1": {
+      "speaker": "narr",
+      "text": "五月十五日午後，毒辣的太陽烤著廣場花崗岩地面。你收拾採訪袋下樓穿過人群，走到飄滿帆布棚與白布條的廣場北側營地。",
+      "choices": [
+        {
+          "text": "走進天安門廣場帳篷營地採訪",
+          "goto": "camp",
+          "timeCost": 30,
+          "autoHint": true
+        },
+        {
+          "text": "在飯店門廊再核對一遍筆記本日期",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j5_mediation_1": {
+      "speaker": "chen",
+      "text": "顧記者！您也進廣場來了？昨天我們學校好幾位老師跟著北京的學者過來勸說大家克制、促成下午那場對話，可惜後來為了能不能現場直播跟代表性問題還是沒談攏。這麼曬的天，幸虧剛才一路上有市民與老師傅幫著送水！",
+      "event": "1989-05-14-intellectuals-mediation",
+      "variants": [
+        {
+          "requires": "world:xr:slope_push_helped",
+          "text": "顧記者！昨天在海淀斜坡我剛幫機床二廠的王師傅推著兩大桶綠豆湯上坡呢，今天他就蹬三輪拉進廣場來了！昨天一批學者也來營地裡奔走勸說、想拉近對話，可現場聲音太雜，談完還是沒能說服大家先撤。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "訪談陳立記下五月十四日學者勸說與對話僵局的經過",
+          "evidence": "j5_ev_mediation",
+          "rel": { "chen": 1 },
+          "diary": "在廣播棚邊遇到北大學生陳立，記下五月十四日學者勸說協調與對話未能達成共識的現場原貌。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "追問營地裡絕食進入第三天的飲水與醫療支援情況",
+          "evidence": "j5_ev_mediation",
+          "timeCost": 15
+        }
+      ]
+    },
+    "j5_triage_1": {
+      "speaker": "fang",
+      "text": "請讓一讓，別踩進麻繩裡頭！這兩公尺寬的救急道是幾家醫院實習生和學生糾察、市民一塊兒拉出來的。外頭的工人師傅蹬著三輪一桶接一桶送來綠豆湯和冰棍，沒有這條通道，中暑暈倒的年輕人根本送不到救護車上。",
+      "event": "1989-05-15-citizens-medical-support",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_gauze_tag",
+          "text": "記者同志，您看帳篷角那隻大紅竹殼暖壺——聽說是一個機床廠老師傅借給急救棚用的，西單的退休護師沈淑芬阿姨還在把手上頭細心繫了條乾淨醫用紗布作記號，怕熱水瓶亂了！外頭老百姓就這麼一趟趟給裡頭遞藥、遞水、讓開生路。"
+        },
+        {
+          "requires": "world:xr:thermos_lent",
+          "text": "記者同志，請別擋住紅線！你看那隻貼著紙條的大紅竹殼暖壺，就是機床廠老師傅騎三輪拉綠豆湯來時借給棚邊守夜孩子的。這麼熱的天，全靠北京市民與醫護人員硬是守住這條兩公尺寬的急救通道。"
+        },
+        {
+          "requires": "world:xr:clinic_gauze_shared",
+          "text": "您看急救車箱裡這些無菌紗布，好多都是胡同裡退休的醫務室護師沈阿姨一早清點送過來的！外頭救護車鳴笛一響，幾十萬人的廣場上照樣能讓出兩公尺寬的生路。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "記下方醫生的通道協調實況與市民送水細節，並對準救護車道拍照存證",
+          "evidence": "j5_ev_triage_log",
+          "set": "j5_shot_triage",
+          "rel": { "fang": 1 },
+          "modeOverride": "camera_walk",
+          "diary": "東側急救線旁訪談方醫生：紅十字救護車靠著市民與學生維持的兩公尺通道日夜往返，暖壺、綠豆湯與紗布從四面遞了進來。",
+          "timeCost": 25,
+          "autoHint": true
+        },
+        {
+          "text": "幫著扶住兩側麻繩讓開救護車，暫不舉相機干擾急救",
+          "evidence": "j5_ev_triage_log",
+          "set": "j5_shot_triage",
+          "rel": { "fang": 1 },
+          "timeCost": 20
+        }
+      ]
+    },
+    "j5_end_1": {
+      "speaker": "narr",
+      "text": "傍晚六點過後，遠處夕陽將紅十字救護車頂燈染成橘紅色。你收好相機與採訪本，沿著人群讓出的邊緣退出廣場。",
+      "choices": [
+        {
+          "text": "趕回報社補齊澄清「五月十四日直播傳言」的完整核實檔",
+          "requires": "j5_tv_verified",
+          "diary": "在謠言跑得比新聞更快的日子裡，守住「查無實據就不亂寫」的線，是記者唯一的錨。",
+          "end": "verified_wire_sent"
+        },
+        {
+          "text": "記下未及核實就流傳出去的直播風聲教訓，警醒自己日後更慎重落筆",
+          "requires": "j5_tv_panic",
+          "diary": "一句未核實的「可能直播」足以讓整座城多出一夜奔波，這筆賬記在自己本子上。",
+          "end": "panic_rumor_noted"
+        },
+        {
+          "text": "把兩公尺寬急救生命線的底片與方醫生訪談原稿釘進內參封面",
+          "requires": "j5_shot_triage",
+          "diary": "方醫生、暖壺與急救通道旁的無數雙手，比任何口號都更值得被底片留住。",
+          "end": "emergency_corridor_lens"
+        },
+        {
+          "text": "記下戈巴契夫訪華改道首都機場的歷史性一天，步行回報社",
+          "diary": "五月十五日，中蘇高層在機場完成儀式，而天安門廣場上的帳篷依然在夜風裡亮著燈。",
+          "end": "airport_protocol_shift"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "verified_wire_sent": {
+      "title": "澄清傳言的電報",
+      "text": "回到報社時，夜班桌上的幾條錯誤風聲已經被你壓了下來。在資訊雜亂、人聲鼎沸的五月中旬，一個記者能做的不多，但至少這張桌上沒有多出一句以訛傳訛的斷語。"
+    },
+    "panic_rumor_noted": {
+      "title": "跑在查證前頭的耳語",
+      "text": "夜裡街上多了許多聽說要直播而趕來守候的市民，最終卻只等到長長的靜坐與救護車笛聲。你在筆記頁角重重劃了一條紅線，寫下：「此後凡未親見電傳通知者，一字不出。」"
+    },
+    "emergency_corridor_lens": {
+      "title": "兩公尺寬的生命線",
+      "text": "顯影盤裡浮出救護車頂燈與兩旁讓開的人牆，車邊還立著一隻繫了白紗布條的大紅暖壺。那些沒有舉橫幅的醫生、工人與市民，在最焦灼的三天裡托住了最脆弱的生命。"
+    },
+    "airport_protocol_shift": {
+      "title": "改道首都機場的一日",
+      "text": "外電記下了罕見的歡迎儀式改道與長安街上的龐大人海。你合上寫滿五月十三至十五日時間點的筆記本，明白僵局已經走進了更難收拾的深水區。"
+    }
+  },
+  "epilogue": "五月十三日至十五日，廣場絕食持續升溫，學者勸說未能化解僵局，戈巴契夫訪華歡迎儀式改於首都機場舉行，北京醫護與市民協力維持急救通道。下一章：五月十九日夜至二十日，採訪證與磁帶。",
+  "epilogueEvent": "1989-05-15-gorbachev-visit"
+}

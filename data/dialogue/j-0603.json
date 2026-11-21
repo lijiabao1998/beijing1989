@@ -1,0 +1,422 @@
+{
+  "chapter": "j-0603",
+  "title": "第八章　六月三日夜至五日，底片鐵盒（尾聲）",
+  "note": "所有說話角色皆為虛構。真實人物不出現；依史料原則並列公開記載差異，絕不編造單一醫院傷亡數字。All characters are fictional.",
+  "startScene": "newsroom",
+  "spawn": {
+    "newsroom": [0, 6],
+    "hospital_gate": [0, 10]
+  },
+  "labels": {
+    "newsroom": "1989 年 6 月・首都晨報夜班編輯部與暗房",
+    "hospital_gate": "1989 年 6 月 4 日・黎明・醫院外門廊"
+  },
+  "transitions": {
+    "hospital_gate": "六月三日深夜至四日黎明前，通告一再響起。你避開主幹道穿過小巷來到醫院外門，接應實習生小唐與核實外圍情況……",
+    "newsroom": "六月五日清晨，公車尚未恢復，冷清街道上留著哨卡與灰燼。你推開靜默的《首都晨報》大門……"
+  },
+  "clockStart": 1380,
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（顧明遠）",
+      "role": "29歲《首都晨報》市政記者",
+      "fictional": true
+    },
+    "shen": {
+      "name": "老沈",
+      "role": "《首都晨報》夜班主編",
+      "fictional": true
+    },
+    "fang": {
+      "name": "方醫生",
+      "role": "醫院急診聯絡醫生",
+      "fictional": true
+    },
+    "zhang": {
+      "name": "張大姐",
+      "role": "排字房老師傅",
+      "fictional": true
+    },
+    "tang": {
+      "name": "小唐",
+      "role": "實習攝影記者",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "j8_news_night",
+      "scene": "newsroom",
+      "pos": [-4.6, 1.8],
+      "label": "六月三日夜・老沈與緊急通告",
+      "start": "j8_night_1",
+      "npc": "blue",
+      "kind": "dispatch",
+      "requires": "!j8_after_hospital",
+      "timeWindow": [1320, 1980],
+      "deadlineMin": 1410,
+      "autoHint": true
+    },
+    {
+      "id": "j8_news_to_hosp",
+      "scene": "newsroom",
+      "pos": [0, -6.0],
+      "label": "黎明前繞道醫院外門接應實習生",
+      "start": "j8_to_hosp_1",
+      "kind": "portal",
+      "isExit": true,
+      "requires": "!j8_after_hospital"
+    },
+    {
+      "id": "j8_hosp_fang",
+      "scene": "hospital_gate",
+      "pos": [-4.5, -1.5],
+      "label": "醫院外廊黎明・方醫生",
+      "start": "j8_fang_1",
+      "npc": "red",
+      "kind": "dialogue",
+      "requires": "!j8_after_hospital",
+      "timeWindow": [1380, 2160],
+      "deadlineMin": 1800,
+      "autoHint": true
+    },
+    {
+      "id": "j8_hosp_return",
+      "scene": "hospital_gate",
+      "pos": [0, 12.2],
+      "label": "六月五日清晨返回靜默報社",
+      "start": "j8_to_news_1",
+      "kind": "portal",
+      "isExit": true,
+      "requires": "!j8_after_hospital"
+    },
+    {
+      "id": "j8_news_morning",
+      "scene": "newsroom",
+      "pos": [2.4, 0.6],
+      "label": "六月五日清晨・張大姐與小唐",
+      "start": "j8_morning_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "requires": "j8_after_hospital",
+      "timeWindow": [1380, 2400],
+      "deadlineMin": 2000,
+      "autoHint": true
+    },
+    {
+      "id": "j8_darkroom_end",
+      "scene": "newsroom",
+      "pos": [-9, -3],
+      "label": "暗房與編輯台・最後的落款",
+      "start": "j8_end_1",
+      "kind": "portal",
+      "isExit": true,
+      "requires": "j8_after_hospital"
+    }
+  ],
+  "evidenceCatalog": {
+    "j8_ev_emergency_notice": {
+      "id": "j8_ev_emergency_notice",
+      "kind": "official_print",
+      "title": "六月三日傍晚廣播緊急通告紀錄",
+      "summary": "六月三日晚間六時半起，電台與電視反覆播送緊急通告要求市民留在家中、切勿前往街頭與天安門廣場。",
+      "sourceLabel": "夜班廣播紀錄",
+      "dayKey": "1989-06-03",
+      "chapterId": "j-0603",
+      "event": "1989-06-03-emergency-notice",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0603", "通告", "夜班"]
+    },
+    "j8_ev_hospital_watch": {
+      "id": "j8_ev_hospital_watch",
+      "kind": "witness",
+      "title": "醫院外門廊口述與公開紀錄差異備註",
+      "summary": "方醫生在黎明外廊只傳達急診忙碌與西長安街、木樨地繞行避險提醒。關於這一夜醫院收治與整體傷亡數目，各公開文獻記載與推估差異懸殊，筆記本嚴格不編造單一院方收治數字。",
+      "sourceLabel": "醫院外廊方醫生訪談",
+      "dayKey": "1989-06-04",
+      "chapterId": "j-0603",
+      "event": "1989-06-03-evening-muxidi-hospitals",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0604", "醫院", "史料差異"]
+    },
+    "j8_ev_clearing_record": {
+      "id": "j8_ev_clearing_record",
+      "kind": "official_print",
+      "title": "六月四日清晨清場與各公開紀錄差異對照",
+      "summary": "軍隊推進後留守紀念碑旁的學生於六月四日清晨五時前後列隊向東南撤離，部隊完成廣場清場；官方說法、外交電報、紅十字早期報告與「天安門母親」核實名錄在整體數目上記載各異。",
+      "sourceLabel": "多方公開史料備忘",
+      "dayKey": "1989-06-04",
+      "chapterId": "j-0603",
+      "event": "1989-06-04-square-clearing",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0604", "清場", "差異並列"]
+    },
+    "j8_ev_silence_memo": {
+      "id": "j8_ev_silence_memo",
+      "kind": "official_print",
+      "title": "六月五日清晨編輯部復歸統稿現況",
+      "summary": "街頭設卡駐守且仍有焚毀車輛殘骸；北京報社與廣播機構全面恢復統一官方通稿，採編人員停筆、接受整頓或低調收存底片與筆記。",
+      "sourceLabel": "《首都晨報》六月五日備忘",
+      "dayKey": "1989-06-05",
+      "chapterId": "j-0603",
+      "event": "1989-06-05-press-curfew-silence",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0605", "報社", "暗房"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "j8_pair_hospital_clearing",
+      "cards": ["j8_ev_hospital_watch", "j8_ev_clearing_record"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "兩份紀錄一致印證六月三日夜至四日凌晨西幹線衝突後四日清晨完成清場，且共同提醒對整體傷亡數目應並列各公開來源而不臆測。",
+      "diary": "不替無法核實的單一數字添墨，只守住親歷的時間、地點與公開差異。"
+    },
+    {
+      "id": "j8_pair_notice_silence",
+      "cards": ["j8_ev_emergency_notice", "j8_ev_silence_memo"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "六月三日傍晚緊急通告響起到六月五日編輯部全面復歸統稿，構成完整的新聞室實況序列。"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 6 月 3 日，星期六，深夜十一點。傍晚六點半起，收音機和電視台一遍遍播著緊急通告，要求市民留在家中、切勿上街或去廣場。夜班編輯室只亮著幾盞檯燈，每個人都在盯著電話與外面越來越沉悶的夜色。",
+      "event": "1989-06-03-emergency-notice",
+      "choices": [
+        {
+          "text": "走到夜班編輯台，聽老沈安排今夜怎麼顧住同人安全",
+          "diary": "6/3 深夜。緊急通告反覆播送，編輯部幾乎所有外勤都被召回室內。",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j8_night_1": {
+      "speaker": "shen",
+      "text": "明遠，今夜誰也不許往天安門和長安街正路擠！剛剛幾條路已經完全不通了。只是小唐傍晚送印樣去了西邊醫院附近的外圍聯絡點還沒回來——咱們在醫院急診外廊的聯絡人方醫生剛打了通電話進來，叫你若能繞小巷過去接應一下小唐，順便把那邊的避險繞行提醒帶回來。",
+      "event": "1989-06-03-emergency-notice",
+      "variants": [
+        {
+          "requires": "world:xr:curfew_lane_guarded",
+          "text": "明遠，剛才海淀路口那邊的工友王師傅托熟人捎話過來，說他守在胡同口攔住了好幾個想往南騎的學生。眼下大馬路絕對過不去，只是小唐傍晚還在醫院外門聯絡點沒回來——你只走小巷過去接應小唐和方醫生，千萬別往正路探頭！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "記下緊急通告與老沈叮囑，答應只走小巷去接應小唐並問明避險路線",
+          "evidence": "j8_ev_emergency_notice",
+          "rel": { "shen": 1 },
+          "diary": "老沈嚴令不許上主幹道，要我只繞小巷去醫院外門接回小唐。",
+          "timeCost": 20,
+          "autoHint": true,
+          "next": "j8_night_2"
+        },
+        {
+          "text": "幫老沈把這一個半月的值班表與採訪證名單抽出來收進鐵櫃",
+          "evidence": "j8_ev_emergency_notice",
+          "rel": { "shen": 1 },
+          "timeCost": 15,
+          "next": "j8_night_2"
+        }
+      ]
+    },
+    "j8_night_2": {
+      "speaker": "shen",
+      "text": "別逞英雄。新聞人的筆先要保住人，底片才能留到以後說話。去吧，天亮前若回不來，在醫院外廊等街面消停再回來。",
+      "choices": [
+        {
+          "text": "明白，我一定避開大馬路"
+        }
+      ]
+    },
+    "j8_to_hosp_1": {
+      "speaker": "narr",
+      "text": "遠方傳來斷續的悶響與零星呼喊，整座城在深夜裡幾乎熄滅了路燈。你把採訪證反面塞進內袋，貼著低矮胡同牆根往西邊醫院外門趕去。",
+      "choices": [
+        {
+          "text": "穿過小巷前往醫院外門廊",
+          "goto": "hospital_gate",
+          "timeCost": 120,
+          "autoHint": true
+        },
+        {
+          "text": "在編輯部走廊確認一次門鎖",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j8_fang_1": {
+      "speaker": "fang",
+      "text": "顧記者！您可算到了，小唐半個鐘頭前剛把兩卷底片託我塞進滅菌櫃旁邊，人先跟幾個住附近的醫護人員避到院內休息室了。今夜木樨地與西長安街那一帶衝突非常嚴重，三輪車和平板車送來的急診根本停不下來——我沒法報任何院方總數，外面將來也一定眾說紛紜。你幫我把這條繞行避險的急話傳回報社和熟人胡同：天亮前千萬別靠近西幹道與廣場！",
+      "event": "1989-06-03-evening-muxidi-hospitals",
+      "variants": [
+        {
+          "requires": "world:xr:clinic_gauze_shared",
+          "text": "顧記者，您到了就好！小唐安全在裡頭呢。幸虧五月中旬西單沈淑芬阿姨提前送來那批備用無菌紗布，今晚真救了大急。木樨地和西長安街這一帶整宿都在送急診過來，具體總數誰也報不準、將來各方記載肯定差別很大——你快替我把避險繞行提醒傳出去，讓巷口認識的人千萬別出來！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "立刻通過外廊值班電話傳出繞行避險提醒，並只記下嚴謹的事實與史料差異",
+          "worldEmit": "xr:curfew_hospital_warned",
+          "evidence": "j8_ev_hospital_watch",
+          "set": "j8_warned_detour",
+          "rel": { "fang": 1 },
+          "diary": "6/04 黎明醫院外廊。方醫生整夜沒合眼，只請我傳出繞行避險提醒；筆記本不編造任何收治數字，只記下此夜各路記載懸殊的事實。",
+          "timeCost": 180,
+          "autoHint": true,
+          "next": "j8_fang_2"
+        },
+        {
+          "text": "謝過方醫生，承諾等天光大亮後再回來取回小唐的膠捲",
+          "worldEmit": "xr:curfew_hospital_warned",
+          "evidence": "j8_ev_hospital_watch",
+          "set": "j8_warned_detour",
+          "rel": { "fang": 1 },
+          "timeCost": 120,
+          "next": "j8_fang_2"
+        }
+      ]
+    },
+    "j8_fang_2": {
+      "speaker": "narr",
+      "text": "天邊漸漸透出蒼白的晨光。後來從多方公開資料得知，六月四日清晨五時前後留守廣場紀念碑旁的學生經協商列隊撤出，軍隊完成廣場清場；關於這一夜整體傷亡人數，中國官方其後說法、外交電報、紅十字初期報告與「天安門母親」群體核實名錄之間存在極大差距。",
+      "event": "1989-06-04-square-clearing",
+      "choices": [
+        {
+          "text": "把各方公開記載存在極大差異的事實寫進筆記末頁，等候天明返社",
+          "evidence": "j8_ev_clearing_record",
+          "diary": "6/04 清場完成。不同公開來源對這夜數字記載差距懸殊；普通人能守住的，是不編造、不遺忘。"
+        }
+      ]
+    },
+    "j8_to_news_1": {
+      "speaker": "narr",
+      "text": "又過了一晝夜。六月五日清晨，長安街上設卡駐守，街道冷清而空氣裡仍混著焦糊味。你領回安全無事的小唐與他的膠捲，一起走回靜默的《首都晨報》編輯部。",
+      "choices": [
+        {
+          "text": "推開大門進入六月五日清晨的報社",
+          "set": "j8_after_hospital",
+          "goto": "newsroom",
+          "timeCost": 60,
+          "autoHint": true
+        },
+        {
+          "text": "在院外回望一眼晨霧裡的北京醫院大門",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j8_morning_1": {
+      "speaker": "zhang",
+      "text": "明遠，小唐，人平平安安回來就好！昨天停了一天市內全亂了，今早各報已經全部恢復統一口徑的通稿。老沈剛被叫去開整頓會，走前叫我轉告你們：人沒事最重要。這套五月留下來的清樣大姐幫你捲在牛皮紙裡了，小唐也把那幾捲沒來得及沖印的膠捲裝進了餅乾鐵盒。",
+      "event": "1989-06-05-press-curfew-silence",
+      "variants": [
+        {
+          "requires": "world:xr:press_0504_published",
+          "text": "明遠、小唐回來了！上頭今天已經全部收回統一口徑發通稿了，五月四日那篇見報短訊估計老沈得替大夥兒扛著寫檢討。這捲五月清樣和這隻餅乾鐵盒你們趁早上人少收妥當——外頭有外國記者在飯店陽台拍長安街，咱們自己手裡的東西也得留住底線。"
+        },
+        {
+          "requires": "world:xr:press_0504_spiked",
+          "text": "你們回來我就放心了！早知道從五四撤版起就一路收緊成今天這樣。各報今早已經統一口徑出通稿了，老沈去開會前托我把你們五月的清樣與小唐這幾捲底片收進鐵皮餅乾盒裡交給你。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "接過小唐遞來的餅乾鐵盒與張大姐保存的五月清樣，向兩人鄭重道謝",
+          "item": "film_tin",
+          "keepsake": "film_tin",
+          "evidence": "j8_ev_silence_memo",
+          "set": "j8_saved_film",
+          "rel": { "tang": 1, "zhang": 1, "zhang_typesetter": 1 },
+          "diary": "6/05 清晨報社。全面恢復統一口徑通稿；張大姐與小唐交來一隻裝滿 35mm 未印底片的餅乾鐵盒與五月清樣。",
+          "timeCost": 20,
+          "autoHint": true,
+          "next": "j8_morning_2"
+        },
+        {
+          "text": "先仔細核對牛皮紙捲裡的五月清樣與筆記日期，與張大姐一起封存",
+          "item": "film_tin",
+          "keepsake": "film_tin",
+          "evidence": "j8_ev_silence_memo",
+          "set": "j8_checked_proofs",
+          "rel": { "zhang": 1, "zhang_typesetter": 1, "tang": 1 },
+          "diary": "與張大姐在排字房最後一次核對完五月清樣與時間筆記。",
+          "timeCost": 20,
+          "next": "j8_morning_2"
+        }
+      ]
+    },
+    "j8_morning_2": {
+      "speaker": "tang",
+      "text": "顧老師，外頭飯店監視也越來越嚴了，聽說今天還有人在街上遠遠拍到了阻擋車隊的影像。我們這幾卷四月十七號到五月三十號拍的底片，只要盒子密封著，以後總有見天日的那一天。",
+      "choices": [
+        {
+          "text": "點頭收下鐵盒，走進暗房與編輯台前做最後收拾"
+        }
+      ]
+    },
+    "j8_end_1": {
+      "speaker": "narr",
+      "text": "安全紅燈熄滅後的暗房安靜極了，顯影盤已擦乾倒扣在架子上。外間編輯台擺著你的藍色《首都晨報》採訪證、錄音磁帶、半包未拆的底片與那隻餅乾鐵盒。從四月十七日夜到六月五日晨，記者顧明遠的七個星期走到了尾聲。",
+      "choices": [
+        {
+          "text": "將全部 35mm 底片與接觸印樣密封装進鐵皮餅乾盒，帶離報社妥善藏存",
+          "requires": "j8_saved_film",
+          "diary": "把整個春天的底片鎖進鐵皮餅乾盒。只要膠片不發霉，那七週的光影就還在。",
+          "end": "hidden_negatives"
+        },
+        {
+          "text": "把方醫生外廊避險紀錄與各公開史料差異抄成無署名內部備忘，夾入新聞室資料冊",
+          "requires": "j8_warned_detour",
+          "diary": "寫下一份不帶個人判斷、只列時間地名與史料差異的內部備忘，留給將來翻檔的人。",
+          "end": "internal_memo"
+        },
+        {
+          "text": "把張大姐交來的五月清樣與鋼筆一起收進皮包，平靜地交回這張記者證暫別新聞室",
+          "requires": "j8_checked_proofs",
+          "diary": "有些字暫時寫不出來，那就先把鋼筆洗乾淨收進盒子裡，不替違心的通稿署名。",
+          "end": "resigned_pen"
+        },
+        {
+          "text": "坐回市政線辦公桌前整理空白排班表，在沉默的編輯部裡守候下一輪晨光",
+          "diary": "1989 年的春天合上了。街頭的哨卡還在，但走過街角的人名都記在心裡。",
+          "end": "municipal_desk"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "hidden_negatives": {
+      "title": "餅乾鐵盒裡的底片",
+      "text": "你用油紙包緊從四月十七日到五月三十日的底片卷，放進那隻寫著餅乾牌子的鐵皮盒子裡封上膠布。歷史的結果沒有因任何一張照片改變，但海淀報刊亭的燈、立交橋邊的手臂、兩公尺寬的急救通道與白色的五月暮色，都安安穩穩睡在了暗處。"
+    },
+    "internal_memo": {
+      "title": "只留給日後的內部備忘",
+      "text": "牛皮紙檔案袋裡並排躺著六月三日夜緊急通告、六月四日醫院外廊繞行記錄，與一張只標註「各方統計數目差異極大」的簡短備忘。你在末行沒有簽上名字，只寫下了老沈、方醫生、王師傅與沈阿姨說過的那句話：人先平平安安活下來。"
+    },
+    "resigned_pen": {
+      "title": "洗淨封存的鋼筆",
+      "text": "你把鋼筆吸飽的藍黑墨水擠回瓶裡，用清水反覆涮淨筆尖，和五月清樣一起擺進帆布書包最裡層。走下《首都晨報》樓梯時，清晨的風帶著楊樹氣味吹過王府井；你不再往任何統稿版面落筆，卻記住了這座城市所有沒有署名的普通人。"
+    },
+    "municipal_desk": {
+      "title": "市政記者的空白排班表",
+      "text": "六月五日上午，編輯室的電傳機又開始吐出統一的鉛字稿。你坐回靠窗那張市政線書桌，把採訪證放進抽屜夾層，在嶄新的排班表上填上自己的名字與當日日期。窗外的街道終究會重新開出公車，而那個春天的全部見聞已沉沉壓在抽屜底下。"
+    }
+  },
+  "epilogue": "全八章完（記者視角）。六月四日清晨清場後數日，北京街頭設卡駐守、多家新聞機構恢復統一口徑，不同公開來源對傷亡經過與數目記載差異極大（見史料條目）。在無法改寫的歷史進程裡，記者顧明遠留住的，是一卷底片、一盤錄音、與各自平安的同事與熟人。",
+  "epilogueEvent": "1989-06-05-press-curfew-silence"
+}

@@ -1,14 +1,122 @@
 import * as THREE from 'three';
-import { C, Part, glowMat, instanced, litMat, mergeParts, place, rng, textTexture, vertText } from './kit';
-import { bike, lampHead, lampPole, person, tree } from './props';
-import { greatHall, huadengGlobes, huadengPole, monument, pkuWestGate, tiananmen, trolleybus, trolleyWindows } from './landmarks';
-import type { SceneId } from '../types';
+import { C, Part, addLayeredParts, glowMat, instanced, litMat, mergeParts, place, rng, textTexture, vertText } from './kit';
+import { addRealisticTrees } from './foliage';
+import {
+  ambulance,
+  bike,
+  bikeLod,
+  crowdPerson,
+  crowdPersonLod,
+  lampHead,
+  lampPole,
+  person,
+  sitPerson,
+  sitPersonLod,
+  tricycle,
+} from './props';
+import {
+  broadcastStation,
+  campTent,
+  campusSceneArchitecture,
+  democracyStatue,
+  greatHall,
+  huadengGlobes,
+  huadengPole,
+  monument,
+  pkuWestGate,
+  tiananmen,
+  trolleybus,
+  trolleyWindows,
+} from './landmarks';
+import {
+  SharedTexPool,
+  applyAtmosphere,
+  asphaltRoadTex,
+  campusPathTex,
+  granitePavingTex,
+  makeRainSystem,
+  skyDomeTex,
+} from './materials';
+import { buildTiananmenSouthAndSkyline } from './imperialSouth';
+import { buildStreet } from './streetScene';
+import { buildCourtyard, buildFactory, workerTricycleRider } from './factoryArch';
+import { SCENE_META } from '../data';
+import type { AtmospherePreset, SceneId, SceneManifestEntry } from '../types';
+
+export { buildStreet, buildFactory, buildCourtyard, workerTricycleRider };
+
+export type AABB6 = [number, number, number, number, number, number];
 
 export interface World {
-  id: SceneId; scene: THREE.Scene; spawn: [number, number];
+  id: SceneId;
+  scene: THREE.Scene;
+  spawn: [number, number];
   bounds: [number, number, number, number]; // minX,maxX,minZ,maxZ
   update(dt: number, t: number): void;
-  camDist?: number; speed?: number; cam?: { h: number; ahead: number; y: number };
+  camDist?: number;
+  speed?: number;
+  cam?: { h: number; ahead: number; y: number };
+  occluders?: AABB6[];
+  atmosphere?: AtmospherePreset;
+  dispose?: () => void;
+}
+
+export type SceneBuilder = (id: SceneId, meta?: SceneManifestEntry) => World;
+
+const SCENE_BUILDERS = new Map<string, SceneBuilder>();
+
+/** Register a modular Wave 2/3 scene builder by SceneId so buildScene/WorldManager can invoke it. */
+export function registerSceneBuilder(id: SceneId | string, fn: SceneBuilder): void {
+  SCENE_BUILDERS.set(id, fn);
+}
+
+/** Tag a scene-created CanvasTexture as scene-owned so WorldManager disposes it cleanly on eviction. */
+export function markSceneOwned<T extends THREE.Texture>(tex: T): T {
+  tex.userData.sceneOwned = true;
+  return tex;
+}
+
+function isNearAny(x: number, z: number, anchors: readonly [number, number][], radius = 15): boolean {
+  const r2 = radius * radius;
+  for (const [ax, az] of anchors) {
+    const dx = x - ax;
+    const dz = z - az;
+    if (dx * dx + dz * dz <= r2) return true;
+  }
+  return false;
+}
+
+/** Lean LOD Huadeng streetlamp pole (~120 tris vs ~1,024 tris) for distant square/avenue edges. */
+function huadengPoleLod(): Part[] {
+  const iron = 0x44453d;
+  const p: Part[] = [
+    { p: [0, 0.32, 0], s: [1.50, 0.64, 1.50], c: 0xdedad0, cyl: true, seg: 6 },
+    { p: [0, 0.98, 0], s: [1.38, 0.68, 1.38], c: 0xe8e4da, cyl: true, seg: 6 },
+    { p: [0, 4.35, 0], s: [0.42, 6.1, 0.42], c: iron, cyl: true, seg: 6, top: 0.72 },
+  ];
+  for (let i = 0; i < 4; i++) {
+    const a = (i * Math.PI) / 4;
+    p.push({ p: [0, 6.85, 0], s: [2.05, 0.09, 0.09], c: iron, ry: a });
+  }
+  return p;
+}
+
+/** Lean LOD Huadeng globes using detail:0 icosahedra (180 tris vs 720 tris). */
+function huadengGlobesLod(): Part[] {
+  const p: Part[] = [
+    { p: [0, 8.2, 0], s: [1.05, 1.15, 1.05], c: 0xfff3d4, sphere: true, detail: 0 },
+  ];
+  for (let i = 0; i < 8; i++) {
+    const a = (i * Math.PI) / 4;
+    p.push({
+      p: [Math.cos(a) * 1.05, 7.3, Math.sin(a) * 1.05],
+      s: [0.58, 0.64, 0.58],
+      c: 0xffeec4,
+      sphere: true,
+      detail: 0,
+    });
+  }
+  return p;
 }
 
 function base(fogColor: number, near = 18, far = 70): THREE.Scene {
@@ -20,39 +128,37 @@ function base(fogColor: number, near = 18, far = 70): THREE.Scene {
   return s;
 }
 
-function sodium(s: THREE.Scene, x: number, z: number, i = 14) {
-  const l = new THREE.PointLight(C.sodium, i, 16, 1.6); l.position.set(x, 4.6, z); s.add(l);
-}
-
-/** Building with a grid of windows; ~40% lit (warm) — lit panes go to the glow batch. */
-function building(stat: Part[], glow: Part[], x: number, z: number, w: number, h: number, d: number, col: number, r: () => number, face: 1 | -1) {
-  stat.push({ p: [x, h / 2, z], s: [w, h, d], c: col });
-  stat.push({ p: [x, h + 0.15, z], s: [w + 0.3, 0.3, d + 0.3], c: 0x3a3532 });
-  const floors = Math.floor(h / 3);
-  for (let f = 0; f < floors; f++) for (let i = 0; i < Math.floor(w / 2.4); i++) {
-    const wx = x - w / 2 + 1.2 + i * 2.4, wy = 1.6 + f * 3, wz = z + face * (d / 2 + 0.02);
-    const lit = r() < 0.42;
-    (lit ? glow : stat).push({ p: [wx, wy, wz], s: [1.1, 1.3, 0.04], c: lit ? (r() < 0.7 ? C.window : 0xf2f0e0) : 0x1d2229 });
-  }
+function sodium(s: THREE.Scene, x: number, z: number, i = 14, dist = 16) {
+  const l = new THREE.PointLight(C.sodium, i, dist, 1.6); l.position.set(x, 4.6, z); s.add(l);
 }
 
 function signPlane(s: THREE.Scene, text: string, x: number, y: number, z: number, w: number, h: number, bg: string, fg: string, ry = 0, vertical = false) {
-  const tex = textTexture(vertical ? 128 : 512, vertical ? 512 : 128, g => {
+  const tex = markSceneOwned(textTexture(vertical ? 128 : 512, vertical ? 512 : 128, g => {
     g.fillStyle = bg; g.fillRect(0, 0, g.canvas.width, g.canvas.height);
     g.fillStyle = fg;
     if (vertical) vertText(g, text, 64, 24, 92);
     else { g.font = 'bold 84px "Noto Serif CJK TC","Noto Sans CJK TC",serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, 256, 68); }
-  });
+  }));
   const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex, fog: true }));
   m.position.set(x, y, z); m.rotation.y = ry; s.add(m);
 }
 
-/** Big-character posters on the notice board. Generic, fictional mourning texts. */
-function posterTexture() {
+/** Big-character posters on the notice board (or scrubbed remnants for aftermath). */
+function posterTexture(scrubbed = false) {
   const lines = ['悼念耀邦', '沉痛悼念', '春寒料峭', '一路走好', '花圈獻給你', '悼', '心中的話', '清明未遠'];
-  return textTexture(1024, 512, g => {
+  return markSceneOwned(textTexture(1024, 512, g => {
     g.fillStyle = '#3b2e22'; g.fillRect(0, 0, 1024, 512);
     const r = rng(7);
+    if (scrubbed) {
+      for (let i = 0; i < 16; i++) {
+        g.fillStyle = i % 2 ? 'rgba(224,216,198,0.42)' : 'rgba(180,170,150,0.28)';
+        const x = 30 + r() * 920, y = 20 + r() * 400;
+        g.save(); g.translate(x, y); g.rotate((r() - 0.5) * 0.4);
+        g.fillRect(0, 0, 26 + r() * 52, 18 + r() * 44);
+        g.restore();
+      }
+      return;
+    }
     for (let i = 0; i < 11; i++) {
       const x = 12 + i * 92 + r() * 6, y = 10 + r() * 20, w = 82, h = 470 - r() * 60;
       g.fillStyle = i % 4 === 1 ? '#f4f1ea' : i % 4 === 3 ? '#e9e3d0' : '#efe6c8';
@@ -62,153 +168,109 @@ function posterTexture() {
       g.restore();
     }
     g.fillStyle = 'rgba(255,255,255,0.85)';
-    for (let i = 0; i < 4; i++) { g.beginPath(); g.arc(150 + i * 230, 470, 26, 0, 7); g.fill(); } // paper flowers
-  });
+    for (let i = 0; i < 4; i++) { g.beginPath(); g.arc(150 + i * 230, 470, 26, 0, 7); g.fill(); }
+  }));
 }
 
-export function buildCampus(): World {
-  const s = base(0x0e1220);
-  const stat: Part[] = [], glow: Part[] = [];
+export function buildCampus(mode: 'night' | 'aftermath' = 'night'): World {
+  const aftermath = mode === 'aftermath';
+  const s = base(aftermath ? 0xc2cbd2 : 0x0e1220, aftermath ? 12 : 18, aftermath ? 58 : 70);
+  s.background = skyDomeTex(aftermath ? 'aftermath' : 'night');
+  if (aftermath) {
+    s.add(new THREE.HemisphereLight(0xe4edf2, 0x504f47, 1.25));
+    const sun = new THREE.DirectionalLight(0xfff0d8, 0.85); sun.position.set(16, 22, -10); s.add(sun);
+  }
+  const { stat, glow } = campusSceneArchitecture(aftermath);
   const r = rng(42);
-  stat.push({ p: [0, -0.05, 0], s: [70, 0.1, 70], c: 0x26271f });             // lawn/dirt
-  stat.push({ p: [0, 0.01, -4], s: [5, 0.04, 40], c: 0x3a3936 });             // path to gate
-  stat.push({ p: [0, 0.01, 4], s: [30, 0.04, 4], c: 0x3a3936 });
-  building(stat, glow, 0, 12, 34, 15, 8, C.brick, r, -1);                      // dorm, 5 floors
-  stat.push({ p: [0, 1.4, 7.9], s: [2.4, 2.8, 0.3], c: 0x2a2018 });            // dorm door
-  glow.push({ p: [0, 3.0, 7.8], s: [0.5, 0.25, 0.1], c: 0xfff2c0 });
-  building(stat, glow, -22, -2, 8, 12, 22, C.greyBrick, r, 1);
-  building(stat, glow, 22, -2, 8, 9, 22, C.plaster, r, -1);
-  // notice board (wood frame) + loudspeaker pole
-  stat.push({ p: [2, 1.4, -4.4], s: [6.6, 2.9, 0.25], c: C.wood }, { p: [2, 3.0, -4.4], s: [7, 0.25, 0.6], c: 0x3a2a1c });
-  stat.push({ p: [-1.6, 2, -4.4], s: [0.15, 4, 0.15], c: C.wood }, { p: [5.6, 2, -4.4], s: [0.15, 4, 0.15], c: C.wood });
-  stat.push({ p: [-3, 3, -5], s: [0.12, 6, 0.12], c: 0x404040, cyl: true }, { p: [-2.7, 5.6, -5], s: [0.5, 0.35, 0.35], c: 0x6b6f63, ry: 0.6, cyl: true });
-  // 北京大學西校門 (modelled from Commons photos; faces the road, south of campus here)
+
+  // Textured courtyard flagstone walks & outer asphalt road
+  const walkNS = new THREE.Mesh(
+    new THREE.PlaneGeometry(5.2, 40),
+    new THREE.MeshLambertMaterial({ map: campusPathTex(8, 12) }),
+  );
+  walkNS.rotation.x = -Math.PI / 2;
+  walkNS.position.set(0, 0.032, -4);
+  s.add(walkNS);
+
+  const walkEW = new THREE.Mesh(
+    new THREE.PlaneGeometry(30, 4),
+    new THREE.MeshLambertMaterial({ map: campusPathTex(16, 2) }),
+  );
+  walkEW.rotation.x = -Math.PI / 2;
+  walkEW.position.set(0, 0.033, 4.2);
+  s.add(walkEW);
+
+  stat.push({ p: [0, -0.01, -22], s: [70, 0.04, 8], c: C.asphalt });
+  const outerRoad = new THREE.Mesh(
+    new THREE.PlaneGeometry(70, 8),
+    new THREE.MeshLambertMaterial({ map: asphaltRoadTex(16, 2) }),
+  );
+  outerRoad.rotation.x = -Math.PI / 2;
+  outerRoad.position.set(0, 0.02, -22);
+  s.add(outerRoad);
+
+  // 北京大學西校門
   stat.push(...place(pkuWestGate(), 0, -16));
-  stat.push({ p: [-10.5, 1.4, -15.2], s: [3, 2.8, 2.6], c: C.plaster }, { p: [-30, 1.4, -14.5], s: [36, 2.8, 0.5], c: 0x8a3a2c }, { p: [30, 1.4, -14.5], s: [36, 2.8, 0.5], c: 0x8a3a2c });
-  glow.push({ p: [-10.5, 1.6, -16.52], s: [1.4, 0.9, 0.04], c: 0xfff0b0 });
-  stat.push({ p: [0, 0.01, -22], s: [70, 0.04, 8], c: C.asphalt });
-  // people (fictional NPCs at hotspots + passers-by)
-  stat.push(...place(person(C.khaki), -6, 3, -0.6), ...place(person(0x6a2f3a, 0x2d2d33), 5, -2, 2.2));
-  stat.push(...place(person(C.navy), -1, -5.5, 1.5), ...place(person(C.green), 0.2, -6, 1.8), ...place(person(0x5d5a52), 4.6, -6.2, 1.4));
-  s.add(new THREE.Mesh(mergeParts(stat), litMat()));
-  s.add(new THREE.Mesh(mergeParts(glow), glowMat()));
-  // posters
-  const board = new THREE.Mesh(new THREE.PlaneGeometry(6.2, 2.6), new THREE.MeshLambertMaterial({ map: posterTexture(), emissive: 0x2a2418 }));
+  if (!aftermath) {
+    stat.push(...place(person(C.khaki), -6, 3, -0.6), ...place(person(0x6a2f3a, 0x2d2d33), 5, -2, 2.2));
+    stat.push(...place(person(C.navy), -1, -5.5, 1.5), ...place(person(C.green), 0.2, -6, 1.8), ...place(person(0x5d5a52), 4.6, -6.2, 1.4));
+  }
+  addLayeredParts(s, stat);
+  if (glow.length) s.add(new THREE.Mesh(mergeParts(glow), glowMat()));
+
+  // notice board poster texture + gate plaque
+  const board = new THREE.Mesh(
+    new THREE.PlaneGeometry(6.2, 2.6),
+    new THREE.MeshLambertMaterial({ map: posterTexture(aftermath), emissive: aftermath ? 0x000000 : 0x2a2418 }),
+  );
   board.position.set(2, 1.4, -4.54); board.rotation.y = Math.PI; s.add(board);
   signPlane(s, '北京大學', 0, 4.75, -19.0, 3.0, 0.95, '#141210', '#d8b45a', Math.PI);
-  // trees (pagoda trees on campus), parked bikes, lamps
-  const trees = []; for (let i = 0; i < 8; i++) trees.push({ x: (i % 2 ? 1 : -1) * (9 + r() * 3), z: -14 + i * 2.6 + r(), ry: r() * 6, s: 0.8 + r() * 0.4 });
+
+  const spawn: [number, number] = aftermath ? [0, -19] : [0, 5];
+  const detailAnchors: [number, number][] = [spawn, [0, -16], [2, -4.4]];
+
+  // trees (pagoda trees on campus: foreground detailed <=15m, distant LOD >15m), parked bikes, lamps
+  const trees: { x: number; z: number; ry: number; s: number }[] = [];
+  for (let i = 0; i < 8; i++) trees.push({ x: (i % 2 ? 1 : -1) * (9 + r() * 3), z: -13 + i * 2.5 + r(), ry: r() * 6, s: 0.8 + r() * 0.4 });
   for (let i = 0; i < 10; i++) trees.push({ x: -16 + i * 3.6, z: 4.5 + r(), ry: r() * 6, s: 0.9 });
-  s.add(instanced(mergeParts(tree(false)), litMat(), trees));
-  const bikes = []; for (let i = 0; i < 18; i++) bikes.push({ x: 6 + i * 0.55, z: -13 + (i % 2) * 0.2, ry: Math.PI / 2 + (r() - 0.5) * 0.2 });
-  for (let i = 0; i < 12; i++) bikes.push({ x: -14 + i * 0.55, z: 6.5, ry: -Math.PI / 2 });
-  s.add(instanced(mergeParts(bike()), litMat(), bikes));
+  const fgTrees = trees.filter(t => isNearAny(t.x, t.z, detailAnchors, 15));
+  const bgTrees = trees.filter(t => !isNearAny(t.x, t.z, detailAnchors, 15));
+  if (fgTrees.length) addRealisticTrees(s, fgTrees, false, false);
+  if (bgTrees.length) addRealisticTrees(s, bgTrees, false, true);
+
+  const bikes: { x: number; z: number; ry: number }[] = [];
+  if (aftermath) {
+    bikes.push({ x: -3.8, z: 6.6, ry: -1.48 }, { x: -3.1, z: 6.7, ry: -1.62 }, { x: 3.6, z: 6.6, ry: -1.52 });
+  } else {
+    for (let i = 0; i < 18; i++) bikes.push({ x: 6 + i * 0.55, z: -13 + (i % 2) * 0.2, ry: Math.PI / 2 + (r() - 0.5) * 0.2 });
+    for (let i = 0; i < 12; i++) bikes.push({ x: -14 + i * 0.55, z: 6.5, ry: -Math.PI / 2 });
+  }
+  const fgBikes = bikes.filter(b => isNearAny(b.x, b.z, detailAnchors, 15));
+  const bgBikes = bikes.filter(b => !isNearAny(b.x, b.z, detailAnchors, 15));
+  if (fgBikes.length) s.add(instanced(mergeParts(bike()), litMat(), fgBikes));
+  if (bgBikes.length) s.add(instanced(mergeParts(bikeLod()), litMat(), bgBikes));
+
   const lamps = [{ x: -2.5, z: -10 }, { x: 2.5, z: 0 }, { x: 8, z: 4 }, { x: -8, z: 4 }, { x: 9, z: -21 }, { x: -9, z: -21, ry: Math.PI }];
   s.add(instanced(mergeParts(lampPole()), litMat(), lamps));
-  s.add(instanced(mergeParts(lampHead()), glowMat(), lamps));
-  sodium(s, 3.4, -2, 16); sodium(s, -1.6, -10, 12); sodium(s, 0, 7, 10); sodium(s, 0, -21, 18);
-  return { id: 'campus', scene: s, spawn: [0, 5], bounds: [-18, 18, -27, 7], update() { /* static */ } };
-}
-
-export function buildStreet(mode: 'night' | 'march' = 'night'): World {
-  const march = mode === 'march';
-  const s = base(0x121423);
-  const stat: Part[] = [], glow: Part[] = [];
-  const r = rng(1989);
-  stat.push({ p: [0, -0.05, -10], s: [120, 0.1, 10], c: C.asphalt });          // avenue
-  for (let x = -56; x < 60; x += 6) stat.push({ p: [x, 0.01, -10], s: [3, 0.02, 0.15], c: 0x9a978c });
-  stat.push({ p: [0, 0.06, -3.5], s: [120, 0.12, 3], c: 0x4a4740 }, { p: [0, 0.06, -16.5], s: [120, 0.12, 3], c: 0x4a4740 });
-  stat.push({ p: [0, -0.05, 6], s: [120, 0.1, 18], c: 0x2a2826 }, { p: [0, -0.05, -26], s: [120, 0.1, 14], c: 0x2a2826 });
-  // north side: low shop buildings with a gap (hutong entrance) at x 12..16
-  const fronts: [number, number, number][] = [[-30, 14, 6], [-15, 12, 9], [2, 18, 6.5], [26, 16, 7.5]];
-  for (const [x, w, h] of fronts) building(stat, glow, x, 2, w, h, 4, r() < 0.5 ? C.greyBrick : C.plaster, r, -1);
-  // hutong: grey brick walls, red gate with lamp, pagoda tree
-  stat.push({ p: [11.4, 1.6, 6], s: [0.5, 3.2, 12], c: C.greyBrick }, { p: [17.6, 1.6, 6], s: [0.5, 3.2, 12], c: C.greyBrick });
-  stat.push({ p: [14.5, 1.4, 9], s: [2.2, 2.8, 0.3], c: 0x8a2a1e }, { p: [14.5, 3.1, 9], s: [3, 0.5, 0.8], c: 0x2e3130 });
-  stat.push({ p: [13.3, 0.25, 8.7], s: [0.5, 0.5, 0.4], c: 0x6d6d68 }, { p: [15.7, 0.25, 8.7], s: [0.5, 0.5, 0.4], c: 0x6d6d68 }); // 門墩
-  glow.push({ p: [14.5, 2.65, 8.8], s: [0.25, 0.3, 0.25], c: 0xffd27a });
-  stat.push(...place(tree(false), 16, 4.5, 0, 0));
-  // newspaper kiosk
-  stat.push({ p: [-6, 1.2, -1.5], s: [2.6, 2.4, 1.8], c: 0x3d5a46 }, { p: [-6, 2.5, -1.5], s: [3.0, 0.2, 2.2], c: 0x2a3b2f });
-  glow.push({ p: [-6, 1.4, -2.42], s: [2.0, 0.9, 0.04], c: 0xf0d9a0 });
-  // loudspeaker pole
-  stat.push({ p: [6, 3.2, -2.4], s: [0.18, 6.4, 0.18], c: 0x3d3d3d, cyl: true });
-  stat.push({ p: [6.3, 6.0, -2.4], s: [0.55, 0.4, 0.4], c: 0x6b6f63, cyl: true, rz: 1.2 }, { p: [5.7, 6.0, -2.4], s: [0.55, 0.4, 0.4], c: 0x6b6f63, cyl: true, rz: -1.2 });
-  // bus stop sign
-  stat.push({ p: [-18, 1.4, -5], s: [0.08, 2.8, 0.08], c: 0x777777 });
-  // fictional NPCs at hotspots
-  stat.push(...place(person(0x4b4a45, C.black, 0xbbbbbb), -6, -3.4, Math.PI / 2));       // 孫大爺
-  stat.push(...place(person(0x3a4a5a), 2, -4.4, 2.6));                                     // 王師傅 (blue work clothes)
-  stat.push(...place(bike(0x5b5f3c), -3.2, -7.3, Math.PI));                                // student with bike
-  stat.push(...place(person(0x7a6a50), -4, -6.4, -0.3), ...place(person(C.navy), -2.2, -6.6, 0.4));
-  s.add(new THREE.Mesh(mergeParts(stat), litMat()));
-  s.add(new THREE.Mesh(mergeParts(glow), glowMat()));
-  signPlane(s, '報刊', -6, 2.85, -2.62, 1.8, 0.45, '#2a3b2f', '#f0e2b0', Math.PI);
-  signPlane(s, '國營副食店', -15, 5.5, -0.02, 6, 1.1, '#7d2a22', '#f3e3b5', Math.PI);
-  signPlane(s, '紅星飯館', 2, 4.4, -0.02, 4.4, 0.9, '#203a2c', '#f6dd9a', Math.PI);
-  signPlane(s, '理髮', 26, 3.3, -0.02, 2.2, 0.8, '#d9d0b8', '#8c2a22', Math.PI);
-  signPlane(s, '公共汽車站', -18, 2.9, -5.04, 0.5, 2.0, '#efe7d0', '#7d2a22', Math.PI, true);
-  // poplars along the avenue, pagoda tree row, lamps
-  const pops = []; for (let x = -54; x < 56; x += 5) { pops.push({ x: x + r(), z: -5.6, ry: r() * 6 }); pops.push({ x: x + r() + 2.5, z: -14.6, ry: r() * 6 }); }
-  s.add(instanced(mergeParts(tree(true)), litMat(), pops.filter(p => Math.abs(p.x - 6) > 1.5 && Math.abs(p.x + 6) > 2)));
-  const lamps = []; for (let x = -50; x < 56; x += 14) lamps.push({ x, z: -5.0 }, { x: x + 7, z: -15, ry: Math.PI });
-  s.add(instanced(mergeParts(lampPole()), litMat(), lamps));
-  s.add(instanced(mergeParts(lampHead()), glowMat(), lamps));
-  for (const x of [-14, 0, 14]) sodium(s, x + 0.9, -6, 16);
-  sodium(s, 14.5, 6, 8);
-  const parked = []; for (let i = 0; i < 14; i++) parked.push({ x: -26 + i * 0.6, z: -2.6, ry: Math.PI / 2 });
-  for (let i = 0; i < 10; i++) parked.push({ x: 20 + i * 0.6, z: -2.6, ry: Math.PI / 2 });
-  s.add(instanced(mergeParts(bike()), litMat(), parked));
-
-  // moving traffic: riders (instanced), one bus, walkers heading south/east
-  const jackets = [C.navy, C.khaki, 0x4e5a4a, 0x5d4c3a, 0x2f3540, 0x6a2f3a];
-  const riderGeo = mergeParts(bike(C.navy));
-  const N = march ? 6 : 22;
-  const riders = new THREE.InstancedMesh(riderGeo, litMat(), N);
-  const rs = Array.from({ length: N }, (_, i) => ({ x: -60 + r() * 120, z: -12.8 + r() * 2.2 + (i % 2 ? 0 : 4.2), v: (i % 2 ? 1 : -1) * (3.2 + r() * 1.6) }));
-  rs.forEach((_, i) => riders.setColorAt(i, new THREE.Color(0xffffff).lerp(new THREE.Color(jackets[i % jackets.length]), 0.0)));
-  s.add(riders);
-  const busMesh = new THREE.Group();
-  busMesh.add(new THREE.Mesh(mergeParts(trolleybus()), litMat()), new THREE.Mesh(mergeParts(trolleyWindows()), glowMat()));
-  s.add(new THREE.Mesh(mergeParts(wires(-60, 60, [-11.15, -11.85, -7.9, -8.6], -5.2, -14.8, 14)), litMat()));
-  busMesh.position.set(-40, 0, -11.5); if (!march) s.add(busMesh);
-  const walkGeo = mergeParts(person(0x4a4e58));
-  const W = 10; const walkers = new THREE.InstancedMesh(walkGeo, litMat(), W);
-  const ws = Array.from({ length: W }, () => ({ x: -50 + r() * 100, z: -3.2 + r() * 0.6, v: (r() < 0.6 ? 1 : -1) * (1 + r() * 0.5) }));
-  s.add(walkers);
-  const o = new THREE.Object3D();
-  // 4/21 night: the march fills the avenue (instanced marchers in columns + banners), picket lines at the edges
-  const M = march ? 260 : 0, ms = Array.from({ length: M }, (_, i) => ({ x: -60 + (i % 52) * 2.3 + r(), z: -7.2 - Math.floor(i / 52) * 1.4 - r() * 0.3 }));
-  const marchers = new THREE.InstancedMesh(mergeParts(person(0x3a3f48)), litMat(), Math.max(1, M));
-  const mcol = [C.navy, C.khaki, 0x2f3540, 0x5d4c3a, 0x4e5a4a, 0x6a2f3a]; ms.forEach((_, i) => marchers.setColorAt(i, new THREE.Color(mcol[i % 6]).multiplyScalar(2.2)));
-  const B = march ? 10 : 0, flags = new THREE.InstancedMesh(mergeParts([{ p: [0, 2.2, 0], s: [0.05, 2.6, 0.05], c: 0x6b5a40 }, { p: [0.75, 3.1, 0], s: [1.5, 0.9, 0.03], c: 0xb3251c }]), litMat(), Math.max(1, B));
-  if (march) {
-    s.add(marchers, flags);
-    const pk: Part[] = []; for (let x = -56; x <= 56; x += 1.1) pk.push(...place(person(0xd8d4c8), x, -5.9, Math.PI / 2), ...place(person(0xd8d4c8), x + 0.5, -14.1, Math.PI / 2));
-    s.add(new THREE.Mesh(mergeParts(pk), litMat()));
-    sodium(s, -28, -9, 22); sodium(s, 28, -9, 22); sodium(s, -14, -12, 18); sodium(s, 14, -12, 18);
+  if (!aftermath) {
+    s.add(instanced(mergeParts(lampHead()), glowMat(), lamps));
+    sodium(s, 3.4, -2, 16); sodium(s, -1.6, -10, 12); sodium(s, 0, 7, 10); sodium(s, 0, -21, 18);
   }
   return {
-    id: march ? 'march' : 'street', scene: s, spawn: march ? [-30, -6] : [-14, -4], bounds: [-40, 40, -18, 8], camDist: march ? 12 : undefined, cam: march ? { h: 0.55, ahead: 8, y: 0 } : undefined,
-    update(dt, t) {
-      if (march) {
-        ms.forEach((m, i) => { m.x += 1.1 * dt; if (m.x > 60) m.x = -60; o.position.set(m.x, Math.abs(Math.sin(t * 5 + i)) * 0.05, m.z); o.rotation.set(0, Math.PI / 2, 0); o.updateMatrix(); marchers.setMatrixAt(i, o.matrix); });
-        marchers.instanceMatrix.needsUpdate = true;
-        for (let i = 0; i < B; i++) { const m = ms[i * 26]; o.position.set(m.x + 0.3, 0, m.z); o.rotation.set(0, 0, 0); o.updateMatrix(); flags.setMatrixAt(i, o.matrix); }
-        flags.instanceMatrix.needsUpdate = true;
-      }
-      rs.forEach((b, i) => {
-        b.x += b.v * dt; if (b.x > 60) b.x = -60; if (b.x < -60) b.x = 60;
-        o.position.set(b.x, Math.sin(t * 9 + i) * 0.015, b.z); o.rotation.set(0, b.v > 0 ? 0 : Math.PI, 0); o.updateMatrix(); riders.setMatrixAt(i, o.matrix);
-      });
-      riders.instanceMatrix.needsUpdate = true;
-      busMesh.position.x += 6 * dt; if (busMesh.position.x > 70) busMesh.position.x = -70;
-      ws.forEach((w, i) => {
-        w.x += w.v * dt; if (w.x > 50) w.x = -50; if (w.x < -50) w.x = 50;
-        o.position.set(w.x, Math.abs(Math.sin(t * 6 + i)) * 0.04, w.z); o.rotation.set(0, w.v > 0 ? 0 : Math.PI, 0); o.updateMatrix(); walkers.setMatrixAt(i, o.matrix);
-      });
-      walkers.instanceMatrix.needsUpdate = true;
-    },
+    id: (aftermath ? 'aftermath' : 'campus') as SceneId,
+    scene: s,
+    spawn,
+    bounds: [-18, 18, -27, 9],
+    atmosphere: aftermath ? 'aftermath' : 'night',
+    occluders: [
+      [-8.2, 8.2, 0, 8.9, -20.5, -11.5],
+      [-18.2, 18.2, 0, 18.5, 7.6, 16.5],
+      [-26.5, -17.6, 0, 14.5, -14.2, 10.2],
+      [17.6, 26.5, 0, 11.8, -14.2, 10.2],
+      [-1.5, 5.5, 0, 3.6, -5.0, -3.8],
+      [-12.2, -8.8, 0, 3.4, -15.6, -12.8],
+    ],
+    update() { /* static */ },
   };
 }
 
@@ -224,68 +286,430 @@ function wires(x0: number, x1: number, zs: number[], poleZa: number, poleZb: num
 }
 
 function portraitTexture() {
-  // Stylised, low-detail rendering of the portrait that hangs over the central arch (not a reproduction of the painting).
-  return textTexture(256, 340, g => {
-    g.fillStyle = '#c9b48a'; g.fillRect(0, 0, 256, 340); g.fillStyle = '#6b5a3a'; g.fillRect(8, 8, 240, 324);
-    const grd = g.createLinearGradient(0, 0, 0, 340); grd.addColorStop(0, '#8a8f7e'); grd.addColorStop(1, '#5d6457'); g.fillStyle = grd; g.fillRect(16, 16, 224, 308);
-    g.fillStyle = '#4c5246'; g.beginPath(); g.moveTo(30, 324); g.quadraticCurveTo(128, 180, 226, 324); g.fill();  // grey tunic
-    g.fillStyle = '#d9b38c'; g.beginPath(); g.ellipse(128, 140, 52, 66, 0, 0, 7); g.fill();                         // face
-    g.fillStyle = '#1e1a16'; g.beginPath(); g.ellipse(128, 92, 56, 30, 0, Math.PI, 0); g.fill();                    // hair
-    g.fillStyle = 'rgba(80,50,30,.35)'; g.fillRect(100, 132, 18, 5); g.fillRect(138, 132, 18, 5); g.fillRect(118, 178, 22, 4);
-  });
+  return markSceneOwned(textTexture(512, 680, g => {
+    const W = 512, H = 680;
+    // Baroque steeped bronze-gold inner & outer moulding frame (Tiananmen rostrum oil portrait frame)
+    const frameGrad = g.createLinearGradient(0, 0, W, H);
+    frameGrad.addColorStop(0, '#d8b76c');
+    frameGrad.addColorStop(0.5, '#b68f44');
+    frameGrad.addColorStop(1, '#dcb96e');
+    g.fillStyle = frameGrad;
+    g.fillRect(0, 0, W, H);
+    g.fillStyle = '#6f5228';
+    g.fillRect(10, 10, W - 20, H - 20);
+    g.fillStyle = '#e0be78';
+    g.fillRect(18, 18, W - 36, H - 36);
+    g.fillStyle = '#4e391c';
+    g.fillRect(25, 25, W - 50, H - 50);
+
+    // Ornate corner rosette accents on gilt frame
+    for (const [cx, cy] of [[14, 14], [W - 14, 14], [14, H - 14], [W - 14, H - 14]]) {
+      g.fillStyle = '#ebd08e';
+      g.beginPath();
+      g.arc(cx, cy, 8, 0, Math.PI * 2);
+      g.fill();
+    }
+
+    // Muted celadon-slate oil-canvas backdrop gradient
+    const grd = g.createLinearGradient(0, 28, 0, H - 28);
+    grd.addColorStop(0, '#9aa294');
+    grd.addColorStop(0.55, '#7c8576');
+    grd.addColorStop(1, '#525a4e');
+    g.fillStyle = grd;
+    g.fillRect(30, 30, W - 60, H - 60);
+
+    // Soft studio radial rim halo behind portrait head & shoulders
+    const halo = g.createRadialGradient(256, 305, 24, 256, 315, 235);
+    halo.addColorStop(0, 'rgba(232,229,212,0.28)');
+    halo.addColorStop(0.55, 'rgba(210,208,192,0.10)');
+    halo.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = halo;
+    g.fillRect(30, 30, W - 60, H - 60);
+
+    // Zhongshan tunic shoulders, sculpted lapels & placket
+    const coat = g.createLinearGradient(60, 405, 452, H - 30);
+    coat.addColorStop(0, '#62685b');
+    coat.addColorStop(0.45, '#4b5147');
+    coat.addColorStop(1, '#343931');
+    g.fillStyle = coat;
+    g.beginPath();
+    g.moveTo(36, H - 30);
+    g.quadraticCurveTo(88, 446, 194, 410);
+    g.lineTo(318, 410);
+    g.quadraticCurveTo(424, 446, W - 36, H - 30);
+    g.closePath();
+    g.fill();
+
+    // Subtle fabric fold strokes on shoulders
+    g.strokeStyle = 'rgba(24,27,22,0.28)';
+    g.lineWidth = 4;
+    for (const [x0, y0, x1, y1] of [
+      [148, 448, 128, 640],
+      [182, 434, 174, 646],
+      [364, 448, 384, 640],
+      [330, 434, 338, 646],
+    ]) {
+      g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke();
+    }
+
+    // Neck + crisp stiff Zhongshan stand-up collar + placket & horn buttons
+    g.fillStyle = '#c49870';
+    g.fillRect(216, 366, 80, 68);
+    g.fillStyle = 'rgba(138,94,62,0.25)';
+    g.beginPath(); g.ellipse(256, 396, 40, 16, 0, 0, Math.PI * 2); g.fill();
+
+    g.fillStyle = '#383d35';
+    g.beginPath();
+    g.moveTo(188, 410); g.lineTo(256, 448); g.lineTo(324, 410); g.lineTo(308, 394); g.lineTo(256, 418); g.lineTo(204, 394);
+    g.closePath();
+    g.fill();
+    g.fillStyle = '#687063';
+    g.fillRect(252, 444, 8, 206);
+    for (const by of [500, 580]) {
+      g.fillStyle = '#252822';
+      g.beginPath(); g.arc(256, by, 6, 0, Math.PI * 2); g.fill();
+    }
+
+    // Ears with warm edge catchlight
+    g.fillStyle = '#c89a72';
+    g.beginPath(); g.ellipse(152, 286, 13, 28, -0.08, 0, Math.PI * 2); g.fill();
+    g.beginPath(); g.ellipse(360, 286, 13, 28, 0.08, 0, Math.PI * 2); g.fill();
+
+    // Sculpted head oval with multi-stop oil chiaroscuro
+    const face = g.createRadialGradient(238, 250, 20, 256, 282, 136);
+    face.addColorStop(0, '#f0d0ac');
+    face.addColorStop(0.55, '#ddb48c');
+    face.addColorStop(0.88, '#c29268');
+    face.addColorStop(1, '#a6764f');
+    g.fillStyle = face;
+    g.beginPath();
+    g.ellipse(256, 274, 100, 124, 0, 0, Math.PI * 2);
+    g.fill();
+
+    // Warm cheek blush & brow modeling
+    const cheekL = g.createRadialGradient(204, 300, 4, 204, 300, 34);
+    cheekL.addColorStop(0, 'rgba(186,104,78,0.18)');
+    cheekL.addColorStop(1, 'rgba(186,104,78,0)');
+    g.fillStyle = cheekL; g.fillRect(166, 264, 76, 76);
+    const cheekR = g.createRadialGradient(308, 300, 4, 308, 300, 34);
+    cheekR.addColorStop(0, 'rgba(186,104,78,0.18)');
+    cheekR.addColorStop(1, 'rgba(186,104,78,0)');
+    g.fillStyle = cheekR; g.fillRect(270, 264, 76, 76);
+
+    // Swept dark hair with brushed temple highlights
+    g.fillStyle = '#1d1916';
+    g.beginPath();
+    g.moveTo(154, 264);
+    g.quadraticCurveTo(156, 142, 256, 138);
+    g.quadraticCurveTo(356, 142, 358, 264);
+    g.quadraticCurveTo(328, 190, 256, 188);
+    g.quadraticCurveTo(184, 190, 154, 264);
+    g.fill();
+    g.fillStyle = 'rgba(136,132,126,0.34)';
+    g.fillRect(154, 232, 10, 34);
+    g.fillRect(348, 232, 10, 34);
+
+    // Brows, sculpted eye sockets, iris dots, nose bridge & composed mouth
+    g.fillStyle = 'rgba(62,38,24,0.52)';
+    g.beginPath(); g.ellipse(214, 245, 22, 4.5, -0.04, 0, Math.PI * 2); g.fill();
+    g.beginPath(); g.ellipse(298, 245, 22, 4.5, 0.04, 0, Math.PI * 2); g.fill();
+    g.fillStyle = 'rgba(50,30,18,0.58)';
+    g.beginPath(); g.ellipse(214, 266, 15, 6.2, 0, 0, Math.PI * 2); g.fill();
+    g.beginPath(); g.ellipse(298, 266, 15, 6.2, 0, 0, Math.PI * 2); g.fill();
+    g.fillStyle = 'rgba(248,242,232,0.55)';
+    g.beginPath(); g.arc(217, 264, 2.5, 0, Math.PI * 2); g.fill();
+    g.beginPath(); g.arc(301, 264, 2.5, 0, Math.PI * 2); g.fill();
+
+    g.fillStyle = 'rgba(115,70,42,0.34)';
+    g.beginPath(); g.moveTo(256, 258); g.lineTo(245, 316); g.lineTo(268, 316); g.closePath(); g.fill();
+    g.fillStyle = 'rgba(248,224,196,0.22)';
+    g.fillRect(253, 258, 5, 48);
+
+    g.fillStyle = 'rgba(108,52,40,0.62)';
+    g.beginPath(); g.ellipse(256, 344, 28, 4.5, 0, 0, Math.PI * 2); g.fill();
+    g.fillStyle = 'rgba(72,40,26,0.62)';
+    g.beginPath(); g.arc(246, 376, 4.2, 0, Math.PI * 2); g.fill();
+
+    // Fine linen oil-canvas weave across portrait surface
+    g.fillStyle = 'rgba(255,250,240,0.03)';
+    for (let y = 30; y < H - 30; y += 6) g.fillRect(30, y, W - 60, 1);
+    for (let x = 30; x < W - 30; x += 6) g.fillRect(x, 30, 1, H - 60);
+  }));
 }
 
 function sloganTexture(text: string) {
-  return textTexture(1024, 128, g => {
-    g.fillStyle = '#b3251c'; g.fillRect(0, 0, 1024, 128);
-    g.fillStyle = '#f7f1e2'; g.font = 'bold 86px "Noto Sans CJK TC","Noto Serif CJK TC",sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  return markSceneOwned(textTexture(1024, 128, g => {
+    const bg = g.createLinearGradient(0, 0, 0, 128);
+    bg.addColorStop(0, '#c02a20');
+    bg.addColorStop(0.5, '#a82118');
+    bg.addColorStop(1, '#8c1a12');
+    g.fillStyle = bg;
+    g.fillRect(0, 0, 1024, 128);
+    // Slim gilded wood border framing both flanking Tiananmen plaques
+    g.strokeStyle = '#d4b264';
+    g.lineWidth = 6;
+    g.strokeRect(5, 5, 1014, 118);
+    g.fillStyle = 'rgba(40,8,4,0.35)';
+    g.font = 'bold 84px "Noto Sans CJK TC","Noto Serif CJK TC",sans-serif';
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.fillText(text, 514, 71);
+    g.fillStyle = '#faf3e2';
     g.fillText(text, 512, 68);
-  });
+  }));
 }
 
-/** 長安街 at 天安門: real proportions (compressed only to the south of the Square so the Monument and Great Hall read). */
-export function buildChangan(mode: 'night' | 'dawn' = 'night'): World {
-  const dawn = mode === 'dawn';
-  const s = base(dawn ? 0xb4bfcc : 0x1b2030, dawn ? 160 : 120, dawn ? 900 : 650);
+/** 長安街 at 天安門: real proportions (supporting night, April 22 dawn, May 13-15 camp, and May 30 dusk statue). */
+export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night'): World {
+  const dawn = mode === 'dawn', camp = mode === 'camp', statue = mode === 'statue';
+  const dayish = dawn || camp;
+  const s = base(
+    dawn ? 0xd2c9bb : camp ? 0xd8c19d : statue ? 0x6c4c52 : 0x1b2030,
+    dayish ? 185 : statue ? 150 : 145,
+    dayish ? 1050 : statue ? 920 : 840,
+  );
+  s.background = skyDomeTex(dawn ? 'dawn' : camp ? 'camp' : statue ? 'statue' : 'night');
   const stat: Part[] = [], glow: Part[] = [], flood: Part[] = [];
   const r = rng(417), o = new THREE.Object3D();
-  // ground: avenue (z -38..-88), bike lanes behind railings, Square paving to the south
+
+  const id: SceneId = (dawn ? 'square' : camp ? 'camp' : statue ? 'statue' : 'changan') as SceneId;
+  const spawn: [number, number] = dawn ? [-20, -262] : camp ? [-15, -242] : statue ? [0, -190] : [-60, -86];
+  const detailAnchors: [number, number][] = dawn
+    ? [spawn, [-102, -320]]
+    : camp
+      ? [spawn, [-20, -265], [14, -278]]
+      : statue
+        ? [spawn, [0, -172]]
+        : [spawn, [0, -18], [0, -330]];
+
+  // ground: textured Chang'an avenue (z -38..-88), bike lanes behind railings, textured granite Square paving
   stat.push({ p: [0, -0.05, -63], s: [700, 0.1, 50], c: 0x26262a });
+  const avePlane = new THREE.Mesh(
+    new THREE.PlaneGeometry(700, 50),
+    new THREE.MeshLambertMaterial({ map: asphaltRoadTex(45, 4) }),
+  );
+  avePlane.rotation.x = -Math.PI / 2;
+  avePlane.position.set(0, 0.01, -63);
+  s.add(avePlane);
+
   for (let x = -340; x < 340; x += 9) for (const z of [-56, -63, -70]) stat.push({ p: [x, 0.01, z], s: [4.5, 0.02, 0.2], c: 0x9a978c });
   stat.push({ p: [0, 0.01, -63], s: [700, 0.02, 0.35], c: 0xc9b860 });
   for (const z of [-42, -84]) {
     stat.push({ p: [0, 0.6, z + (z < -60 ? 3.5 : -3.5)], s: [700, 0.08, 0.08], c: 0x4c7aa8 }, { p: [0, 0.25, z + (z < -60 ? 3.5 : -3.5)], s: [700, 0.06, 0.06], c: 0xd8d8d0 });
-    for (let x = -340; x < 340; x += 3) stat.push({ p: [x, 0.3, z + (z < -60 ? 3.5 : -3.5)], s: [0.06, 0.6, 0.06], c: 0x4c7aa8 }); // blue-white railings
+    for (let x = -340; x < 340; x += 4.5) stat.push({ p: [x, 0.3, z + (z < -60 ? 3.5 : -3.5)], s: [0.06, 0.6, 0.06], c: 0x4c7aa8 });
   }
-  stat.push({ p: [0, -0.04, -260], s: [180, 0.1, 340], c: 0x7d776c });          // Square paving
-  stat.push({ p: [0, -0.06, -15], s: [700, 0.1, 50], c: 0x3a3833 });
+
+  stat.push({ p: [0, -0.08, -340], s: [460, 0.1, 560], c: 0x625e55 });          // Square, Hall & South Axis sub-base (z -620..-60)
+  stat.push(
+    { p: [0, -0.006, -297.5], s: [460, 0.01, 264.6], c: 0x7d776c },               // Great Hall & Museum court apron
+    { p: [0, -0.006, -466], s: [220, 0.01, 71.6], c: 0x726d62 },                  // Mao Memorial flanking south plaza apron
+    { p: [0, -0.002, -582], s: [140, 0.016, 51.6], c: 0x6d685e },                 // Qianmen Arrow Tower south plaza apron
+  );
+  const squarePlane = new THREE.Mesh(
+    new THREE.PlaneGeometry(180, 340),
+    new THREE.MeshLambertMaterial({ map: granitePavingTex(24, 45) }),
+  );
+  squarePlane.rotation.x = -Math.PI / 2;
+  squarePlane.position.set(0, 0.01, -260);
+  s.add(squarePlane);
+
+  stat.push(
+    { p: [0, -0.08, -15], s: [700, 0.1, 50], c: 0x3a3833 },                       // North palace/avenue deep ground sub-base
+    { p: [0, 0.001, -34.65], s: [169.4, 0.016, 6.7], c: 0x7a756b },               // Tiananmen promenade apron (z -38..-31.3)
+    { p: [0, 0.001, -89], s: [180, 0.016, 2.1], c: 0x7a756b },                    // North Square edge apron (bridges z -90..-88)
+    { p: [-217.35, 0.002, -24], s: [265.3, 0.02, 28], c: 0x6b675e },              // West Chang'an north sidewalk (Telegraph Bldg)
+    { p: [217.35, 0.002, -24], s: [265.3, 0.02, 28], c: 0x6b675e },               // East Chang'an north sidewalk (Beijing Hotel)
+    { p: [-220.1, 0.002, -104], s: [259.8, 0.02, 32], c: 0x6b675e },              // West Chang'an south sidewalk & ministry apron
+    { p: [220.1, 0.002, -104], s: [259.8, 0.02, 32], c: 0x6b675e },               // East Chang'an south sidewalk & ministry apron
+    { p: [0, 0.03, -38.0], s: [700, 0.06, 0.35], c: 0x8e897e },                   // North Chang'an granite curb
+    { p: [-220.1, 0.03, -88.0], s: [259.8, 0.06, 0.35], c: 0x8e897e },            // West flank south granite curb
+    { p: [220.1, 0.03, -88.0], s: [259.8, 0.06, 0.35], c: 0x8e897e },             // East flank south granite curb
+  );
   for (let x = -85; x <= 85; x += 10) stat.push({ p: [x, 0.0, -260], s: [0.25, 0.03, 340], c: 0x6b665c });
-  // landmarks
+
+  // landmarks (100% foreground detailed)
   flood.push(...tiananmen());
   flood.push(...place(monument(), 0, -330));
   flood.push(...place(greatHall(), -150, -320), ...place(greatHall(true), 150, -320, Math.PI));
   stat.push({ p: [0, 15, -112], s: [0.35, 30, 0.35], c: 0xc8c8c0, cyl: true }, { p: [1.8, 28.5, -112], s: [3.6, 2.4, 0.05], c: 0xc21f1a }); // flagpole
-  // red lanterns under the eaves of the gate
-  for (const x of [-21, -15, -9, -3, 3, 9, 15, 21]) glow.push({ p: [x, 20.6, -13.2], s: [1.5, 1.8, 1.5], c: 0xe0402a, sphere: true });
-  for (let i = 0; i < 10; i++) glow.push({ p: [-22 + i * 4.9, 17.5, -12.25], s: [3.2, 4.5, 0.05], c: 0xffd48a });   // lit hall windows
-  // poplars along the avenue + pagoda trees by the wall, period sodium lamps beyond the Tiananmen section
-  const pops = []; for (let x = -330; x < 330; x += 7) { if (Math.abs(x) < 80) continue; pops.push({ x: x + r() * 2, z: -36 - r(), ry: r() * 6, s: 1.3 }, { x: x + r() * 2 + 3, z: -90 - r(), ry: r() * 6, s: 1.3 }); }
-  const lamps = []; for (let x = -320; x <= 320; x += 32) if (Math.abs(x) > 90) lamps.push({ x, z: -41, s: 1.3 }, { x: x + 16, z: -85, ry: Math.PI, s: 1.3 });
-  const hd = []; for (let x = -80; x <= 80; x += 20) hd.push({ x, z: -40 }, { x, z: -86 }); for (let z = -110; z > -420; z -= 40) hd.push({ x: -86, z }, { x: 86, z });
-  // fictional people: students at the Square's north edge, a bicycle repairer, passers-by
-  stat.push(...place(person(0x2f3540), 6, -95, 2), ...place(person(C.khaki), 8, -96.5, 1.2), ...place(person(0x5b5f3c), 9.5, -94.5, 2.8), ...place(person(C.navy), 12, -96, 3.6));
-  stat.push(...place(person(0x4b4a45, C.black, 0x999999), -40, -88.5, Math.PI / 2), { p: [-41, 0.25, -88.5], s: [0.8, 0.5, 0.5], c: 0x5a3e28 });
-  stat.push(...place(bike(), -38.6, -88.6, 0.2));
-  for (let i = 0; i < 26; i++) stat.push(...place(person([C.navy, C.khaki, 0x2f3540, 0x5d4c3a][i % 4]), -60 + r() * 120, -105 - r() * 200, r() * 6));
-  s.add(new THREE.Mesh(mergeParts(stat), litMat()));
-  s.add(new THREE.Mesh(mergeParts(flood), new THREE.MeshLambertMaterial({ vertexColors: true, emissive: dawn ? 0x140a06 : 0x4a2a18 })));
+  const southBundle = buildTiananmenSouthAndSkyline(mode);
+  stat.push(...southBundle.stat);
+  flood.push(...southBundle.flood);
+  glow.push(...southBundle.glow);
+  for (const ex of southBundle.extras) s.add(ex);
+  for (const x of [-21, -15, -9, -3, 3, 9, 15, 21]) glow.push({ p: [x, 20.6, -13.2], s: [1.5, 1.8, 1.5], c: 0xe0402a, sphere: true, detail: 0 });
+  for (let i = 0; i < 10; i++) glow.push({ p: [-22 + i * 4.9, 17.5, -12.25], s: [3.2, 4.5, 0.05], c: 0xffd48a });
+  const pops: { x: number; z: number; ry: number; s: number }[] = [];
+  for (let x = -300; x <= 300; x += 15) {
+    if (Math.abs(x) < 85) continue;
+    pops.push({ x: x + r() * 2, z: -36 - r(), ry: r() * 6, s: 1.3 }, { x: x + r() * 2 + 3, z: -90 - r(), ry: r() * 6, s: 1.3 });
+  }
+  const lamps: { x: number; z: number; ry?: number; s: number }[] = [];
+  for (let x = -320; x <= 320; x += 32) if (Math.abs(x) > 90) lamps.push({ x, z: -41, s: 1.3 }, { x: x + 16, z: -85, ry: Math.PI, s: 1.3 });
+  const hd: { x: number; z: number }[] = [];
+  for (let x = -80; x <= 80; x += 20) hd.push({ x, z: -40 }, { x, z: -86 });
+  for (let z = -110; z > -420; z -= 40) hd.push({ x: -86, z }, { x: 86, z });
+
+  // mode-specific square staging
+  if (mode === 'night') {
+    stat.push(...place(person(0x2f3540), 6, -95, 2), ...place(person(C.khaki), 8, -96.5, 1.2), ...place(person(0x5b5f3c), 9.5, -94.5, 2.8), ...place(person(C.navy), 12, -96, 3.6));
+    stat.push(...place(person(0x4b4a45, C.black, 0x999999), -40, -88.5, Math.PI / 2), { p: [-41, 0.25, -88.5], s: [0.8, 0.5, 0.5], c: 0x5a3e28 });
+    stat.push(...place(bike(), -38.6, -88.6, 0.2));
+    for (let i = 0; i < 26; i++) {
+      const px = -60 + r() * 120;
+      const pz = -105 - r() * 200;
+      const col = [C.navy, C.khaki, 0x2f3540, 0x5d4c3a][i % 4]!;
+      const fig = isNearAny(px, pz, detailAnchors, 15) ? person(col) : crowdPersonLod(col);
+      stat.push(...place(fig, px, pz, r() * 6));
+    }
+  }
+
+  if (camp) {
+    // broadcast station at [-20, -265], 2 ambulance vans & corded emergency lane on east side, tricycle water carts
+    stat.push(...place(broadcastStation(), -20, -265, 0.35));
+    stat.push(...place(ambulance(), 30, -255, -Math.PI / 2), ...place(ambulance(), 30, -295, Math.PI / 2));
+    stat.push(...place(tricycle(), 22, -248, -Math.PI / 2), ...place(tricycle(), -9, -258, 0.3));
+    // corded-off emergency lane barriers (x = 24 and x = 36, z = -130..-340)
+    for (const cx of [24, 36]) {
+      stat.push({ p: [cx, 0.85, -235], s: [0.06, 0.06, 210], c: 0xd83228 });
+      for (let cz = -130; cz >= -340; cz -= 7) {
+        stat.push({ p: [cx, 0.50, cz], s: [0.10, 1.0, 0.10], c: 0xe6e2d4 });
+      }
+    }
+    // camp banners framing the Monument and broadcast post around x: -24..24, z: -255..-295
+    const campBanners: [number, number, string, number, boolean][] = [
+      [-23.5, -274, '新聞自由', 0.28, true],
+      [-10.5, -288, '絕食請願', 0.14, false],
+      [10.5, -288, '和平理性', -0.14, false],
+      [16.5, -262, '聲援同學', -0.26, true],
+    ];
+    for (const [bx, bz, bt, bry, red] of campBanners) {
+      const tex = markSceneOwned(textTexture(512, 128, g => {
+        g.fillStyle = red ? '#b3251c' : '#f2efe6'; g.fillRect(0, 0, 512, 128);
+        g.fillStyle = red ? '#f7f1e2' : '#141414'; g.font = 'bold 82px "Noto Serif CJK TC",serif';
+        g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(bt, 256, 68);
+      }));
+      const b = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 1.05), new THREE.MeshLambertMaterial({ map: tex, side: THREE.DoubleSide }));
+      b.position.set(bx, 2.85, bz); b.rotation.y = bry; s.add(b);
+      for (const side of [-2.25, 2.25]) {
+        stat.push({ p: [bx + Math.cos(bry) * side, 1.78, bz - Math.sin(bry) * side], s: [0.06, 3.56, 0.06], c: 0x8f7a52, cyl: true, seg: 5 });
+      }
+    }
+    // 36 instanced campTents clustered around x: -24..24, z: -255..-295 (clear of east emergency lane x = 24..36)
+    const tents: { x: number; z: number; ry: number }[] = [{ x: 17.2, z: -278, ry: -Math.PI / 2 }];
+    const tColsX = [-23.5, -17.5, -11.5, -5.5, 0.5, 6.5, 12.5, 19.5];
+    const tRowsZ = [-256, -264, -272, -280, -288, -295];
+    for (let rz = 0; rz < tRowsZ.length && tents.length < 36; rz++) {
+      for (let cx = 0; cx < tColsX.length && tents.length < 36; cx++) {
+        const tx = tColsX[cx] + (r() - 0.5) * 1.4;
+        const tz = tRowsZ[rz] + (r() - 0.5) * 1.4;
+        if (tx > 21) continue; // clear of east emergency lane cord at x = 24
+        if (Math.hypot(tx + 20, tz + 265) < 5.0) continue; // clear of broadcastStation
+        if (Math.hypot(tx - 14, tz + 278) < 3.4 || Math.hypot(tx - 17.2, tz + 278) < 3.6) continue; // keep c3tent clear
+        if (Math.hypot(tx + 9, tz + 258) < 3.4 || Math.hypot(tx - 22, tz + 248) < 3.6) continue;   // clear of tricycles
+        if (Math.hypot(tx + 15, tz + 242) < 4.5 || Math.hypot(tx, tz + 245) < 4.0) continue;      // clear of spawn & c3leave
+        if (campBanners.some(([bx, bz]) => Math.hypot(tx - bx, tz - bz) < 2.6)) continue;
+        tents.push({ x: tx, z: tz, ry: (r() - 0.5) * 0.55 + ((cx + rz) % 3 === 0 ? Math.PI : 0) });
+      }
+    }
+    while (tents.length < 36) tents.push({ x: -24 + (tents.length % 7) * 7.2, z: -301, ry: 0 });
+    const tentMesh = instanced(mergeParts(campTent(0xffffff)), litMat(), tents);
+    const tCols = [0x5c7258, 0x4b6276, 0x8e7e56, 0xa89f8a, 0x6b5a42];
+    tents.forEach((_, i) => tentMesh.setColorAt(i, new THREE.Color(tCols[i % tCols.length])));
+    s.add(tentMesh);
+    // white-headband sit-in student groups: foreground detailed <=15m, distant LOD >15m
+    const sitters: { x: number; z: number; ry: number; colIdx: number }[] = [];
+    for (let i = 0; i < 160; i++) {
+      const sx = -32 + r() * 52, sz = -298 + r() * 54;
+      if (Math.hypot(sx + 15, sz + 242) < 3.2 || Math.hypot(sx + 20, sz + 265) < 3.6) continue;
+      if (tents.some(t => Math.hypot(sx - t.x, sz - t.z) < 2.1)) continue;
+      if (campBanners.some(([bx, bz]) => Math.hypot(sx - bx, sz - bz) < 2.2)) continue;
+      sitters.push({ x: sx, z: sz, ry: r() * Math.PI * 2, colIdx: sitters.length });
+    }
+    const sCols = [C.navy, C.khaki, 0x4e5a4a, 0x6a2f3a, 0x3b485a, 0x7b7260];
+    const fgSitters = sitters.filter(p => isNearAny(p.x, p.z, detailAnchors, 15));
+    const bgSitters = sitters.filter(p => !isNearAny(p.x, p.z, detailAnchors, 15));
+    if (fgSitters.length) {
+      const m = instanced(mergeParts(sitPerson(0x3f454e, C.navy, C.black, true)), litMat(), fgSitters);
+      fgSitters.forEach((p, i) => m.setColorAt(i, new THREE.Color(sCols[p.colIdx % sCols.length]).multiplyScalar(1.9)));
+      s.add(m);
+    }
+    if (bgSitters.length) {
+      const m = instanced(mergeParts(sitPersonLod(0x3f454e, true)), litMat(), bgSitters);
+      bgSitters.forEach((p, i) => m.setColorAt(i, new THREE.Color(sCols[p.colIdx % sCols.length]).multiplyScalar(1.9)));
+      s.add(m);
+    }
+  }
+
+  if (statue) {
+    // democracyStatue standing prominently at [0, -172] facing north (+z toward Tiananmen)
+    flood.push(...place(democracyStatue(), 0, -172, Math.PI));
+    for (const [lx, lz] of [[-5.5, -165], [5.5, -165], [-5.5, -179], [5.5, -179]]) {
+      stat.push({ p: [lx, 0.7, lz], s: [0.16, 1.4, 0.16], c: 0x3a3c40 });
+      glow.push({ p: [lx, 1.45, lz], s: [0.35, 0.28, 0.35], c: 0xffe8b0 });
+    }
+    // weathered tents further south on the Square
+    const wtents: { x: number; z: number; ry: number }[] = [];
+    for (let i = 0; i < 28; i++) {
+      const tx = -46 + (i % 7) * 11 + (r() - 0.5) * 2.5;
+      const tz = -292 + Math.floor(i / 7) * 14 + (r() - 0.5) * 3.0;
+      if (Math.hypot(tx + 15, tz + 255) < 4.0 || Math.hypot(tx - 12, tz + 230) < 4.0) continue;
+      wtents.push({ x: tx, z: tz, ry: (r() - 0.5) * 0.7 });
+    }
+    const wMesh = instanced(mergeParts(campTent(0x4d544a)), litMat(), wtents);
+    wtents.forEach((_, i) => wMesh.setColorAt(i, new THREE.Color(i % 2 ? 0x565e52 : 0x6d6552)));
+    s.add(wMesh);
+    // gathered students admiring & sketching around the statue (foreground detailed <=15m, distant LOD >15m)
+    const stus: { x: number; z: number; ry: number; colIdx: number }[] = [];
+    for (let i = 0; i < 160; i++) {
+      const a = -Math.PI * 0.85 + r() * Math.PI * 1.7, d = 6.5 + r() * 18;
+      const sx = Math.cos(a) * d, sz = -172 + Math.sin(a) * d;
+      if (Math.hypot(sx, sz + 176) < 3.0 || Math.hypot(sx, sz + 190) < 3.6) continue;
+      if (Math.abs(sx) < 2.4 && sz < -176 && sz > -192) continue; // clear sightline from spawn [0, -190] to statue [0, -172]
+      stus.push({ x: sx, z: sz, ry: Math.atan2(-sx, -172 - sz), colIdx: stus.length });
+    }
+    const stCols = [C.navy, C.khaki, 0x4e5a4a, 0x6a2f3a, 0x5d4c3a];
+    const fgStus = stus.filter(p => isNearAny(p.x, p.z, detailAnchors, 15));
+    const bgStus = stus.filter(p => !isNearAny(p.x, p.z, detailAnchors, 15));
+    if (fgStus.length) {
+      const m = instanced(mergeParts(crowdPerson(0x3a3f48)), litMat(), fgStus);
+      fgStus.forEach((p, i) => m.setColorAt(i, new THREE.Color(stCols[p.colIdx % 5]).multiplyScalar(2.0)));
+      s.add(m);
+    }
+    if (bgStus.length) {
+      const m = instanced(mergeParts(crowdPersonLod(0x3a3f48)), litMat(), bgStus);
+      bgStus.forEach((p, i) => m.setColorAt(i, new THREE.Color(stCols[p.colIdx % 5]).multiplyScalar(2.0)));
+      s.add(m);
+    }
+  }
+
+  addLayeredParts(s, stat);
+  addLayeredParts(s, flood, dawn ? 0x140a06 : camp ? 0x18120a : statue ? 0x140f12 : 0x4a2a18);
   s.add(new THREE.Mesh(mergeParts(glow), glowMat()));
-  s.add(instanced(mergeParts(tree(true)), litMat(), pops));
+
+  // Avenue poplars: realistic wind-swaying multi-branch painted-leaf trees
+  const fgPops = pops.filter(p => isNearAny(p.x, p.z, detailAnchors, 15));
+  const bgPops = pops.filter(p => !isNearAny(p.x, p.z, detailAnchors, 15));
+  if (fgPops.length) addRealisticTrees(s, fgPops, true, false);
+  if (bgPops.length) addRealisticTrees(s, bgPops, true, true);
+
   s.add(instanced(mergeParts(lampPole()), litMat(), lamps));
   s.add(instanced(mergeParts(lampHead()), glowMat(), lamps));
-  s.add(instanced(mergeParts(huadengPole()), litMat(), hd));
-  s.add(instanced(mergeParts(huadengGlobes().map(g => ({ ...g, s: g.s.map(v => v * 0.7) as [number, number, number] }))), glowMat(), hd));
+
+  // Huadeng poles: foreground detailed, distant (>60m from spawn) LOD
+  const fgHd = hd.filter(h => isNearAny(h.x, h.z, [spawn], 60));
+  const bgHd = hd.filter(h => !isNearAny(h.x, h.z, [spawn], 60));
+  if (fgHd.length) {
+    s.add(instanced(mergeParts(huadengPole()), litMat(), fgHd));
+    s.add(instanced(mergeParts(huadengGlobes()), glowMat(), fgHd));
+  }
+  if (bgHd.length) {
+    s.add(instanced(mergeParts(huadengPoleLod()), litMat(), bgHd));
+    s.add(instanced(mergeParts(huadengGlobesLod()), glowMat(), bgHd));
+  }
+
   s.add(new THREE.Mesh(mergeParts(wires(-340, 340, [-57.4, -58.1, -67.9, -68.6], -44.5, -81.5, 40)), litMat()));
+
   // portrait + the two slogan boards
   const por = new THREE.Mesh(new THREE.PlaneGeometry(4.8, 6.4), new THREE.MeshBasicMaterial({ map: portraitTexture(), fog: true }));
   por.position.set(0, 12.0, -18.62); por.rotation.y = Math.PI; s.add(por);
@@ -293,48 +717,136 @@ export function buildChangan(mode: 'night' | 'dawn' = 'night'): World {
     const m = new THREE.Mesh(new THREE.PlaneGeometry(17, 2.1), new THREE.MeshBasicMaterial({ map: sloganTexture(t), fog: true }));
     m.position.set(x, 10.6, -18.62); m.rotation.y = Math.PI; s.add(m);
   }
-  // floodlight on the gate + a few lights on the avenue
+
+  // atmospheric lighting per time of day
   if (dawn) {
-    const sky = textTexture(8, 256, g => { const gr = g.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, '#6f8fb8'); gr.addColorStop(0.55, '#b9c4d2'); gr.addColorStop(0.8, '#e6cdb0'); gr.addColorStop(1, '#d8c8b4'); g.fillStyle = gr; g.fillRect(0, 0, 8, 256); });
-    s.background = sky; (s.fog as THREE.Fog).color.set(0xd2c9bb);
     const hemi = new THREE.HemisphereLight(0xdfe7f2, 0x6b604c, 1.25); hemi.name = 'day'; s.add(hemi);
     const sun = new THREE.DirectionalLight(0xffdcb4, 1.6); sun.name = 'day'; sun.position.set(300, 90, -120); s.add(sun);
+  } else if (camp) {
+    const hemi = new THREE.HemisphereLight(0xf6e6c4, 0x6e5f46, 1.35); hemi.name = 'day'; s.add(hemi);
+    const sun = new THREE.DirectionalLight(0xffd699, 1.75); sun.name = 'day'; sun.position.set(-220, 110, -80); s.add(sun);
+  } else if (statue) {
+    const hemi = new THREE.HemisphereLight(0x9b7898, 0x3b2c26, 0.95); hemi.name = 'day'; s.add(hemi);
+    const duskSun = new THREE.DirectionalLight(0xffa868, 1.15); duskSun.name = 'day'; duskSun.position.set(-240, 48, -160); s.add(duskSun);
+    // warm key (south) & rim (north) floodlights illuminating the white plaster statue & scaffold without flat overexposure
+    for (const [sx, sz] of [[-9, -158], [9, -158], [-8, -184], [8, -184]] as [number, number][]) {
+      const sf = new THREE.SpotLight(0xffeed2, sz < -172 ? 1.15 : 0.65, 80, 0.55, 0.5, 0);
+      sf.name = 'day'; sf.position.set(sx, 2.5, sz); sf.target.position.set(0, 7.5, -172);
+      s.add(sf, sf.target);
+    }
   }
   const fl = new THREE.SpotLight(0xffd9a0, 2.2, 160, 0.5, 0.6, 0); fl.position.set(0, 6, -70); fl.target.position.set(0, 18, -10); s.add(fl, fl.target);
   for (const x of [-40, 0, 40]) { const l = new THREE.PointLight(0xfff0d0, 30, 40, 1.4); l.position.set(x, 8, -63); s.add(l); }
-  // Square: floodlit Monument, lit facades, lamp pools
   const fm = new THREE.SpotLight(0xfff4e0, 3, 260, 0.35, 0.5, 0); fm.position.set(0, 4, -200); fm.target.position.set(0, 22, -330); s.add(fm, fm.target);
   for (const sg of [-1, 1]) { const f = new THREE.SpotLight(0xffe6b8, 2.4, 260, 0.6, 0.6, 0); f.position.set(sg * 60, 3, -300); f.target.position.set(sg * 115, 14, -320); s.add(f, f.target); }
   s.add(new THREE.HemisphereLight(0x6a7590, 0x2a2418, 0.5));
-  const pool = new THREE.InstancedMesh(new THREE.CircleGeometry(9, 20).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xffd9a0, transparent: true, opacity: 0.16, depthWrite: false, fog: true }), hd.length);
-  hd.forEach((h, i) => { o.position.set(h.x, 0.04, h.z); o.rotation.set(0, 0, 0); o.updateMatrix(); pool.setMatrixAt(i, o.matrix); }); if (!dawn) s.add(pool);
+  if (!dayish) {
+    const pool = new THREE.InstancedMesh(
+      new THREE.CircleGeometry(12.5, 18).rotateX(-Math.PI / 2),
+      new THREE.MeshBasicMaterial({
+        map: SharedTexPool.softGlowTex(),
+        color: 0xffd28c,
+        transparent: true,
+        opacity: statue ? 0.28 : 0.42,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        fog: true,
+      }),
+      hd.length,
+    );
+    hd.forEach((h, i) => { o.position.set(h.x, 0.04, h.z); o.rotation.set(0, 0, 0); o.updateMatrix(); pool.setMatrixAt(i, o.matrix); });
+    s.add(pool);
+    const haloGeo = new THREE.PlaneGeometry(4.4, 4.4);
+    const haloGeo2 = new THREE.PlaneGeometry(4.4, 4.4);
+    haloGeo2.rotateY(Math.PI / 2);
+    const haloMat = new THREE.MeshBasicMaterial({
+      map: SharedTexPool.softGlowTex(),
+      color: 0xffe4a8,
+      transparent: true,
+      opacity: statue ? 0.24 : 0.34,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+      fog: true,
+    });
+    const halos = new THREE.InstancedMesh(haloGeo, haloMat, hd.length);
+    haloGeo2.dispose();
+    hd.forEach((h, i) => {
+      o.position.set(h.x, 7.8, h.z);
+      o.rotation.set(0, 0.4, 0);
+      o.updateMatrix();
+      halos.setMatrixAt(i, o.matrix);
+    });
+    s.add(halos);
+  }
+
   if (dawn) {
     [fl, fm].forEach(l => l.visible = false);
-    // 4/22 dawn: tens of thousands face the Great Hall; rows of police at its steps; three tiny kneeling figures (distant, not detailed)
-    const crowd: { x: number; z: number; ry: number }[] = [];
-    for (let i = 0; i < 1400; i++) { const x = -88 + r() * 120, z = -235 - r() * 165; if (Math.abs(x) < 36 && z < -295 && z > -365) continue; crowd.push({ x, z, ry: -Math.PI / 2 + (r() - 0.5) * 0.8 }); }
-    const cm = instanced(mergeParts(person(0x3a3f48)), litMat(), crowd);
-    const cc = [C.navy, C.khaki, 0x2f3540, 0x5d4c3a, 0x4e5a4a, 0x6a2f3a, 0x8a8a80]; crowd.forEach((_, i) => cm.setColorAt(i, new THREE.Color(cc[i % 7]).multiplyScalar(2.2))); s.add(cm);
-    const police: { x: number; z: number; ry: number }[] = []; for (let row = 0; row < 5; row++) for (let z = -270; z <= -370; z -= 0.9) police.push({ x: -93 - row * 0.9, z: z - row * 0.3, ry: Math.PI / 2 });
-    s.add(instanced(mergeParts(person(0x4a5a3a, 0x3a4630, 0x2a2e26)), litMat(), police));
+    const crowd: { x: number; z: number; ry: number; colIdx: number }[] = [];
+    for (let i = 0; i < 550; i++) {
+      const x = -88 + r() * 120, z = -235 - r() * 165;
+      if (Math.abs(x) < 36 && z < -295 && z > -365) continue;
+      crowd.push({ x, z, ry: -Math.PI / 2 + (r() - 0.5) * 0.8, colIdx: crowd.length });
+    }
+    const cc = [C.navy, C.khaki, 0x2f3540, 0x5d4c3a, 0x4e5a4a, 0x6a2f3a, 0x8a8a80];
+    const fgCrowd = crowd.filter(p => isNearAny(p.x, p.z, detailAnchors, 15));
+    const bgCrowd = crowd.filter(p => !isNearAny(p.x, p.z, detailAnchors, 15));
+    if (fgCrowd.length) {
+      const cm = instanced(mergeParts(crowdPerson(0x3a3f48)), litMat(), fgCrowd);
+      fgCrowd.forEach((p, i) => cm.setColorAt(i, new THREE.Color(cc[p.colIdx % 7]).multiplyScalar(2.2)));
+      s.add(cm);
+    }
+    if (bgCrowd.length) {
+      const cm = instanced(mergeParts(crowdPersonLod(0x3a3f48)), litMat(), bgCrowd);
+      bgCrowd.forEach((p, i) => cm.setColorAt(i, new THREE.Color(cc[p.colIdx % 7]).multiplyScalar(2.2)));
+      s.add(cm);
+    }
+    const police: { x: number; z: number; ry: number }[] = [];
+    for (let row = 0; row < 2; row++) for (let z = -275; z >= -365; z -= 2.4) police.push({ x: -93 - row * 1.1, z: z - row * 0.3, ry: Math.PI / 2 });
+    s.add(instanced(mergeParts(crowdPersonLod(0x4a5a3a, 0x3a4630)), litMat(), police));
     const kneel: Part[] = []; for (const z of [-321.5, -320, -318.5]) kneel.push({ p: [-102.5, 3.4, z], s: [0.5, 0.8, 0.45], c: 0x3a3f48 }, { p: [-102.2, 3.95, z], s: [0.22, 0.24, 0.22], c: 0xc8a07a }, { p: [-102.0, 4.1, z], s: [0.1, 0.4, 0.5], c: 0xf0ece0 });
     s.add(new THREE.Mesh(mergeParts(kneel), litMat()));
     for (const [x, z, t] of [[-70, -300, '沉痛悼念'], [-55, -345, '悼念耀邦'], [-30, -270, '民主　自由']] as [number, number, string][]) {
-      const tex = textTexture(512, 128, g => { g.fillStyle = '#f2efe6'; g.fillRect(0, 0, 512, 128); g.fillStyle = '#141414'; g.font = 'bold 84px "Noto Serif CJK TC",serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(t, 256, 68); });
+      const tex = markSceneOwned(textTexture(512, 128, g => { g.fillStyle = '#f2efe6'; g.fillRect(0, 0, 512, 128); g.fillStyle = '#141414'; g.font = 'bold 84px "Noto Serif CJK TC",serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(t, 256, 68); }));
       const b = new THREE.Mesh(new THREE.PlaneGeometry(8, 2), new THREE.MeshLambertMaterial({ map: tex, side: THREE.DoubleSide })); b.position.set(x, 3.6, z); b.rotation.y = Math.PI / 2; s.add(b);
     }
-    // loudspeaker poles on the Square
-    const sp: Part[] = []; for (const [x, z] of [[-30, -282], [20, -260], [-60, -360]]) sp.push({ p: [x, 4, z], s: [0.25, 8, 0.25], c: 0x55554f, cyl: true }, { p: [x, 7.8, z], s: [0.9, 0.6, 0.6], c: 0x6b6f63, cyl: true, rz: 1.2 });
+    const sp: Part[] = []; for (const [x, z] of [[-30, -282], [20, -260], [-60, -360]]) sp.push({ p: [x, 4, z], s: [0.25, 8, 0.25], c: 0x55554f, cyl: true }, { p: [x, 7.8, z], s: [0.9, 0.6, 0.6], c: 0x6b6f63, cyl: true, rz: 1.2, top: 0.35 });
     s.add(new THREE.Mesh(mergeParts(sp), litMat()));
-    s.traverse(o => { const l = o as THREE.Light; if (l.isLight && l.name !== 'day') l.visible = false; });
   }
-  // traffic: riders in the bike lanes, trolleybuses under the wires
-  const N = 40, riders = new THREE.InstancedMesh(mergeParts(bike(C.navy)), litMat(), N);
+  if (dayish) {
+    s.traverse(obj => { const l = obj as THREE.Light; if (l.isLight && l.name !== 'day') l.visible = false; });
+  }
+
+  // traffic: riders in the bike lanes (LOD in distant square/camp/statue modes), trolleybuses under the wires
+  const N = 16;
+  const riderParts = mode === 'night' ? bike(C.navy) : bikeLod(C.navy);
+  const riders = new THREE.InstancedMesh(mergeParts(riderParts), litMat(), N);
   const rs = Array.from({ length: N }, (_, i) => ({ x: -200 + r() * 400, z: (i % 2 ? -42.5 : -82.5) + r() * 2.5, v: (i % 2 ? -1 : 1) * (3 + r() * 2) }));
   s.add(riders);
   const tb = [0, 1].map(i => { const g = new THREE.Group(); g.add(new THREE.Mesh(mergeParts(trolleybus()), litMat()), new THREE.Mesh(mergeParts(trolleyWindows()), glowMat())); g.position.set(i ? 60 : -90, 0, i ? -58 : -68); if (i) g.rotation.y = Math.PI; s.add(g); return g; });
+
+  const bounds: [number, number, number, number] = dawn ? [-95, 60, -400, -95] : camp ? [-95, 60, -360, -110] : statue ? [-95, 60, -340, -95] : [-200, 200, -300, -38];
+  const camDist = dawn ? 20 : (camp || statue) ? 22 : 30;
+  const cam = statue ? { h: 0.42, ahead: 18, y: 7 } : camp ? { h: 0.45, ahead: 16, y: 6 } : undefined;
   return {
-    id: dawn ? 'square' : 'changan', scene: s, spawn: dawn ? [-20, -262] : [-60, -86], bounds: dawn ? [-95, 60, -400, -95] : [-200, 200, -300, -38], camDist: dawn ? 20 : 30, speed: 8,
+    id,
+    scene: s,
+    spawn,
+    bounds,
+    camDist,
+    speed: 8,
+    cam,
+    atmosphere: dawn ? 'dawn' : camp ? 'day_spring' : statue ? 'dusk_warm' : 'night',
+    occluders: [
+      [-34, 34, 0, 34.5, -19, 19],
+      [-192, -106, 0, 38, -475, -165],
+      [106, 192, 0, 38, -475, -165],
+      [-31, 31, 0, 40.5, -360, -300],
+      [-53, 53, 0, 34, -493, -397],
+      [210, 266, 0, 44, -35, -11],
+      [-272, -212, 0, 44, -35, -13],
+      [-26, 26, 0, 42, -537, -513],
+    ],
     update(dt, t) {
       rs.forEach((b, i) => { b.x += b.v * dt; if (b.x > 200) b.x = -200; if (b.x < -200) b.x = 200; o.position.set(b.x, Math.sin(t * 9 + i) * 0.015, b.z); o.rotation.set(0, b.v > 0 ? 0 : Math.PI, 0); o.updateMatrix(); riders.setMatrixAt(i, o.matrix); });
       riders.instanceMatrix.needsUpdate = true;
@@ -342,4 +854,163 @@ export function buildChangan(mode: 'night' | 'dawn' = 'night'): World {
       tb[1].position.x -= 7 * dt; if (tb[1].position.x < -300) tb[1].position.x = 300;
     },
   };
+}
+
+function tagSceneOwnedTextures(scene: THREE.Scene): void {
+  const markIfLocal = (tex: unknown) => {
+    const t = tex as THREE.Texture | null | undefined;
+    if (!t || !t.isTexture) return;
+    if (t.userData?.shared || t.userData?.pooled) return;
+    if ((t as THREE.CanvasTexture).isCanvasTexture || t.image) {
+      markSceneOwned(t);
+    }
+  };
+  markIfLocal(scene.background);
+  markIfLocal(scene.environment);
+  scene.traverse(obj => {
+    const matOrList = (obj as THREE.Mesh).material;
+    if (!matOrList) return;
+    const mats = Array.isArray(matOrList) ? matOrList : [matOrList];
+    for (const mat of mats) {
+      if (!mat || typeof mat !== 'object') continue;
+      for (const val of Object.values(mat)) {
+        markIfLocal(val);
+      }
+    }
+  });
+}
+
+function stripDefaultSceneLights(scene: THREE.Scene): void {
+  const remove: THREE.Object3D[] = [];
+  scene.traverse(obj => {
+    if ((obj as THREE.HemisphereLight).isHemisphereLight || (obj as THREE.DirectionalLight).isDirectionalLight) {
+      if (obj.name !== '__atmo_hemi' && obj.name !== '__atmo_dir') remove.push(obj);
+    }
+  });
+  for (const obj of remove) obj.parent?.remove(obj);
+}
+
+function buildBuiltinOrVariant(id: string, meta?: SceneManifestEntry): World {
+  const custom = SCENE_BUILDERS.get(id);
+  if (custom) return custom(id as SceneId, meta);
+
+  switch (id) {
+    case 'campus': return buildCampus('night');
+    case 'aftermath': return buildCampus('aftermath');
+    case 'street': return buildStreet('night');
+    case 'march': return buildStreet('march');
+    case 'blockade': return buildStreet('blockade');
+    case 'hutong': return buildStreet('hutong');
+    case 'changan': return buildChangan('night');
+    case 'square': return buildChangan('dawn');
+    case 'camp': return buildChangan('camp');
+    case 'statue': return buildChangan('statue');
+    case 'factory': return buildFactory('night');
+    case 'factory_dawn': return buildFactory('dawn');
+    case 'courtyard': return buildCourtyard();
+    case 'march_day': {
+      const w = buildStreet('march');
+      stripDefaultSceneLights(w.scene);
+      applyAtmosphere(w.scene, 'day_spring', { far: meta?.camFar ?? 220 });
+      w.id = 'march_day';
+      w.atmosphere = 'day_spring';
+      return w;
+    }
+    case 'street_aftermath': {
+      const w = buildStreet('night');
+      stripDefaultSceneLights(w.scene);
+      applyAtmosphere(w.scene, 'aftermath', { far: meta?.camFar ?? 220 });
+      w.id = 'street_aftermath';
+      w.atmosphere = 'aftermath';
+      return w;
+    }
+    case 'courtyard_day': {
+      const w = buildCourtyard();
+      stripDefaultSceneLights(w.scene);
+      applyAtmosphere(w.scene, 'day_spring', { far: meta?.camFar ?? 160 });
+      w.id = 'courtyard_day';
+      w.atmosphere = 'day_spring';
+      return w;
+    }
+    case 'changan_rain': {
+      const w = buildChangan('camp');
+      stripDefaultSceneLights(w.scene);
+      applyAtmosphere(w.scene, 'rain_overcast', { near: 42, far: meta?.camFar ?? 950 });
+      const isMobile = typeof navigator !== 'undefined' && /Mobi|Android|iPhone/i.test(navigator.userAgent);
+      const rain = makeRainSystem(isMobile);
+      let rainCamX = w.spawn[0];
+      let rainCamZ = w.spawn[1];
+      rain.mesh.onBeforeRender = (_r, _s, cam) => {
+        if (Math.hypot(cam.position.x - rainCamX, cam.position.z - rainCamZ) > 0.5) {
+          rainCamX = cam.position.x;
+          rainCamZ = cam.position.z;
+          rain.update(0, rainCamX, rainCamZ);
+        }
+      };
+      w.scene.add(rain.mesh);
+      const baseUpdate = w.update.bind(w);
+      const baseDispose = w.dispose;
+      w.id = 'changan_rain';
+      w.atmosphere = 'rain_overcast';
+      w.update = (dt, t) => {
+        baseUpdate(dt, t);
+        rain.update(dt, rainCamX, rainCamZ);
+      };
+      w.dispose = () => {
+        baseDispose?.();
+        rain.dispose();
+      };
+      return w;
+    }
+    default: {
+      const resolvedMeta = meta ?? (SCENE_META as Partial<Record<string, SceneManifestEntry>> | undefined)?.[id];
+      const baseKind = resolvedMeta?.base;
+      let w: World;
+      if (baseKind === 'street') w = buildStreet('night');
+      else if (baseKind === 'changan') w = buildChangan('night');
+      else if (baseKind === 'factory') w = buildFactory('night');
+      else if (baseKind === 'courtyard') w = buildCourtyard();
+      else w = buildCampus('night');
+
+      if (resolvedMeta) {
+        w.id = resolvedMeta.id;
+        if (resolvedMeta.atmosphere) {
+          stripDefaultSceneLights(w.scene);
+          applyAtmosphere(w.scene, resolvedMeta.atmosphere, {
+            far: resolvedMeta.camFar,
+          });
+          w.atmosphere = resolvedMeta.atmosphere;
+        }
+      }
+      return w;
+    }
+  }
+}
+
+/** Unified scene builder supporting all registered, built-in, and manifest fallback scenes. */
+export function buildScene(id: string, meta?: SceneManifestEntry): World {
+  const { result: world, keys: poolKeys } = SharedTexPool.captureScope(() =>
+    buildBuiltinOrVariant(id, meta),
+  );
+  if (!world.atmosphere) {
+    const resolvedMeta = meta ?? (SCENE_META as Partial<Record<string, SceneManifestEntry>> | undefined)?.[id];
+    if (resolvedMeta?.atmosphere) world.atmosphere = resolvedMeta.atmosphere;
+  }
+  tagSceneOwnedTextures(world.scene);
+
+  const prevDispose = world.dispose;
+  let disposed = false;
+  world.dispose = () => {
+    if (disposed) return;
+    disposed = true;
+    prevDispose?.();
+    const atmoKey = world.scene.userData?.__atmoSkyKey as string | undefined;
+    if (atmoKey && !poolKeys.includes(atmoKey)) {
+      SharedTexPool.release(atmoKey);
+    }
+    if (world.scene.userData) delete world.scene.userData.__atmoSkyKey;
+    SharedTexPool.releaseAll(poolKeys);
+  };
+
+  return world;
 }

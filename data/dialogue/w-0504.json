@@ -1,0 +1,475 @@
+{
+  "chapter": "w-0504",
+  "title": "五月四日　報刊亭與剪報本",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "factory",
+  "clockStart": 740,
+  "spawn": {
+    "factory": [0, 12],
+    "street": [-14, -4]
+  },
+  "labels": {
+    "factory": "1989 年 5 月 4 日・午間休息室・北京第二機床廠",
+    "street": "1989 年 5 月 4 日・午後・海淀報刊亭"
+  },
+  "transitions": {
+    "street": "一下早班，小劉抱著厚厚的牛皮紙剪報本，催著你跨上自行車往海淀報刊亭趕去……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（王建國）",
+      "role": "北京第二機床廠五級車工（俗稱王師傅）",
+      "fictional": true
+    },
+    "liu": {
+      "name": "小劉",
+      "role": "機床廠青年學徒，愛抄詩和剪報",
+      "fictional": true
+    },
+    "zhao": {
+      "name": "老趙",
+      "role": "車間帶班老師傅",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "海淀報刊亭大爺",
+      "fictional": true
+    },
+    "passerby": {
+      "name": "報攤前的路人",
+      "role": "打聽晚報消息的海淀街坊",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "evidenceCatalog": {
+    "ev_w0504_scrapbook": {
+      "id": "ev_w0504_scrapbook",
+      "kind": "witness",
+      "title": "小劉的五四運動七十週年剪報筆記",
+      "summary": "學徒小劉在車間休息室記下今天北京約五百名新聞工作者首度公開遊行、要求如實報導的消息。",
+      "sourceLabel": "小劉牛皮紙剪報本",
+      "dayKey": "1989-05-04",
+      "chapterId": "w-0504",
+      "event": "1989-05-04-may-fourth-press-march",
+      "route": "worker",
+      "confidence": "documented",
+      "tags": ["新聞界遊行", "剪報本"]
+    },
+    "ev_w0504_kiosk_edition": {
+      "id": "ev_w0504_kiosk_edition",
+      "kind": "official_print",
+      "title": "海淀報刊亭五月四日當日報版實況",
+      "summary": "報刊亭實際售出的五月四日報紙版面（視報社印行與撤版情形而異），未刊登任何收回四二六社論的更正啟事。",
+      "sourceLabel": "報刊亭孫大爺實物核對",
+      "dayKey": "1989-05-04",
+      "chapterId": "w-0504",
+      "event": "1989-05-04-may-fourth-press-march",
+      "route": "worker",
+      "confidence": "documented",
+      "tags": ["新聞界遊行", "公開印本"]
+    },
+    "ev_w0504_retraction_rumor": {
+      "id": "ev_w0504_retraction_rumor",
+      "kind": "rumor",
+      "title": "傳言：「報社今晚將發更正啟事收回社論定性」",
+      "summary": "報刊亭旁路人口耳相傳「今晚要發更正啟事收回四二六社論」，屬遊戲內未經證實的街頭猜測。",
+      "sourceLabel": "報攤旁路人聽聞",
+      "dayKey": "1989-05-04",
+      "chapterId": "w-0504",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "route": "worker",
+      "confidence": "uncertain",
+      "tags": ["更正啟事傳言", "未經核實"]
+    },
+    "ev_w0504_speaker_broadcast": {
+      "id": "ev_w0504_speaker_broadcast",
+      "kind": "audio_tape",
+      "title": "街角高音喇叭：五四紀念與高校動態播報",
+      "summary": "喇叭播送五四七十週年紀念大會新聞，亦提及部分高校宣布陸續復課的消息。",
+      "sourceLabel": "海淀街角廣播",
+      "dayKey": "1989-05-04",
+      "chapterId": "w-0504",
+      "event": "1989-05-04-may-fourth-press-march",
+      "route": "worker",
+      "confidence": "documented",
+      "tags": ["五四七十週年", "官方廣播"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "pair_w0504_rumor_vs_print",
+      "cards": ["ev_w0504_retraction_rumor", "ev_w0504_kiosk_edition"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "報攤路人傳言「今晚報社發更正啟事收回社論」，與報刊亭實際擺出來的公開印刷版面不符；傳言屬未經確認的揣測。",
+      "diary": "把報攤邊聽來的「更正啟事」傳言拿去對看當日報紙，實際報紙裡半行都沒登。"
+    },
+    {
+      "id": "pair_w0504_press_and_speaker",
+      "cards": ["ev_w0504_scrapbook", "ev_w0504_speaker_broadcast"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "一方面街頭出現五百名新聞工作者列隊遊行要求如實報導，另一方面廣播亦反映當日學生紀念集會與部分高校復課動向，彼此拼出五月四日的完整面貌。",
+      "diary": "小劉剪報記下的記者遊行和廣播裡講的紀念與復課，合在一起才看得清這一天。"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "w0504_liu",
+      "scene": "factory",
+      "pos": [9, -2],
+      "label": "拿著剪報本的小劉",
+      "start": "w0504_liu_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "w0504_zhao",
+      "scene": "factory",
+      "pos": [-8, 2],
+      "label": "休息桌旁的老趙",
+      "start": "w0504_zhao_1",
+      "npc": "blue",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "w0504_board",
+      "scene": "factory",
+      "pos": [10, -12],
+      "label": "車間五四黑板報",
+      "start": "w0504_board_1",
+      "kind": "inspect",
+      "autoHint": true
+    },
+    {
+      "id": "w0504_gate",
+      "scene": "factory",
+      "pos": [0, -18],
+      "label": "出廠門・陪小劉去報刊亭",
+      "start": "w0504_gate_1",
+      "kind": "portal",
+      "isExit": true,
+      "autoHint": true
+    },
+    {
+      "id": "w0504_kiosk",
+      "scene": "street",
+      "pos": [-6, -3.5],
+      "label": "報刊亭孫大爺・搶看五月四日報紙",
+      "start": "w0504_kiosk_1",
+      "npc": "grey",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "w0504_rumor",
+      "scene": "street",
+      "pos": [2, -4.5],
+      "label": "報攤旁打聽消息的路人",
+      "start": "w0504_rumor_1",
+      "npc": "navy",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "w0504_speaker",
+      "scene": "street",
+      "pos": [6, -3],
+      "label": "街角高音喇叭",
+      "start": "w0504_speaker_1",
+      "kind": "inspect",
+      "autoHint": true
+    },
+    {
+      "id": "w0504_home",
+      "scene": "street",
+      "pos": [14, 2],
+      "label": "進胡同回大雜院",
+      "start": "w0504_home_1",
+      "kind": "portal",
+      "isExit": true,
+      "autoHint": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 4 日，星期四，午休。廠裡廣播正播報著五四運動七十週年紀念消息，一車間的年輕學徒小劉卻捧著厚厚一本牛皮紙剪報本坐立不安——剛才從外頭進來的送貨司機說，今天上午長安街上不只有大學生，連幾家大報社的記者也排成隊伍打著橫幅走出來了！",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "拎著鋁飯盒到休息室長凳坐下，看小劉在急什麼",
+          "diary": "5/4 午休。聽說北京約五百名新聞工作者今天也打著橫幅走上街頭，小劉捧著剪報本興奮得直晃腳。",
+          "timeCost": 15,
+          "autoHint": true
+        }
+      ]
+    },
+    "w0504_liu_1": {
+      "speaker": "liu",
+      "text": "王師傅您瞧我這本剪報本！上禮拜四二七那天報紙和街上說得兩樣，我就留了好幾頁空白！剛才運輸班師傅跑回來說，今天「五四」七十週年，首都新聞界大概五百名記者和編輯自己走出來遊行了，牌子上寫著「新聞要說真話」！下午一交班您陪我去孫大爺報刊亭搶今天的報紙好不好？",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "答應下早班陪他去報刊亭瞧瞧，順手借看他的剪報本",
+          "evidence": "ev_w0504_scrapbook",
+          "item": "lunchbox",
+          "keepsake": "lunchbox",
+          "set": "wk_liu_clippings",
+          "rel": { "liu": 1 },
+          "diary": "答應下班陪小劉去海淀報刊亭買報紙。他那本牛皮紙剪報本從四月起一頁頁粘得工工整整。",
+          "timeCost": 20,
+          "autoHint": true,
+          "next": "w0504_liu_2"
+        },
+        {
+          "text": "笑著讓他先把工作服拍乾淨，別把漿糊蹭到機床圖紙上",
+          "rel": { "liu": 1 },
+          "timeCost": 15,
+          "next": "w0504_liu_2"
+        }
+      ]
+    },
+    "w0504_liu_2": {
+      "speaker": "liu",
+      "text": "一言為定師傅！這回一定要把實打實的頭版剪下來貼進本子裡！",
+      "choices": [
+        {
+          "text": "好，一會兒下班車棚見",
+          "autoHint": true
+        }
+      ]
+    },
+    "w0504_zhao_1": {
+      "speaker": "zhao",
+      "text": "小劉年輕愛熱鬧，愛看報紙是好事。不過建國你也得幫他看著點火候——上午運輸隊有人回來還瞎傳說「報社今晚要印更正啟事收回四二六社論」，這話一聽就沒準譜兒，別跟著人云亦云。",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "choices": [
+        {
+          "text": "點頭記住老趙的話，說只看印在報紙上的實字",
+          "set": "w0504_zhao_advice",
+          "rel": { "zhao": 1 },
+          "diary": "老趙提醒說廠裡傳的「今晚發更正啟事」聽聽就好，別把盼望當成真新聞。",
+          "timeCost": 20,
+          "autoHint": true,
+          "next": "w0504_zhao_2"
+        },
+        {
+          "text": "問老趙怎麼看記者上街要求說真話這件事",
+          "timeCost": 15,
+          "next": "w0504_zhao_3"
+        }
+      ]
+    },
+    "w0504_zhao_2": {
+      "speaker": "zhao",
+      "text": "這才像老師傅的樣子。帶他轉完報攤早點回家歇著，聽說好些大學明天就要復課了，大家都盼著日子往下順。",
+      "choices": [
+        {
+          "text": "放心吧趙哥",
+          "autoHint": true
+        }
+      ]
+    },
+    "w0504_zhao_3": {
+      "speaker": "zhao",
+      "text": "寫新聞的人憋久了也想說實話，人之常情。只是報館裡頭最後能不能印得出來，還不是一張報紙能說了算的。",
+      "choices": [
+        {
+          "text": "確實是這個理",
+          "set": "w0504_zhao_advice"
+        }
+      ]
+    },
+    "w0504_board_1": {
+      "speaker": "narr",
+      "text": "車間後牆的黑板報用紅粉筆畫了五四七十週年的花邊，寫著「發揚五四精神・搞好五月生產」；下面釘著這個禮拜的車床檢修排班表。",
+      "choices": [
+        {
+          "text": "看清明天早班排班時間，收拾好工具",
+          "diary": "車間黑板報畫了紀念五四七十週年的紅粉筆邊框，旁邊仍寫著五月產值指標。",
+          "timeCost": 10,
+          "autoHint": true
+        },
+        {
+          "text": "拿黑板擦抹掉桌角沾上的粉筆灰"
+        }
+      ]
+    },
+    "w0504_gate_1": {
+      "speaker": "narr",
+      "text": "下午交接班的鈴聲敲過。小劉推著他那輛掉漆的飛鴿車在廠門口等你，書包裡露出半截剪刀和漿糊瓶。",
+      "choices": [
+        {
+          "text": "跨上自行車，帶小劉往海淀報刊亭騎去",
+          "goto": "street",
+          "timeCost": 30,
+          "autoHint": true
+        },
+        {
+          "text": "再檢查一下後座飯盒袋綁緊了沒有"
+        }
+      ]
+    },
+    "w0504_kiosk_1": {
+      "speaker": "sun",
+      "text": "哎呀，小劉今天跑得比誰都快！下午的報紙剛卸下來兩捆就圍了一圈人——今天各報記者大概五百人上街舉牌子「新聞要說真話」，報刊亭這兒全北京的人都在等著看印出來怎麼寫！",
+      "event": "1989-05-04-may-fourth-press-march",
+      "variants": [
+        {
+          "requires": "world:xr:press_0504_published",
+          "text": "你們倆來得真巧！剛卸下來的《首都晨報》居然真把今天新聞工作者五四遊行那段消息見報了！小劉你看這張白紙黑字——「首都新聞界公開列隊要求如實報導」，這一捆轉眼就剩最後幾份啦！"
+        },
+        {
+          "requires": "world:xr:press_0504_internal",
+          "text": "今天市面上這幾份公開發行的報紙裡頭隻字未提記者遊行，反倒是剛才一個在報社印刷廠幹活的熟人偷偷給我看了一張內部參考清樣——上頭寫得明明白白，約五百名記者打著橫幅走上了長安街！小劉想剪公開報紙怕是剪不著全文囉。"
+        },
+        {
+          "requires": "world:xr:press_0504_spiked",
+          "text": "白跑一趟啦小劉！剛才送報的騎車老陳偷偷跟我嘀咕，說幾家報館原本已經拼好版的五四新聞界現場稿件，臨上機前全被撤版啦！櫃檯上這幾張印出來的依然只有例行通稿，連個影兒都沒見著！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "買下一份五月四日當日報紙，陪小劉就著櫃檯仔細看清刊登實況並剪存標題",
+          "evidence": "ev_w0504_kiosk_edition",
+          "keepsake": "小劉的五四新聞剪報",
+          "set": "w0504_clipped_press",
+          "rel": { "sun": 1, "liu": 1 },
+          "diary": "在孫大爺報刊亭與小劉買了五月四日的報紙。小劉小心翼翼剪下日期與新聞版面，說要把這天究竟印出了什麼、沒印出什麼都夾進本子。",
+          "timeCost": 25,
+          "autoHint": true,
+          "next": "w0504_kiosk_2"
+        },
+        {
+          "text": "問孫大爺剛才聽人說今晚要發「更正啟事」是怎麼回事",
+          "evidence": "ev_w0504_kiosk_edition",
+          "set": "w0504_checked_rumor",
+          "timeCost": 20,
+          "next": "w0504_kiosk_3"
+        }
+      ]
+    },
+    "w0504_kiosk_2": {
+      "speaker": "liu",
+      "text": "王師傅您看，不管報紙上能留出多少行字，我今天還是在空白頁寫了一行註記：「五月四日，約五百名記者上街要求新聞說真話」。等十年以後再翻開這本子，至少咱們記得清清楚楚！",
+      "choices": [
+        {
+          "text": "收好剪報本，別弄濕了",
+          "set": "wk_liu_clippings",
+          "autoHint": true
+        }
+      ]
+    },
+    "w0504_kiosk_3": {
+      "speaker": "sun",
+      "text": "哪兒來的更正啟事呀？我從中午翻到下午，每張報的縫兒都看過了，一個字也沒有！那是看熱鬧的人自己編出來解悶的。",
+      "choices": [
+        {
+          "text": "果然跟老趙猜的一樣",
+          "set": "w0504_clipped_press"
+        }
+      ]
+    },
+    "w0504_rumor_1": {
+      "speaker": "passerby",
+      "text": "師傅您也來買晚報？聽說剛才廣場那頭有人傳，報社今晚十二點前要加印號外發更正啟事，把「四二六社論」那幾句定性全收回去——真的假的？",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "choices": [
+        {
+          "text": "擺手告訴他剛才在報刊亭核對過報版沒這回事，把這則街頭傳言記下存疑",
+          "evidence": "ev_w0504_retraction_rumor",
+          "set": "w0504_checked_rumor",
+          "diary": "報攤旁有路人興奮地傳「今晚要發更正啟事收回社論」，核對報刊亭實際版面後並無根據。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "勸他等真正印出來的報紙再算數，別跟著起哄",
+          "evidence": "ev_w0504_retraction_rumor",
+          "set": "w0504_checked_rumor",
+          "timeCost": 15
+        }
+      ]
+    },
+    "w0504_speaker_1": {
+      "speaker": "narr",
+      "text": "街角電線杆上的高音喇叭正在播送人民大會堂舉辦五四運動七十週年紀念大會的消息，也提及北京部分高校出現準備復課的動向，語調比四月底柔和了許多。",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "記下廣播播出的時間與語調變化，叫上小劉準備回家",
+          "evidence": "ev_w0504_speaker_broadcast",
+          "diary": "街角喇叭播報五四七十週年紀念與高校復課動向，五月初北京街頭顯出一陣短暫的緩和。",
+          "timeCost": 15,
+          "autoHint": true
+        },
+        {
+          "text": "站著聽完這一段廣播",
+          "timeCost": 10
+        }
+      ]
+    },
+    "w0504_home_1": {
+      "speaker": "narr",
+      "text": "傍晚六點半，海淀路上騎車回家的工人與剛散會的大學生迎面擦肩。小劉在巷口停下車，小心把剪報本塞進斜挎書包裡，與你道別。推進自家胡同前，你心裡記掛著什麼？",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "記起小劉小心翼翼把五月四日剪報粘進牛皮紙本裡的那股認真勁兒",
+          "requires": "w0504_clipped_press",
+          "diary": "5/4 傍晚。看著小劉在報攤前把剪報與旁註夾進本子，年輕人總想替這個春天留住白紙黑字。",
+          "autoHint": true,
+          "end": "liu_scrapbook"
+        },
+        {
+          "text": "記住報刊亭外流傳的「更正啟事」謠言與實際白紙黑字的落差",
+          "requires": "w0504_checked_rumor",
+          "diary": "5/4 傍晚。沒有見報的消息不能當成已經發生的事，孫大爺的話確實耐琢磨。",
+          "end": "unprinted_rumor"
+        },
+        {
+          "text": "想著老趙那句「穩住車床、日子還得往下順」，推車進院吃晚飯",
+          "requires": "w0504_zhao_advice",
+          "diary": "5/4 傍晚。老趙總說只要街面平穩、學生能復課、工廠照常轉，比什麼都強。",
+          "end": "workshop_balance"
+        },
+        {
+          "text": "推起自行車拐進自家胡同，聽著院裡煤爐響聲準備吃晚飯",
+          "diary": "5/4 傍晚。五四這天平和過去了，誰也料不到九天之後廣場上會再次擠滿帳篷。",
+          "autoHint": true,
+          "end": "courtyard_dusk"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "liu_scrapbook": {
+      "title": "小劉的五四剪報本",
+      "text": "巷口路燈剛亮起來，小劉把剪好的報紙版面壓進牛皮紙封皮底下，高高興興騎回單身宿舍。日後每次翻起那本貼滿新聞與手寫旁註的本子，他都會想起這個陽光晃眼的五四午後。"
+    },
+    "unprinted_rumor": {
+      "title": "未見報的傳言",
+      "text": "報攤旁的人散了，各家晚飯的油煙從胡同牆頭飄出來。你把沒有根據的「更正啟事」聽聞留在身後，只記住自己親眼看見的那一紙真實報版。"
+    },
+    "workshop_balance": {
+      "title": "車間與報攤之間",
+      "text": "秀芳聽說今天記者上街又聽說不少大學準備復課，一邊端出熱麵一邊舒了口氣。這個五月四日，彷彿給緊繃了半個多月的北京城換了口短暫的氣。"
+    },
+    "courtyard_dusk": {
+      "title": "晚飯前的報紙聲",
+      "text": "你把買來的晚報捲起來插在車把籃裡推回大雜院。國槐樹梢傳來幾聲麻雀叫，好像連這座城市的節奏也要重新慢下來——至少在五月十三日之前。"
+    }
+  },
+  "epilogue": "1989 年 5 月 4 日五四運動七十週年當日，約五百名北京新聞工作者首度公開遊行要求新聞如實報導，同期部分高校一度準備復課，呈現短暫緩和。下一階段：五月十三日。",
+  "epilogueEvent": "1989-05-04-may-fourth-press-march"
+}

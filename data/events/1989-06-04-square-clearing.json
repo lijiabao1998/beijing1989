@@ -1,0 +1,42 @@
+{
+  "id": "1989-06-04-square-clearing",
+  "date": "1989-06-04",
+  "place": "長安街沿線・天安門廣場",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "6月3日夜至4日清晨軍隊進駐與廣場清場，各方對傷亡記載不一",
+    "en": "Night of 3–4 June: army advance, dawn evacuation from the Square, and differing casualty records"
+  },
+  "summary": {
+    "zh": "1989 年 6 月 3 日夜至 4 日凌晨，戒嚴部隊從多方向強行推進並開火驅散沿途阻攔群眾（以木樨地、西長安街等路段傷亡尤重），隨後包圍天安門廣場；留守於人民英雄紀念碑旁的學生經與軍方接觸協商後，於 4 日清晨約五時前後列隊向東南撤離，部隊完成廣場清場。關於總體傷亡數字，不同公開來源差異極大：中國官方其後稱含軍警在內約 241 人死亡（部分說法近 300 人）；紅十字會初期估計、外交電報、記者與獨立學者的推估多在數百至數千人之間；「天安門母親」群體則長期核實並公布有名有姓的遇難者名錄與親屬證言（已核實逾二百人）。遊戲只並列不同公開記載，不擅作裁定，亦不為真實遇難者編寫對話。",
+    "en": "Through the night of 3–4 June 1989, martial-law troops forced their way toward central Beijing using live fire along routes such as Muxidi and West Chang'an Avenue before encircling Tiananmen Square. Around dawn on 4 June, after negotiations with military commanders, remaining students at the Monument filed out toward the southeast as troops cleared the Square. Public casualty counts diverge sharply: official PRC statements cited roughly 241 deaths (including military and police, or nearly 300 in some accounts); initial Red Cross reports, diplomatic cables, journalists, and historians estimate from several hundred to several thousand; and the Tiananmen Mothers have independently verified and published over 200 named victims and family testimonies. The game presents these documented discrepancies without fictionalizing real victims."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Death toll",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Death_toll"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    },
+    {
+      "title": "Tiananmen Square, 1989",
+      "publisher": "U.S. Department of State, Office of the Historian (Milestones)",
+      "url": "https://history.state.gov/milestones/1989-1992/tiananmen-square"
+    },
+    {
+      "title": "Tiananmen Mothers",
+      "publisher": "Human Rights in China (HRIC)",
+      "url": "https://www.hrichina.org/en/tiananmen-mothers"
+    },
+    {
+      "title": "Tiananmen at 25 Years (Electronic Briefing Book No. 473)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB473/"
+    }
+  ]
+}

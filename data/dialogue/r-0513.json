@@ -1,0 +1,522 @@
+{
+  "chapter": "r-0513",
+  "title": "第三章　五月十三日至十五日，紗布與茶水",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "courtyard_day",
+  "clockStart": 630,
+  "spawn": {
+    "courtyard_day": [0, 3],
+    "hospital_gate": [0, 10]
+  },
+  "labels": {
+    "courtyard_day": "1989 年 5 月 14 日・上午・西單四合院",
+    "hospital_gate": "1989 年 5 月 15 日・午後・北京醫院外急救棚"
+  },
+  "transitions": {
+    "hospital_gate": "五月十五日午後太陽發晃，你把裝滿無菌紗布與糖鹽包的木箱夾在車後架上，騎到醫院外門的急救車道旁……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（沈淑芬）",
+      "role": "53歲，西單四合院居民、退休紡織廠醫務室護師",
+      "fictional": true
+    },
+    "zhangye": {
+      "name": "張大爺",
+      "role": "西單大雜院裡的長輩老鄰居",
+      "fictional": true
+    },
+    "xiaojun": {
+      "name": "小軍",
+      "role": "18歲技校學生，沈淑芬的外甥",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王建國（王師傅）",
+      "role": "北京第二機床廠五級車工（工人路線主角）",
+      "fictional": true
+    },
+    "gu": {
+      "name": "顧明遠",
+      "role": "《首都晨報》市政記者（記者路線主角）",
+      "fictional": true
+    },
+    "medic": {
+      "name": "急救棚值班護師",
+      "role": "醫院急診科與紅十字志願接應人員",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "r5_clinic_box",
+      "scene": "courtyard_day",
+      "pos": [0, -2],
+      "label": "院心石桌・整理退休醫務室紗布箱",
+      "start": "r5_clinic_1",
+      "kind": "inspect",
+      "autoHint": true
+    },
+    {
+      "id": "r5_zhang_tv",
+      "scene": "courtyard_day",
+      "pos": [-5, -4],
+      "label": "煤爐旁・張大爺說電視直播傳言",
+      "start": "r5_zhang_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "timeWindow": [540, 960]
+    },
+    {
+      "id": "r5_gate_out",
+      "scene": "courtyard_day",
+      "pos": [0, -14],
+      "label": "推車出紅門往醫院外急救棚",
+      "start": "r5_exit_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "r5_triage_tent",
+      "scene": "hospital_gate",
+      "pos": [-4.5, -1.5],
+      "label": "紅十字急救棚・交接無菌紗布",
+      "start": "r5_triage_1",
+      "npc": "green",
+      "kind": "dispatch",
+      "autoHint": true
+    },
+    {
+      "id": "r5_thermos_cart",
+      "scene": "hospital_gate",
+      "pos": [4.0, 4.8],
+      "label": "三輪湯桶旁・王師傅與大紅暖壺",
+      "start": "r5_wang_1",
+      "npc": "blue",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "r5_hospital_notice",
+      "scene": "hospital_gate",
+      "pos": [0, -7.2],
+      "label": "急診台階前・顧明遠與小軍",
+      "start": "r5_gate_1",
+      "npc": "khaki",
+      "kind": "dialogue"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 14 日，星期日，上午。前一天下午起，大批學生在天安門廣場開始絕食；北京才剛入夏，太陽卻已經曬得地面發燙。剛買菜回院，你把過去在紡織廠醫務室退休前留在家裡應急的小藥箱翻出來攤在石桌上。",
+      "event": "1989-05-13-hunger-strike",
+      "variants": [
+        {
+          "requires": "r3_pulled_xiaojun",
+          "text": "1989 年 5 月 14 日，上午。自從四二七那天在立交橋欄杆邊一把拉回小軍後，這半個月他倒還安分；只是昨天聽說廣場開始絕食，今早又在屋裡坐不住了。你乾脆翻出紡織廠醫務室留下來的老急救箱，先把急救物件理清楚。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "低頭清點石桌上的無菌紗布與藥包",
+          "diary": "5/14 上午。廣場絕食已近一日，天氣炎熱，我翻出退休前留著應急的無菌紗布和口服補鹽包。",
+          "autoHint": true
+        }
+      ]
+    },
+    "r5_clinic_1": {
+      "speaker": "narr",
+      "text": "白鐵藥盒裡整整齊齊疊著十二捲未拆封的醫用無菌紗布、兩捲橡皮膏、幾包補液鹽粉和一疊小方紙籤。在工廠醫務室幹了三十多年護師，你一看外頭這日頭就知道，中暑脫水和擦傷很快會比什麼口號先來。",
+      "event": "1989-05-15-citizens-medical-support",
+      "choices": [
+        {
+          "text": "把無菌紗布、橡皮膏與補液鹽打成乾淨的救急布包帶上",
+          "keepsake": "clinic_kit",
+          "item": "clinic_kit",
+          "set": "r5_packed_clinic",
+          "evidence": "r5_ev_clinic_inventory",
+          "timeCost": 20,
+          "diary": "把十二捲未拆封無菌紗布、橡皮膏與補液鹽包進乾淨布兜，準備送去就近的急救接應站。",
+          "next": "r5_clinic_2",
+          "autoHint": true
+        },
+        {
+          "text": "順道檢點家裡還剩多少紗布留著院裡應急",
+          "keepsake": "clinic_kit",
+          "item": "clinic_kit",
+          "set": "r5_packed_clinic",
+          "evidence": "r5_ev_clinic_inventory",
+          "timeCost": 15,
+          "next": "r5_clinic_3"
+        }
+      ]
+    },
+    "r5_clinic_2": {
+      "speaker": "narr",
+      "text": "你又多剪了幾條一指寬的長紗布條塞在兜裡——萬一路邊給熟人搭把手送水，繫在瓶把上作記號最顯眼不過。",
+      "choices": [
+        {
+          "text": "收好藥包，走過去跟煤爐旁的張大爺說一聲"
+        }
+      ]
+    },
+    "r5_clinic_3": {
+      "speaker": "narr",
+      "text": "留了兩捲紗布和碘伏在屋裡桌角，其餘整齊碼進布兜，不耽誤家裡老小應急。",
+      "choices": [
+        {
+          "text": "嗯，這就妥當了"
+        }
+      ]
+    },
+    "r5_zhang_1": {
+      "speaker": "zhangye",
+      "text": "淑芬呀，你收拾這一大兜紗布是要往哪兒送？對了，剛才衚衕口幾個年輕人經過時都在興奮地喊，說「電視台今晚將現場直播廣場對話」——我把半導體搬出來守半天了，也不知道是真的還是大家瞎盼？",
+      "event": "1989-05-14-rumor-tv-broadcast",
+      "variants": [
+        {
+          "requires": "world:xr:rumor_0514_tv_verified",
+          "text": "淑芬！剛才街口遇見《首都晨報》的顧明遠記者打胡同路過，特意跟大夥兒澄清過了：他親自去電台與新聞線核對過編播通知，五月十四日這天晚上電視台並沒有安排現場直播對話！幸好沒讓院裡街坊跟著白忙一場。"
+        },
+        {
+          "requires": "world:xr:rumor_0514_tv_panic",
+          "text": "淑芬你聽見外頭噪聲沒？剛才一撥撥人跑過去全喊著「今晚電視台要直播對話了」，巷子裡好幾家把黑白電視搬到窗台邊等，連小軍都差點騎車衝去看熱鬧！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "記下「今晚電視直播」這則說法與來源狀態，勸張大爺先別急著跟風",
+          "evidence": "r5_ev_tv_rumor",
+          "rel": { "zhangye": 1, "grandpa_zhang": 1 },
+          "set": "r5_noted_tv_rumor",
+          "timeCost": 15,
+          "diary": "張大爺聽街坊傳「電視台今晚將現場直播廣場對話」；我提醒他等見到確切通知再作數。",
+          "next": "r5_zhang_2",
+          "autoHint": true
+        },
+        {
+          "text": "答應張大爺我明天去醫院外門送紗布時順道打聽確切情況",
+          "evidence": "r5_ev_tv_rumor",
+          "rel": { "zhangye": 1, "grandpa_zhang": 1 },
+          "timeCost": 15,
+          "next": "r5_zhang_3"
+        }
+      ]
+    },
+    "r5_zhang_2": {
+      "speaker": "zhangye",
+      "text": "還是你這當過護師的心靜。外頭亂糟糟的，有什麼真消息，明天你打醫院外頭回來再跟我唸叨。",
+      "choices": [
+        {
+          "text": "放心吧，天亮出門前再燒一壺涼白開"
+        }
+      ]
+    },
+    "r5_zhang_3": {
+      "speaker": "zhangye",
+      "text": "好，外頭太陽毒，你明兒騎車去醫院外門時戴頂草帽。",
+      "choices": [
+        {
+          "text": "記下了大爺"
+        }
+      ]
+    },
+    "r5_exit_1": {
+      "speaker": "narr",
+      "text": "次日（5 月 15 日）中午，收音機播報蘇聯領導人戈巴契夫專機已經降落首都機場，原定廣場的歡迎儀式臨時改於機場舉行。街面湧出越來越多自發支援的市民與救護車。你把醫用無菌紗布包固定在車筐裡，出門騎向醫院外門的急救棚。",
+      "event": "1989-05-15-gorbachev-visit",
+      "choices": [
+        {
+          "text": "踩上二八車趕去醫院外急救棚",
+          "goto": "hospital_gate",
+          "timeCost": 25,
+          "autoHint": true
+        },
+        {
+          "text": "再檢查一下車筐裡的紗布包綁緊了沒"
+        }
+      ]
+    },
+    "r5_triage_1": {
+      "speaker": "medic",
+      "text": "老師傅請先讓道……哎，阿姨，您手裡拎的是未拆封的醫用無菌紗布和補液鹽嗎？廣場那邊中暑脫水送來的學生越來越多，急診室剛清點完敷料庫存，正愁人手和替換紗布不夠用！",
+      "event": "1989-05-15-citizens-medical-support",
+      "choices": [
+        {
+          "text": "把帶來的十二捲無菌紗布、橡皮膏和補液鹽全交給急救棚，並留下聯絡姓名幫著分裝",
+          "set": "r5_shared_gauze",
+          "worldEmit": "xr:clinic_gauze_shared",
+          "evidence": "r5_ev_hospital_triage",
+          "rel": { "medic": 1 },
+          "timeCost": 20,
+          "diary": "把醫務室留存的無菌紗布與補液鹽交給醫院外門急救棚值班人員，救急物資多一分算一分。",
+          "next": "r5_triage_2",
+          "autoHint": true
+        },
+        {
+          "text": "先幫著急救棚整理一下輪椅邊上的飲水桶與分診紀錄單",
+          "set": "r5_shared_gauze",
+          "worldEmit": "xr:clinic_gauze_shared",
+          "evidence": "r5_ev_hospital_triage",
+          "rel": { "medic": 1 },
+          "timeCost": 20,
+          "next": "r5_triage_3"
+        }
+      ]
+    },
+    "r5_triage_2": {
+      "speaker": "medic",
+      "text": "太及時了沈師傅！這批紗布有原廠密封條，急診這邊馬上就能用上。您看旁邊三輪車那位北京第二機床廠的王師傅正打算往廣場營地送綠豆湯和熱水壺，咱們這兒還有幾包補液鹽正好讓他也帶過去。",
+      "choices": [
+        {
+          "text": "好，我這就過去幫王師傅搭把手"
+        }
+      ]
+    },
+    "r5_triage_3": {
+      "speaker": "medic",
+      "text": "多虧您這老護師手腳麻利，救護車剛才卸完一趟人，後面這位機床廠的王師傅正蹬著平板三輪送湯水來呢。",
+      "choices": [
+        {
+          "text": "過去看看王師傅的湯桶需不需要幫忙"
+        }
+      ]
+    },
+    "r5_wang_1": {
+      "speaker": "wang",
+      "text": "哎，您不是西單胡同那位沈大姐嗎？我們廠一車間湊錢熬了兩桶涼綠豆湯，外加我家那隻大紅竹殼暖水壺，這會兒正要往廣場東側急救線送！就是沿街送水的大車小車太多，我真怕這隻紅暖壺借出去以後跟別家的弄混了。",
+      "event": "1989-05-15-citizens-medical-support",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_lent",
+          "text": "沈大姐！您來得正好——我這隻大紅竹殼暖水壺已經記了廠名準備留在廣場急救棚那頭給學生裝溫開水。一路上人擠人、救護車又一趟接一趟，咱們得在把手上留個顯眼的標記才不會和別家的混在一塊兒。"
+        },
+        {
+          "requires": "world:xr:slope_push_helped",
+          "text": "沈大姐！剛才過海淀斜坡的時候多虧北大那個陳立同學從後頭幫我推了一把車，這兩桶綠豆湯才沒灑。車斗裡還有我家那隻大紅殼暖壺，我想借給急救棚用，就怕將來找不到主兒！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "剪下一段乾淨醫用白紗布條，替王師傅的紅暖壺把手繫上雙活結作記號",
+          "set": "r5_tagged_thermos",
+          "worldEmit": "xr:thermos_gauze_tag",
+          "evidence": "r5_ev_thermos_tag",
+          "rel": { "wang": 1 },
+          "timeCost": 15,
+          "diary": "在醫院外門遇見王建國師傅的平板三輪車。我剪下一截乾淨醫用紗布條繫在他那隻大紅殼暖壺把手上當作記號。",
+          "next": "r5_wang_2",
+          "autoHint": true
+        },
+        {
+          "text": "幫忙把車斗上剩餘的糖鹽水和鋁碗歸攏穩當再繫上紗布條",
+          "set": "r5_tagged_thermos",
+          "worldEmit": "xr:thermos_gauze_tag",
+          "evidence": "r5_ev_thermos_tag",
+          "rel": { "wang": 1 },
+          "timeCost": 20,
+          "next": "r5_wang_3"
+        }
+      ]
+    },
+    "r5_wang_2": {
+      "speaker": "wang",
+      "text": "這白紗布條一繫，十步外頭都能一眼認出是我家那隻大紅殼！謝啦沈大姐，咱們各自照應著街道與院落，有什麼需要搭手的儘管喊一聲。",
+      "choices": [
+        {
+          "text": "王師傅路上騎穩當點，過幾天總會安生下來的"
+        }
+      ]
+    },
+    "r5_wang_3": {
+      "speaker": "wang",
+      "text": "全綁牢了！那我先往東側通道蹬過去，等那邊交接完再回海淀。",
+      "choices": [
+        {
+          "text": "一路小心"
+        }
+      ]
+    },
+    "r5_gate_1": {
+      "speaker": "gu",
+      "text": "沈阿姨！剛在急救棚外頭看您一直忙著幫醫護分裝紗布，辛苦了。今天戈巴契夫的機場行程改了之後，街頭擠滿了市民車隊，大家還在傳昨晚電視台究竟播不播對話實況的事。",
+      "event": "1989-05-15-gorbachev-visit",
+      "variants": [
+        {
+          "requires": "world:xr:rumor_0514_tv_verified",
+          "text": "沈阿姨，昨兒夜裡我跑回電台編輯部查過值班單，確認五月十四日晚間並沒有安排現場直播廣場對話——原本街頭那些「今晚電視直播」的傳言全是未經核實的猜測。您回院裡可以跟張大爺實話實說，免得街坊白著急。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "記下顧明遠帶來的現場查證與外事改期實情，轉身看見小軍正老老實實幫志願者搬水箱",
+          "set": "r5_gu_checked",
+          "evidence": "r5_ev_gu_verify",
+          "rel": { "gu": 1, "xiaojun": 1 },
+          "timeCost": 15,
+          "diary": "在醫院外門遇見顧明遠記者，證實了戈巴契夫改於機場舉行歡迎儀式與電視直播傳言的落差；小軍也乖乖在外廊幫忙搬水，沒往絕食堆裡擠。",
+          "next": "r5_end_1",
+          "autoHint": true
+        },
+        {
+          "text": "把院裡聽說的街坊傳言講給顧明遠聽，提醒小軍早點推車跟自己回家",
+          "rel": { "gu": 1, "xiaojun": 1 },
+          "evidence": "r5_ev_gu_verify",
+          "timeCost": 15,
+          "next": "r5_end_1"
+        }
+      ]
+    },
+    "r5_end_1": {
+      "speaker": "narr",
+      "text": "下午四點多，醫院急診外廊的陽光漸漸轉斜。你叫住搬完兩箱礦泉水、滿頭大汗的小軍準備推車回家，回頭望見急救棚外的紅十字旗和停滿自行車的馬路沿。這兩天你最記掛在心上的是哪一幕？",
+      "choices": [
+        {
+          "text": "摸摸空了卻折得方方正正的布兜，十二捲無菌紗布都交到了該用的人手裡",
+          "requires": "r5_shared_gauze",
+          "diary": "5/15 傍晚。三十年的護師手藝在這幾天只做了一件事：把乾淨紗布交到急救人員手裡。",
+          "end": "r5_clinic_gauze"
+        },
+        {
+          "text": "想起王師傅三輪車斗裡那隻繫著白紗布條的大紅暖壺，普通人的互助總有記號",
+          "requires": "r5_tagged_thermos",
+          "diary": "5/15 傍晚。我在王師傅的紅暖壺把手上繫了一截白紗布條；願它能順順利利回到他手裡。",
+          "end": "r5_gauze_on_thermos"
+        },
+        {
+          "text": "把電視直播傳言與現場查證結果並排記在紙上，回家向張大爺講明實情",
+          "requires": "r5_gu_checked",
+          "diary": "5/15 傍晚。不跟風傳沒有憑據的話，是給鄰居心裡穩住陣腳最好的法子。",
+          "end": "r5_debunked_tv"
+        },
+        {
+          "text": "叫上小軍推起二八車，迎著漸涼的傍晚微風騎回西單四合院",
+          "diary": "5/15 傍晚。拉著小軍一起離開喧鬧的醫院外門，先讓家裡那盞院燈安穩亮著。",
+          "end": "r5_home_duty"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "r5_clinic_gauze": {
+      "title": "交到急診棚的白紗布",
+      "text": "醫院外門急救棚的桌角多了十二捲密封完好的無菌紗布。離開紡織廠醫務室好幾年了，你在五月最悶熱的午後，還是替這座城市守住了一份實在的衛生常識。"
+    },
+    "r5_gauze_on_thermos": {
+      "title": "繫上紗布條的大紅暖壺",
+      "text": "一截兩寸長的乾淨白紗布條在王建國師傅的紅殼暖壺把手上打了個結。這個春天裡工人、學生與街坊的兩雙手，就這樣被一條普通的醫用紗布連在一起。"
+    },
+    "r5_debunked_tv": {
+      "title": "兩頁對照的筆記",
+      "text": "你把街坊瘋傳的「電視直播」和顧明遠現場核實的情況分兩欄抄好。回到四合院時，張大爺點點頭把半導體關小了半格——知道什麼還沒發生，本身就是一種清醒。"
+    },
+    "r5_home_duty": {
+      "title": "帶小軍回院吃晚飯",
+      "text": "夕陽落在西長安街的樹梢上。小軍推著兩輛自行車走在靠邊那道白線裡，一路問你以前在廠醫務室包紮的故事；你知道今天能把他平平安安帶回四合院，就夠了。"
+    }
+  },
+  "epilogue": "1989 年 5 月 15 日戈巴契夫抵京期間，天安門廣場絕食持續升溫，大批醫護人員、紅十字會與北京市民協力維持救護車通道並送來飲水物資。接下來：五月十九日夜至二十日。",
+  "epilogueEvent": "1989-05-15-citizens-medical-support",
+  "evidenceCatalog": {
+    "r5_ev_clinic_inventory": {
+      "id": "r5_ev_clinic_inventory",
+      "kind": "witness",
+      "title": "醫務室備用無菌紗布與鹽水清單",
+      "summary": "沈淑芬清點退休前留存的十二捲無菌紗布、橡皮膏與補液鹽粉，備妥送往附近急診接應點。",
+      "sourceLabel": "沈淑芬・醫護藥箱紀錄",
+      "dayKey": "1989-05-15",
+      "chapterId": "r-0513",
+      "event": "1989-05-15-citizens-medical-support",
+      "route": "resident",
+      "confidence": "testimony",
+      "tags": ["0515", "醫療支援"]
+    },
+    "r5_ev_tv_rumor": {
+      "id": "r5_ev_tv_rumor",
+      "kind": "rumor",
+      "title": "街坊耳語：「電視台今晚將現場直播對話」",
+      "summary": "五月十四日前後街頭流傳當晚電視台將現場直播廣場對話，造成部分居民圍在電視機旁等候。",
+      "sourceLabel": "遊戲虛構・街頭傳言",
+      "dayKey": "1989-05-14",
+      "chapterId": "r-0513",
+      "event": "1989-05-14-rumor-tv-broadcast",
+      "route": "resident",
+      "confidence": "uncertain",
+      "tags": ["0514", "傳言"]
+    },
+    "r5_ev_hospital_triage": {
+      "id": "r5_ev_hospital_triage",
+      "kind": "witness",
+      "title": "醫院外急救棚物資交接紀錄",
+      "summary": "五月十五日午後，急救通道旁紅十字志願者接收市民與醫護送來的無菌敷料與補液鹽，維持中暑學生救護車動線。",
+      "sourceLabel": "醫院外門急救棚目擊",
+      "dayKey": "1989-05-15",
+      "chapterId": "r-0513",
+      "event": "1989-05-15-citizens-medical-support",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0515", "救護通道"]
+    },
+    "r5_ev_thermos_tag": {
+      "id": "r5_ev_thermos_tag",
+      "kind": "witness",
+      "title": "大紅暖壺把手白紗布記號",
+      "summary": "沈淑芬在王建國師傅三輪車上的大紅殼鋁暖壺把手上繫上無菌紗布條作記號，以便借往廣場急救站後辨認歸還。",
+      "sourceLabel": "跨路線實物交會",
+      "dayKey": "1989-05-15",
+      "chapterId": "r-0513",
+      "event": "1989-05-15-citizens-medical-support",
+      "route": "resident",
+      "confidence": "testimony",
+      "tags": ["0515", "紅暖壺"]
+    },
+    "r5_ev_gu_verify": {
+      "id": "r5_ev_gu_verify",
+      "kind": "official_print",
+      "title": "戈巴契夫改機場歡迎與直播核實說明",
+      "summary": "記者顧明遠確認 5 月 15 日戈巴契夫歡迎儀式改於首都機場舉行，且 5 月 14 日晚並無電視台現場直播廣場對話。",
+      "sourceLabel": "《首都晨報》記者查證",
+      "dayKey": "1989-05-15",
+      "chapterId": "r-0513",
+      "event": "1989-05-15-gorbachev-visit",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0514", "0515", "報刊查證"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "r5_pair_clinic_hospital",
+      "cards": ["r5_ev_clinic_inventory", "r5_ev_hospital_triage"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "自家藥箱清點的無菌紗布清單與急救棚接應記錄時間及物資內容一致，共同反映五月十五日市民與醫護的自發救護合作。",
+      "diary": "兩邊對上：我帶去的十二捲紗布確實接上了急診棚最緊缺的敷料需求。",
+      "set": "r5_dossier_clinic"
+    },
+    {
+      "id": "r5_pair_tv_gu",
+      "cards": ["r5_ev_tv_rumor", "r5_ev_gu_verify"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "街頭流傳「今晚電視台現場直播」與電台編輯部查證結果不符，屬於消息混亂下未獲證實的猜測。",
+      "diary": "比對街頭傳言與記者查證，直播說法並無編播依據。",
+      "set": "r5_dossier_tv_debunked"
+    },
+    {
+      "id": "r5_pair_tv_triage",
+      "cards": ["r5_ev_tv_rumor", "r5_ev_hospital_triage"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "急救棚只負責照料中暑與脫水學生，無法證實街頭關於電視直播的說法。",
+      "set": "r5_dossier_tv_unverified"
+    }
+  ]
+}

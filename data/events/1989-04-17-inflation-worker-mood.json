@@ -1,0 +1,37 @@
+{
+  "id": "1989-04-17-inflation-worker-mood",
+  "date": "1989-04-17",
+  "place": "北京各國營工廠・街市糧店",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "高通膨與價格雙軌制下的北京工人生活壓力",
+    "en": "Urban inflation, dual-track pricing, and Beijing factory workers' livelihood pressures (1988–1989)"
+  },
+  "summary": {
+    "zh": "1988 年至 1989 年春，中國城市經歷嚴重通貨膨脹，糧油、副食品與日用品價格大幅上漲，部分物資在「價格雙軌制」下出現官價與議價落差及「官倒」現象，引發城市職工對實質工資縮水與腐敗的不滿。至 1989 年 4 月胡耀邦逝世前後，國營工廠車間與街巷民眾之間已積累了對物價、待遇與廉政問題的廣泛討論。",
+    "en": "Between 1988 and spring 1989, sharp urban inflation drove up prices for grain, cooking oil, and daily necessities across Chinese cities, while the dual-track pricing system fueled official profiteering (guandao) and eroded fixed wages. By mid-April 1989, Beijing state-enterprise factory workers and urban residents shared widespread frustration over rising living costs and official corruption."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Background",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Background"
+    },
+    {
+      "title": "Tiananmen Square incident",
+      "publisher": "Encyclopædia Britannica",
+      "url": "https://www.britannica.com/event/Tiananmen-Square-incident"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    },
+    {
+      "title": "Tiananmen Square, 1989",
+      "publisher": "U.S. Department of State, Office of the Historian (Milestones)",
+      "url": "https://history.state.gov/milestones/1989-1992/tiananmen-square"
+    }
+  ]
+}

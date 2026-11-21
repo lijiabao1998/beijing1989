@@ -1,0 +1,448 @@
+{
+  "chapter": "r-0427",
+  "title": "四月二十六日至二十七日　立交橋欄杆與涼白開",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "courtyard_day",
+  "clockStart": 510,
+  "spawn": {
+    "courtyard_day": [0, 3],
+    "overpass": [-26, -3]
+  },
+  "labels": {
+    "courtyard_day": "1989 年 4 月 27 日・清晨・西單四合院",
+    "overpass": "1989 年 4 月 27 日・午後・木樨地與復興門外立交橋"
+  },
+  "transitions": {
+    "overpass": "午後一點的日頭曬暖了西長安街，你蹬著裝滿大水壺與棉被冰棍箱的二八車趕到立交橋下……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（沈淑芬）",
+      "role": "53歲，西單四合院居民、退休紡織廠醫務室護師",
+      "fictional": true
+    },
+    "xiaojun": {
+      "name": "小軍",
+      "role": "18歲技校學生，沈淑芬的外甥",
+      "fictional": true
+    },
+    "zhangye": {
+      "name": "張大爺",
+      "role": "西單大雜院裡的長輩老鄰居",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王建國（王師傅）",
+      "role": "北京第二機床廠五級車工（工人路線主角）",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立",
+      "role": "北大物理系二年級學生（學生路線主角）",
+      "fictional": true
+    },
+    "gu": {
+      "name": "顧明遠",
+      "role": "《首都晨報》市政記者（記者路線主角）",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "r3_yard_radio",
+      "scene": "courtyard_day",
+      "pos": [-5, -4],
+      "label": "煤爐旁・張大爺看《人民日報》社論",
+      "start": "r3_zhang_1",
+      "npc": "grey",
+      "kind": "dialogue"
+    },
+    {
+      "id": "r3_yard_prep",
+      "scene": "courtyard_day",
+      "pos": [0, -2],
+      "label": "院心石桌・備好鹽水壺與冰棍箱",
+      "start": "r3_prep_1",
+      "kind": "inspect",
+      "autoHint": true
+    },
+    {
+      "id": "r3_yard_exit",
+      "scene": "courtyard_day",
+      "pos": [0, -14],
+      "label": "推車出紅門往木樨地立交橋",
+      "start": "r3_exit_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "r3_bridge_water",
+      "scene": "overpass",
+      "pos": [-15.5, 6.0],
+      "label": "橋頭書報亭邊・王師傅與市民分水",
+      "start": "r3_wang_1",
+      "npc": "blue",
+      "kind": "dialogue",
+      "timeWindow": [480, 900]
+    },
+    {
+      "id": "r3_bridge_rail",
+      "scene": "overpass",
+      "pos": [-4.5, 9.0],
+      "label": "過街天橋欄杆・拉住探身的小軍",
+      "start": "r3_xiaojun_1",
+      "npc": "green",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "r3_bridge_east",
+      "scene": "overpass",
+      "pos": [10.5, -13.8],
+      "label": "橋南林蔭邊・顧明遠與過路學生",
+      "start": "r3_gu_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "autoHint": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 27 日，星期四，清晨八點半。昨夜廣播與今早送來的《人民日報》刊登了題為〈必須旗幟鮮明地反對動亂〉的社論；一大清早，整座西單胡同都在議論昨晚電台播出的文字，而海淀多所高校的學生已經從校區出發上街遊行，一路往市中心與立交橋方向走來。",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "variants": [
+        {
+          "requires": "r2_tended_xiaojun",
+          "text": "1989 年 4 月 27 日，清晨。四二二那天才替小軍腳後跟貼好創可貼，誰料昨天《人民日報》頭版登出四二六社論之後，今早他一大早連早飯都沒吃踏實，就說技校幾個同學要往木樨地立交橋看學生遊行。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "先到煤爐邊看看張大爺手裡那份報紙，再把家裡大水壺裝滿",
+          "diary": "4/27 清晨。《人民日報》發表四二六社論次日，大批高校學生上街遊行；小軍又一早出門了。",
+          "autoHint": true
+        }
+      ]
+    },
+    "r3_zhang_1": {
+      "speaker": "zhangye",
+      "text": "淑芬你看這張昨天的《人民日報》……頭版這篇社論口氣硬得很，直接把學生悼念定性成「動亂」了。剛才小軍急匆匆推車出門，嘴裡唸叨著「木樨地立交橋那頭肯定過隊伍」，我也沒攔住他！外頭太陽正往上爬，你快去把他找回來！",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "choices": [
+        {
+          "text": "把報上四二六社論標題與日期記進筆記本，告訴張大爺我這就去立交橋找小軍",
+          "set": "r3_read_editorial",
+          "evidence": "r3_ev_editorial_clip",
+          "rel": { "zhangye": 1, "grandpa_zhang": 1 },
+          "timeCost": 20,
+          "diary": "張大爺拿著刊登「四二六社論」的報紙發愁；聽說小軍騎車去了木樨地立交橋，我得馬上過去看住他。",
+          "next": "r3_zhang_2",
+          "autoHint": true
+        },
+        {
+          "text": "先替張大爺把煤爐火口封好，請大爺上午別往外頭擠",
+          "evidence": "r3_ev_editorial_clip",
+          "rel": { "zhangye": 1, "grandpa_zhang": 1 },
+          "timeCost": 15,
+          "next": "r3_zhang_3"
+        }
+      ]
+    },
+    "r3_zhang_2": {
+      "speaker": "zhangye",
+      "text": "外頭這天熱得早，聽說沿街市民都在送冰棍和涼白開。你順便把院裡那兩隻鋁壺灌滿帶上，找著小軍先給他喝口水降降火氣。",
+      "choices": [
+        {
+          "text": "好，我去石桌邊把水壺和紗布包收拾上車"
+        }
+      ]
+    },
+    "r3_zhang_3": {
+      "speaker": "zhangye",
+      "text": "我老骨頭了不亂跑，就在院裡等你們倆回來。",
+      "choices": [
+        {
+          "text": "大爺放心"
+        }
+      ]
+    },
+    "r3_prep_1": {
+      "speaker": "narr",
+      "text": "石桌上擺著兩隻鋁殼大水壺、一塊小棉被裹著的十支白糖冰棍，還有你常帶在車筐裡的紡織廠醫務室救急紗布包。",
+      "choices": [
+        {
+          "text": "灌滿涼白開加半撮鹽巴，連同紗布包與冰棍棉被箱捆上車後架",
+          "keepsake": "clinic_kit",
+          "item": "thermos",
+          "set": "r3_packed_water",
+          "timeCost": 15,
+          "diary": "在院心石桌備好加鹽涼白開、白糖冰棍與無菌紗布包，準備去立交橋把小軍拽回來。",
+          "autoHint": true
+        },
+        {
+          "text": "先拎一隻輕便水壺出門，省得騎太慢趕不上",
+          "item": "thermos",
+          "set": "r3_packed_water",
+          "timeCost": 10
+        }
+      ]
+    },
+    "r3_exit_1": {
+      "speaker": "narr",
+      "text": "紅漆門外頭不時有人騎車呼嘯而過，口裡嚷著前頭立交橋與主幹道上人山人海。你踏上二八自行車踏板往西騎去。",
+      "choices": [
+        {
+          "text": "騎往木樨地與復興門外立交橋下",
+          "goto": "overpass",
+          "timeCost": 30,
+          "autoHint": true
+        },
+        {
+          "text": "再檢查一下車鈴和剎車皮"
+        }
+      ]
+    },
+    "r3_wang_1": {
+      "speaker": "wang",
+      "text": "哎，沈大姐！您也趕來這邊了？我趁中午換班吃飯的空檔，從廠食堂拉來幾箱冰棍跟兩桶涼開水在書報亭旁分給學生和街坊！剛才西邊好幾道警察拉起的警戒線，看著烏泱泱湧過來的年輕人，最後沒起衝突，往兩邊讓開道讓隊伍和平過去了。馬路兩邊的市民都在鼓掌遞水呢！",
+      "event": "1989-04-27-april27-march",
+      "variants": [
+        {
+          "requires": "rel:wang>=1",
+          "text": "沈大姐！自從四月十七號報刊亭一面之後，這十天北京城裡變化太大了！您看馬路對面——警察警戒線往旁一撤，大學生挽著手臂喊著和平口號就從橋底走過去了。您是在找小軍嗎？我剛才好像看見幾個穿技校藍服的小伙子爬上過街天橋欄杆那頭往下看呢！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "幫王師傅一塊兒拆開一排冰棍紙，把橋頭看到的警察撤線與市民遞水見聞記下",
+          "set": "r3_shared_water",
+          "evidence": "r3_ev_overpass_witness",
+          "rel": { "wang": 1 },
+          "timeCost": 20,
+          "diary": "4/27 午後立交橋下。王建國師傅和市民沿街給遊行學生送涼水、冰棍；前面幾道警戒線都讓開讓隊伍和平通過了。",
+          "next": "r3_wang_2",
+          "autoHint": true
+        },
+        {
+          "text": "問問王師傅小軍那幾個半大小子具體站在天橋哪一側",
+          "evidence": "r3_ev_overpass_witness",
+          "rel": { "wang": 1 },
+          "timeCost": 15,
+          "next": "r3_wang_3"
+        }
+      ]
+    },
+    "r3_wang_2": {
+      "speaker": "wang",
+      "text": "謝啦沈大姐！您快去過街天橋樓梯口那邊瞧瞧吧，剛才幾個半大小子趴在欄杆上探出半個身子喊得歡，離下邊車道五六米高，看著怪懸的！",
+      "choices": [
+        {
+          "text": "哎呀這孩子真是的，我這就過去一把拽住他"
+        }
+      ]
+    },
+    "r3_wang_3": {
+      "speaker": "wang",
+      "text": "就在北面過街天橋台階往上那排藍欄杆邊上！您快去喊一聲。",
+      "choices": [
+        {
+          "text": "馬上過去"
+        }
+      ]
+    },
+    "r3_xiaojun_1": {
+      "speaker": "xiaojun",
+      "text": "好樣的——同學們加油！老姨？您怎麼也到橋上來了？快看底下的隊伍，警察剛才真的讓開路讓他們過去了，整條大街全在拍手！",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "一把攥住他工作服後腰往回猛拽下欄杆：「離橋沿六米高呢！別探身！要聲援就在人行道邊規規矩矩遞冰棍和水！」",
+          "consumeItem": "thermos",
+          "set": "r3_pulled_xiaojun",
+          "rel": { "xiaojun": 1 },
+          "timeCost": 15,
+          "diary": "在過街天橋欄杆邊一把把探出半個身子的小軍拽回安全處；抹掉他滿頭大汗，把涼白開和冰棍交給他在人行道邊上分。",
+          "next": "r3_xiaojun_2",
+          "autoHint": true
+        },
+        {
+          "text": "先把他拽下水泥台階按在安全處喝一口涼水，數落完不準再爬欄杆",
+          "set": "r3_pulled_xiaojun",
+          "rel": { "xiaojun": 1 },
+          "timeCost": 15,
+          "diary": "拉回爬上天橋欄杆看隊伍的小軍。熱鬧歸熱鬧，十八歲孩子的安全得有人拉一把。",
+          "next": "r3_xiaojun_3"
+        }
+      ]
+    },
+    "r3_xiaojun_2": {
+      "speaker": "xiaojun",
+      "text": "唔……老姨您手勁真大，勒得我喘不過氣！我真錯了，不爬欄杆了——這水壺和冰棍箱重得很，我幫您抱著，咱們站橋南樹蔭人行道邊給他們遞水行嗎？",
+      "choices": [
+        {
+          "text": "這才像話！跟緊我，遞完這箱水咱們就推車回家"
+        }
+      ]
+    },
+    "r3_xiaojun_3": {
+      "speaker": "xiaojun",
+      "text": "知道啦老姨，腿都讓您嚇軟了……咱們下台階去橋南那邊吧，別擋著路人上下。",
+      "choices": [
+        {
+          "text": "嗯，抓穩扶手慢慢下"
+        }
+      ]
+    },
+    "r3_gu_1": {
+      "speaker": "gu",
+      "text": "沈阿姨！剛才在橋上聽見您一聲吼把小軍拉下來，真叫人佩服。我是《首都晨報》記者顧明遠。今天四二七遊行隊伍從海淀一直走到長安街，人數從幾萬到十幾萬各說法不一，但沿街市民、職工自發給學生遞水鼓掌、晚間學生亦和平返校，這是沿線幾百雙眼睛親眼看見的。",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "遞給路過的學生陳立和記者顧明遠一人一瓶水與冰棍，記下今天所見的市民聲援實況",
+          "set": "r3_met_gu_chen",
+          "evidence": "r3_ev_press_note",
+          "rel": { "gu": 1, "chen": 1 },
+          "timeCost": 20,
+          "diary": "在橋南遇見記者顧明遠與經過的陳立，送出最後幾根冰棍。大家都希望這場和平遊行能促成對話。",
+          "next": "r3_end_1",
+          "autoHint": true
+        },
+        {
+          "text": "問問顧記者，報紙昨晚剛發了那篇社論，今天這場大遊行能登出來嗎？",
+          "evidence": "r3_ev_press_note",
+          "rel": { "gu": 1 },
+          "timeCost": 15,
+          "next": "r3_gu_2"
+        }
+      ]
+    },
+    "r3_gu_2": {
+      "speaker": "gu",
+      "text": "版面能不能發還不好說，但我們記者自己拍下來的照片、記下的現場實情，總得有人先留著底。傍晚聽說月底當局就要和部分學生接觸對話了，阿姨帶小軍早點平平安安回院吧。",
+      "choices": [
+        {
+          "text": "嗯，借你吉言，我們這就回家",
+          "next": "r3_end_1"
+        }
+      ]
+    },
+    "r3_end_1": {
+      "speaker": "narr",
+      "text": "傍晚六點多，夕陽把木樨地立交橋的橋墩染成暖橘色。遊行隊伍陸續向學校方向和平返程，街面上的冰棍紙和空水瓶也被沿街市民順手拾進竹筐。今天這一趟趕來立交橋，你心裡最記得哪一幕？",
+      "choices": [
+        {
+          "text": "牽穩車把帶著一臉汗的小軍騎回西單四合院，總算把這隻風箏線拽住了",
+          "requires": "r3_pulled_xiaojun",
+          "diary": "4/27 傍晚。拉住站在欄杆邊的小軍平平安安回家，比什麼都強。",
+          "end": "r3_brought_xiaojun_home"
+        },
+        {
+          "text": "看著空掉的鹽水壺與冰棍棉被箱，沿路送水的一雙雙手彼此點頭致意",
+          "requires": "r3_shared_water",
+          "diary": "4/27 傍晚。和王師傅把整箱冰棍和鹽水遞完，北京市民的熱心都在這一根根冰棍裡。",
+          "end": "r3_water_shared"
+        },
+        {
+          "text": "把《人民日報》四二六社論剪報與今天親眼見到的市民聲援並列收進本子",
+          "requires": "r3_read_editorial",
+          "diary": "4/27 傍晚。白紙黑字的社論與大街上沸騰卻克制的群眾，兩者並排看讓人沉默良久。",
+          "end": "r3_kept_clipping"
+        },
+        {
+          "text": "隨著傍晚歸家的人潮慢慢推車走回胡同，盼著月底真能好好坐下來談一談",
+          "diary": "4/27 傍晚。遊行隊伍和平返校了，街坊們都在盼著五月初能緩和下來。",
+          "end": "r3_dusk_walk_back"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "r3_brought_xiaojun_home": {
+      "title": "從欄杆邊拉回的小軍",
+      "text": "回到四合院門前時，小軍手裡還攥著半根沒化完的冰棍紙棒，乖乖幫你把車推進門檻。張大爺接過水壺鬆了一口長氣——那天立交橋上千萬人的喊聲裡，你只慶幸自己的手抓得夠緊。"
+    },
+    "r3_water_shared": {
+      "title": "棉被箱裡的白糖冰棍",
+      "text": "空棉被箱在車後架上輕輕晃著。從海淀到木樨地，沒有人問過這些市民和機床廠工人隸屬哪個單位，大伙兒只怕太陽太毒，把這群年輕人曬暈在馬路當中。"
+    },
+    "r3_kept_clipping": {
+      "title": "社論剪報與橋上見聞",
+      "text": "你把昨天那張社論報角折起來，與今天在立交橋寫下的幾行見聞夾在一起。字裡行間的定性與人潮真實的模樣彼此拉扯，像極了這個四月最後幾天的北京。"
+    },
+    "r3_dusk_walk_back": {
+      "title": "立交橋下的黃昏歸途",
+      "text": "晚風吹散了柏油路上的暑氣。聽說幾天後就是五四青年節，城裡各單位都在觀望四月最後的接觸能不能讓五月平靜一些。"
+    }
+  },
+  "epilogue": "1989 年 4 月 27 日，為回應前一日《人民日報》「四二六社論」，北京數萬至十萬以上學生上街遊行並和平返校，沿途大批北京市民鼓掌聲援並遞水送食；當局隨後於月底同意展開初步對話接觸。接下來：五月四日，短波旋鈕與胡同早市。",
+  "epilogueEvent": "1989-04-27-april27-march",
+  "evidenceCatalog": {
+    "r3_ev_editorial_clip": {
+      "id": "r3_ev_editorial_clip",
+      "kind": "official_print",
+      "title": "《人民日報》四二六社論報刊紀錄",
+      "summary": "1989 年 4 月 26 日頭版發表〈必須旗幟鮮明地反對動亂〉社論，將學生抗議定性為「動亂」，引發高校與市民強烈震動。",
+      "sourceLabel": "四月二十六日報刊頭版",
+      "dayKey": "1989-04-27",
+      "chapterId": "r-0427",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0426", "0427", "報刊社論"]
+    },
+    "r3_ev_overpass_witness": {
+      "id": "r3_ev_overpass_witness",
+      "kind": "witness",
+      "title": "立交橋下警戒線讓道與市民送水目擊",
+      "summary": "四二七當天學生隊伍突破多道警察警戒線沿幹道和平遊行，大批市民與工人自發遞送涼水與冰棍聲援。",
+      "sourceLabel": "沈淑芬・王師傅現場目擊",
+      "dayKey": "1989-04-27",
+      "chapterId": "r-0427",
+      "event": "1989-04-27-april27-march",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0427", "市民聲援"]
+    },
+    "r3_ev_press_note": {
+      "id": "r3_ev_press_note",
+      "kind": "witness",
+      "title": "顧明遠關於遊行規模與和平返校筆記",
+      "summary": "記者顧明遠記錄四二七遊行規模各說法約五萬至十萬人以上，晚間學生和平返校，成為月底初步對話接觸的轉折。",
+      "sourceLabel": "《首都晨報》記者採訪筆記",
+      "dayKey": "1989-04-27",
+      "chapterId": "r-0427",
+      "event": "1989-04-27-april27-march",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0427", "記者紀錄"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "r3_pair_editorial_march",
+      "cards": ["r3_ev_editorial_clip", "r3_ev_overpass_witness"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "報紙社論將學生活動定性為「動亂」，與立交橋上學生克制前行、市民鼓掌遞水且全線和平返校的現場觀感形成強烈反差。",
+      "diary": "對照社論文本與立交橋所見：兩邊呈現截然不同的視角與判斷。",
+      "set": "r3_dossier_contrast"
+    },
+    {
+      "id": "r3_pair_witness_press",
+      "cards": ["r3_ev_overpass_witness", "r3_ev_press_note"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "居民橋下送水見聞與記者採訪記錄互相印證四二七遊行的和平秩序與市民支持氛圍。",
+      "diary": "兩份現場目擊彼此印證：那天上街與聲援的人群雖龐大，全程始終保持平和克制。",
+      "set": "r3_dossier_corroborated"
+    }
+  ]
+}

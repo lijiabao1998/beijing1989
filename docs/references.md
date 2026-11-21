@@ -33,3 +33,30 @@
 | bj1988-1.jpg | [File:Beijing, China 1988 (5).jpg](https://commons.wikimedia.org/wiki/File:Beijing,_China_1988_(5).jpg) | Derzsi Elekes Andor | CC BY-SA 3.0 | 1988 |
 | bj1988-2.jpg | [File:Beijing 1988.jpg](https://commons.wikimedia.org/wiki/File:Beijing_1988.jpg) | CIA | Public domain | 1988 |
 | bj1988-3.jpg | [File:Tiananmen Square, Beijing, China 1988 (1).jpg](https://commons.wikimedia.org/wiki/File:Tiananmen_Square,_Beijing,_China_1988_(1).jpg) | Derzsi Elekes Andor | CC BY-SA 3.0 | 1988-05 |
+
+## 章節插畫資產（Internal AI-generated chapter illustrations）
+
+以下為遊戲內部生成的木刻／水墨風格視覺插畫資產，上限皆控制在 `250 KiB`（`256,000` bytes）內；**嚴格作為遊戲過場、章節橫幅與紀錄短片之視覺呈現使用，並非歷史新聞照片**：
+
+- **學生視角（陳立）**：`public/assets/ch0.jpg` 至 `public/assets/ch5.jpg`（含 `4/17`、`4/22`、`5/13`、`5/20`、`5/30`、`6/03–05`），另擴增 `public/assets/ch_0427.jpg`（4/27 長街遊行）與 `public/assets/ch_0504.jpg`（5/04 新聞界遊行）。
+- **工人視角（王建國）**：`public/assets/w0.jpg` 至 `public/assets/w5.jpg`，另擴增 `public/assets/w_0427.jpg`（4/27 廠門送水）與 `public/assets/w_0504.jpg`（5/04 報刊亭剪報）。
+- **記者視角（顧明遠）**：`public/assets/j0.jpg` 至 `public/assets/j5.jpg`，以及 `public/assets/j_0427.jpg`、`public/assets/j_0504.jpg`。
+- **市民視角（沈淑芬）**：`public/assets/r0.jpg` 至 `public/assets/r5.jpg`，以及 `public/assets/r_0427.jpg`、`public/assets/r_0504.jpg`。
+
+## 3D 場景與材質建模參考筆記（Architectural & Period Modeling Notes）
+
+全數 24 個 3D 低多邊形場景（見 `data/scenes.json`）以歷史時期空間比例與氛圍色調為基礎進行模組化重建，店名、報社名（如《首都晨報》）與人物皆為虛構或時代通稱，不直接匯入現代 OSM 道路資料：
+
+- **共用砌築與室內程序貼圖（`src/render/wallTextures.ts`）**：以 512×512 程式生成反照率與凹凸貼圖，包含傳統北京青磚一順一丁／丁磚砌法（`qingBrick`）、紅磚（`redBrick`）、宮牆紅（`palaceWall`）、條石（`ashlarStone`）、抹灰牆（`plaster`）、筒瓦屋頂（`roofTile`）、水磨石地面（`terrazzoFloor`）與木地板（`woodPlank`），並藉由頂點色呈現歲月燻黑與灰漿質感。
+- **既有核心場景（`src/render/campusArch.ts`、`imperial.ts`、`imperialSouth.ts`、`factoryArch.ts`、`streetScene.ts`）**：包含北京大學西校門（三開間、步步錦格扇窗、斗拱、石獅）、天安門與廣場南端天際線（城樓、紀念碑、大會堂、華燈與遠景建築輪廓）、北京第二機床廠一車間（鋸齒天窗與 C6140 車床）及四合院大雜院。
+- **記者與中軸擴展場景（`src/render/sets/journalistSets.ts`）**：
+  - `beijing_hotel_balcony`：東翼十樓飯店陽台欄杆與鄰接記者工作間，下方以 `buildChangAnSilhouetteStrip` 建立遠景長安街與天安門廣場剪影帶，並附帶牆體遮擋盒（`world.occluders`）供 `35/50/85mm` 相機取景框進行可視遮蔽判定。
+  - `newsroom`：夜班編輯室（水磨石地、綠油漆牆裙、鋼窗、編輯桌與電傳機 `newsTelex`、排版校樣桌）及紅光照明之西南角暗房。
+  - `overpass`：木樨地／復興門式立交橋混凝土高架橋面、花崗岩／混凝土橋墩、人行過街天橋、兩側多層磚混住宅樓與無軌電車架空接觸網。
+  - `xinhua_gate`：紅牆琉璃瓦門樓與影壁（「為人民服務」匾額）、成對石獅、花圈及長安街華燈。
+- **市民、醫院與氣候變體場景（`src/render/sets/residentSets.ts`）**：
+  - `hospital_gate`：協和／復興風格醫院門樓與門前分流庭院，含琉璃綠瓦簷口、臨時帆布棚、醫療推車（`medicalTriageCart`）、救護車與三輪車。
+  - `siheyuan_room`：剖頂北屋正房室內（方木樑、木格窗外月色槐樹影、方桌、蜂窩煤爐與短波收音機書桌）。
+  - `morning_market` 及四組時間／天候變體（`march_day`、`changan_rain`、`courtyard_day`、`street_aftermath`）：白天菜市攤棚（`marketStall`）、雨天長安街濕潤路面高光與雨滴粒子系統（`makeRainSystem`），以及六月五日清晨關燈閉板的靜默街市。
+
+

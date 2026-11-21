@@ -1,0 +1,468 @@
+{
+  "chapter": "j-0417",
+  "title": "第一章　四月十七日，夜班編輯台",
+  "note": "所有說話角色皆為虛構。真實人物只以史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "newsroom",
+  "spawn": {
+    "newsroom": [0, 6],
+    "street": [-14, -4]
+  },
+  "labels": {
+    "newsroom": "1989 年 4 月 17 日・夜・首都晨報夜班編輯台",
+    "street": "1989 年 4 月 17 日・深夜・海淀街道與報刊亭"
+  },
+  "transitions": {
+    "street": "你把採訪證塞進風衣內袋，跟實習攝影小唐一前一後推開報社玻璃門，騎車拐進海淀夜街……"
+  },
+  "clockStart": 1210,
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（顧明遠）",
+      "role": "29歲《首都晨報》市政記者",
+      "fictional": true
+    },
+    "shen": {
+      "name": "老沈",
+      "role": "《首都晨報》夜班主編",
+      "fictional": true
+    },
+    "tang": {
+      "name": "小唐",
+      "role": "實習攝影記者，背著35mm單反相機",
+      "fictional": true
+    },
+    "zhang": {
+      "name": "張大姐",
+      "role": "排字房老師傅",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "海淀報刊亭大爺",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立",
+      "role": "北大物理系二年級學生",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王建國（王師傅）",
+      "role": "北京第二機床廠五級車工",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "j1_shen",
+      "scene": "newsroom",
+      "pos": [-4.6, 1.8],
+      "label": "老沈・夜班編輯台",
+      "start": "j1_shen_1",
+      "npc": "blue",
+      "kind": "dialogue",
+      "timeWindow": [1200, 1435],
+      "deadlineMin": 1230,
+      "autoHint": true
+    },
+    {
+      "id": "j1_telex",
+      "scene": "newsroom",
+      "pos": [-9.6, -2.8],
+      "label": "電傳機與排字房校樣・張大姐",
+      "start": "j1_telex_1",
+      "npc": "red",
+      "kind": "dispatch",
+      "timeWindow": [1200, 1435],
+      "deadlineMin": 1255
+    },
+    {
+      "id": "j1_exit_street",
+      "scene": "newsroom",
+      "pos": [0, -6.0],
+      "label": "拎上相機出報社採訪",
+      "start": "j1_exit_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "j1_sun",
+      "scene": "street",
+      "pos": [-6, -3.5],
+      "label": "報刊亭孫大爺",
+      "start": "j1_sun_1",
+      "npc": "grey",
+      "kind": "dialogue",
+      "timeWindow": [1210, 1439],
+      "deadlineMin": 1310
+    },
+    {
+      "id": "j1_street_vantage",
+      "scene": "street",
+      "pos": [2, -4.5],
+      "label": "街燈下・小唐與路口過客",
+      "start": "j1_tang_1",
+      "npc": "khaki",
+      "kind": "photo_vantage",
+      "timeWindow": [1210, 1439],
+      "deadlineMin": 1340,
+      "autoHint": true
+    },
+    {
+      "id": "j1_end_corner",
+      "scene": "street",
+      "pos": [14.5, -2],
+      "label": "胡同燈影・整理今晚筆記",
+      "start": "j1_end_1",
+      "kind": "portal",
+      "isExit": true
+    }
+  ],
+  "photoTargets": [
+    {
+      "id": "j1_pt_kiosk",
+      "scene": "street",
+      "pos3": [-6, 1.5, -1.5],
+      "radius": 2.4,
+      "maxDist": 38,
+      "evidenceId": "j1_ev_photo_street",
+      "label": "夜燈下的報刊亭與過路車影",
+      "event": "1989-04-17-campus-to-square"
+    },
+    {
+      "id": "j1_pt_speaker",
+      "scene": "street",
+      "pos3": [6, 5.2, -2.4],
+      "radius": 2.4,
+      "maxDist": 42,
+      "evidenceId": "j1_ev_photo_street",
+      "label": "街角電線杆高音喇叭與夜路",
+      "event": "1989-04-17-campus-to-square"
+    }
+  ],
+  "evidenceCatalog": {
+    "j1_ev_wire": {
+      "id": "j1_ev_wire",
+      "kind": "official_print",
+      "title": "夜班發稿通稿與訃告時間",
+      "summary": "報社內網電傳留存：胡耀邦於四月十五日病逝，各報依統一版式刊登簡訊；桌角另附一份尚未核實來源的高校悼念海報摘要。",
+      "sourceLabel": "《首都晨報》夜班通稿",
+      "dayKey": "1989-04-17",
+      "chapterId": "j-0417",
+      "event": "1989-04-15-hu-yaobang-death",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0417", "編輯部", "訃告"]
+    },
+    "j1_ev_bulletin": {
+      "id": "j1_ev_bulletin",
+      "kind": "witness",
+      "title": "高校值班記者來電抄件",
+      "summary": "排字房外電話紀錄顯示，四月十七日起北京數所大學陸續有學生走出校園前往天安門廣場悼念，現場秩序平穩。",
+      "sourceLabel": "市政線電話紀錄",
+      "dayKey": "1989-04-17",
+      "chapterId": "j-0417",
+      "event": "1989-04-17-campus-to-square",
+      "route": "journalist",
+      "confidence": "testimony",
+      "tags": ["0417", "校園", "廣場"]
+    },
+    "j1_ev_rumor_crowd": {
+      "id": "j1_ev_rumor_crowd",
+      "kind": "rumor",
+      "title": "街頭傳言：「廣場已經上萬人」",
+      "summary": "海淀路口夜騎過客間口耳相傳「廣場上已經上萬人」，問起誰親眼數過卻沒人答得出，當下無可核實。",
+      "sourceLabel": "街頭耳語（未核實）",
+      "dayKey": "1989-04-17",
+      "chapterId": "j-0417",
+      "event": "1989-04-17-rumor-square-crowd",
+      "route": "journalist",
+      "confidence": "uncertain",
+      "tags": ["0417", "傳言", "人數"]
+    },
+    "j1_ev_witness_street": {
+      "id": "j1_ev_witness_street",
+      "kind": "witness",
+      "title": "海淀路口夜班工人與學生口述",
+      "summary": "下夜班的車工王師傅只聽廠裡議論物價，騎車問路的北大學生陳立則剛出校門，兩人都沒親眼見過傳聞裡的萬人場面。",
+      "sourceLabel": "顧明遠採訪筆記",
+      "dayKey": "1989-04-17",
+      "chapterId": "j-0417",
+      "event": "1989-04-17-campus-to-square",
+      "route": "journalist",
+      "confidence": "testimony",
+      "tags": ["0417", "街頭", "目擊"]
+    },
+    "j1_ev_photo_street": {
+      "id": "j1_ev_photo_street",
+      "kind": "photo",
+      "title": "35mm 底片：鈉燈下的海淀車影",
+      "summary": "慢快門拍下的報刊亭與自行車隊剪影，能看清往南騎行的幾列學生背影，卻無從印證遠方廣場人數。",
+      "sourceLabel": "小唐與顧明遠底片",
+      "dayKey": "1989-04-17",
+      "chapterId": "j-0417",
+      "event": "1989-04-17-campus-to-square",
+      "route": "journalist",
+      "confidence": "testimony",
+      "tags": ["0417", "底片", "街頭"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "j1_pair_rumor_witness",
+      "cards": ["j1_ev_rumor_crowd", "j1_ev_witness_street"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "街頭口傳動輒「上萬人」，但實際在海淀路口碰面的工人與學生都只是剛下班或剛出校門，尚無人親赴現場驗證。",
+      "diary": "把聽來的「萬人」和親眼看見的三兩車影分兩欄抄在本子上，兩者落差很大。",
+      "set": "j1_verified_notes"
+    },
+    {
+      "id": "j1_pair_wire_bulletin",
+      "cards": ["j1_ev_wire", "j1_ev_bulletin"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "四月十五日訃告時間與四月十七日各校悼念動向在時序上彼此對得上，屬於可寫進夜班備忘的基礎脈絡。",
+      "diary": "核對了通稿時間與電話抄件，先把確定的時間與地點壓在桌墊底下。"
+    },
+    {
+      "id": "j1_pair_photo_rumor",
+      "cards": ["j1_ev_photo_street", "j1_ev_rumor_crowd"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "海淀路口的夜街底片只能證明有人往南騎行，不能拿來當成廣場實際規模的旁證。"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 17 日，星期一，夜裡八點十分。《首都晨報》夜班編輯室飄著鉛字油墨和濃茶味。四月十五日胡耀邦病逝兩天後，桌上電傳機捲紙響個不停，有人說好幾所高校今天下午已經有人打著花圈往廣場去了。",
+      "event": "1989-04-15-hu-yaobang-death",
+      "choices": [
+        {
+          "text": "抓起採訪本與相機，先去夜班主編桌前問今晚線索",
+          "diary": "4/17 夜。報社電傳紙捲了一地，各校悼念的消息正在街面傳開。",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j1_shen_1": {
+      "speaker": "shen",
+      "text": "明遠，別急著往門外衝。今晚版面只准用統發簡訊，可咱們跑市政線的不能自己糊塗。你先把這張今年剛換的採訪證帶著，去街口看看夜裡到底有多少車往城中心騎——記住，耳聽不算數，親眼看見的才能寫進本子。",
+      "event": "1989-04-15-hu-yaobang-death",
+      "choices": [
+        {
+          "text": "接過採訪證與通稿抄件，答應把「聽說」和「看見」分兩欄記",
+          "item": "press_pass",
+          "keepsake": "press_pass",
+          "evidence": "j1_ev_wire",
+          "set": "j1_verified_notes",
+          "rel": { "shen": 1 },
+          "diary": "老沈把採訪證和夜班通稿交給我，提醒我把「親眼看見」與「街頭聽說」分開記錄。",
+          "timeCost": 10,
+          "autoHint": true,
+          "next": "j1_shen_2"
+        },
+        {
+          "text": "問老沈能不能在明天副刊留個邊欄寫市民反應",
+          "item": "press_pass",
+          "keepsake": "press_pass",
+          "evidence": "j1_ev_wire",
+          "timeCost": 10,
+          "next": "j1_shen_3"
+        }
+      ]
+    },
+    "j1_shen_2": {
+      "speaker": "shen",
+      "text": "對，寫新聞最怕拿別人嘴裡的數字當真。實習的小唐背著相機在街口等你呢，叫他別亂用閃光燈驚著路人。",
+      "choices": [
+        {
+          "text": "明白，我先去電傳室看一眼校樣就出門"
+        }
+      ]
+    },
+    "j1_shen_3": {
+      "speaker": "shen",
+      "text": "副刊也得等核實了再說。先把今晚實實在在的時間、路名與說話原話抄齊全。",
+      "choices": [
+        {
+          "text": "好，我這就去核對"
+        }
+      ]
+    },
+    "j1_telex_1": {
+      "speaker": "zhang",
+      "text": "顧記者，剛才排完頭版訃告，電話室那頭又抄來兩條校園消息——說今天起幾所大學的學生陸續把悼念海報貼出了校門，還有人往廣場方向去。你們跑外頭當心夜裡風涼，這份清樣邊角別帶出門。",
+      "event": "1989-04-17-campus-to-square",
+      "choices": [
+        {
+          "text": "道謝記下高校動向抄件，順手幫張大姐把鉛字校樣壓好",
+          "evidence": "j1_ev_bulletin",
+          "rel": { "zhang": 1, "zhang_typesetter": 1 },
+          "diary": "在電傳與排字台前核對了校園動向抄件，張大姐叮囑夜間採訪小心著涼。",
+          "timeCost": 10,
+          "autoHint": true
+        },
+        {
+          "text": "只抄下各校出發的時間點，準備出門對證",
+          "evidence": "j1_ev_bulletin",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j1_exit_1": {
+      "speaker": "narr",
+      "text": "樓道鐘指向九點一刻。你把相機背帶繞上肩頭，推門跨進四月中旬帶點涼意的北京夜風裡。",
+      "choices": [
+        {
+          "text": "騎車前往海淀街道與報刊亭",
+          "goto": "street",
+          "timeCost": 15,
+          "autoHint": true
+        },
+        {
+          "text": "在編輯部門口再檢查一次膠捲餘數",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j1_sun_1": {
+      "speaker": "sun",
+      "text": "喲，這不是晨報的顧記者嗎？今兒晚報一早賣光啦。剛才好幾撥年輕人騎車往南趕，個個喊著「廣場那邊已經上萬人了」——可我老頭子在這鐵皮亭裡坐一宿，誰數過呀？聽說的多了，自己看見的才算數。",
+      "event": "1989-04-17-rumor-square-crowd",
+      "choices": [
+        {
+          "text": "把這句「廣場上萬人」標註為未核實傳言，也抄下孫大爺的原話",
+          "evidence": "j1_ev_rumor_crowd",
+          "set": "j1_talked_sun_wang",
+          "rel": { "sun": 1 },
+          "diary": "孫大爺說晚報賣光了，街頭人傳「廣場已經上萬人」，他笑著搖頭：「自己看見的才算數。」",
+          "timeCost": 10,
+          "autoHint": true,
+          "next": "j1_sun_2"
+        },
+        {
+          "text": "問孫大爺這兩天街坊買報紙最關心什麼",
+          "evidence": "j1_ev_rumor_crowd",
+          "rel": { "sun": 1 },
+          "timeCost": 10,
+          "next": "j1_sun_3"
+        }
+      ]
+    },
+    "j1_sun_2": {
+      "speaker": "sun",
+      "text": "寫進你們報紙本子裡也好！以後別讓後生們光聽風就是雨。",
+      "choices": [
+        {
+          "text": "大爺您說得是"
+        }
+      ]
+    },
+    "j1_sun_3": {
+      "speaker": "sun",
+      "text": "還不是這兩年物價、米麵票和廠裡獎金那點事？人心裡早憋著話，趕上悼念耀邦，全湊一塊兒說話囉。",
+      "choices": [
+        {
+          "text": "點頭記下，謝過大爺"
+        }
+      ]
+    },
+    "j1_tang_1": {
+      "speaker": "tang",
+      "text": "顧老師！我剛在路燈底下調好 400 度黑白捲。剛才兩個路過的人聊了幾句——那位穿著藍工裝的王師傅剛從機床廠下夜班，抱怨物價漲得緊；旁邊騎二八車問路的北大學生陳立才剛出西校門，兩個人都沒去過廣場，倒是一路聽說了不少傳言。",
+      "event": "1989-04-17-campus-to-square",
+      "choices": [
+        {
+          "text": "和小唐一起記下王師傅與陳立的路口見聞，並按 F 舉鏡對街景留影",
+          "evidence": "j1_ev_witness_street",
+          "set": "j1_shot_with_tang",
+          "rel": { "tang": 1, "wang": 1, "chen": 1 },
+          "mechanic": "viewfinder",
+          "modeOverride": "camera_walk",
+          "diary": "與實習生小唐在街燈下核對了幾位路人說法：下夜班的王師傅與問路的學生陳立都剛經過此處，沒人見過傳說中的「萬人」。",
+          "timeCost": 15,
+          "autoHint": true,
+          "next": "j1_tang_2"
+        },
+        {
+          "text": "上前跟王師傅打個招呼，順手拍下夜晚報亭與長街車影",
+          "evidence": "j1_ev_photo_street",
+          "set": "j1_talked_sun_wang",
+          "rel": { "wang": 1, "tang": 1 },
+          "mechanic": "viewfinder",
+          "modeOverride": "camera_walk",
+          "timeCost": 15,
+          "next": "j1_tang_2"
+        }
+      ]
+    },
+    "j1_tang_2": {
+      "speaker": "wang",
+      "text": "你們當記者的也這麼晚才收工？我得趕回大雜院看孩子去。街上說話歸說話，明兒車床還得照常轉呢。",
+      "choices": [
+        {
+          "text": "謝過王師傅，記下他這句樸實話",
+          "evidence": "j1_ev_photo_street",
+          "diary": "王師傅說了句「明兒車床還得照常轉」，在夜燈下顯得格外真切。"
+        }
+      ]
+    },
+    "j1_end_1": {
+      "speaker": "narr",
+      "text": "十一點半過後，海淀街頭慢慢安靜下來。胡同口的燈影下，你打開採訪本與證據比對盤，把今晚的通稿、耳語與親眼見聞整理歸檔。",
+      "choices": [
+        {
+          "text": "把「親眼所見」與「未核實傳言」分兩欄謄寫進夜班簡報",
+          "requires": "j1_verified_notes",
+          "diary": "四月十七日深夜收工。分欄筆記是最笨也最穩當的辦法。",
+          "end": "verified_desk"
+        },
+        {
+          "text": "記住報亭孫大爺與下班王師傅的叮囑，合上本子緩步返社",
+          "requires": "j1_talked_sun_wang",
+          "diary": "把街角老住戶與工人的實話壓在筆記第一頁。",
+          "end": "shared_tea_kiosk"
+        },
+        {
+          "text": "將第一卷剛拍下的 35mm 黑白捲小心塞進風衣內袋，約小唐天亮沖片",
+          "requires": "j1_shot_with_tang",
+          "diary": "第一卷膠捲收進衣袋，裡面只有路燈、報亭和幾條拉長的車影。",
+          "end": "camera_roll_one"
+        },
+        {
+          "text": "在路燈下寫下確切時間與地名，先行回報社夜班室歇息",
+          "diary": "4/17 夜採結束。街上比傳言裡安靜，沒有人猜得到這個春天會走多遠。",
+          "end": "late_notebook"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "verified_desk": {
+      "title": "分欄寫就的第一夜",
+      "text": "你在《首都晨報》的格子紙上畫出一道豎線：左邊寫下「報刊亭夜色、五六輛往南的自行車、工人的嘆息」，右邊只記一行「街頭耳語稱上萬人，尚無旁證」。老沈看過點了點頭，將它鎖進抽屜。"
+    },
+    "shared_tea_kiosk": {
+      "title": "街角實話",
+      "text": "離開海淀路口時，孫大爺還在收木板門，王師傅的自行車鈴早已消失在胡同深處。你記住的不是宏大數字，而是他們在春寒夜裡說的那幾句尋常話。"
+    },
+    "camera_roll_one": {
+      "title": "第一卷黑白底片",
+      "text": "35mm 片盒還帶著微涼的夜氣。小唐問明天版面會不會用這幾張街景，你拍拍他的肩：「先沖出來留著，新聞總要先過得了自己的眼睛。」"
+    },
+    "late_notebook": {
+      "title": "凌晨的記者證",
+      "text": "夜班樓道安靜無聲，只有電傳機偶爾吐出一段空白紙邊。你把採訪證擺在桌角，心裡隱約覺得四月的北京正在起風。"
+    }
+  },
+  "epilogue": "四月十七日夜，高校悼念活動開始向天安門廣場擴散，街頭已有各種難以核實的人數傳聞。下一章：四月二十二日，警戒線外。",
+  "epilogueEvent": "1989-04-17-campus-to-square"
+}

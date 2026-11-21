@@ -1,0 +1,439 @@
+{
+  "chapter": "r-0417",
+  "title": "第一章　四月十七日，西單院燈",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "siheyuan_room",
+  "clockStart": 1185,
+  "spawn": {
+    "siheyuan_room": [0, 2.5],
+    "street": [-14, -4],
+    "courtyard": [0, 3]
+  },
+  "labels": {
+    "siheyuan_room": "1989 年 4 月 17 日・晚・西單四合院正房",
+    "street": "1989 年 4 月 17 日・晚・西單街口與副食店",
+    "courtyard": "1989 年 4 月 17 日・深夜・四合院門燈下"
+  },
+  "transitions": {
+    "street": "你拎起帆布菜籃和市鎮糧油副食本，推開正房門走向胡同口還沒打烊的國營副食店……",
+    "courtyard": "買好蔥姜、麵條和半兜雞蛋，你踏著夜晚微涼的風走回西單四合院……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（沈淑芬）",
+      "role": "53歲，西單四合院居民、退休紡織廠醫務室護師",
+      "fictional": true
+    },
+    "xiaojun": {
+      "name": "小軍",
+      "role": "18歲技校學生，沈淑芬的外甥",
+      "fictional": true
+    },
+    "zhangye": {
+      "name": "張大爺",
+      "role": "西單大雜院裡的長輩老鄰居",
+      "fictional": true
+    },
+    "wangjie": {
+      "name": "王姐",
+      "role": "胡同口國營糧油副食店營業員",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "街口報刊亭大爺",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王建國（王師傅）",
+      "role": "北京第二機床廠五級車工（工人路線主角）",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "r1_radio",
+      "scene": "siheyuan_room",
+      "pos": [2.6, 2.4],
+      "label": "桌角短波收音機・調頻與外甥字條",
+      "start": "r1_radio_1",
+      "kind": "inspect",
+      "mechanic": "shortwave_dial",
+      "autoHint": true
+    },
+    {
+      "id": "r1_door",
+      "scene": "siheyuan_room",
+      "pos": [-1.6, -2.8],
+      "label": "拎起菜籃出屋往街口副食店",
+      "start": "r1_door_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "r1_store",
+      "scene": "street",
+      "pos": [-15, 1.0],
+      "label": "國營副食店・王姐",
+      "start": "r1_store_1",
+      "npc": "red",
+      "kind": "dialogue",
+      "timeWindow": [1170, 1380]
+    },
+    {
+      "id": "r1_kiosk",
+      "scene": "street",
+      "pos": [-6, -3.5],
+      "label": "街口報刊亭・孫大爺與過路王師傅",
+      "start": "r1_kiosk_1",
+      "npc": "grey",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "r1_alley",
+      "scene": "street",
+      "pos": [14, 2],
+      "label": "拐進胡同回大雜院",
+      "start": "r1_alley_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "r1_zhang",
+      "scene": "courtyard",
+      "pos": [-5, -4],
+      "label": "煤爐旁・張大爺與門前院燈",
+      "start": "r1_zhang_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "autoHint": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 17 日，星期一，晚上七點四十五分。從前年起從紡織廠醫務室退休後，你住在這座西單四合院正房裡，照應著獨居的張大爺，也管著來北京唸技校的十八歲外甥小軍。兩天前胡耀邦逝世的消息傳開後，街坊聊天總壓低半截聲音；這會兒剛下晚自習的小軍卻還沒進門，桌角的老式雙波段收音機亮著微黃的刻度燈。",
+      "event": "1989-04-15-hu-yaobang-death",
+      "choices": [
+        {
+          "text": "先到書桌旁調一下收音機短波，看看小軍有沒有留下字條",
+          "diary": "4/17 晚。胡耀邦逝世兩天後北京街頭氣氛有些異樣；晚飯後收音機亮著，小軍還沒回來。",
+          "autoHint": true
+        }
+      ]
+    },
+    "r1_radio_1": {
+      "speaker": "narr",
+      "text": "紅星牌短波收音機的刻度盤在夜裡發著暖黃微光，旁邊擺著一疊訂好的再生紙短波抄本。半開的作業本底下壓著半張小軍急急忙忙留下的字條，寫著「跟同學去城裡同學家借筆記，晚點回」。",
+      "event": "1989-04-15-hu-yaobang-death",
+      "choices": [
+        {
+          "text": "旋開短波調頻（4.8–15.5 MHz）收聽今晚新聞與電台訊息，並壓好字條記下頻率",
+          "mechanic": "shortwave_dial",
+          "keepsake": "shortwave_notes",
+          "evidence": "r1_ev_radio_obituary",
+          "set": "r1_heard_radio",
+          "timeCost": 15,
+          "diary": "晚上在正房旋開短波收音機調頻，記下四月十五日胡耀邦逝世後的官方廣播時段與外台說法。",
+          "next": "r1_radio_2",
+          "autoHint": true
+        },
+        {
+          "text": "只收起小軍留在桌上的字條放進衣袋，不去折騰收音機旋鈕",
+          "set": "r1_saw_note",
+          "evidence": "r1_ev_radio_rumor",
+          "timeCost": 10,
+          "diary": "桌角壓著小軍的字條說晚點回院，十七八歲的半大小子總是讓人揪心。",
+          "next": "r1_radio_3"
+        }
+      ]
+    },
+    "r1_radio_2": {
+      "speaker": "narr",
+      "text": "你把幾段清晰的電台頻率寫在短波抄本首頁，又把小軍的字條折進兜裡。離國營副食店關門還有一小會兒，趁著菜價還沒再調，順便出去把明天的蔥姜和雞蛋買回來。",
+      "choices": [
+        {
+          "text": "拎起帆布菜籃和糧油本往門口走"
+        }
+      ]
+    },
+    "r1_radio_3": {
+      "speaker": "narr",
+      "text": "收起字條後，屋裡安靜得只聽得見掛鐘走字。趁副食店還沒徹底拉上木門板，出去買兩斤白麵條和蔥姜。",
+      "choices": [
+        {
+          "text": "拎上菜籃往屋門去"
+        }
+      ]
+    },
+    "r1_door_1": {
+      "speaker": "narr",
+      "text": "門邊掛鉤上放著你那本磨毛了邊的市鎮糧油副食本，裡頭夾著幾角買菜用的分幣與這個月的油票。",
+      "choices": [
+        {
+          "text": "帶上市鎮糧油副食本與菜籃，出正房門往西單街口",
+          "keepsake": "ration_book",
+          "item": "ration_book",
+          "goto": "street",
+          "timeCost": 15,
+          "autoHint": true
+        },
+        {
+          "text": "回頭再看一眼正房燈"
+        }
+      ]
+    },
+    "r1_store_1": {
+      "speaker": "wangjie",
+      "text": "淑芬姐來得剛好，再晚五分鐘我就要上門板了！這兩天肉蛋和花生油的牌價跟議價差得越來越多，好些街坊一下班就排著隊往家裡多拎兩瓶醬油和鹹菜，生怕下個月手裡那點工資又縮水了。",
+      "event": "1989-04-17-inflation-worker-mood",
+      "choices": [
+        {
+          "text": "按市鎮糧油本買兩斤切麵和半兜雞蛋，跟王姐聊聊這一年來柴米油鹽的漲勢",
+          "set": "r1_talked_wangjie",
+          "evidence": "r1_ev_price_ledger",
+          "rel": { "wangjie": 1, "wang_clerk": 1 },
+          "timeCost": 15,
+          "diary": "副食店王姐說這兩年雙軌價和物價漲幅太快，老百姓手裡的糧油本和菜籃子越來越沉。",
+          "next": "r1_store_2",
+          "autoHint": true
+        },
+        {
+          "text": "順便問王姐剛才這條街上有沒有看見穿藍工作服的技校學生經過",
+          "evidence": "r1_ev_price_ledger",
+          "rel": { "wangjie": 1, "wang_clerk": 1 },
+          "timeCost": 15,
+          "next": "r1_store_3"
+        }
+      ]
+    },
+    "r1_store_2": {
+      "speaker": "wangjie",
+      "text": "可不是嘛，誰家過日子不精打細算？您剛才沒注意，報刊亭那頭今晚騎自行車往南去的小伙子可多了，孫大爺還站在亭邊看呢。",
+      "choices": [
+        {
+          "text": "謝過王姐，去報刊亭那邊問問"
+        }
+      ]
+    },
+    "r1_store_3": {
+      "speaker": "wangjie",
+      "text": "剛才確實有一群半大小子叮叮噹噹騎過去，也看不清誰是誰。您去前邊報刊亭問問孫大爺吧，他眼尖。",
+      "choices": [
+        {
+          "text": "好，我去問一聲"
+        }
+      ]
+    },
+    "r1_kiosk_1": {
+      "speaker": "sun",
+      "text": "沈大姐買菜呀？晚報五點鐘就搶光了！剛才好些大學生騎著二八車往南去，過路的還喊著「聽說天安門廣場那頭已經上萬人了」——可我也沒法跑去數，誰曉得是真有人數過還是聽風傳話？旁邊剛下夜班的王師傅正推車停這兒呢。",
+      "event": "1989-04-17-rumor-square-crowd",
+      "choices": [
+        {
+          "text": "跟報刊亭孫大爺和下夜班的王建國師傅說：沒親眼看見的事別亂傳，請王師傅路上若碰見我家小軍捎句話",
+          "set": "r1_rumor_checked",
+          "evidence": "r1_ev_street_rumor",
+          "rel": { "sun": 1, "wang": 1 },
+          "timeCost": 15,
+          "diary": "報刊亭孫大爺和下夜班的王建國師傅也嘆物價壓力大。有人傳廣場已經上萬人，我和王師傅都覺得聽說的數字作不得準。",
+          "next": "r1_kiosk_2",
+          "autoHint": true
+        },
+        {
+          "text": "把街上聽到的傳言記在心裡，急忙再往路口南邊張望兩眼看有沒有小軍的影子",
+          "set": "r1_rumor_relayed",
+          "evidence": "r1_ev_street_rumor",
+          "rel": { "sun": 1, "wang": 1 },
+          "timeCost": 15,
+          "diary": "街頭有人傳說廣場已上萬人；夜色裡車鈴聲一陣陣往南邊過去，心裡越發惦記小軍。",
+          "next": "r1_kiosk_3"
+        }
+      ]
+    },
+    "r1_kiosk_2": {
+      "speaker": "wang",
+      "text": "大姐放心，我騎回海淀那頭要是見著技校的小伙子往南逞強，一定幫著勸一句「夜裡涼、家裡長輩等著呢」。咱們當工人和街坊的，這年月誰家都緊繃著，最怕年輕人出門沒分寸。",
+      "event": "1989-04-17-campus-to-square",
+      "choices": [
+        {
+          "text": "多謝王師傅了，您夜班回來早點歇著"
+        }
+      ]
+    },
+    "r1_kiosk_3": {
+      "speaker": "sun",
+      "text": "別站在風口乾等啦，夜裡涼！這年頭聽說的多了，說不定孩子一會兒就從另一頭衚衕進院了。",
+      "choices": [
+        {
+          "text": "借您吉言，我先回院裡看看"
+        }
+      ]
+    },
+    "r1_alley_1": {
+      "speaker": "narr",
+      "text": "胡同口的老槐樹在路燈下投出長長的影子。遠處長安街方向彷彿還聽得見一點隱約車鈴，巷子裡卻很靜，只有自家四合院紅門裡透出暖黃的燈。",
+      "choices": [
+        {
+          "text": "推開紅漆院門回四合院",
+          "goto": "courtyard",
+          "timeCost": 15,
+          "autoHint": true
+        },
+        {
+          "text": "再朝胡同口望一眼"
+        }
+      ]
+    },
+    "r1_zhang_1": {
+      "speaker": "zhangye",
+      "text": "淑芬買菜回來啦？我在煤爐邊給你溫著半壺花茶。剛才院門口好像有自行車停過又走了，聽鄰居說可能是小軍那同學來捎個口信——孩子們精力旺，總愛湊外頭的熱鬧；咱們當長輩的把院燈亮著，他們心裡就知道回家的方向。",
+      "choices": [
+        {
+          "text": "謝過張大爺，倒一碗溫茶陪大爺聊起今夜街口的見聞",
+          "rel": { "zhangye": 1, "grandpa_zhang": 1 },
+          "set": "r1_zhang_talked",
+          "timeCost": 15,
+          "next": "r1_end_1",
+          "autoHint": true
+        },
+        {
+          "text": "從菜籃拿出買來的兩顆雞蛋和新鮮小蔥塞給張大爺明早下面條用",
+          "rel": { "zhangye": 1, "grandpa_zhang": 1 },
+          "set": "r1_shared_groceries",
+          "timeCost": 15,
+          "next": "r1_end_1"
+        }
+      ]
+    },
+    "r1_end_1": {
+      "speaker": "narr",
+      "text": "快十一點半了，西單胡同的夜漸漸靜下來，只有煤爐裡微弱的炭火一閃一閃。這個四月的夜晚剛剛過去，此刻你最想守住哪一件事？",
+      "choices": [
+        {
+          "text": "不插大門門栓、把屋簷門燈一直留到小軍悄悄推門回來",
+          "requires": "r1_saw_note",
+          "diary": "4/17 深夜。留著門燈等小軍回來，牆上的鐘走得很慢，人卻不能先睡實。",
+          "end": "r1_wait_gate"
+        },
+        {
+          "text": "坐在燈下把今晚短波電台與街頭聽來的差異補進筆記本",
+          "requires": "r1_heard_radio",
+          "diary": "4/17 深夜。翻開短波頻率抄本，記下今晚官方播報與街坊傳言之間的出入。",
+          "end": "r1_radio_notes"
+        },
+        {
+          "text": "把今晚買來的雞蛋和白麵按院裡幾家分好，替張大爺備好明早熱湯",
+          "requires": "r1_shared_groceries",
+          "diary": "4/17 深夜。在物價高漲的春天裡，院裡各家搭伙省著過日子才最踏實。",
+          "end": "r1_share_eggs"
+        },
+        {
+          "text": "掩好房門、留一盞微亮的小燈，伴著春夜的寂靜先歇下",
+          "diary": "4/17 深夜。留了一盞小燈照著院子，沒人預料得到這場春天會有多長。",
+          "end": "r1_sleep_early"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "r1_wait_gate": {
+      "title": "不熄的西單院燈",
+      "text": "半夜過後，門外終於傳來輕手輕腳推自行車跨過門檻的聲音。小軍看見還亮著的屋簷門燈，小聲叫了一句「老姨」。只要這盞燈在，孩子就知道夜裡總有個安穩處可歸。"
+    },
+    "r1_radio_notes": {
+      "title": "短波刻度燈下的筆記",
+      "text": "你的短波頻率抄本記滿了第一頁：左邊是中央台的哀樂與訃告時段，右邊是街口報刊亭聽來的人數猜測。在這不平靜的春天開端，你學會先把消息分門別類放好。"
+    },
+    "r1_share_eggs": {
+      "title": "煤爐邊的半兜雞蛋",
+      "text": "張大爺謝了兩回才肯收下那兩顆雞蛋。物價漲幅讓每個住在大雜院的人都在盤算柴米油鹽，而分出去的一勺湯、兩顆蛋，正是四合院裡最實在的底氣。"
+    },
+    "r1_sleep_early": {
+      "title": "四月夜裡的微光",
+      "text": "紅門門廊的黃燈泡默默照著青磚地。風從胡同深處吹過來，帶來遠處若有似無的車鈴聲；這個漫長的春天，就從這方靜靜亮著燈的四合院開始了。"
+    }
+  },
+  "epilogue": "1989 年 4 月 15 日胡耀邦逝世後，悼念活動與對物價通膨、雙軌制的民間議論在高校、工廠與北京街巷同時發酵。接下來：四月二十二日，晨市與街坊。",
+  "epilogueEvent": "1989-04-17-inflation-worker-mood",
+  "evidenceCatalog": {
+    "r1_ev_radio_obituary": {
+      "id": "r1_ev_radio_obituary",
+      "kind": "audio_tape",
+      "title": "中央台追悼新聞廣播",
+      "summary": "中央電台於 7.35 MHz 短波重播前總書記胡耀邦於四月十五日病逝之公開訃告與治喪安排。",
+      "sourceLabel": "中央台 7.35 MHz",
+      "dayKey": "1989-04-15",
+      "chapterId": "r-0417",
+      "event": "1989-04-15-hu-yaobang-death",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["shortwave", "0415", "廣播"]
+    },
+    "r1_ev_radio_rumor": {
+      "id": "r1_ev_radio_rumor",
+      "kind": "rumor",
+      "title": "外台短波與街頭耳語片段",
+      "summary": "深夜短波 11.85 MHz 夾雜著關於高校大字報與今晚城內動向的未經核實轉述，細節尚欠實證。",
+      "sourceLabel": "短波電台 11.85 MHz",
+      "dayKey": "1989-04-17",
+      "chapterId": "r-0417",
+      "event": "1989-04-17-rumor-square-crowd",
+      "route": "resident",
+      "confidence": "uncertain",
+      "tags": ["shortwave", "0417", "傳言"]
+    },
+    "r1_ev_price_ledger": {
+      "id": "r1_ev_price_ledger",
+      "kind": "witness",
+      "title": "國營副食店物價與購糧見聞",
+      "summary": "王姐反映 1988–1989 年物價顯著上漲、雙軌制官價與議價落差引起職工與家庭憂慮，不少鄰居提早採買油鹽。",
+      "sourceLabel": "副食店王姐口述",
+      "dayKey": "1989-04-17",
+      "chapterId": "r-0417",
+      "event": "1989-04-17-inflation-worker-mood",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0417", "物價"]
+    },
+    "r1_ev_street_rumor": {
+      "id": "r1_ev_street_rumor",
+      "kind": "rumor",
+      "title": "街頭傳言：「廣場上已經上萬人」",
+      "summary": "過路騎車學生與巷口行人相互傳說廣場已聚上萬人，但報刊亭孫大爺與王師傅均無法當場核實具體人數。",
+      "sourceLabel": "遊戲虛構・街頭傳言",
+      "dayKey": "1989-04-17",
+      "chapterId": "r-0417",
+      "event": "1989-04-17-rumor-square-crowd",
+      "route": "resident",
+      "confidence": "uncertain",
+      "tags": ["0417", "傳言"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "r1_pair_rumor_radio",
+      "cards": ["r1_ev_radio_obituary", "r1_ev_street_rumor"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "官方電台僅播送治喪公告，並未提及街頭動向；而街巷盛傳「廣場已上萬人」缺乏當場可查證之人數依據。",
+      "diary": "對照電台公告與街頭傳言：兩邊說法落差很大，街上數字全憑口耳相傳。",
+      "set": "r1_dossier_radio_rumor"
+    },
+    {
+      "id": "r1_pair_price_street",
+      "cards": ["r1_ev_price_ledger", "r1_ev_street_rumor"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "副食店見聞確實反映市民對物價通膨的不滿，但尚不足以直接佐證廣場當晚具體聚集人數的傳言。",
+      "set": "r1_dossier_price_street"
+    }
+  ]
+}

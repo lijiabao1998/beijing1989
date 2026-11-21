@@ -1,0 +1,32 @@
+{
+  "id": "1989-05-23-rainy-rallies-stalled",
+  "date": "1989-05-23",
+  "place": "長安街・天安門廣場",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "五月二十三日雨中大遊行與戒嚴後的僵持疲態",
+    "en": "May 23 rainy rally and deepening exhaustion under the martial-law standoff"
+  },
+  "summary": {
+    "zh": "1989 年 5 月 23 日，北京降下大雨，大批學生與市民仍冒雨沿長安街與廣場周邊遊行反對戒嚴；同日下午亦發生天安門城樓毛澤東畫像遭潑灑顏料並由學生糾察扭送警方、當晚迅速更換畫像的事件。大雨使廣場帳篷區與街面物資更形濕冷困頓，加上戒嚴部隊持續駐留城郊、公共交通與日常供應反覆受阻，此後運動與市民生活逐步轉入疲憊拉鋸的僵局。",
+    "en": "On 23 May 1989, despite heavy rain and the martial-law decree, large crowds of students and residents marched along Chang'an Avenue and around Tiananmen Square; that same afternoon, three men defaced the Mao Zedong portrait on Tiananmen Gate with paint before being turned over to police by student marshals and the portrait replaced. Soaked tents, strained supplies, and troops waiting on the city outskirts soon deepened the sense of fatigue and prolonged stalemate."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Martial law",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Martial_law"
+    },
+    {
+      "title": "Tiananmen Square incident",
+      "publisher": "Encyclopædia Britannica",
+      "url": "https://www.britannica.com/event/Tiananmen-Square-incident"
+    },
+    {
+      "title": "Tiananmen Square, 1989: The Declassified History (Electronic Briefing Book No. 16)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB16/"
+    }
+  ]
+}

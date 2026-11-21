@@ -1,0 +1,669 @@
+{
+  "chapter": "w2-0513",
+  "title": "第三章　五月十三日至十五日",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "factory",
+  "spawn": {
+    "factory": [0, 12]
+  },
+  "labels": {
+    "factory": "1989 年 5 月 13 日・午後・北京第二機床廠",
+    "street": "1989 年 5 月 14 日・傍晚・海淀斜坡街道",
+    "camp": "1989 年 5 月 15 日・午後・天安門廣場營地東側"
+  },
+  "transitions": {
+    "street": "五月十四日傍晚，你蹬著後勤借來的平板三輪車，載著兩大桶綠豆湯上路……",
+    "camp": "五月十五日午後，廣場東側急救通道旁，白帆布棚連成了片……"
+  },
+  "start": "intro",
+  "evidenceCatalog": {
+    "ev_w2_hunger_news": {
+      "id": "ev_w2_hunger_news",
+      "kind": "witness",
+      "title": "機床廠車間聞訊集資熬綠豆湯紀錄",
+      "summary": "五月十三日午後車間師傅聞訊學生赴廣場絕食，各自掏錢湊集綠豆冰糖熬兩大桶湯送往城裡。",
+      "sourceLabel": "王建國工作筆記",
+      "dayKey": "1989-05-15",
+      "chapterId": "w2-0513",
+      "event": "1989-05-13-hunger-strike",
+      "route": "worker",
+      "confidence": "documented",
+      "tags": ["絕食", "車間熬湯"]
+    },
+    "ev_w2_tv_rumor": {
+      "id": "ev_w2_tv_rumor",
+      "kind": "rumor",
+      "title": "報刊亭旁流言：「中央電視台今晚現場直播對話」",
+      "summary": "五月十四日傍晚報刊亭外流傳電視直播對話，大量市民與學生騎車往南湧去。",
+      "sourceLabel": "海淀街頭聽聞",
+      "dayKey": "1989-05-15",
+      "chapterId": "w2-0513",
+      "event": "1989-05-14-rumor-tv-broadcast",
+      "route": "worker",
+      "confidence": "uncertain",
+      "tags": ["電視直播傳言", "未經核實"]
+    },
+    "ev_w2_medical_lane": {
+      "id": "ev_w2_medical_lane",
+      "kind": "witness",
+      "title": "急救車通道維護與綠豆湯分發目擊",
+      "summary": "五月十五日廣場東側協和與紅十字救護車頻繁穿梭，工人送水三輪靠繩線外卸貨保住兩公尺寬救護通道。",
+      "sourceLabel": "王建國・紅十字志願者現場紀錄",
+      "dayKey": "1989-05-15",
+      "chapterId": "w2-0513",
+      "event": "1989-05-15-citizens-medical-support",
+      "route": "worker",
+      "confidence": "documented",
+      "tags": ["急救通道", "市民聲援"]
+    },
+    "ev_w2_thermos_record": {
+      "id": "ev_w2_thermos_record",
+      "kind": "witness",
+      "title": "大紅殼鋁暖壺借出與「機床二廠王」底條登記",
+      "summary": "在絕食棚邊把自家大紅殼鋁暖壺借給外校學生裝溫水，並於壺底塞入寫有廠名與姓氏之紙條。",
+      "sourceLabel": "大紅暖壺底條留證",
+      "dayKey": "1989-05-15",
+      "chapterId": "w2-0513",
+      "event": "1989-05-15-citizens-medical-support",
+      "route": "worker",
+      "confidence": "testimony",
+      "tags": ["暖壺借出", "互助交會"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "pair_w2_medical_and_thermos",
+      "cards": ["ev_w2_medical_lane", "ev_w2_thermos_record"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "廣場東側維持救護通道與絕食棚旁急缺保溫熱水瓶的現場處境互相呼應，彼此印證五月十五日的救援壓力。",
+      "diary": "急救通道這邊拉繩讓車，棚子那邊急著找裝溫水的暖壺，兩頭都是為了讓中暑的人緩口氣。"
+    },
+    {
+      "id": "pair_w2_tv_rumor_vs_scene",
+      "cards": ["ev_w2_tv_rumor", "ev_w2_hunger_news"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "街頭盛傳的電視台現場直播屬未經證實的聽聞，與車間熬湯送往絕食現場之間沒有直接印證關聯。",
+      "diary": "報刊亭邊的直播傳言說來說去都沒個實影，倒是兩桶綠豆湯實打實送進了棚邊。"
+    }
+  ],
+  "characters": {
+    "me": {
+      "name": "我（王建國）",
+      "role": "北京第二機床廠五級車工（俗稱王師傅）",
+      "fictional": true
+    },
+    "zhao": {
+      "name": "老趙",
+      "role": "車間帶班老師傅",
+      "fictional": true
+    },
+    "liu": {
+      "name": "小劉",
+      "role": "機床廠青年學徒，愛抄詩和剪報",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "海淀報刊亭大爺",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立（北大男生）",
+      "role": "北大物理系二年級學生（第一篇主角的交叉視角人物）",
+      "fictional": true
+    },
+    "lin": {
+      "name": "林小梅",
+      "role": "中文系女生",
+      "fictional": true
+    },
+    "medic": {
+      "name": "紅十字志願者",
+      "role": "醫學院實習生",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "w3lathe",
+      "scene": "factory",
+      "pos": [-8, 2],
+      "label": "一車間・老趙與綠豆湯桶",
+      "start": "w3zhao_1",
+      "npc": "blue"
+    },
+    {
+      "id": "w3liu",
+      "scene": "factory",
+      "pos": [9, -2],
+      "label": "學徒小劉",
+      "start": "w3liu_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "w3shed",
+      "scene": "factory",
+      "pos": [13, -15],
+      "label": "車棚與後勤處・三輪與暖壺",
+      "start": "w3shed_1"
+    },
+    {
+      "id": "w3gate",
+      "scene": "factory",
+      "pos": [0, -18],
+      "label": "蹬三輪出廠門",
+      "start": "w3gate_1",
+      "isExit": true
+    },
+    {
+      "id": "w3kiosk",
+      "scene": "street",
+      "pos": [-6, -3.5],
+      "label": "報刊亭孫大爺",
+      "start": "w3sun_1",
+      "npc": "grey"
+    },
+    {
+      "id": "w3chen",
+      "scene": "street",
+      "pos": [2, -4.5],
+      "label": "海淀斜坡・陳立幫忙推車",
+      "start": "w3chen_1",
+      "npc": "navy"
+    },
+    {
+      "id": "w3medic",
+      "scene": "street",
+      "pos": [-14, -6],
+      "label": "紅十字志願者急救車",
+      "start": "w3medic_1",
+      "npc": "green"
+    },
+    {
+      "id": "w3south",
+      "scene": "street",
+      "pos": [18, -8],
+      "label": "蹬三輪進廣場營地",
+      "start": "w3south_1",
+      "isExit": true
+    },
+    {
+      "id": "w3broadcast",
+      "scene": "camp",
+      "pos": [-18, -265],
+      "label": "廣播站帳篷・林小梅",
+      "start": "w3bcast_1",
+      "npc": "red"
+    },
+    {
+      "id": "w3tents",
+      "scene": "camp",
+      "pos": [14, -278],
+      "label": "絕食棚邊・借出大紅殼暖壺",
+      "start": "w3tents_1",
+      "npc": "green"
+    },
+    {
+      "id": "w3east",
+      "scene": "camp",
+      "pos": [-8, -305],
+      "label": "營地東側・分發綠豆湯與冰棍",
+      "start": "w3east_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "w3leave",
+      "scene": "camp",
+      "pos": [0, -245],
+      "label": "急救通道旁・傍晚返程",
+      "start": "w3leave_1",
+      "isExit": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 13 日，星期六，午後。自從四月二十六日《人民日報》社論與四二七大遊行過後，五月的北京街頭始終沒冷靜下來。今天下午剛進車間，就聽說幾百名學生已經繫上白布條去天安門廣場絕食了。",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "variants": [
+        {
+          "requires": "w1:end:walked_corner",
+          "text": "1989 年 5 月 13 日，午後。四月二十二日黎明在前門路口目送學生進廣場之後，四二六社論與四二七遊行接連而來。今天北京悶熱得早，下午卻傳來更叫人揪心的消息：學生們在廣場開始絕食了。"
+        },
+        {
+          "requires": "w1:end:union_duty",
+          "text": "1989 年 5 月 13 日，午後。四月以來車間一直照常趕產值，但四二六社論之後誰心裡都七上八下。剛交白班，小劉跑來說有幾百名學生戴著白布條進廣場絕食去了。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "去車間水龍頭那邊看看老趙他們怎麼說",
+          "diary": "5/13 午後。四二六社論後局勢一直僵著，今天聽說學生在廣場絕食了。"
+        }
+      ]
+    },
+    "w3zhao_1": {
+      "speaker": "zhao",
+      "text": "建國，來搭把手！大伙兒聽說孩子們大熱天坐在廣場水泥地上不吃不喝，心裡都熬不住。一車間十幾個師傅每人掏了五塊十塊，湊錢買了十幾斤綠豆和冰糖，在食堂大鍋熬了兩大桶綠豆湯！",
+      "event": "1989-05-13-hunger-strike",
+      "variants": [
+        {
+          "requires": "rel:zhao>=1",
+          "text": "建國，正等著你！上次四月咱們說過不下線、只管照應。這回看見太陽這麼毒，車間幾個老師傅自己湊了錢，食堂幫忙熬出兩大桶涼綠豆湯。你腿腳利索，咱們跟後勤借輛平板三輪拉過去！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "掏出五塊錢湊進湯桶份子，幫忙把鐵皮桶蓋綁牢",
+          "rel": { "zhao": 1 },
+          "set": "w2_boiled_soup",
+          "keepsake": "lunchbox",
+          "evidence": "ev_w2_hunger_news",
+          "autoHint": true,
+          "diary": "一車間的師傅湊錢熬了兩大桶綠豆湯，我也墊了五塊錢，準備蹬車送到城裡。",
+          "next": "w3zhao_2"
+        },
+        {
+          "text": "問老趙廠裡領導這回什麼態度",
+          "next": "w3zhao_3"
+        }
+      ]
+    },
+    "w3zhao_2": {
+      "speaker": "zhao",
+      "text": "錢夠了夠了，留著給你和秀芳買菜吧！明天傍晚天稍微涼快點，你跟後勤借了三輪車再進城，我和車間的人替你頂半小時早晚交接。",
+      "choices": [
+        {
+          "text": "謝了趙哥，明兒一定送到"
+        }
+      ]
+    },
+    "w3zhao_3": {
+      "speaker": "zhao",
+      "text": "還能有什麼態度？誰家裡沒個上學唸書的孩子或親戚？咱們不舉橫幅、不鬧事，下班自費給中暑的學生送兩桶綠豆湯，誰也挑不出毛病。",
+      "choices": [
+        {
+          "text": "說得在理，我來綁桶",
+          "set": "w2_boiled_soup",
+          "rel": { "zhao": 1 }
+        }
+      ]
+    },
+    "w3liu_1": {
+      "speaker": "liu",
+      "text": "王師傅！我也湊了兩塊錢買了一箱白糖冰棍，用棉被裹在木箱裡。我這兒抄了報紙上這幾天的日期，說過兩天蘇聯領導人戈巴契夫要來北京訪問呢。",
+      "event": "1989-05-13-hunger-strike",
+      "variants": [
+        {
+          "requires": "wk_liu_clippings",
+          "text": "師傅！您看我這本剪報都快貼滿了。我剛跟小賣部預定了兩箱冰棍用厚棉被悶著，等您借到三輪車一起裝上去！過兩天戈巴契夫就要來了，廣場那邊人肯定多得擠不進。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "誇他細心，幫忙把冰棍棉被箱塞到車廂前頭",
+          "rel": { "liu": 1 },
+          "set": "w2_packed_popsicles",
+          "diary": "學徒小劉拿棉被裹了一箱冰棍塞進三輪車斗，說趁天熱還能頂上一陣。",
+          "next": "w3liu_2"
+        },
+        {
+          "text": "囑咐他明天看好自己這台車床，別擅自跑出廠門",
+          "next": "w3liu_2"
+        }
+      ]
+    },
+    "w3liu_2": {
+      "speaker": "liu",
+      "text": "曉得了師傅！您一路當心騎，那兩桶湯晃起來可沉了。",
+      "choices": [
+        {
+          "text": "嗯，明兒見"
+        }
+      ]
+    },
+    "w3shed_1": {
+      "speaker": "narr",
+      "text": "後勤車棚邊停著一輛平時拉鋼料邊角料的平板三輪車，車斗鋪了層乾淨油布。牆邊放著你家裡那只大紅殼鋁暖壺，還有一隻借來的舊軍用水壺和一疊搪瓷碗。",
+      "choices": [
+        {
+          "text": "把兩桶綠豆湯、大紅殼鋁暖壺和搪瓷碗全裝上平板三輪",
+          "item": "red_thermos",
+          "keepsake": "red_thermos",
+          "set": "w2_has_tricycle",
+          "autoHint": true,
+          "diary": "跟後勤借到平板三輪，搬上兩桶綠豆湯和大紅殼鋁暖壺，裝好一摞搪瓷碗。"
+        },
+        {
+          "text": "檢查一下三輪車胎氣和剎車皮",
+          "set": "w2_has_tricycle"
+        }
+      ]
+    },
+    "w3gate_1": {
+      "speaker": "narr",
+      "text": "次日傍晚（5 月 14 日），暑氣稍退。車間的老師傅們幫你把三輪車推出機床廠大門，車斗裡兩大桶綠豆湯晃出清涼的甜味。",
+      "choices": [
+        {
+          "text": "站起身猛蹬幾腳踏板，上街往城裡去",
+          "goto": "street",
+          "autoHint": true
+        },
+        {
+          "text": "再檢查一下捆湯桶的麻繩"
+        }
+      ]
+    },
+    "w3sun_1": {
+      "speaker": "sun",
+      "text": "哎呀，王師傅您今兒蹬三輪拉這麼大兩桶啊？這條街上從早到晚都是騎車往南趕的市民，剛才還有人傳說晚上中央電視台要現場直播對話呢——也不知真假，反正人全往廣場湧。",
+      "variants": [
+        {
+          "requires": "world:xr:rumor_0514_tv_verified",
+          "text": "哎呀，王師傅您今兒蹬三輪拉這麼大兩桶啊？剛才有個《首都晨報》的顧記者打這兒過，跟我擺手說今晚電視台根本沒這場直播排程，全是一路猜出來的——可騎車往南趕的市民還是絡繹不絕，您這兩桶湯送過去准能救救急！"
+        },
+        {
+          "requires": "world:xr:rumor_0514_tv_panic",
+          "text": "王師傅您蹬三輪往城裡去啊？今兒街面上傳得沸沸揚揚，都說今晚中央電視台要現場直播對話，好多人連晚飯沒吃就往南蹬車！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "告訴孫大爺這是車間湊錢熬的綠豆湯，真不真都得先讓孩子喝口涼水",
+          "rel": { "sun": 1 },
+          "set": "w2_sun_chat",
+          "evidence": "ev_w2_tv_rumor",
+          "autoHint": true,
+          "diary": "路過報刊亭，孫大爺說街上滿是電視直播的傳言。我只顧著蹬車把這兩桶湯送過去。",
+          "next": "w3sun_2"
+        },
+        {
+          "text": "問問前頭斜坡堵不堵車",
+          "next": "w3sun_2"
+        }
+      ]
+    },
+    "w3sun_2": {
+      "speaker": "sun",
+      "text": "前頭海淀南路坡陡人又擠，您蹬這重車費勁！找人搭把手推上去才穩當。",
+      "choices": [
+        {
+          "text": "謝了大爺，我慢慢蹬"
+        }
+      ]
+    },
+    "w3chen_1": {
+      "speaker": "chen",
+      "text": "哎，前頭拉三輪的師傅——這不是王師傅嗎！這麼沉兩大桶，您一個人蹬這斜坡怎麼上得去？我來幫您推一把！",
+      "event": "1989-05-15-citizens-medical-support",
+      "variants": [
+        {
+          "requires": "wk_saw_chen",
+          "text": "王師傅！真是您！從四月十七號到今天都快一個月了，沒想到在海淀斜坡又碰上！這兩大桶涼綠豆湯沉得很，您把好車把，我從後面幫您推過這段坡！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "謝過陳立搭把手推車，跟他說這是一車間十幾個師傅湊錢熬的綠豆湯",
+          "rel": { "chen": 1 },
+          "set": "wk_chen_pushed",
+          "diary": "蹬著平板三輪爬斜坡時正喘不過氣，北大男生陳立跑過來幫忙推了一把。兩桶湯沉甸甸的，推過坡頂那一刻心裡一熱。",
+          "next": "w3chen_2"
+        },
+        {
+          "text": "問問他廣場裡頭現在缺水缺得厲害嗎",
+          "rel": { "chen": 1 },
+          "set": "wk_chen_pushed",
+          "diary": "陳立幫我推三輪過了海淀斜坡，說廣場白天太曬，好多學生中暑脫水。",
+          "next": "w3chen_3"
+        }
+      ]
+    },
+    "w3chen_2": {
+      "speaker": "chen",
+      "text": "替同學謝謝廠裡的老師傅們！過了前頭紅綠燈路就平了。明天白天太陽毒，要是您進廣場，就在東側救護車道那頭歇腳，那邊人都能幫著照應。",
+      "variants": [
+        {
+          "requires": "world:xr:slope_push_helped",
+          "text": "這段海淀斜坡上回推過一把就知道有多沉！過了前頭紅綠燈路就平了。明天白天太陽毒，您進廣場就在東側救護車道那頭歇腳，那邊人都能幫著照應。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "好，明兒廣場東邊見",
+          "autoHint": true
+        }
+      ]
+    },
+    "w3chen_3": {
+      "speaker": "chen",
+      "text": "可缺水了，尤其是能裝涼白開的大水壺。救護車一趟趟地拉，幸好街坊和工人師傅都在送水送冰棍。",
+      "choices": [
+        {
+          "text": "放心，我車斗裡還帶了大紅殼暖壺和冰棍呢"
+        }
+      ]
+    },
+    "w3medic_1": {
+      "speaker": "medic",
+      "text": "麻煩大家往路邊讓一讓！這是協和醫院和紅十字會的救護車，裡頭拉著葡萄糖水和遮陽布！送湯水的老師傅，進了廣場請靠東側救護車通道卸貨，千萬別把急救通道堵死了！",
+      "event": "1989-05-15-citizens-medical-support",
+      "variants": [
+        {
+          "requires": "world:xr:clinic_gauze_shared",
+          "text": "麻煩大家往路邊讓一讓！剛才有位西城大雜院的退休醫務室大媽給咱們急救車隊勻來一大包無菌紗布和乾淨飲水！送湯水的老師傅，進了廣場請靠東側救護車通道卸貨，千萬別把通道堵死了！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "答應志願者一定把三輪停在繩線外頭，順手幫著喊開路旁人群",
+          "rel": { "medic": 1 },
+          "set": "w2_medic_coord",
+          "evidence": "ev_w2_medical_lane",
+          "autoHint": true,
+          "diary": "遇見紅十字會醫學院實習生維持救護車通道。我幫著喊開路邊看熱鬧的人群，說好明天進廣場把車停在繩子外邊。",
+          "next": "w3medic_2"
+        },
+        {
+          "text": "問問他們車上缺不缺裝熱水的暖壺",
+          "rel": { "medic": 1 },
+          "set": "w2_medic_coord",
+          "next": "w3medic_3"
+        }
+      ]
+    },
+    "w3medic_2": {
+      "speaker": "medic",
+      "text": "太感謝您了！只要東側那條兩公尺寬的通道不斷，裡面昏倒的人就能及時送出來。",
+      "choices": [
+        {
+          "text": "我們工人懂規矩，一定守著線外頭"
+        }
+      ]
+    },
+    "w3medic_3": {
+      "speaker": "medic",
+      "text": "缺啊！夜裡露水重，好多人胃疼需要溫水，可是帆布棚裡保溫壺太少了。",
+      "choices": [
+        {
+          "text": "我車上有隻結實的大紅殼暖壺，待會兒借給棚裡用"
+        }
+      ]
+    },
+    "w3south_1": {
+      "speaker": "narr",
+      "text": "五月十五日中午，收音機播報蘇聯領導人戈巴契夫專機已經降落首都機場，原定在天安門廣場舉行的歡迎儀式臨時改至機場進行。長安街上擠滿了自發前來聲援與送水的北京各廠工人、醫護人員與市民。",
+      "event": "1989-05-15-gorbachev-visit",
+      "choices": [
+        {
+          "text": "把平板三輪蹬進廣場營地東側",
+          "goto": "camp",
+          "diary": "5/15 戈巴契夫抵京，歡迎儀式改到機場舉行。廣場北側連片搭起白帆布棚，我把綠豆湯推進了營地。"
+        },
+        {
+          "text": "在街口再喘口氣"
+        }
+      ]
+    },
+    "w3bcast_1": {
+      "speaker": "lin",
+      "text": "王師傅？您還記得四月二十一號半夜您分給我們饅頭嗎？我們中文系的廣播站就搭在這頂帳篷底下，剛接完蓄電池，嗓子都喊冒煙了……",
+      "event": "1989-05-15-gorbachev-visit",
+      "variants": [
+        {
+          "requires": "w1_shared_food",
+          "text": "王師傅！四月二十一號夜裡多虧您那兩個白麵饅頭！您看這頂帆布帳篷下面全是油印紙和電瓶，話筒喊了整整兩天，外頭人聲太響了，根本聽不清遠處談判有沒有結果。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "舀滿滿一搪瓷碗涼綠豆湯遞給林小梅潤嗓子",
+          "rel": { "lin": 1 },
+          "set": "w2_served_soup",
+          "diary": "在廣播帳篷裡碰見中文系的林小梅，她嗓子沙啞得幾乎說不出話，喝了一整碗涼綠豆湯。",
+          "next": "w3bcast_2"
+        },
+        {
+          "text": "問問她廣播裡有沒有傳出今天何時對話的消息",
+          "next": "w3bcast_3"
+        }
+      ]
+    },
+    "w3bcast_2": {
+      "speaker": "lin",
+      "text": "這碗綠豆湯真是救命了……外頭今天來了好多工廠和機關的車隊，戈巴契夫的車隊只能改道機場走，誰也不知道接下去該怎麼收場。",
+      "choices": [
+        {
+          "text": "別硬撐著，記著多喝水"
+        }
+      ]
+    },
+    "w3bcast_3": {
+      "speaker": "lin",
+      "text": "紙條一張接一張遞進來，這個說要談了，那個說沒談攏。這麼多人聚在太陽底下，大家心裡其實都焦急。",
+      "choices": [
+        {
+          "text": "先喝碗湯歇會兒嗓子吧"
+        }
+      ]
+    },
+    "w3tents_1": {
+      "speaker": "medic",
+      "text": "老師傅您來得正是時候！這幾排絕食棚裡頭有十幾個外地剛來的學生撐不住了，剛拉走兩個去醫院。現在既缺涼水，夜裡又需要能保溫的熱水瓶。",
+      "event": "1989-05-15-citizens-medical-support",
+      "choices": [
+        {
+          "text": "把車斗裡的大紅殼鋁暖壺解下來借給棚邊守夜的學生，告訴他們不急著還",
+          "set": "wk_thermos_out",
+          "worldEmit": "xr:thermos_lent",
+          "evidence": "ev_w2_thermos_record",
+          "keepsake": "red_thermos",
+          "rel": { "medic": 1 },
+          "autoHint": true,
+          "diary": "把家裡那只大紅殼鋁暖壺借給絕食棚邊的外校學生用。寫了張「機床二廠王」的紙條塞在壺底，省得日後弄混。",
+          "next": "w3tents_2"
+        },
+        {
+          "text": "先把小劉帶來的冰棍箱搬給旁邊照料的人",
+          "set": "w2_shared_popsicles",
+          "diary": "把小劉拿棉被裹著的冰棍分給棚邊曬昏了頭的年輕人。",
+          "next": "w3tents_3"
+        }
+      ]
+    },
+    "w3tents_2": {
+      "speaker": "medic",
+      "text": "太謝謝王師傅了！旁邊幾個同學拿鉛筆寫下了您的姓和廠名，說等這陣子過去一定原封不動給您送回去！",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_gauze_tag",
+          "text": "太謝謝王師傅了！剛才那位西城退休醫務室大媽還替您在暖壺把手上繫了一條乾淨醫用紗布條作記號，旁邊同學也寫下了您的姓和廠名，日後一定原封不動給您送回去！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "提什麼還不還的，救人要緊",
+          "set": "w2_lent_thermos",
+          "autoHint": true
+        }
+      ]
+    },
+    "w3tents_3": {
+      "speaker": "medic",
+      "text": "棉被裹得真嚴實，冰棍還沒化完呢！替這排帳篷的孩子謝過廠裡師傅們。",
+      "choices": [
+        {
+          "text": "客氣什麼，快分了吧"
+        }
+      ]
+    },
+    "w3east_1": {
+      "speaker": "narr",
+      "text": "營地東側太陽正晃眼，幾個別廠的老師傅也蹬著三輪停在繩線邊。你掀開兩大桶綠豆湯的鐵蓋，拿搪瓷碗一碗一碗盛給路過的急救志願者、市民糾察和坐在遮陽布底下的學生。",
+      "event": "1989-05-15-citizens-medical-support",
+      "choices": [
+        {
+          "text": "把兩大桶綠豆湯和冰棍全部分乾淨，再刷洗一遍搪瓷碗",
+          "set": "w2_served_soup",
+          "diary": "兩大桶綠豆湯沒半個鐘頭就見了底。好幾隻手伸過來幫著洗碗、遞水、拉開救護車通道。"
+        },
+        {
+          "text": "跟旁邊送水的老師傅聊聊這兩天城裡的交通與車間情況",
+          "diary": "跟旁邊其他工廠送水來的老師傅聊了幾句，大家都請了事假或調了班跑這一趟。"
+        }
+      ]
+    },
+    "w3leave_1": {
+      "speaker": "narr",
+      "text": "黃昏的風吹過廣場，遠處的救護車頂燈一閃一閃地沿著東側通道駛出，繩索兩邊的人群自發分開讓路。兩隻空湯桶在平板三輪上輕輕碰撞。",
+      "choices": [
+        {
+          "text": "摸著見底的兩個大湯桶，想起那一雙雙伸過來的手",
+          "requires": "w2_served_soup",
+          "end": "mung_bean_soup"
+        },
+        {
+          "text": "回頭看一眼留在絕食棚邊的那只大紅殼鋁暖壺",
+          "requires": "w2_lent_thermos",
+          "end": "lent_thermos"
+        },
+        {
+          "text": "再替紅十字志願者扶一會兒急救通道的麻繩，天黑才走",
+          "requires": "w2_medic_coord",
+          "end": "medical_aid"
+        },
+        {
+          "text": "踩上平板三輪，沿著傍晚的長安街慢慢蹬回機床廠",
+          "end": "evening_pedal"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "mung_bean_soup": {
+      "title": "兩桶綠豆湯",
+      "text": "空的鐵皮桶在平板三輪車斗裡輕輕響著。這兩桶湯改變不了天安門廣場上的大局，卻實實在在讓幾百個又渴又暈的人順過一口氣。"
+    },
+    "lent_thermos": {
+      "title": "借出去的大紅殼暖壺",
+      "text": "回家少了一只結婚那年買的大紅殼鋁暖壺，秀芳大概會唸叨兩句，可一聽說留在急救棚邊給學生盛開水，她准保不會怪你。"
+    },
+    "medical_aid": {
+      "title": "急救通道的麻繩",
+      "text": "你在廣場東側拉著麻繩一直站到路燈亮起。沒有人問你是哪個車間的五級工，所有人的力氣都在同一件事上：別讓通道堵住。"
+    },
+    "evening_pedal": {
+      "title": "黃昏蹬空車回廠",
+      "text": "夕陽把長安街拉得很長。迎面還有其他工廠的三輪車、卡車正往東送麵包和汽水。你把空車還回後勤棚，擦一把汗回了大雜院。"
+    }
+  },
+  "epilogue": "五月十五日戈巴契夫訪華期間，廣場絕食持續升溫，北京各單位工人、醫護與市民湧向長安街支援與維持急救線。下一章：五月十九日夜至二十日。",
+  "epilogueEvent": "1989-05-15-gorbachev-visit"
+}

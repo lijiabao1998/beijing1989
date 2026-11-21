@@ -1,0 +1,16 @@
+{
+  "id": "1989-05-04-rumor-editorial-retraction",
+  "date": "1989-05-04",
+  "place": "（遊戲內）北京報社編輯部・街頭報刊亭",
+  "kind": "fiction",
+  "confidence": "uncertain",
+  "title": {
+    "zh": "傳言：「報社今晚將發更正啟事收回社論定性」",
+    "en": "Rumor: 'The newspapers will print a correction tonight retracting the editorial label'"
+  },
+  "summary": {
+    "zh": "這是遊戲虛構的傳言，用來呈現五四遊行前後報社編輯室與街頭民眾對官方態度的期待與猜測：現實中 5 月 4 日確實出現高層溫和表態與新聞界要求如實報導的呼聲，但當晚並未刊出收回「四二六社論」定性的更正啟事。遊戲中角色只能憑片斷消息判斷真偽，無法在當下核實。",
+    "en": "A fictional rumor reflecting hopeful speculation in newsrooms and on the streets around 4 May. While conciliatory remarks and journalists' calls for truthful reporting raised hopes in reality, no formal newspaper correction retracting the April 26 editorial characterization was issued that night; characters hear only unverified fragments in the moment."
+  },
+  "sources": []
+}

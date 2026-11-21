@@ -1,0 +1,400 @@
+{
+  "chapter": "j-0504",
+  "title": "第四章　五月四日，新聞界遊行與版面",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "march_day",
+  "spawn": {
+    "march_day": [-30, -6],
+    "newsroom": [0, 6]
+  },
+  "labels": {
+    "march_day": "1989 年 5 月 4 日・上午・長街上的新聞界方陣",
+    "newsroom": "1989 年 5 月 4 日・夜・首都晨報排字房與編輯台"
+  },
+  "transitions": {
+    "newsroom": "午後烈日偏西，你把今天在街頭拍下和記下的稿紙抱回編輯部，夜班版面的鐘聲快響了……"
+  },
+  "clockStart": 600,
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（顧明遠）",
+      "role": "29歲《首都晨報》市政記者",
+      "fictional": true
+    },
+    "tang": {
+      "name": "小唐",
+      "role": "實習攝影記者，舉著雙反與35mm相機",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "報刊亭大爺，正在聽路人傳話",
+      "fictional": true
+    },
+    "zhang": {
+      "name": "張大姐",
+      "role": "排字房老師傅",
+      "fictional": true
+    },
+    "shen": {
+      "name": "老沈",
+      "role": "《首都晨報》夜班主編",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "j4_press_column",
+      "scene": "march_day",
+      "pos": [-10, -8],
+      "label": "新聞界遊行方陣・小唐",
+      "start": "j4_press_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "timeWindow": [580, 960],
+      "deadlineMin": 660,
+      "autoHint": true
+    },
+    {
+      "id": "j4_march_vantage",
+      "scene": "march_day",
+      "pos": [4, -4],
+      "label": "五四長街取景位・橫幅與人群",
+      "start": "j4_vantage_1",
+      "kind": "photo_vantage",
+      "timeWindow": [580, 960],
+      "deadlineMin": 700
+    },
+    {
+      "id": "j4_rumor_corner",
+      "scene": "march_day",
+      "pos": [-6, -3.5],
+      "label": "報刊亭耳語・孫大爺",
+      "start": "j4_rumor_1",
+      "npc": "grey",
+      "kind": "inspect",
+      "timeWindow": [580, 960],
+      "deadlineMin": 740
+    },
+    {
+      "id": "j4_exit_newsroom",
+      "scene": "march_day",
+      "pos": [30, -6],
+      "label": "午後回編輯部趕夜班版面",
+      "start": "j4_exit_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "j4_zhang_galley",
+      "scene": "newsroom",
+      "pos": [2.4, 0.6],
+      "label": "排字房清樣台・張大姐",
+      "start": "j4_zhang_1",
+      "npc": "red",
+      "kind": "inspect",
+      "timeWindow": [600, 1420],
+      "deadlineMin": 1180
+    },
+    {
+      "id": "j4_shen_edition",
+      "scene": "newsroom",
+      "pos": [-4.6, 1.8],
+      "label": "夜班編輯台・老沈與見報抉擇",
+      "start": "j4_shen_1",
+      "npc": "blue",
+      "kind": "dispatch",
+      "isExit": true,
+      "autoHint": true
+    }
+  ],
+  "photoTargets": [
+    {
+      "id": "j4_pt_press_banners",
+      "scene": "march_day",
+      "pos3": [0, 2.5, -10],
+      "radius": 4,
+      "maxDist": 68,
+      "evidenceId": "j4_ev_photo_march",
+      "label": "五四七十週年新聞工作者「說真話」方陣",
+      "event": "1989-05-04-may-fourth-press-march"
+    },
+    {
+      "id": "j4_pt_may4_overhead",
+      "scene": "march_day",
+      "pos3": [-2, 4.3, -14.3],
+      "radius": 4.5,
+      "maxDist": 68,
+      "evidenceId": "j4_ev_photo_march",
+      "label": "長街懸掛的「新聞必須真實・和平請願」橫幅",
+      "event": "1989-05-04-may-fourth-press-march"
+    }
+  ],
+  "evidenceCatalog": {
+    "j4_ev_press_banner": {
+      "id": "j4_ev_press_banner",
+      "kind": "witness",
+      "title": "五四新聞界約五百名記者遊行目擊",
+      "summary": "五月四日紀念五四運動七十週年，約五百名北京各大報刊編輯與記者首次公開列隊走上街頭，拉起「新聞要說真話」等橫幅，沿途獲大批學生與市民歡呼。",
+      "sourceLabel": "顧明遠現場目擊",
+      "dayKey": "1989-05-04",
+      "chapterId": "j-0504",
+      "event": "1989-05-04-may-fourth-press-march",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0504", "新聞界", "橫幅"]
+    },
+    "j4_ev_photo_march": {
+      "id": "j4_ev_photo_march",
+      "kind": "photo",
+      "title": "35mm 底片：陽光下的記者方陣",
+      "summary": "清晰拍下新聞工作者隊伍舉著橫幅步過街道，人行道上的工人學徒、學生和老人紛紛鼓掌，部分高校當日亦一度宣布復課。",
+      "sourceLabel": "五月四日新聞攝影底片",
+      "dayKey": "1989-05-04",
+      "chapterId": "j-0504",
+      "event": "1989-05-04-may-fourth-press-march",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0504", "底片", "遊行"]
+    },
+    "j4_ev_rumor_retract": {
+      "id": "j4_ev_rumor_retract",
+      "kind": "rumor",
+      "title": "街頭傳言：「報社今晚刊更正啟事收回社論」",
+      "summary": "報亭旁盛傳「高層表態溫和，主要報社今晚就要登出更正啟事收回四二六社論定性」，實際上編輯部並未收到任何更正啟事稿件。",
+      "sourceLabel": "街頭傳聞（未核實）",
+      "dayKey": "1989-05-04",
+      "chapterId": "j-0504",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "route": "journalist",
+      "confidence": "uncertain",
+      "tags": ["0504", "傳言", "社論"]
+    },
+    "j4_ev_galley_proof": {
+      "id": "j4_ev_galley_proof",
+      "kind": "official_print",
+      "title": "夜班排字房鉛字校樣",
+      "summary": "張大姐排出的清樣版面上既載有五四七十週年紀念文章，也壓著剛寫好的新聞界遊行簡訊；最終能否見報，全憑夜班簽字與上頭尺度。",
+      "sourceLabel": "《首都晨報》清樣",
+      "dayKey": "1989-05-04",
+      "chapterId": "j-0504",
+      "event": "1989-05-04-may-fourth-press-march",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0504", "清樣", "編輯部"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "j4_pair_rumor_galley",
+      "cards": ["j4_ev_rumor_retract", "j4_ev_galley_proof"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "街頭盛傳「今晚報社發更正啟事收回四二六社論」，但排字房鉛字版面上完全沒有這類啟事，兩者完全不符。",
+      "diary": "街頭對「更正啟事」的期待落了空；排字房清樣上只有五四新聞與短訊。",
+      "set": "j4_checked_rumor"
+    },
+    {
+      "id": "j4_pair_banner_photo",
+      "cards": ["j4_ev_press_banner", "j4_ev_photo_march"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "現場目擊紀錄與 35mm 底片彼此印證了五月四日約五百名記者舉橫幅遊行的史實細節。",
+      "diary": "這批底片與筆記對得上號，證明今日新聞界同人確曾堂堂正正走進人群。"
+    },
+    {
+      "id": "j4_pair_rumor_banner",
+      "cards": ["j4_ev_rumor_retract", "j4_ev_press_banner"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "新聞界遊行要求如實報導確是事實，但並不能反推出當晚官方就會撤回先前的社論定性。"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 4 日，星期四，上午十點。這天適逢五四運動七十週年，北京的春天亮得早。除了各高校再度遊行集會之外，來自首都各主要報社與廣播機構的約五百名編輯、記者也第一次打著橫幅公開走上街頭。",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "擠進街旁陽光裡，找已經在方陣前面架機的小唐",
+          "diary": "5/04 五四七十週年。首都新聞界首次列隊公開遊行，街邊人群拍手喊出「新聞要說真話」。",
+          "timeCost": 10
+        }
+      ]
+    },
+    "j4_press_1": {
+      "speaker": "tang",
+      "text": "顧老師！您看前頭各家報社和電台的同行，全掛著工作證走出來了！橫幅上寫著「新聞要說真話」，兩邊人行道上的大學生和廠裡出來看的年輕人都把掌聲拍響了。今天報社裡好多老師傅也都在默默等咱們的消息呢。",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "沿著記者方陣邊走邊訪，記下同行舉的橫幅字句與約五百人的隊伍規模",
+          "evidence": "j4_ev_press_banner",
+          "rel": { "tang": 1 },
+          "diary": "記錄約五百名新聞工作者在五四這天公開遊行的訴求：「不要逼我們造謠，新聞要說真話」。",
+          "timeCost": 25,
+          "autoHint": true,
+          "next": "j4_press_2"
+        },
+        {
+          "text": "提醒小唐別光拍熱情掌聲，把旁聽部分高校宣布復課的動靜也抄下",
+          "evidence": "j4_ev_press_banner",
+          "timeCost": 20,
+          "next": "j4_press_2"
+        }
+      ]
+    },
+    "j4_press_2": {
+      "speaker": "tang",
+      "text": "對了，聽說好幾所大學今天也暫時宣布復課了，大家都以為氣氛能稍微鬆動一點！可不知道今晚咱們報紙敢不敢把這隊伍登出來？",
+      "choices": [
+        {
+          "text": "先拍實景，晚上回到編輯台再跟老沈看尺度"
+        }
+      ]
+    },
+    "j4_vantage_1": {
+      "speaker": "narr",
+      "text": "上午的陽光穿過剛吐新綠的楊樹葉，落在緩慢移動的「新聞要說真話」橫幅上。你可以在此舉起相機（F）對準遊行方陣拍照留存。",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "切入取景模式拍下陽光下的人潮與橫幅（按 F 可自定構圖）",
+          "evidence": "j4_ev_photo_march",
+          "mechanic": "viewfinder",
+          "modeOverride": "camera_walk",
+          "diary": "按下快門拍下五四新聞界遊行方陣，陽光下白布黑字異常醒目。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "只在採訪本速寫遊行路線與隊伍起訖",
+          "evidence": "j4_ev_photo_march",
+          "timeCost": 15
+        }
+      ]
+    },
+    "j4_rumor_1": {
+      "speaker": "sun",
+      "text": "顧記者！剛才好幾個戴眼鏡的年輕人路過我這亭子，喜滋滋地傳話說「今晚報社要發更正啟事，把四二六社論定性收回去」——連廠裡來買報的小學徒都探頭打聽呢！這事兒你們報社內部有風聲沒？",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "choices": [
+        {
+          "text": "明確告訴孫大爺編輯部根本沒有所謂「更正啟事」，把這說法標作未確認傳言",
+          "evidence": "j4_ev_rumor_retract",
+          "rel": { "sun": 1 },
+          "diary": "在報亭聽見「報社今晚將發更正啟事」的街頭耳語；我告訴孫大爺，目前沒見任何社內依據。",
+          "timeCost": 15,
+          "autoHint": true
+        },
+        {
+          "text": "姑且記下街頭這股樂觀期待，留待晚上回排字房核實",
+          "evidence": "j4_ev_rumor_retract",
+          "timeCost": 10
+        }
+      ]
+    },
+    "j4_exit_1": {
+      "speaker": "narr",
+      "text": "午後風起，遊行人群各自散回單位與校區。你抱著拍滿一捲的相機與半本速記回到《首都晨報》編輯部。",
+      "choices": [
+        {
+          "text": "回報社排字房與編輯台趕夜班版面",
+          "goto": "newsroom",
+          "timeCost": 45,
+          "autoHint": true
+        },
+        {
+          "text": "在街口多看一眼買晚報的人群",
+          "timeCost": 10
+        }
+      ]
+    },
+    "j4_zhang_1": {
+      "speaker": "zhang",
+      "text": "回來啦，明遠。我剛把你下午交上來的短訊排成清樣，一字沒刪，連你們新聞界遊行那幾行也撿上去了。外頭都在傳今晚要出什麼更正啟事，可我這排字房壓根沒看見半張更正稿。待會兒簽發不簽發，得看老沈那一關怎麼拿捏。",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "choices": [
+        {
+          "text": "捧起溫熱的鉛字清樣核對一遍，謝過張大姐留出一整份校樣備份",
+          "evidence": "j4_ev_galley_proof",
+          "rel": { "zhang": 1, "zhang_typesetter": 1 },
+          "diary": "張大姐替我多印出一張完整的鉛字清樣。清樣裡沒有「更正啟事」，只有今天實打實發生的遊行簡訊。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "囑咐張大姐若上頭急電話下來撤版，先把這份清樣壓在鉛字櫃下頭",
+          "evidence": "j4_ev_galley_proof",
+          "rel": { "zhang": 1, "zhang_typesetter": 1 },
+          "timeCost": 15
+        }
+      ]
+    },
+    "j4_shen_1": {
+      "speaker": "shen",
+      "text": "明遠，剛才主管部門打來兩通電話問明早二版怎麼處理。外頭今天確實有五百多名同行上街，也有好多報社在討論怎麼報——這塊二版豆腐塊稿子就擱在咱們面前。今晚這篇稿子，你說該怎麼收口？",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "說服老沈把這段五月四日首都新聞界遊行與現場照片簡訊照實付印見報",
+          "worldEmit": "xr:press_0504_published",
+          "set": "j4_press_published",
+          "rel": { "shen": 1 },
+          "diary": "5/04 深夜。我和老沈拍板簽印，把今天新聞界與五四遊行的真實動態留在了明早的鉛字版面上。",
+          "autoHint": true,
+          "end": "press_published"
+        },
+        {
+          "text": "為免整版被卡死連累報社，改將完整現場採訪編為《內部參考清樣》傳閱留存",
+          "worldEmit": "xr:press_0504_internal",
+          "set": "j4_press_internal",
+          "rel": { "shen": 1 },
+          "diary": "5/04 深夜。版面未能公開見報，我們改將這天採訪的真實脈絡印作內部參考清樣在採編室傳閱。",
+          "end": "internal_circular"
+        },
+        {
+          "text": "依夜班緊急電話撤下整版稿件，只讓張大姐在排字房悄悄保存那張鉛字校樣",
+          "worldEmit": "xr:press_0504_spiked",
+          "set": "j4_press_spiked",
+          "diary": "5/04 深夜。開印前稿件臨時撤下，排字房裡只留下一張沾著墨香的清樣紙。",
+          "end": "spiked_galley"
+        },
+        {
+          "text": "暫緩公開發稿，先把全部原始筆記與底片抄本鎖回編輯室資料櫃以防萬一",
+          "worldEmit": "xr:press_0504_internal",
+          "set": "j4_press_internal",
+          "diary": "5/04 深夜。把今日全部現場筆錄與接觸印樣編目入內參檔案櫃。",
+          "end": "typesetter_proof"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "press_published": {
+      "title": "見報的五四晨訊",
+      "text": "凌晨四點，印刷機的轟鳴把《首都晨報》吐出車間。次日早市與報刊亭前，北京市民和工人學徒都在翻看那一段寫著「首都新聞工作者於五四紀念日走上街頭」的方塊字——哪怕只有一小欄，鉛字到底落到了紙上。"
+    },
+    "internal_circular": {
+      "title": "內參清樣",
+      "text": "公開版面上印出了四平八穩的紀念社論，而在編輯部傳閱的藍色封面《內部參考》裡，完完整整印著五月四日街頭的標語、復課動態與街坊心情。記者能守住的紀錄，換了一種形式流傳。"
+    },
+    "spiked_galley": {
+      "title": "撤版後的鉛字校樣",
+      "text": "開印鐘敲響前二十分鐘，鉛字版被臨時換成了備用通稿。張大姐沒多說話，只是把那張沾著未乾油墨的試印清樣摺好塞進你的採訪本裡：「留個念想，顧記者。」"
+    },
+    "typesetter_proof": {
+      "title": "資料櫃裡的五月四日",
+      "text": "鐵皮資料櫃咔噠一聲落鎖。你在五月四日夜裡沒有替報紙換回一紙更正啟事，卻替報社留住了完整的原始底片與現場證詞。"
+    }
+  },
+  "epilogue": "五月四日五四七十週年紀念日，約五百名北京記者與編輯首次公開列隊遊行，部分高校亦一度宣布復課；而坊間「當晚收回社論」的傳言並未發生。下一章：五月十三日至十五日，陽台與傳言。",
+  "epilogueEvent": "1989-05-04-may-fourth-press-march"
+}

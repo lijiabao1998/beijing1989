@@ -1,0 +1,27 @@
+{
+  "id": "1989-05-14-intellectuals-mediation",
+  "date": "1989-05-14",
+  "place": "天安門廣場・統戰部",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "學者與知識分子赴廣場勸說並促成對話接觸",
+    "en": "Scholars and intellectuals mediate at the Square and facilitate dialogue"
+  },
+  "summary": {
+    "zh": "5 月 14 日，隨著廣場絕食人數擴大且中蘇峰會將至，一批北京學者與知識分子赴天安門廣場呼籲學生保持克制並促成雙方接觸；同日下午，政府代表在統戰部與學生代表舉行對話，但因廣場現場要求直播、互信不足及代表性分歧而未能達成撤離共識。遊戲中僅透過虛構人物旁觀與轉述勸說情節，不為真實人物編寫台詞。",
+    "en": "On 14 May, as the hunger strike expanded ahead of the Sino-Soviet summit, prominent intellectuals visited the Square to urge restraint and mediate. Government officials met student delegates that afternoon, but talks stalled over broadcast demands and mutual distrust without an agreement to vacate the Square."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Hunger strikes begin",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Hunger_strikes_begin"
+    },
+    {
+      "title": "Tiananmen Square, 1989: The Declassified History (Electronic Briefing Book No. 16)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB16/"
+    }
+  ]
+}

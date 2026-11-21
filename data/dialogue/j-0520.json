@@ -1,0 +1,422 @@
+{
+  "chapter": "j-0520",
+  "title": "第六章　五月十九日夜至二十日，採訪證與磁帶",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "newsroom",
+  "spawn": {
+    "newsroom": [0, 6],
+    "blockade": [-22, -5]
+  },
+  "labels": {
+    "newsroom": "1989 年 5 月 19 日・深夜・首都晨報編輯部",
+    "blockade": "1989 年 5 月 20 日・凌晨・西單無軌電車路障路口"
+  },
+  "transitions": {
+    "blockade": "凌晨一點過後，城西公車全線停擺，你揣好採訪證與袖珍錄音機步行來到無軌電車橫停的西單路口……"
+  },
+  "clockStart": 1350,
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（顧明遠）",
+      "role": "29歲《首都晨報》市政記者",
+      "fictional": true
+    },
+    "shen": {
+      "name": "老沈",
+      "role": "《首都晨報》夜班主編",
+      "fictional": true
+    },
+    "zhang": {
+      "name": "張大姐",
+      "role": "排字房老師傅",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王建國（王師傅）",
+      "role": "北京第二機床廠五級車工",
+      "fictional": true
+    },
+    "shen_aunt": {
+      "name": "沈淑芬",
+      "role": "西單大雜院退休紡織廠醫務室護師",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "j6m_news_shen",
+      "scene": "newsroom",
+      "pos": [-4.6, 1.8],
+      "label": "老沈・戒嚴通告與袖珍錄音機",
+      "start": "j6m_shen_1",
+      "npc": "blue",
+      "kind": "dispatch",
+      "timeWindow": [1320, 260],
+      "deadlineMin": 1410,
+      "autoHint": true
+    },
+    {
+      "id": "j6m_news_zhang",
+      "scene": "newsroom",
+      "pos": [2.4, 0.6],
+      "label": "排字房・張大姐與連夜撤換版面",
+      "start": "j6m_zhang_1",
+      "npc": "red",
+      "kind": "inspect",
+      "timeWindow": [1320, 280],
+      "deadlineMin": 1430
+    },
+    {
+      "id": "j6m_news_exit",
+      "scene": "newsroom",
+      "pos": [0, -6.0],
+      "label": "收起閃光燈出發赴西單路口",
+      "start": "j6m_exit_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "j6m_blockade_barricade",
+      "scene": "blockade",
+      "pos": [-4, -7],
+      "label": "雙節無軌電車路障・王師傅與市民",
+      "start": "j6m_barricade_1",
+      "npc": "blue",
+      "kind": "checkpoint",
+      "timeWindow": [1340, 420],
+      "deadlineMin": 120,
+      "autoHint": true
+    },
+    {
+      "id": "j6m_blockade_subway",
+      "scene": "blockade",
+      "pos": [-15, 1],
+      "label": "電話亭與地鐵口・沈淑芬與隧道傳聞核對",
+      "start": "j6m_subway_1",
+      "npc": "green",
+      "kind": "dialogue",
+      "timeWindow": [1340, 420],
+      "deadlineMin": 160,
+      "autoHint": true
+    },
+    {
+      "id": "j6m_blockade_exit",
+      "scene": "blockade",
+      "pos": [28, -9],
+      "label": "破曉關掉錄音機沿長安街返社",
+      "start": "j6m_end_1",
+      "kind": "portal",
+      "isExit": true
+    }
+  ],
+  "evidenceCatalog": {
+    "j6m_ev_decree": {
+      "id": "j6m_ev_decree",
+      "kind": "official_print",
+      "title": "五月二十日十時起實行戒嚴通告抄件",
+      "summary": "五月十九日晚宣布停止絕食不久，深夜廣播與緊急電傳接連播出：自五月二十日上午十時起在北京市部分地區實施戒嚴。",
+      "sourceLabel": "夜班電傳機抄件",
+      "dayKey": "1989-05-20",
+      "chapterId": "j-0520",
+      "event": "1989-05-20-martial-law",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0520", "戒嚴", "通告"]
+    },
+    "j6m_ev_tape_blockade": {
+      "id": "j6m_ev_tape_blockade",
+      "kind": "audio_tape",
+      "title": "西單無軌電車路障現場錄音帶",
+      "summary": "袖珍卡帶錄下停駛電車旁的低聲交談、手電筒口述：六里橋與呼家樓等進城路口有大量市民攔阻軍車、給士兵遞水遞報紙，整夜未爆發流血。",
+      "sourceLabel": "顧明遠現場磁帶",
+      "dayKey": "1989-05-20",
+      "chapterId": "j-0520",
+      "event": "1989-05-20-citizens-block-convoys",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0520", "錄音", "路障"]
+    },
+    "j6m_ev_subway_rumor": {
+      "id": "j6m_ev_subway_rumor",
+      "kind": "rumor",
+      "title": "電話亭耳語：「地鐵隧道裡已有部隊待命」",
+      "summary": "排隊打電話的街坊間低聲傳言「地鐵不只停運，地下隧道已經進駐部隊」，說法神乎其神卻無人親見。",
+      "sourceLabel": "街角電話亭耳語（未核實）",
+      "dayKey": "1989-05-20",
+      "chapterId": "j-0520",
+      "event": "1989-05-20-rumor-subway-troops",
+      "route": "journalist",
+      "confidence": "uncertain",
+      "tags": ["0520", "地鐵", "傳言"]
+    },
+    "j6m_ev_subway_check": {
+      "id": "j6m_ev_subway_check",
+      "kind": "witness",
+      "title": "地鐵口鐵閘與值守老人目擊界線",
+      "summary": "實地查看西單地鐵口與鐵閘門：確實接獲通知全面拉閘停運，但站口漆黑空蕩，沒有任何人親眼見過隧道駐軍，只能將可查證界線劃在「停運」兩字。",
+      "sourceLabel": "地鐵口實地查證筆記",
+      "dayKey": "1989-05-20",
+      "chapterId": "j-0520",
+      "event": "1989-05-20-rumor-subway-troops",
+      "route": "journalist",
+      "confidence": "testimony",
+      "tags": ["0520", "地鐵", "查證"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "j6m_pair_subway_rumor_check",
+      "cards": ["j6m_ev_subway_rumor", "j6m_ev_subway_check"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "實地查證僅能確認地鐵拉閘停運；「隧道駐軍」並無站口值守者或目擊者可資印證，耳語與實際所見存在明顯界線。",
+      "diary": "把「地鐵拉閘停運」與「隧道裡有無部隊」分作兩件事記錄：前者眼見為實，後者尚無旁證。"
+    },
+    {
+      "id": "j6m_pair_decree_tape",
+      "cards": ["j6m_ev_decree", "j6m_ev_tape_blockade"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "五月二十日實施戒嚴的深夜通告時間，與西單路障磁帶錄下的市民攔車對話、公交停駛實況彼此吻合。",
+      "diary": "夜班通告與凌晨西單現場的卡帶時間刻度完全對得上。"
+    },
+    {
+      "id": "j6m_pair_rumor_tape",
+      "cards": ["j6m_ev_subway_rumor", "j6m_ev_tape_blockade"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "路面路障與攔車對峙錄音無法證明地鐵地下隧道的傳言。"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 19 日，星期五，深夜十點半。前一天電視播出過大會堂對話畫面、今晚九點多廣場剛宣布停止絕食改為靜坐，編輯部才剛剛鬆了一口氣；可才過一個鐘頭，電傳機鈴聲忽然急促地響成一片——北京部分地區即將宣布實施戒嚴。",
+      "event": "1989-05-18-dialogue-televised",
+      "variants": [
+        {
+          "requires": "world:xr:rumor_0514_tv_verified",
+          "text": "1989 年 5 月 19 日深夜。五月十八日電視終於短暫播出了大會堂見面實況，今晚九點多廣場也宣布停止絕食；誰知才剛喝下半口熱茶，夜班電傳機卻忽然吐出「明日十時起北京部分地區實施戒嚴」的急訊。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "快步走向編輯台，把剛播出的通告時間記進筆記",
+          "diary": "5/19 深夜。停止絕食剛過兩小時，戒嚴通告隨即傳出，夜班室一時間沒人說話。",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j6m_shen_1": {
+      "speaker": "shen",
+      "text": "明遠，今夜千萬別帶閃光燈出門——黑燈瞎火打一下閃光燈，街頭緊繃的人會誤會，也容易招來盤查。把你抽屜裡這捲九十分鐘袖珍磁帶和採訪證帶好，去西單路口看看公交電車停在哪兒、老百姓和外面攔車的人在說些什麼。",
+      "event": "1989-05-20-martial-law",
+      "choices": [
+        {
+          "text": "收起相機閃光燈，領過空白磁帶與戒嚴通告抄件",
+          "item": "cassette_tape",
+          "keepsake": "cassette_tape",
+          "evidence": "j6m_ev_decree",
+          "set": "j6m_kept_dark_order",
+          "rel": { "shen": 1 },
+          "diary": "老沈囑咐今夜收起閃光燈，只帶袖珍錄音機與採訪證去西單聽真實人聲。",
+          "timeCost": 15,
+          "autoHint": true,
+          "next": "j6m_shen_2"
+        },
+        {
+          "text": "先確認五月十九日停止絕食與二十日十時戒嚴的準確時刻",
+          "item": "cassette_tape",
+          "keepsake": "cassette_tape",
+          "evidence": "j6m_ev_decree",
+          "timeCost": 10,
+          "next": "j6m_shen_2"
+        }
+      ]
+    },
+    "j6m_shen_2": {
+      "speaker": "shen",
+      "text": "對了，路上若聽見地鐵或郊區進城的傳聞，一定得自己走到站口看一眼鐵閘門再說話，別把慌話錄進帶子裡。",
+      "choices": [
+        {
+          "text": "明白，我會親眼確認再記"
+        }
+      ]
+    },
+    "j6m_zhang_1": {
+      "speaker": "zhang",
+      "text": "明遠啊，剛排好的夜班頭版全撤了，正在重新換上戒嚴通告的鉛字。大姐只跟你說一句：外面風聲緊，你去街頭採訪，採訪證貼身揣著，天亮前若回不來就打個電話回報社報平安。",
+      "event": "1989-05-19-hunger-strike-ends",
+      "variants": [
+        {
+          "requires": "world:xr:press_0504_published",
+          "text": "明遠，還記得五月四日咱們熬夜趕印見報那回嗎？今晚版面全換成戒嚴通告的鉛字了。你出去採訪帶著點厚衣裳，天亮前別忘跟老沈捎句平安。"
+        },
+        {
+          "requires": "world:xr:press_0504_spiked",
+          "text": "從五四撤版到今晚這緊急換版，這半個月過得跟半年一樣長。外頭街面一定黑燈瞎火的，顧記者出去千萬看路。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "謝過張大姐，答應天一亮便回電話報平安",
+          "rel": { "zhang": 1, "zhang_typesetter": 1 },
+          "diary": "排字房正連夜換上戒嚴通告版面。張大姐悄悄替我把門外通道的燈按亮。",
+          "timeCost": 10,
+          "autoHint": true
+        },
+        {
+          "text": "瞄一眼剛剛拚完的鉛字版時間欄便準備出門",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j6m_exit_1": {
+      "speaker": "narr",
+      "text": "過了午夜，報社外頭已經沒有公車行駛。你將袖珍錄音機揣在風衣右袋裡，沿著黑影沉沉的人行道往西單路口走去。",
+      "choices": [
+        {
+          "text": "步行前往西單無軌電車路障路口",
+          "goto": "blockade",
+          "timeCost": 35,
+          "autoHint": true
+        },
+        {
+          "text": "先檢查錄音機電池電量",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j6m_barricade_1": {
+      "speaker": "wang",
+      "text": "喲，這不是顧記者嗎？您別開閃光燈，這兒大伙兒自發把兩節無軌電車橫停在十字路口，司機師傅就在旁邊抽煙呢。剛從六里橋、呼家樓走回來的騎車工友說，那邊十幾萬市民站在路邊把進城軍車攔了下來，大媽們給車斗裡的年輕戰士遞茶水、遞報紙，誰也沒動手。",
+      "event": "1989-05-20-citizens-block-convoys",
+      "choices": [
+        {
+          "text": "取得王師傅同意後打開錄音機，錄下電車路障旁的夜談與市民遞水見聞",
+          "evidence": "j6m_ev_tape_blockade",
+          "set": "j6m_recorded_tape",
+          "rel": { "wang": 1 },
+          "diary": "在西單電車路障旁遇見王師傅，錄下關於六里橋、呼家樓市民攔車遞水的一手轉述與現場人聲。",
+          "timeCost": 25,
+          "autoHint": true,
+          "next": "j6m_barricade_2"
+        },
+        {
+          "text": "不動錄音機，只在暗處用鉛筆速記路口電車車號與市民對話",
+          "evidence": "j6m_ev_tape_blockade",
+          "rel": { "wang": 1 },
+          "timeCost": 20,
+          "next": "j6m_barricade_2"
+        }
+      ]
+    },
+    "j6m_barricade_2": {
+      "speaker": "wang",
+      "text": "大家心裡都明白，坐在卡車裡的也都是農村剛入伍的娃娃兵，把城裡情況跟他們說清楚，沒必要鬧僵。",
+      "choices": [
+        {
+          "text": "停好筆頭點頭致意，去前方公用電話亭看看地鐵口情況"
+        }
+      ]
+    },
+    "j6m_subway_1": {
+      "speaker": "shen_aunt",
+      "text": "顧記者！您來得剛好，剛才公用電話亭排隊的一圈人正嚇得不行——有人壓著嗓子喊「地鐵已經全線停運，隧道底下已經開進了滿載部隊的專列」！我剛才陪鄰居小軍順道走去地鐵口瞧了眼，就看見鐵閘門鎖得死死的，下頭黑漆漆一片哪看得出啥呀？",
+      "event": "1989-05-20-rumor-subway-troops",
+      "variants": [
+        {
+          "requires": "world:xr:rumor_0520_subway_panic",
+          "text": "顧記者！電話亭剛有個小伙子急急忙忙往院裡頭喊，說「地鐵隧道裡已經有部隊待命」——我這鄰居聽完都要往菜市口搶糧搶鹽了！您有採訪證，快幫著去地鐵站口看看究竟拉閘到哪一步、別讓胡同裡先自己亂起來！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "親自走到地鐵站鐵閘門前向看門人核實，只記錄「確認停運拉閘、隧道駐軍無目擊證據」",
+          "worldEmit": "xr:rumor_0520_subway_verified",
+          "evidence": "j6m_ev_subway_check",
+          "set": "j6m_subway_checked",
+          "rel": { "shen_aunt": 1 },
+          "diary": "與沈淑芬一同核查西單地鐵口：鐵閘確已拉下停運，但看門師傅證實無人見到隧道駐軍，我為這則傳言劃下可查證的界線。",
+          "timeCost": 25,
+          "autoHint": true,
+          "next": "j6m_subway_2"
+        },
+        {
+          "text": "一併記下電話亭排隊市民對隧道傳言的憂慮與猜測，留作民俗觀察",
+          "worldEmit": "xr:rumor_0520_subway_verified",
+          "evidence": "j6m_ev_subway_rumor",
+          "set": "j6m_subway_checked",
+          "rel": { "shen_aunt": 1 },
+          "timeCost": 20,
+          "next": "j6m_subway_2"
+        }
+      ]
+    },
+    "j6m_subway_2": {
+      "speaker": "shen_aunt",
+      "text": "聽您這麼一核對，我回去也能把胡同幾位老街坊的心定下來了！公車停了，您待會兒往東走回報社路上小心腳下。",
+      "choices": [
+        {
+          "text": "記下「停運屬實、隧道說法缺旁證」的清晰界線，告別沈阿姨",
+          "evidence": "j6m_ev_subway_rumor"
+        }
+      ]
+    },
+    "j6m_end_1": {
+      "speaker": "narr",
+      "text": "清晨五點半，東方現出淡青色天光。西單十字路口的無軌電車還靜靜橫停著，上方架空電線在晨風裡輕晃。沒有公交車鈴聲的長安街上，全是推著二八自行車與步行上班的北京市民。",
+      "choices": [
+        {
+          "text": "按下停止鍵，把這盤錄滿西單夜話的九十分鐘磁帶貼上標籤封存",
+          "requires": "j6m_recorded_tape",
+          "diary": "沒有開一盞閃光燈，這盤磁帶替五月二十日凌晨的西單留住了真實人聲。",
+          "end": "tape_of_xidan"
+        },
+        {
+          "text": "在筆記末寫清「地鐵停運」與「隧道傳言」的目擊界線，沿大街返社",
+          "requires": "j6m_subway_checked",
+          "diary": "越是信息斷裂的戒嚴之夜，記者越要把「看見到哪裡為止」寫得分明。",
+          "end": "subway_boundary_drawn"
+        },
+        {
+          "text": "將沒拍過一張閃光的相機與採訪證收進包裡，按老沈叮囑平安歸隊",
+          "requires": "j6m_kept_dark_order",
+          "diary": "不添火、不驚擾黑夜裡對峙的人群，這是老沈教過的一堂課。",
+          "end": "no_flash_night"
+        },
+        {
+          "text": "沿著空曠的長安街人行道慢慢走回報社吃早飯",
+          "diary": "戒嚴令在十點正式生效，而整個北京都在一種安靜又固執的等待裡迎來清晨。",
+          "end": "dawn_walk_back"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "tape_of_xidan": {
+      "title": "西單路障的卡帶",
+      "text": "你把白色標籤紙貼在 TDK 磁帶殼上，用藍墨水寫下「1989.5.20 01:30–04:40 西單」。磁帶裡有電車司機敲打車窗的聲響、有市民分遞茶缸的囑咐，也有城市在戒嚴夜裡的平靜呼吸。"
+    },
+    "subway_boundary_drawn": {
+      "title": "目擊的界線",
+      "text": "在電話亭與鎖閉地鐵口之間來回確認之後，你在夜班簡報裡只寫下一句：「地鐵確實拉閘停運；有關隧道內情之傳聞，現場無人親見，不予採信。」沈阿姨那邊的胡同街坊也因此少了一夜驚慌。"
+    },
+    "no_flash_night": {
+      "title": "沒有閃光燈的一夜",
+      "text": "相機掛在胸前整夜沒按下過快門閃光，你的採訪證卻幫著在暗夜裡問出了十幾句真話。天光大亮時回到編輯部，老沈看著你凍得發紅的手，默默替你倒了半缸子熱開水。"
+    },
+    "dawn_walk_back": {
+      "title": "電車線下的清晨",
+      "text": "清晨的陽光灑在無軌電車奶油紅邊的車身上。街坊和路過的學生各自收拾水杯散開，這場僵持沒有在這夜收場，只是悄悄往更悶熱的五月下旬滑去。"
+    }
+  },
+  "epilogue": "五月二十日十時起北京部分地區正式實施戒嚴，市內公交一度停擺，大批市民於主要路口攔阻進城車隊並與官兵交談，各種未經查證的街頭傳言四起。下一章：五月三十日，雨後與長鏡。",
+  "epilogueEvent": "1989-05-20-martial-law"
+}

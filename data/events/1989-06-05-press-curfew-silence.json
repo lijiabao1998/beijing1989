@@ -1,0 +1,32 @@
+{
+  "id": "1989-06-05-press-curfew-silence",
+  "date": "1989-06-05",
+  "place": "北京各報社編輯部・長安街哨卡與飯店外圍",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "六月四日後的新聞整肅、街頭哨卡與駐京外交及媒體紀錄",
+    "en": "Post-June 4 quieted newsrooms, street checkpoints, and diplomatic and press records"
+  },
+  "summary": {
+    "zh": "6 月 4 日清晨廣場清場之後數日間，戒嚴部隊在長安街及各主要路口設卡駐守，街道冷清且仍有焚毀車輛殘骸與零星警戒驅離，市民多避居院落與巷弄內。北京多間報社與廣播機構隨即全面恢復統一口徑的官方通稿，先前曾聲援學生或要求如實報導的採編人員被迫停筆、接受整頓或低調收存底片與筆記；駐京外國記者與外交人員則在嚴密管制、檢查與飯店監視下持續發出目擊電報與影像紀錄（包括 6 月 5 日長安街上單人阻擋坦克車隊的一幕）。",
+    "en": "In the days following the dawn clearing of 4 June, martial-law checkpoints guarded Chang'an Avenue and major intersections amid burned vehicles and sporadic warnings, keeping most residents indoors. Beijing newsrooms and broadcasters returned strictly to official dispatches, while reporters and editors who had earlier backed truthful coverage fell silent, faced scrutiny, or discreetly hid notes and negatives; foreign correspondents and diplomats continued filing eyewitness cables and photographs under tight surveillance and checkpoint controls, including images on 5 June of a lone man blocking a tank column on Chang'an Avenue."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Immediate aftermath",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Immediate_aftermath"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    },
+    {
+      "title": "Tiananmen at 25 Years (Electronic Briefing Book No. 473)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB473/"
+    }
+  ]
+}

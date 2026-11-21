@@ -1,0 +1,481 @@
+{
+  "chapter": "r-0530",
+  "title": "第五章　五月三十日，糧店排隊",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "morning_market",
+  "clockStart": 510,
+  "spawn": {
+    "morning_market": [-12, -3],
+    "courtyard_day": [0, 3]
+  },
+  "labels": {
+    "morning_market": "1989 年 5 月 30 日・上午・西單胡同早市與國營糧店",
+    "courtyard_day": "1989 年 5 月 30 日・午後・西單四合院"
+  },
+  "transitions": {
+    "courtyard_day": "你幫張大爺把兩袋富強粉和半瓶香油綁穩在車筐裡，推車拐回四合院……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（沈淑芬）",
+      "role": "53歲，西單四合院居民、退休紡織廠醫務室護師",
+      "fictional": true
+    },
+    "wangjie": {
+      "name": "王姐",
+      "role": "胡同口國營糧油副食店營業員",
+      "fictional": true
+    },
+    "zhangye": {
+      "name": "張大爺",
+      "role": "西單大雜院裡的長輩老鄰居",
+      "fictional": true
+    },
+    "xiaojun": {
+      "name": "小軍",
+      "role": "18歲技校學生，沈淑芬的外甥",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "海淀與街角消息靈通的報刊亭大爺",
+      "fictional": true
+    },
+    "gu": {
+      "name": "顧明遠",
+      "role": "《首都晨報》市政記者（記者路線主角）",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "r7_kiosk",
+      "scene": "morning_market",
+      "pos": [-6.0, -3.5],
+      "label": "報刊亭・孫大爺談雨後街情",
+      "start": "r7_kiosk_1",
+      "npc": "grey",
+      "kind": "dialogue"
+    },
+    {
+      "id": "r7_ration_queue",
+      "scene": "morning_market",
+      "pos": [-21.5, -1.6],
+      "label": "國營糧店排隊棚・王姐澄清傳言",
+      "start": "r7_queue_1",
+      "npc": "red",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "r7_gu_market",
+      "scene": "morning_market",
+      "pos": [0.2, -5.2],
+      "label": "早點攤旁・顧明遠談廣場疲態",
+      "start": "r7_gu_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "timeWindow": [480, 690]
+    },
+    {
+      "id": "r7_market_exit",
+      "scene": "morning_market",
+      "pos": [14.5, 3.0],
+      "label": "拎穩米麵進胡同回四合院",
+      "start": "r7_exit_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "r7_zhang_grain",
+      "scene": "courtyard_day",
+      "pos": [-5, -4],
+      "label": "煤爐旁・替張大爺安頓糧袋",
+      "start": "r7_zhang_1",
+      "npc": "grey",
+      "kind": "dialogue"
+    },
+    {
+      "id": "r7_xiaojun_courtyard",
+      "scene": "courtyard_day",
+      "pos": [0, -2],
+      "label": "院心石桌・勸小軍收心回家",
+      "start": "r7_xiaojun_1",
+      "npc": "green",
+      "kind": "dialogue",
+      "autoHint": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 30 日，星期二，上午八點半。五月二十日實施戒嚴以後，前幾天又下過一場淋漓大雨，市內公交才剛試著恢復幾條線路，運菜送煤的卡車比往常慢了許多。今早剛到胡同口早市，國營糧店外頭的長隊已經拐出棚外一截，人堆裡正七嘴八舌地傳著各種關於停水停糧的說法。",
+      "event": "1989-05-23-rainy-rallies-stalled",
+      "variants": [
+        {
+          "requires": "r6_managed_queue",
+          "text": "1989 年 5 月 30 日，上午八點半。十天前在西單公用電話亭前維持排隊秩序那股緊繃勁兒還沒完全散去，前幾日那場大雨又讓大街小巷濕冷了好幾天。今早拎著張大爺和自家的糧油副食本來早市，糧店門口竟排起一條長龍。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "先到報刊亭和糧店隊伍前頭問個清楚，別跟著瞎慌",
+          "diary": "5/30 上午。五月二十三日大雨與交通受阻後，早市糧店外排起長隊，街坊間流言不斷。",
+          "autoHint": true
+        }
+      ]
+    },
+    "r7_kiosk_1": {
+      "speaker": "sun",
+      "text": "沈大姐！您也來買米麵啦？自打五月二十三日那場大雨中大遊行以後，加上這十來天交通時斷時續，城裡大伙兒心裡都熬疲了。您瞧糧店外頭這長隊——還不都是聽了前兩天亂傳的話才慌出來的！",
+      "event": "1989-05-23-rainy-rallies-stalled",
+      "variants": [
+        {
+          "requires": "world:xr:rumor_0520_subway_panic",
+          "text": "沈大姐！前陣子地鐵停運的傳言就夠叫人發慌了，這幾天雨後卡車進城慢，早市隊伍一下子又拉長了一倍！好些人根本沒看清告示，聽別人搶買鹽和麵粉就跟著往上擠。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "問孫大爺最近幾天報上與電台對供應究竟怎麼說",
+          "evidence": "r7_ev_rain_supply",
+          "rel": { "sun": 1 },
+          "set": "r7_checked_supply_news",
+          "timeCost": 20,
+          "diary": "孫大爺說連日大雨與公交繞行確實拖慢了運輸，但報紙和電台從沒發過憑戒嚴證領糧水的新規。",
+          "next": "r7_kiosk_2",
+          "autoHint": true
+        },
+        {
+          "text": "順便問問大爺今天大街上還有沒有新消息",
+          "evidence": "r7_ev_rain_supply",
+          "rel": { "sun": 1 },
+          "timeCost": 15,
+          "next": "r7_kiosk_3"
+        }
+      ]
+    },
+    "r7_kiosk_2": {
+      "speaker": "sun",
+      "text": "就是這理兒！報紙上明明白白寫著保供應、穩物價，只是郊區菜車進來晚兩個鐘頭罷了。您待會兒跟王姐對對賬本，好讓隊裡幾個老鄰居定定心。",
+      "choices": [
+        {
+          "text": "嗯，我這就去糧店棚前看看"
+        }
+      ]
+    },
+    "r7_kiosk_3": {
+      "speaker": "sun",
+      "text": "說來怪的，聽早班過路的記者說，廣場北邊一大早豎起了一座白色高大石膏雕像，可許多北京學生反倒累得陸續回校了。前邊菜攤旁站著的好像就是顧記者。",
+      "choices": [
+        {
+          "text": "謝了大爺，我去糧店與菜攤邊轉轉"
+        }
+      ]
+    },
+    "r7_queue_1": {
+      "speaker": "wangjie",
+      "text": "大家別擠別擠，拿好各自家裡的市鎮糧油副食本，一人一份按月定量準夠買！哎呀淑芬姐您來得正好——前排剛才有位街坊嚷嚷，說聽親戚傳「下週糧店與自來水要憑戒嚴證才能領取」，把大夥兒嚇得全湧來搶麵粉了！",
+      "event": "1989-05-23-rumor-water-rationing",
+      "variants": [
+        {
+          "requires": "rel:wangjie>=2",
+          "text": "淑芬姐！您看這幫老街坊急得滿頭汗，我嗓子都喊啞了還有人半信半疑。誰又在胡同裡傳「下週糧店和自來水憑戒嚴證領取」的鬼話？您幫我壓住隊尾，咱們拿店裡的糧油登記簿和發票給大夥兒看清楚！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "先暫緩買糧，跟王姐一起攤開糧店月度登記簿和糧票印章，當眾逐項對照澄清這則假傳言",
+          "set": "r7_debunked_ration_panic",
+          "keepsake": "ration_book",
+          "evidence": "r7_ev_ration_rumor",
+          "rel": { "wangjie": 1, "wang_clerk": 1 },
+          "timeCost": 25,
+          "diary": "在國營糧店外頭幫王姐攤開進貨與定量帳簿，當面拆穿「憑戒嚴證領水領糧」的街坊傳言，排隊的人潮終於安靜下來。",
+          "next": "r7_queue_2",
+          "autoHint": true
+        },
+        {
+          "text": "幫張大爺和自家按正規糧油本買齊這個月定量，不跟著搶購、也不跟人吵架",
+          "set": "r7_stocked_grain",
+          "keepsake": "ration_book",
+          "evidence": "r7_ev_ration_rumor",
+          "rel": { "wangjie": 1, "wang_clerk": 1 },
+          "timeCost": 20,
+          "diary": "按正常市鎮糧油副食本買足自家和張大爺定量的富強粉與食油，沒去跟著搶購。",
+          "next": "r7_queue_3"
+        }
+      ]
+    },
+    "r7_queue_2": {
+      "speaker": "wangjie",
+      "text": "多虧淑芬姐說話有分量！大夥兒您們瞧：自來水廠的帳和國營糧店的定量本一直照老章程走，哪來什麼「戒嚴證」？前兩天麵粉車不過是因為大雨繞道晚了半天，倉裡還有存糧呢！",
+      "choices": [
+        {
+          "text": "接過王姐按定量稱好的富強粉和香油，謝過她穩住這條街",
+          "set": "r7_stocked_grain"
+        }
+      ]
+    },
+    "r7_queue_3": {
+      "speaker": "wangjie",
+      "text": "還是您明白事理。張大爺那份麵粉我特意揀了乾爽的麻袋裝好，您拿緊了，外面要是再有人亂傳停供，幫著捎句實在話。",
+      "choices": [
+        {
+          "text": "沒問題，有我在院裡守著呢"
+        }
+      ]
+    },
+    "r7_gu_1": {
+      "speaker": "gu",
+      "text": "沈阿姨！剛巧在早市買點早點，看您在糧店那頭幫著安撫街坊真有辦法。我昨兒和今早剛去天安門廣場走了一圈：雖然清晨北側剛豎起一座十公尺高的白色石膏雕像，可連日下雨以後，帳篷區衛生很差，大家又累又僵，許多北京本地學生都返校了，外地留守學生和北京學生為了撤還是留爭了整整幾天。",
+      "event": "1989-05-28-square-fatigue-debate",
+      "choices": [
+        {
+          "text": "記下顧明遠親眼所見的廣場疲態與五月三十日白色雕像實情，順便核對自來水廠供應並無停供通知",
+          "set": "r7_verified_with_gu",
+          "evidence": "r7_ev_square_fatigue",
+          "rel": { "gu": 1 },
+          "timeCost": 20,
+          "diary": "顧明遠從廣場回來，說這兩天去留分歧與疲態越來越深，今晨北側立起白色石膏雕像；市內自來水廠也並無停供告示。",
+          "next": "r7_gu_2",
+          "autoHint": true
+        },
+        {
+          "text": "問顧明遠這幾天報社和醫院那頭還平穩嗎",
+          "evidence": "r7_ev_square_fatigue",
+          "rel": { "gu": 1 },
+          "timeCost": 15,
+          "next": "r7_gu_3"
+        }
+      ]
+    },
+    "r7_gu_2": {
+      "speaker": "gu",
+      "text": "五月都快走到底了。我看得出不只是廣場上的人累，全北京胡同裡盼著早點平靜過日子的普通百姓也累壞了。阿姨，這幾天盡量讓小軍安安穩穩待在院裡唸書，少往風口去。",
+      "event": "1989-05-30-goddess-of-democracy",
+      "choices": [
+        {
+          "text": "說得太對了，我回家就好好勸勸他"
+        }
+      ]
+    },
+    "r7_gu_3": {
+      "speaker": "gu",
+      "text": "大家都在撐著看六月怎麼收場。外頭真真假假的話多，阿姨千萬照顧好自己和張大爺。",
+      "choices": [
+        {
+          "text": "你也一樣，跑外頭當心"
+        }
+      ]
+    },
+    "r7_exit_1": {
+      "speaker": "narr",
+      "text": "日頭升過屋脊，胡同裡漸漸散出蒸熟的饅頭香與白楊樹氣味。你拎起給張大爺帶的富強粉與自家油瓶，推車拐進大雜院。",
+      "choices": [
+        {
+          "text": "推進紅漆院門回四合院",
+          "goto": "courtyard_day",
+          "timeCost": 15,
+          "autoHint": true
+        },
+        {
+          "text": "在門口跟街坊多說兩句"
+        }
+      ]
+    },
+    "r7_zhang_1": {
+      "speaker": "zhangye",
+      "text": "哎呀淑芬，這半袋富強粉還真沉，勞你大清早替我跑這一趟！剛才院外頭還有人在問自來水是不是真的快停了，你這一拎回來還把王姐的話帶進院，大夥兒總算安心了。",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_returned",
+          "text": "淑芬，你快坐下喝口茶！剛才海淀紅門院的大媽託賣菜的捎來口信說，五月十五號你在醫院外門替王師傅繫上白紗布條的那隻大紅殼暖壺，今兒竟讓外校學生原封不動送回海淀王師傅手裡了，壺底還貼著「謝謝」字條呢！"
+        },
+        {
+          "requires": "r5_tagged_thermos",
+          "text": "淑芬，你快放下東西歇歇！聽剛才從海淀過來的熟人說，五月十五日你在王師傅紅暖壺把手上繫的那截白紗布條真派上了用場，好幾撥學生認出記號，正打聽著要把水壺送還給機床廠呢！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "替張大爺把麵袋搬進北屋陰涼處架高防潮，留下一瓶鹽水備著",
+          "set": "r7_helped_zhangye",
+          "rel": { "zhangye": 1, "grandpa_zhang": 1 },
+          "timeCost": 15,
+          "diary": "把張大爺定量的富強粉妥當墊高放好防潮；大家互相照應過日子的念想一點沒變。",
+          "next": "r7_zhang_2"
+        },
+        {
+          "text": "跟張大爺講明自來水和糧店供應都穩當，不用囤東西嚇自己",
+          "set": "r7_helped_zhangye",
+          "rel": { "zhangye": 1, "grandpa_zhang": 1 },
+          "timeCost": 15,
+          "next": "r7_zhang_3"
+        }
+      ]
+    },
+    "r7_zhang_2": {
+      "speaker": "zhangye",
+      "text": "好咧！對了，小軍剛才推車回來坐在石桌那頭悶聲不響的，聽說幾個同學邀他傍晚去看廣場新豎的白色雕像，你快過去勸他兩句。",
+      "choices": [
+        {
+          "text": "我這就過去跟他說"
+        }
+      ]
+    },
+    "r7_zhang_3": {
+      "speaker": "zhangye",
+      "text": "說得是，聽明白人一句話勝過聽十個瞎傳的。你快去國槐底下跟小軍聊聊吧。",
+      "choices": [
+        {
+          "text": "好，大爺您先歇著"
+        }
+      ]
+    },
+    "r7_xiaojun_1": {
+      "speaker": "xiaojun",
+      "text": "老姨，我們班裡好幾個同學說今天廣場北邊立了一座白色大雕像，下午想拉著我一塊兒騎車過去瞧瞧……但我看這幾天街上大家都挺累的，連我師傅都叫我們把技校下個月實習圖紙趕完，我也有點拿不定主意。",
+      "event": "1989-05-30-goddess-of-democracy",
+      "variants": [
+        {
+          "requires": "rel:xiaojun>=2",
+          "text": "老姨，打從四二七您在立交橋拉住我那回，加上五月十五在醫院外搬水箱，我看出來您比誰都牽掛我。同學說今天廣場豎了白色石膏雕像，可我這心裡頭反而想先問問您的意思——我是該留在家裡複習實習考卷，還是出去看一眼？"
+        }
+      ],
+      "choices": [
+        {
+          "text": "拉著小軍坐在石凳上，把廣場的疲態與月底的緊繃實話告訴他，勸他今晚留院裡準備技校考試",
+          "set": "r7_advised_xiaojun",
+          "rel": { "xiaojun": 1 },
+          "timeCost": 15,
+          "diary": "勸住想在月底再騎車往廣場跑的小軍。經歷七個星期的波瀾，孩子總算肯收心待在院裡好好準備實習考。",
+          "next": "r7_end_1",
+          "autoHint": true
+        },
+        {
+          "text": "讓小軍幫自己把屋簷下的菜乾和煤爐收拾整齊，晚飯多蒸一盤蒜泥白肉",
+          "rel": { "xiaojun": 1 },
+          "timeCost": 15,
+          "next": "r7_end_1"
+        }
+      ]
+    },
+    "r7_end_1": {
+      "speaker": "narr",
+      "text": "五月三十日的午後漸漸沉入夏初的暖風。國槐樹梢傳來今年第一聲稀落的蟬鳴，糧店外頭的長隊已經散盡。五月就要結束了，此刻你記在心底的是哪一份踏實？",
+      "choices": [
+        {
+          "text": "看著屋簷下整齊擺著的兩袋富強粉與糧油本，鄰里之間總算安頓過這個五月底",
+          "requires": "r7_helped_zhangye",
+          "diary": "5/30 午後。替張大爺扛回來的麵袋安穩落在屋簷下，大雜院的煙火氣沒有散。",
+          "end": "r7_grain_shared"
+        },
+        {
+          "text": "把早市流言與糧店帳本的對照記進本子，不讓恐慌跟著傳言跑進胡同",
+          "requires": "r7_debunked_ration_panic",
+          "diary": "5/30 午後。在糧店外攤開帳簿核實供應，拆穿停水停糧的傳言，心裡尤其踏實。",
+          "end": "r7_rumor_cleared"
+        },
+        {
+          "text": "望著小軍坐在石桌旁攤開技校畫圖本的背影，這個十八歲的孩子還安安穩穩在院裡",
+          "requires": "r7_advised_xiaojun",
+          "diary": "5/30 午後。小軍聽進了勸，安安心心在國槐底下看書畫圖。",
+          "end": "r7_kept_xiaojun_in"
+        },
+        {
+          "text": "拎起水壺給屋簷下的海棠花澆一瓢涼水，靜靜迎向六月",
+          "diary": "5/30 午後。漫長的五月即將走到盡頭，院門裡的日常依然一點一點往前接。",
+          "end": "r7_end_may"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "r7_grain_shared": {
+      "title": "屋簷下的兩袋白麵",
+      "text": "張大爺那份富強粉穩穩架在木板上防潮，你家灶台上也添了新打的香油。外頭的五月拖得既疲憊又漫長，而院子裡互相幫襯著排隊買糧的手藝，把鄰里緊緊拴在一起。"
+    },
+    "r7_rumor_cleared": {
+      "title": "沒有戒嚴證的糧油本",
+      "text": "你把那本磨破了角的市鎮糧油副食本收進衣兜。今天在糧店棚前拆穿的只是一樁街坊耳語，可這份不盲從、肯對帳的冷靜，讓整條胡同都少了一場搶購的折騰。"
+    },
+    "r7_kept_xiaojun_in": {
+      "title": "槐樹下的圖紙本",
+      "text": "小軍把二八自行車推進屋簷陰涼處鎖上大鎖，乖乖坐回石桌前攤開技校車工圖紙本。五月三十日的風吹過青瓦，你的目光一直沒離開這個慢慢長大的孩子。"
+    },
+    "r7_end_may": {
+      "title": "五月最後一個午後",
+      "text": "蟬鳴聲斷斷續續響在國槐高枝上。沒人知道進入六月以後這座城市還會怎樣收場，你只把門裡的水缸灌滿、紗布包收在順手處，照常把晚飯的菜擇出來。"
+    }
+  },
+  "epilogue": "五月下旬在陰雨、供應傳言與廣場疲態中進入尾聲。五月三十日廣場北側雖豎起白色石膏雕像，許多市民與本地學生已在疲憊中盼望生活恢復常軌。接下來：六月三日夜至五日（尾聲）。",
+  "epilogueEvent": "1989-05-28-square-fatigue-debate",
+  "evidenceCatalog": {
+    "r7_ev_rain_supply": {
+      "id": "r7_ev_rain_supply",
+      "kind": "official_print",
+      "title": "五月雨後運輸延遲與保供報刊紀要",
+      "summary": "五月二十三日大雨及交通管制導致菜車進城遲緩，但報刊與電台維持既有糧油副食供應章程，並無新增證件門檻。",
+      "sourceLabel": "報刊亭・孫大爺口述整理",
+      "dayKey": "1989-05-30",
+      "chapterId": "r-0530",
+      "event": "1989-05-23-rainy-rallies-stalled",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0523", "供應與天氣"]
+    },
+    "r7_ev_ration_rumor": {
+      "id": "r7_ev_ration_rumor",
+      "kind": "rumor",
+      "title": "街坊傳言：「下週糧店與自來水憑戒嚴證領取」",
+      "summary": "早市排隊人群間流傳下週起需憑戒嚴證領取糧食與自來水，導致部分居民急忙搶購米麵。",
+      "sourceLabel": "遊戲虛構・糧店排隊傳言",
+      "dayKey": "1989-05-23",
+      "chapterId": "r-0530",
+      "event": "1989-05-23-rumor-water-rationing",
+      "route": "resident",
+      "confidence": "uncertain",
+      "tags": ["0523", "傳言", "糧油"]
+    },
+    "r7_ev_square_fatigue": {
+      "id": "r7_ev_square_fatigue",
+      "kind": "witness",
+      "title": "五月底廣場帳篷疲態與供應現況核對",
+      "summary": "顧明遠親眼所見五月下旬廣場疲態與撤留分歧，並同步確認市內自來水廠及國營糧店並無停供或額外證件規定。",
+      "sourceLabel": "《首都晨報》記者・現場核對",
+      "dayKey": "1989-05-30",
+      "chapterId": "r-0530",
+      "event": "1989-05-28-square-fatigue-debate",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0528", "0530", "現場核對"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "r7_pair_supply_rumor",
+      "cards": ["r7_ev_rain_supply", "r7_ev_ration_rumor"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "「憑戒嚴證領糧水」之傳言與國營糧店帳簿、報刊保供紀錄完全不符；隊伍恐慌實為雨後運輸延遲疊加流言所致。",
+      "diary": "比對供應紀錄與糧店傳言，確認並無「憑戒嚴證領糧水」規定，得以安撫排隊街坊。",
+      "set": "r7_dossier_rumor_debunked"
+    },
+    {
+      "id": "r7_pair_supply_fatigue",
+      "cards": ["r7_ev_rain_supply", "r7_ev_square_fatigue"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "報刊紀要與記者現場核對皆顯示五月下旬城內外供應雖受交通阻滯影響而吃緊，仍維持既有糧本體制，且街頭與廣場普遍進入疲態。",
+      "diary": "兩份來源互相吻合：五月底城裡累了，秩序與日常供應靠的是冷靜而非慌搶。",
+      "set": "r7_dossier_corroborated"
+    }
+  ]
+}

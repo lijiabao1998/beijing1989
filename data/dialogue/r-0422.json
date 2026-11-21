@@ -1,0 +1,478 @@
+{
+  "chapter": "r-0422",
+  "title": "第二章　四月二十二日，晨市與街坊",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "morning_market",
+  "clockStart": 375,
+  "spawn": {
+    "morning_market": [-12, -3],
+    "courtyard_day": [0, 3]
+  },
+  "labels": {
+    "morning_market": "1989 年 4 月 22 日・清晨・西單胡同早市與糧店",
+    "courtyard_day": "1989 年 4 月 22 日・上午・西單四合院"
+  },
+  "transitions": {
+    "courtyard_day": "早市早攤漸漸散去，你拎著裝了餘下饅頭與鹹菜的竹籃拐回紅漆院門……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（沈淑芬）",
+      "role": "53歲，西單四合院居民、退休紡織廠醫務室護師",
+      "fictional": true
+    },
+    "wangjie": {
+      "name": "王姐",
+      "role": "胡同口國營糧油副食店營業員",
+      "fictional": true
+    },
+    "zhangye": {
+      "name": "張大爺",
+      "role": "西單大雜院裡的長輩老鄰居",
+      "fictional": true
+    },
+    "xiaojun": {
+      "name": "小軍",
+      "role": "18歲技校學生，沈淑芬的外甥",
+      "fictional": true
+    },
+    "hongmen": {
+      "name": "紅門院大媽",
+      "role": "住在海淀胡同紅門院裡的親戚",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立",
+      "role": "北大物理系二年級學生（學生路線主角）",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "r2_market_stall",
+      "scene": "morning_market",
+      "pos": [0.2, -5.2],
+      "label": "早點攤與豆漿鍋・王姐",
+      "start": "r2_stall_1",
+      "npc": "red",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "r2_grain_radio",
+      "scene": "morning_market",
+      "pos": [-21.5, -1.6],
+      "label": "糧店排隊棚・張大爺聽廣播",
+      "start": "r2_zhang_1",
+      "npc": "khaki",
+      "kind": "dialogue"
+    },
+    {
+      "id": "r2_chen_corner",
+      "scene": "morning_market",
+      "pos": [-6.0, -3.5],
+      "label": "報刊亭旁・徹夜步行的陳立",
+      "start": "r2_chen_1",
+      "npc": "navy",
+      "kind": "dialogue",
+      "timeWindow": [360, 560]
+    },
+    {
+      "id": "r2_hutong_gate",
+      "scene": "morning_market",
+      "pos": [14.5, 3.0],
+      "label": "提籃進胡同回四合院",
+      "start": "r2_exit_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "r2_yard_table",
+      "scene": "courtyard_day",
+      "pos": [0, -2],
+      "label": "院心石桌・剛回來的小軍",
+      "start": "r2_xiaojun_1",
+      "npc": "green",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "r2_yard_tree",
+      "scene": "courtyard_day",
+      "pos": [6, -5],
+      "label": "國槐樹下・紅門院大媽",
+      "start": "r2_hongmen_1",
+      "npc": "grey",
+      "kind": "dialogue"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 22 日，星期六，清晨六點多。胡耀邦追悼大會今天上午將在人民大會堂舉行；昨晚後半夜，整條長安街外圍都不時傳來整齊的腳步聲。天剛擦亮，你提著竹籃走出院門，想去胡同口早市替街坊捎回早點，也順道打聽外甥小軍的去向。",
+      "event": "1989-04-21-night-march",
+      "variants": [
+        {
+          "requires": "r0:end:r1_wait_gate",
+          "text": "1989 年 4 月 22 日，清晨。昨夜院裡的門燈一直亮到下半夜，小軍只在門縫邊塞了張「住校同學借宿」的字條。今天上午人民大會堂要開追悼大會，你一早拎著竹籃來到胡同口早市，街面上已經比平日早醒了兩個鐘頭。"
+        },
+        {
+          "requires": "r0:end:r1_radio_notes",
+          "text": "1989 年 4 月 22 日，清晨。短波本子上抄著這幾天電台播送追悼會安排的時間。天剛放亮，你拎上糧油本和竹籃來到胡同早市，早點攤前的熱氣混著春晨微涼的風。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "往早點攤和糧店棚那邊走過去瞧瞧",
+          "diary": "4/22 清晨。追悼會上午舉行，早市剛開張就有人說昨夜大批學生步行進了城。",
+          "autoHint": true
+        }
+      ]
+    },
+    "r2_stall_1": {
+      "speaker": "wangjie",
+      "text": "淑芬姐來得真早！今兒糧店六點剛過就來了幾位退休大媽，湊著買了一大籠白麵饅頭和兩鍋熱豆漿。外頭大馬路上從半夜起走過來好多大學生，這會兒都往南邊廣場聚著，嗓子喊啞了也沒吃口熱的，咱們街坊合計著湊點乾糧遞過去。",
+      "event": "1989-04-22-residents-support",
+      "variants": [
+        {
+          "requires": "rel:wangjie>=1",
+          "text": "淑芬姐！四月十七晚上您還跟我在副食店聊菜價呢，沒想到過了五天街上變成這光景。早點攤多蒸了兩屜白麵饅頭，我和幾位鄰居拿熱水瓶灌滿開水，您要不要幫著一塊兒分裝給路邊年輕人？"
+        }
+      ],
+      "choices": [
+        {
+          "text": "幫忙把熱饅頭用乾淨籠布包進竹籃，順手塞兩瓶溫開水",
+          "item": "thermos",
+          "set": "r2_packed_buns",
+          "evidence": "r2_ev_market_support",
+          "rel": { "wangjie": 1, "wang_clerk": 1 },
+          "timeCost": 20,
+          "diary": "清晨在早市幫王姐把熱饅頭與溫開水裝進竹籃，街坊自發替走了一夜的學生準備吃食。",
+          "next": "r2_stall_2",
+          "autoHint": true
+        },
+        {
+          "text": "問問王姐今天早市副食價格與供應穩不穩",
+          "evidence": "r2_ev_market_support",
+          "rel": { "wangjie": 1, "wang_clerk": 1 },
+          "timeCost": 15,
+          "diary": "王姐說今天糧油副食照常憑本供應，只是好幾位街坊把自家的乾糧都勻出來送學生了。",
+          "next": "r2_stall_3"
+        }
+      ]
+    },
+    "r2_stall_2": {
+      "speaker": "wangjie",
+      "text": "多謝您手腳利索！您看籃子邊上留兩個自家吃，其餘的要是遇上走累了的學生就給塞兩個。對了，剛才買豆腐腦的人都在傳，說上午追悼會結束會有領導人出來收學生請願書——誰曉得真假呢。",
+      "choices": [
+        {
+          "text": "記在心裡，轉身再去街角聽聽過路人怎麼說"
+        }
+      ]
+    },
+    "r2_stall_3": {
+      "speaker": "wangjie",
+      "text": "糧店門板準時打開著呢，大夥兒別聽風就是雨。倒是外頭大街人擠人，您要是看見小軍那孩子，趁早叫他回家吃早飯。",
+      "choices": [
+        {
+          "text": "嗯，我這就留神看著"
+        }
+      ]
+    },
+    "r2_zhang_1": {
+      "speaker": "zhangye",
+      "text": "淑芬啊，我把半導體收音機揣在棉襖兜裡帶出來排隊了！剛聽新聞播報，人民大會堂裡的追悼大會十點前後開播，連外頭廣場的學生都通過高音喇叭一塊兒收聽。人這麼多，能安安靜靜送完這程就好。",
+      "event": "1989-04-22-memorial-broadcast",
+      "variants": [
+        {
+          "requires": "r1_heard_radio",
+          "text": "淑芬，你前幾天抄的電台頻率真準！我剛才調到中央台，播報說追悼大會今天上午在人民大會堂舉行，全國電視和廣播都會轉播。街坊排著隊也都在等著聽呢。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "記下電台播出的追悼大會時間與官方通報內容",
+          "set": "r2_heard_memorial",
+          "evidence": "r2_ev_memorial_radio",
+          "rel": { "zhangye": 1, "grandpa_zhang": 1 },
+          "timeCost": 25,
+          "diary": "張大爺拎著半導體在糧店棚下聽廣播：4/22 上午人民大會堂舉行追悼大會，廣場同步轉播。",
+          "next": "r2_zhang_2",
+          "autoHint": true
+        },
+        {
+          "text": "幫張大爺把買好的兩斤棒子麵先放進自己的菜籃",
+          "rel": { "zhangye": 1, "grandpa_zhang": 1 },
+          "timeCost": 15,
+          "next": "r2_zhang_3"
+        }
+      ]
+    },
+    "r2_zhang_2": {
+      "speaker": "zhangye",
+      "text": "咱們老百姓耳朵聽到的就這幾句官方播音，可排隊前頭那幾個小年輕剛才直說今天一定會當場答覆請願書。這種沒印在報上的話，聽一半留一半罷。",
+      "choices": [
+        {
+          "text": "說得在理，等上午過了才看得出實情"
+        }
+      ]
+    },
+    "r2_zhang_3": {
+      "speaker": "zhangye",
+      "text": "有勞你了淑芬。咱們同在一個院住著，腿腳不比年輕人，互相幫襯著排隊最踏實。",
+      "choices": [
+        {
+          "text": "別客氣，大爺慢慢走"
+        }
+      ]
+    },
+    "r2_chen_1": {
+      "speaker": "chen",
+      "text": "阿姨借過一下……您是那天夜裡在海淀副食店外遇見的阿姨嗎？我們昨晚十一點從學校出發走了整夜，這會兒正趁著早市邊買點水。隊伍裡剛才還有人小聲傳說，過會兒會有官員出來接請願書，也不知道究竟是不是真的。",
+      "event": "1989-04-22-rumor-meeting",
+      "choices": [
+        {
+          "text": "遞給他一個熱饅頭和溫開水，順便記下「會有人出來接請願書」這則傳言以備對照",
+          "consumeItem": "thermos",
+          "set": "r2_helped_chen",
+          "evidence": "r2_ev_petition_rumor",
+          "rel": { "chen": 1 },
+          "timeCost": 20,
+          "diary": "在報刊亭旁遇見徹夜步行的北大學生陳立。他提到隊伍裡流傳著官員將出面接請願書的說法，虛實難辨。",
+          "next": "r2_chen_2",
+          "autoHint": true
+        },
+        {
+          "text": "叮囑他沒親眼看見的事別輕信，先把肚子墊飽別低血糖",
+          "set": "r2_rumor_cautious",
+          "evidence": "r2_ev_petition_rumor",
+          "rel": { "chen": 1 },
+          "timeCost": 15,
+          "diary": "提醒路過的學生陳立：聽來的消息別當成定論，先顧好身子別在人堆裡暈倒。",
+          "next": "r2_chen_3"
+        }
+      ]
+    },
+    "r2_chen_2": {
+      "speaker": "chen",
+      "text": "謝謝阿姨！這饅頭還是熱的……我們一會兒還得趕回大會堂東邊廣場那頭。對了，剛才經過西單路口，好像看見有個穿技校藍工作服的小伙子站在樹蔭邊看熱鬧，不知是不是您外甥。",
+      "choices": [
+        {
+          "text": "謝謝提醒，你自個兒也注意別摔著"
+        }
+      ]
+    },
+    "r2_chen_3": {
+      "speaker": "chen",
+      "text": "阿姨說得對，當護師的就是細心。我們先走一步，您多保重。",
+      "choices": [
+        {
+          "text": "好，慢走"
+        }
+      ]
+    },
+    "r2_exit_1": {
+      "speaker": "narr",
+      "text": "太陽漸漸升高，照暖了胡同口的灰磚牆。早點攤收起了大部分蒸籠，遠處大街隱約傳來高音喇叭轉播追悼會的哀樂聲。你提著菜籃走向自家那扇熟悉的紅漆院門。",
+      "choices": [
+        {
+          "text": "推開紅漆大門進四合院",
+          "goto": "courtyard_day",
+          "timeCost": 15,
+          "autoHint": true
+        },
+        {
+          "text": "再在早市站一會兒"
+        }
+      ]
+    },
+    "r2_xiaojun_1": {
+      "speaker": "xiaojun",
+      "text": "老姨！您別生氣，我真沒往人群裡擠，天沒亮就跟技校兩個哥們兒站在馬路牙子外邊看了一會兒隊伍……就是鞋後跟磨破了皮，走回來腳疼得很。",
+      "variants": [
+        {
+          "requires": "r1_saw_note",
+          "text": "老姨，桌上那張紙條我本來怕您惦記……昨晚大街上全是一隊隊步行進城的學生，我也沒敢騎遠，天亮見馬路封得嚴實就折回來了，就是腳後跟起了一個大水泡。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "搬張矮凳坐下，拿醫務室備用的碘伏和創可貼替小軍處理腳後跟",
+          "set": "r2_tended_xiaojun",
+          "rel": { "xiaojun": 1 },
+          "timeCost": 15,
+          "diary": "小軍走了一早晨腳後跟起泡，我拿出家裡備用的碘伏替他清理包紮，又叮囑他別跟著人群起哄。",
+          "next": "r2_xiaojun_2",
+          "autoHint": true
+        },
+        {
+          "text": "先把他叫進屋喝碗熱米湯，數落他下次出門得當面講清楚",
+          "set": "r2_tended_xiaojun",
+          "rel": { "xiaojun": 1 },
+          "timeCost": 15,
+          "next": "r2_xiaojun_3"
+        }
+      ]
+    },
+    "r2_xiaojun_2": {
+      "speaker": "xiaojun",
+      "text": "哎喲輕點老姨……我知道了，下回不瞞著您出門。剛才紅門院的大媽還過來問您在家不在呢，就在國槐樹底下坐著。",
+      "choices": [
+        {
+          "text": "去樹下跟紅門院大媽搭句話"
+        }
+      ]
+    },
+    "r2_xiaojun_3": {
+      "speaker": "xiaojun",
+      "text": "曉得了老姨。我去灶屋喝粥，順道把剛才大媽送來的幾顆小蔥洗了。",
+      "choices": [
+        {
+          "text": "快去吧，紅門院大媽還在樹下等著呢"
+        }
+      ]
+    },
+    "r2_hongmen_1": {
+      "speaker": "hongmen",
+      "text": "淑芬呀，我一早打海淀坐頭班車過來看你們這院子平安不平安。聽說追悼會散了以後，人民大會堂台階那頭到底有沒有官員出來接請願書，連各路小道消息都說得不一樣——有人說出來了一位官員，也有人說根本沒見著人影。咱們住在院裡，還是把門裡門外的老小先顧住要緊。",
+      "event": "1989-04-22-petition-kneeling",
+      "choices": [
+        {
+          "text": "請紅門院大媽坐下喝口茶，告訴她街坊湊的熱饅頭和溫水早上已經送出去了",
+          "rel": { "hongmen": 1, "hongmen_auntie": 1 },
+          "next": "r2_end_1",
+          "autoHint": true
+        },
+        {
+          "text": "跟大媽一起把各自聽見的見聞與廣播實況對一對",
+          "rel": { "hongmen": 1, "hongmen_auntie": 1 },
+          "next": "r2_end_1"
+        }
+      ]
+    },
+    "r2_end_1": {
+      "speaker": "narr",
+      "text": "上午十一點多，日光越過四合院灰瓦屋簷照進院心。遠處大街的廣播聲漸漸歇了，各家院裡又響起切菜聲與水龍頭的流水聲。這一個清晨，你心裡記住了什麼？",
+      "choices": [
+        {
+          "text": "洗淨竹籃裡裝過饅頭的籠布，記住清晨街坊遞水送暖的熱氣",
+          "requires": "r2_packed_buns",
+          "diary": "4/22 上午。洗淨早上包饅頭的白籠布。街坊說不出什麼大道理，只看不得半大小子餓著肚子走一整夜。",
+          "end": "r2_market_thermos"
+        },
+        {
+          "text": "檢查好小軍腳上的紗布貼，替他把技校書包整理整齊",
+          "requires": "r2_tended_xiaojun",
+          "diary": "4/22 上午。守住了十七八歲的外甥平平安安回到四合院，這比聽多少傳言都實在。",
+          "end": "r2_tended_nephew"
+        },
+        {
+          "text": "在短波筆記本旁記下上午追悼會廣播與街頭傳言的出入",
+          "requires": "r2_heard_memorial",
+          "diary": "4/22 上午。把電台播音時間和街頭傳言的差別分開記下，不輕信沒看見的事。",
+          "end": "r2_memorial_notes"
+        },
+        {
+          "text": "陪張大爺和紅門院大媽坐在國槐樹蔭下剝蒜擇菜，安靜迎來正午",
+          "diary": "4/22 正午。大時代的回聲從院牆外頭經過，四合院裡的日子依然一頓接一頓地過著。",
+          "end": "r2_quiet_courtyard"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "r2_market_thermos": {
+      "title": "晨市溫水與白籠布",
+      "text": "竹籃裡還留著一點白麵饅頭的熱香。那場凌晨的步行隊伍已經從西單早市旁走遠了，而巷口街坊湊出的幾鍋熱湯與乾糧，實實在在暖過了清冷的早晨。"
+    },
+    "r2_tended_nephew": {
+      "title": "貼好創可貼的早晨",
+      "text": "小軍坐在石凳上喝完一碗小米粥，腳後跟貼著醫務室剩的醫用白膠布。你能做的不多，只是用一雙當了半輩子護師的手，先把家裡這個年輕人看顧妥當。"
+    },
+    "r2_memorial_notes": {
+      "title": "分開記下的兩頁紙",
+      "text": "左頁是張大爺半導體裡播出的追悼會時間，右頁是早市上真假難辨的請願書傳聞。你合上本子，心裡更明白流言與實情之間隔著多少街口。"
+    },
+    "r2_quiet_courtyard": {
+      "title": "槐樹蔭下的菜籃",
+      "text": "日光把國槐葉影投在磚地上。紅門院大媽臨回海淀前說好有事互相捎話，四合院的安靜底下，大家都隱約覺得四月還沒這麼快平息。"
+    }
+  },
+  "epilogue": "1989 年 4 月 22 日上午，胡耀邦追悼大會在人民大會堂舉行；徹夜步行進城的學生在廣場聽取轉播，不少北京市民自發送水送糧。關於會後請願書是否有官員出面接收，各公開來源說法並存。接下來：四月二十六日至二十七日。",
+  "epilogueEvent": "1989-04-22-residents-support",
+  "evidenceCatalog": {
+    "r2_ev_market_support": {
+      "id": "r2_ev_market_support",
+      "kind": "witness",
+      "title": "早市街坊湊送饅頭溫水見聞",
+      "summary": "清晨六點多胡同早市與國營糧店外，幾位大媽與王姐湊出白麵饅頭與熱豆漿，交給經過西單的步行學生。",
+      "sourceLabel": "沈淑芬・早市見聞",
+      "dayKey": "1989-04-22",
+      "chapterId": "r-0422",
+      "event": "1989-04-22-residents-support",
+      "route": "resident",
+      "confidence": "testimony",
+      "tags": ["0422", "市民送水"]
+    },
+    "r2_ev_petition_rumor": {
+      "id": "r2_ev_petition_rumor",
+      "kind": "rumor",
+      "title": "街頭傳言：「會有官員出來接請願書」",
+      "summary": "早市與步行隊伍間流傳上午追悼會後將有官員出來收請願書；事後不同新聞與史料說法相左，當下無法確認。",
+      "sourceLabel": "遊戲虛構・街頭傳言",
+      "dayKey": "1989-04-22",
+      "chapterId": "r-0422",
+      "event": "1989-04-22-rumor-meeting",
+      "route": "resident",
+      "confidence": "uncertain",
+      "tags": ["0422", "傳言"]
+    },
+    "r2_ev_memorial_radio": {
+      "id": "r2_ev_memorial_radio",
+      "kind": "official_print",
+      "title": "追悼大會廣播轉播時間紀錄",
+      "summary": "張大爺半導體收音機播出人民大會堂於 4 月 22 日上午舉行胡耀邦追悼大會，廣場現場亦同步透過喇叭收聽。",
+      "sourceLabel": "中央台廣播實況",
+      "dayKey": "1989-04-22",
+      "chapterId": "r-0422",
+      "event": "1989-04-22-memorial-broadcast",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0422", "廣播"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "r2_pair_radio_rumor",
+      "cards": ["r2_ev_memorial_radio", "r2_ev_petition_rumor"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "官方廣播僅播報人民大會堂追悼大會儀式；會後是否有人出面接下請願書，現場傳言與不同公開來源說法彼此分歧。",
+      "diary": "比對 4/22 廣播紀錄與請願傳言：儀式本身有明確定時，會後接觸則眾說紛紜。",
+      "set": "r2_dossier_radio_rumor"
+    },
+    {
+      "id": "r2_pair_market_radio",
+      "cards": ["r2_ev_market_support", "r2_ev_memorial_radio"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "早市上市民清晨自發送出熱水饅頭的目擊，與追悼大會舉行前學生徹夜步行匯聚廣場的時序彼此吻合。",
+      "diary": "比對早市見聞與廣播時序，4/22 清晨學生步行與市民接應的脈絡完全銜接。",
+      "set": "r2_dossier_market_radio"
+    },
+    {
+      "id": "r2_pair_market_rumor",
+      "cards": ["r2_ev_market_support", "r2_ev_petition_rumor"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "市民在早市遞送水食並不能證明大會堂台階後的交涉細節，傳言尚缺獨立文獻旁證。",
+      "set": "r2_dossier_market_rumor"
+    }
+  ]
+}

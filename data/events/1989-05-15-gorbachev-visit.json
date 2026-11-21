@@ -1,0 +1,32 @@
+{
+  "id": "1989-05-15-gorbachev-visit",
+  "date": "1989-05-15",
+  "place": "北京首都機場・天安門廣場",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "戈巴契夫訪問北京，歡迎儀式改於機場舉行",
+    "en": "Gorbachev visits Beijing; welcoming ceremony moved to the airport"
+  },
+  "summary": {
+    "zh": "1989 年 5 月 15 日，蘇聯領導人戈巴契夫抵達北京，展開歷史性的中蘇關係正常化訪問。由於天安門廣場與長安街一帶聚滿絕食學生與聲援群眾，原定於人民大會堂東門外廣場舉行的正式歡迎儀式臨時改至北京首都機場舉行，大批駐京國際媒體亦將鏡頭轉向廣場現場。",
+    "en": "On 15 May 1989, Soviet leader Mikhail Gorbachev arrived in Beijing for a landmark Sino-Soviet summit. Because Tiananmen Square and Chang'an Avenue were packed with hunger strikers and supporters, the official welcoming ceremony was relocated from the Square to Beijing Airport, with international press focusing closely on the protests."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Hunger strikes begin",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Hunger_strikes_begin"
+    },
+    {
+      "title": "Tiananmen Square, 1989",
+      "publisher": "U.S. Department of State, Office of the Historian (Milestones)",
+      "url": "https://history.state.gov/milestones/1989-1992/tiananmen-square"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    }
+  ]
+}

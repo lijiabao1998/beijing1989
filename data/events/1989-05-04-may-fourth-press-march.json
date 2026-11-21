@@ -1,0 +1,32 @@
+{
+  "id": "1989-05-04-may-fourth-press-march",
+  "date": "1989-05-04",
+  "place": "北京長安街・天安門廣場",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "五四運動七十週年遊行：約五百名北京新聞工作者舉牌加入",
+    "en": "May Fourth 70th Anniversary march: roughly 500 Beijing journalists join with press-truth banners"
+  },
+  "summary": {
+    "zh": "1989 年 5 月 4 日適逢五四運動七十週年，北京多所高校學生再度遊行至天安門廣場集會並宣讀〈新五四宣言〉。當日尤為各界矚目的是約五百名來自北京主要報刊與新聞機構的記者及編輯首度公開列隊加入遊行，打出要求新聞自由與如實報導的橫幅（「新聞要說真話」等口號），反映媒體內部對社論定性與採編限制的不滿；同日部分高校亦一度宣布復課，局勢出現短暫緩和跡象。",
+    "en": "On 4 May 1989, the 70th anniversary of the May Fourth Movement, Beijing university students marched again to Tiananmen Square and read a 'New May Fourth Manifesto.' Notably, roughly 500 journalists and editors from major Beijing newspapers and news outlets marched publicly for the first time behind banners demanding press freedom and truthful reporting ('News must tell the truth'), signaling growing newsroom dissatisfaction with editorial restrictions, even as many campuses briefly moved toward resuming classes."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    },
+    {
+      "title": "Tiananmen Square, 1989: The Declassified History (Electronic Briefing Book No. 16)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB16/"
+    }
+  ]
+}
