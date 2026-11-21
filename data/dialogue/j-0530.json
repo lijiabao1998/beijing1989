@@ -1,0 +1,406 @@
+{
+  "chapter": "j-0530",
+  "title": "第七章　五月三十日，雨後與長鏡",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "changan_rain",
+  "spawn": {
+    "changan_rain": [-45, -86],
+    "beijing_hotel_balcony": [0, 0]
+  },
+  "labels": {
+    "changan_rain": "1989 年 5 月 30 日・午後・雨霽的長安街與廣場北側",
+    "beijing_hotel_balcony": "1989 年 5 月 30 日・黃昏・北京飯店十樓陽台"
+  },
+  "transitions": {
+    "beijing_hotel_balcony": "傍晚雲層低垂，你和小唐踩著積水穿過長安街東口，登上北京飯店十樓陽台換上 85mm 長焦鏡頭……"
+  },
+  "clockStart": 930,
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（顧明遠）",
+      "role": "29歲《首都晨報》市政記者",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "騎車送報經過長安街的老住戶",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立",
+      "role": "北大物理系學生",
+      "fictional": true
+    },
+    "tang": {
+      "name": "小唐",
+      "role": "實習攝影記者",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "j7_rain_avenue",
+      "scene": "changan_rain",
+      "pos": [-40, -87],
+      "label": "濕滑路面邊・孫大爺談五月二十三日大雨與疲局",
+      "start": "j7_rain_1",
+      "npc": "grey",
+      "kind": "inspect",
+      "timeWindow": [900, 1200],
+      "deadlineMin": 980
+    },
+    {
+      "id": "j7_rain_fatigue",
+      "scene": "changan_rain",
+      "pos": [8, -93],
+      "label": "廣場北口・陳立與留守去留之爭",
+      "start": "j7_fatigue_1",
+      "npc": "navy",
+      "kind": "dialogue",
+      "timeWindow": [900, 1200],
+      "deadlineMin": 1020,
+      "autoHint": true
+    },
+    {
+      "id": "j7_rain_vantage",
+      "scene": "changan_rain",
+      "pos": [0, -110],
+      "label": "旗杆南側積水地・小唐街面取景",
+      "start": "j7_vantage_1",
+      "npc": "khaki",
+      "kind": "photo_vantage",
+      "timeWindow": [900, 1220],
+      "deadlineMin": 1060
+    },
+    {
+      "id": "j7_rain_exit",
+      "scene": "changan_rain",
+      "pos": [40, -86],
+      "label": "趁暮色登上北京飯店十樓陽台",
+      "start": "j7_exit_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "j7_balcony_photo",
+      "scene": "beijing_hotel_balcony",
+      "pos": [1.2, -1.0],
+      "label": "陽台 85mm 長焦觀景・廣場北側白色雕像",
+      "start": "j7_balcony_1",
+      "npc": "khaki",
+      "kind": "photo_vantage",
+      "timeWindow": [930, 1340],
+      "deadlineMin": 1140,
+      "autoHint": true
+    },
+    {
+      "id": "j7_balcony_end",
+      "scene": "beijing_hotel_balcony",
+      "pos": [0, 5.2],
+      "label": "卸下底片卷入夜封存",
+      "start": "j7_end_1",
+      "kind": "portal",
+      "isExit": true
+    }
+  ],
+  "photoTargets": [
+    {
+      "id": "j7_pt_tiananmen_rain",
+      "scene": "changan_rain",
+      "pos3": [0, 12, -18.62],
+      "radius": 7,
+      "maxDist": 160,
+      "evidenceId": "j7_ev_photo_statue_street",
+      "label": "積水柏油路盡頭的天安門城樓",
+      "event": "1989-05-23-rainy-rallies-stalled"
+    },
+    {
+      "id": "j7_pt_balcony_statue",
+      "scene": "beijing_hotel_balcony",
+      "pos3": [-215, -10, -165],
+      "radius": 20,
+      "maxDist": 340,
+      "evidenceId": "j7_ev_photo_balcony_statue",
+      "label": "85mm 長焦鏡框下的廣場中軸與紀念碑白色視野",
+      "event": "1989-05-30-goddess-of-democracy"
+    },
+    {
+      "id": "j7_pt_balcony_gate",
+      "scene": "beijing_hotel_balcony",
+      "pos3": [-190, -14, -24],
+      "radius": 16,
+      "maxDist": 260,
+      "evidenceId": "j7_ev_photo_balcony_statue",
+      "label": "85mm 長焦遙望天安門與廣場北側暮色",
+      "event": "1989-05-30-goddess-of-democracy"
+    }
+  ],
+  "evidenceCatalog": {
+    "j7_ev_rain_chronicle": {
+      "id": "j7_ev_rain_chronicle",
+      "kind": "official_print",
+      "title": "五月下旬紀事：大雨遊行與畫像更換",
+      "summary": "五月二十三日大雨中遊行持續，當日下午城樓毛澤東畫像遭潑灑顏料並由學生糾察扭送警方、當晚迅速更換；此後帳篷濕冷困頓，市民日常買菜乘車亦益發疲憊。",
+      "sourceLabel": "市政新聞旬報抄件",
+      "dayKey": "1989-05-23",
+      "chapterId": "j-0530",
+      "event": "1989-05-23-rainy-rallies-stalled",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0523", "大雨", "疲局"]
+    },
+    "j7_ev_fatigue_witness": {
+      "id": "j7_ev_fatigue_witness",
+      "kind": "witness",
+      "title": "廣場留守與撤回校園之爭口述",
+      "summary": "五月二十七日曾議定於三十日撤場，翌日在外地學生與留守派反對下推翻；陳立談及北京本地學生多半疲憊返校，外地學生仍在湧入，兩難撕扯不斷。",
+      "sourceLabel": "陳立現場訪談",
+      "dayKey": "1989-05-28",
+      "chapterId": "j-0530",
+      "event": "1989-05-28-square-fatigue-debate",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0528", "分歧", "去留"]
+    },
+    "j7_ev_photo_statue_street": {
+      "id": "j7_ev_photo_statue_street",
+      "kind": "photo",
+      "title": "35mm 底片：雨後倒影中的長安街",
+      "summary": "低角度拍攝的濕滑路面與零散傘影，照出戒嚴第十日長街上既沉悶又僵持的街景氛圍。",
+      "sourceLabel": "長安街雨後底片",
+      "dayKey": "1989-05-30",
+      "chapterId": "j-0530",
+      "event": "1989-05-23-rainy-rallies-stalled",
+      "route": "journalist",
+      "confidence": "testimony",
+      "tags": ["0530", "底片", "雨景"]
+    },
+    "j7_ev_photo_balcony_statue": {
+      "id": "j7_ev_photo_balcony_statue",
+      "kind": "photo",
+      "title": "85mm 長焦底片：五月三十日白色石膏雕像",
+      "summary": "中央美院等校學生連夜於廣場北側腳手架上拼裝豎起約十公尺高的白色石膏雕像，成為五月末吸引眾人圍觀的視覺焦點；而旁邊舊帳篷已顯得破敗疲憊。",
+      "sourceLabel": "十樓陽台 85mm 底片",
+      "dayKey": "1989-05-30",
+      "chapterId": "j-0530",
+      "event": "1989-05-30-goddess-of-democracy",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0530", "雕像", "長焦"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "j7_pair_statue_fatigue",
+      "cards": ["j7_ev_photo_balcony_statue", "j7_ev_fatigue_witness"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "長焦鏡頭下的白色石膏雕像看似高大振奮，但營地內部訪談卻反映出嚴重疲態、本地生撤返與去留撕裂，兩層畫面截然不同。",
+      "diary": "遠處看雕像格外醒目，走近聽說話卻滿是疲累與爭吵——五月底的廣場正是這樣雙面並存。"
+    },
+    {
+      "id": "j7_pair_rain_street",
+      "cards": ["j7_ev_rain_chronicle", "j7_ev_photo_statue_street"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "五月二十三日大雨以來的泥濘疲局紀錄，與街面積水底片裡寥落而濕冷的長安街景互相吻合。",
+      "diary": "從五月二十三日那場大雨之後，這座城的地面與人心似乎一直沒乾透。"
+    },
+    {
+      "id": "j7_pair_rain_statue",
+      "cards": ["j7_ev_rain_chronicle", "j7_ev_photo_balcony_statue"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "二十三日畫像更換事件與三十日雕像豎立屬於不同時段的不同節點，彼此僅能並列為五月下旬的時序刻度。"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 30 日，星期二，午後三點半。戒嚴進入第十天，連日幾陣雨把長安街柏油路洗得泛青。五月二十三日大雨遊行過後，運動和市民日常都陷入拉鋸般的疲憊；然而就在今天清晨，美院學生在廣場北側豎起了一尊十公尺高的白色石膏雕像。",
+      "event": "1989-05-23-rainy-rallies-stalled",
+      "variants": [
+        {
+          "requires": "world:xr:rumor_0520_subway_verified",
+          "text": "1989 年 5 月 30 日午後。自五月二十日夜你在西單地鐵口劃清傳聞界線後，又過了十天濕冷拉鋸的日子。雨剛停歇，聽說廣場北邊清晨豎起一尊白色石膏雕像，你趕往積水未乾的長安街察看。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "踩著長安街積水往天安門北側走去",
+          "diary": "5/30 雨霽午後。戒嚴第十天，廣場上舊帳篷疲憊不堪，北側卻立起了十公尺高的白色石膏雕像。",
+          "timeCost": 10
+        }
+      ]
+    },
+    "j7_rain_1": {
+      "speaker": "sun",
+      "text": "顧記者！您鞋襪也濕透了吧？打二十三號那場大雨以後，這街上就沒一天清爽過——那天下午還出過城樓畫像被潑顏料的事，學生糾察自個兒扭送人交給警方，當晚便換上了新的。可這幾天買報紙的人少了一半，大家都累得只問明早公交正常不。",
+      "event": "1989-05-23-rainy-rallies-stalled",
+      "choices": [
+        {
+          "text": "記下五月二十三日大雨、畫像更換細節及市民普遍的疲倦情緒",
+          "evidence": "j7_ev_rain_chronicle",
+          "set": "j7_rain_notes",
+          "rel": { "sun": 1 },
+          "diary": "孫大爺說自五月二十三日大雨與畫像事件後，街坊只盼著生活早日歸於平穩。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "問大爺這幾天附近胡同米麵供應可還順暢",
+          "evidence": "j7_ev_rain_chronicle",
+          "set": "j7_rain_notes",
+          "timeCost": 15
+        }
+      ]
+    },
+    "j7_fatigue_1": {
+      "speaker": "chen",
+      "text": "顧記者，我正準備推車回海淀呢。前天聯席會議本來提出五月三十日全體撤回校園，結果昨天又在留守派和新來的外地同學反對下推翻了。北京這幾所學校認識的同學走了大半，剩下來還在篷裡撐著的人，白天曬夜晚潮，其實個個都精疲力竭。",
+      "event": "1989-05-28-square-fatigue-debate",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_returned",
+          "text": "顧記者！剛才我在半路順道把機床廠王師傅的大紅殼暖壺送還了，壺底貼著「謝謝」字條。這會兒廣場上爭撤還是留爭得不可開交——前天本來講好三十號撤，昨天又翻了盤。好些北京學生都疲憊返校了，只剩外地剛下火車的同學還想繼續撐下去。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "如實記下五月二十七至二十八日撤離方案被推翻的來龍去脈與兩難心境",
+          "evidence": "j7_ev_fatigue_witness",
+          "set": "j7_fatigue_recorded",
+          "rel": { "chen": 1 },
+          "diary": "訪談北大學生陳立：本地學生疲態日深，外地聲援者不斷進場，撤離決定於五月二十八日被推翻。",
+          "timeCost": 25,
+          "autoHint": true
+        },
+        {
+          "text": "叮囑陳立路上留神，今晚早些回北大宿舍歇著",
+          "evidence": "j7_ev_fatigue_witness",
+          "set": "j7_fatigue_recorded",
+          "rel": { "chen": 1 },
+          "timeCost": 15
+        }
+      ]
+    },
+    "j7_vantage_1": {
+      "speaker": "tang",
+      "text": "顧老師，您看積水倒映著城樓和前面旗杆——五月下半旬這股冷清又拗著勁的模樣，蹲下來用 35mm 廣角拍最清楚。一會兒我們得趕在天黑前上北京飯店陽台，換 85mm 長焦把北側那尊新立起來的白色石膏雕像拍清楚。",
+      "event": "1989-05-23-rainy-rallies-stalled",
+      "choices": [
+        {
+          "text": "蹲在積水邊拍下長安街濕冷倒影（按 F 可自定取景）",
+          "evidence": "j7_ev_photo_statue_street",
+          "rel": { "tang": 1 },
+          "mechanic": "viewfinder",
+          "modeOverride": "camera_walk",
+          "diary": "低角度底片收下了長安街雨後的積水與傘影，空氣裡透著漫長對峙的倦意。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "收起傘跟著小唐直接往北京飯店東門走去",
+          "evidence": "j7_ev_photo_statue_street",
+          "modeOverride": "camera_walk",
+          "timeCost": 10
+        }
+      ]
+    },
+    "j7_exit_1": {
+      "speaker": "narr",
+      "text": "暮色把長安街邊的楊樹葉子染成深青色，各色相機與腳架再度在十樓陽台邊架了起來。",
+      "choices": [
+        {
+          "text": "登上北京飯店十樓陽台",
+          "goto": "beijing_hotel_balcony",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "擦乾鏡頭鏡片上的水珠",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j7_balcony_1": {
+      "speaker": "tang",
+      "text": "顧老師，85mm 鏡頭擰緊了。透過取景框往西南看過去，中央美院等校連夜豎起的那尊十公尺白色石膏像正對著城樓立著，周圍圍了好多市民和外國記者。可是往下看那幾十排舊帳篷，已經比半個月前少了一大半人影。",
+      "event": "1989-05-30-goddess-of-democracy",
+      "choices": [
+        {
+          "text": "用 85mm 長焦拍下白色石膏雕像與四周漸疏的帳篷對比（按 F 取景）",
+          "evidence": "j7_ev_photo_balcony_statue",
+          "set": "j7_telephoto_done",
+          "rel": { "tang": 1 },
+          "mechanic": "viewfinder",
+          "modeOverride": "camera_walk",
+          "diary": "5/30 黃昏。透過 85mm 長焦鏡頭拍下廣場北側十公尺白色石膏像，以及底下一排排褪色稀疏的舊帆布棚。",
+          "timeCost": 30,
+          "autoHint": true
+        },
+        {
+          "text": "只寫下雕像落成時間與位置，將還沒剩幾張的膠捲留待六月初",
+          "evidence": "j7_ev_photo_balcony_statue",
+          "set": "j7_telephoto_done",
+          "timeCost": 15
+        }
+      ]
+    },
+    "j7_end_1": {
+      "speaker": "narr",
+      "text": "華燈初上，長安街上的華燈把廣場北側染成昏黃。你卸下相機裡最後一格膠捲，放進黑色塑料片盒裡蓋緊。",
+      "choices": [
+        {
+          "text": "把 85mm 長焦與雨街膠捲一併收妥，準備夜裡進暗房顯影",
+          "requires": "j7_telephoto_done",
+          "diary": "5/30 夜。白色雕像在暮色聚光燈下格外耀眼，卻也像五月最後的句點。",
+          "end": "telephoto_contact"
+        },
+        {
+          "text": "把雨水浸皺的採訪筆記壓在字典底下晾乾",
+          "requires": "j7_rain_notes",
+          "diary": "筆記本紙角被雨水泡出波浪，上面寫著五月二十三日以來城市的倦態。",
+          "end": "wet_shoes_notes"
+        },
+        {
+          "text": "整理好留守派與返校派的兩端紀錄，存為五月末專題背景",
+          "requires": "j7_fatigue_recorded",
+          "diary": "紀錄下五月底廣場的兩難：疲憊的想要回家，剛到的還想堅持。",
+          "end": "retreat_debate_record"
+        },
+        {
+          "text": "將貼了日期標籤的底片筒揣回口袋，在入夜前離開飯店",
+          "diary": "五月在疲憊與雕像的強光裡過去了，誰也沒說準六月將至的風向。",
+          "end": "unprinted_proof_roll"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "telephoto_contact": {
+      "title": "85mm 長焦下的五月三十日",
+      "text": "長鏡頭拉近了十公尺高的白色石膏像，也同時拍出了下方空出一半的帳篷群。回到暗房後，你盯著接觸印樣久久沒動手裁片。"
+    },
+    "wet_shoes_notes": {
+      "title": "被雨水浸皺的筆記本",
+      "text": "晾乾的筆記頁略微起皺，從五月二十三日的大雨到三十日暮色，字跡越來越短，只剩日期、時間、天氣與受訪者嘆息的句尾。"
+    },
+    "retreat_debate_record": {
+      "title": "去留之間的五月盡頭",
+      "text": "你把「五月二十七日提出撤離」和「二十八日推翻決定」前後兩段截然不同的會議紀錄並排放在同頁活頁紙上，見證了一場運動在五月尾聲的真實撕扯。"
+    },
+    "unprinted_proof_roll": {
+      "title": "待沖洗的膠捲",
+      "text": "黑色片盒靜靜躺在風衣口袋裡。你還不知道，幾天後的夜晚會讓這卷剛拍完的五月底片，與六月初的膠捲一起鎖進一隻餅乾鐵盒裡。"
+    }
+  },
+  "epilogue": "五月下旬在連日風雨、疲憊與撤離爭論中度過；五月三十日廣場北側豎起十公尺高的白色石膏雕像，成為五月底最顯眼的標誌。下一章：六月三日夜至五日，底片鐵盒（尾聲）。",
+  "epilogueEvent": "1989-05-30-goddess-of-democracy"
+}

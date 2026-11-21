@@ -8,7 +8,9 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
     "validate": "node tests/validate-data.mjs",
-    "smoke": "node tests/smoke.mjs"
+    "smoke": "node tests/smoke.mjs",
+    "smoke:render": "node tests/smoke.mjs --shard=render",
+    "smoke:route": "node tests/smoke.mjs --shard=routes"
   },
   "dependencies": { "three": "^0.170.0" },
   "devDependencies": {

@@ -1,0 +1,670 @@
+{
+  "chapter": "w3-0520",
+  "title": "第四章　五月十九日夜至二十日",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "factory",
+  "spawn": {
+    "factory": [0, 12],
+    "blockade": [-22, -5],
+    "changan": [-30, -86]
+  },
+  "labels": {
+    "factory": "1989 年 5 月 19 日・夜・北京第二機床廠一車間",
+    "blockade": "1989 年 5 月 20 日・凌晨・西單無軌電車路障路口",
+    "changan": "1989 年 5 月 20 日・清晨・長安街"
+  },
+  "transitions": {
+    "blockade": "跨上平板三輪車出廠門，後半夜的街口燈火通明，幾輛雙節無軌電車正橫停在路當中……",
+    "changan": "天色將明，你推車繞過橫在路口的電車，沿空闊的長安街往東走去……"
+  },
+  "start": "intro",
+  "evidenceCatalog": {
+    "ev_w3_martial_notice": {
+      "id": "ev_w3_martial_notice",
+      "kind": "official_print",
+      "title": "一車間廣播戒嚴通告時點紀錄",
+      "summary": "五月十九日深夜至二十日凌晨，車間高音喇叭播出北京部分地區實施戒嚴通告。",
+      "sourceLabel": "機床廠夜班聽聞",
+      "dayKey": "1989-05-20",
+      "chapterId": "w3-0520",
+      "event": "1989-05-20-martial-law",
+      "route": "worker",
+      "confidence": "documented",
+      "tags": ["戒嚴令", "官方廣播"]
+    },
+    "ev_w3_subway_rumor": {
+      "id": "ev_w3_subway_rumor",
+      "kind": "rumor",
+      "title": "小賣部旁流言：「地鐵拉閘並於隧道藏兵」",
+      "summary": "小劉去小賣部買電池時從電話亭排隊人口中聽來的傳言，誰也未親眼進站核對。",
+      "sourceLabel": "街角電話亭傳聞",
+      "dayKey": "1989-05-20",
+      "chapterId": "w3-0520",
+      "event": "1989-05-20-rumor-subway-troops",
+      "route": "worker",
+      "confidence": "uncertain",
+      "tags": ["地鐵傳言", "未經核實"]
+    },
+    "ev_w3_picket_soldiers": {
+      "id": "ev_w3_picket_soldiers",
+      "kind": "witness",
+      "title": "西單無軌電車路障與給戰士遞水實況",
+      "summary": "司機老張與工友將雙節電車橫停路口，六里橋與公主墳一帶街坊給車上年輕戰士遞水、饅頭和晚報，彼此平和說話。",
+      "sourceLabel": "司機老張・胡同大媽口述",
+      "dayKey": "1989-05-20",
+      "chapterId": "w3-0520",
+      "event": "1989-05-20-workers-picket-and-soldiers",
+      "route": "worker",
+      "confidence": "documented",
+      "tags": ["無軌電車路障", "軍民遞水"]
+    },
+    "ev_w3_repair_check": {
+      "id": "ev_w3_repair_check",
+      "kind": "witness",
+      "title": "長安街清晨修車攤與三環路況查證",
+      "summary": "修車老師傅轉述西三環與豐台路口車隊停在三四環外由街坊照看，並指出地鐵隧道藏兵之說多屬瞎傳。",
+      "sourceLabel": "長安街修車攤老師傅",
+      "dayKey": "1989-05-20",
+      "chapterId": "w3-0520",
+      "event": "1989-05-20-citizens-block-convoys",
+      "route": "worker",
+      "confidence": "testimony",
+      "tags": ["路況核實", "地鐵傳言"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "pair_w3_subway_vs_repair",
+      "cards": ["ev_w3_subway_rumor", "ev_w3_repair_check"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "小賣部排隊傳言稱地鐵隧道裡已有部隊待命，但長安街清晨修車老師傅確認部隊車隊停於三、四環大路口外圍，隧道藏兵缺乏目擊依據。",
+      "diary": "把小劉聽來的地鐵傳言拿去對比修車師傅打西三環問來的實情，才清楚多半是猜測。"
+    },
+    {
+      "id": "pair_w3_notice_and_picket",
+      "cards": ["ev_w3_martial_notice", "ev_w3_picket_soldiers"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "夜班車間廣播戒嚴令與隨後城西無軌電車停擺、市民給進城部隊遞水對話的時間線完全吻合。",
+      "diary": "夜班停機聽到戒嚴廣播，出門就撞上橫停的雙節電車與遞水的人。"
+    }
+  ],
+  "characters": {
+    "me": {
+      "name": "我（王建國）",
+      "role": "北京第二機床廠五級車工（俗稱王師傅）",
+      "fictional": true
+    },
+    "zhao": {
+      "name": "老趙",
+      "role": "車間帶班老師傅",
+      "fictional": true
+    },
+    "liu": {
+      "name": "小劉",
+      "role": "機床廠青年學徒，愛抄詩和剪報",
+      "fictional": true
+    },
+    "driver": {
+      "name": "老張（電車司機）",
+      "role": "城西無軌電車駕駛員",
+      "fictional": true
+    },
+    "auntie": {
+      "name": "端茶缸的大媽",
+      "role": "西單路口附近胡同住戶",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立（北大男生）",
+      "role": "北大物理系二年級學生（第一篇主角的交叉視角人物）",
+      "fictional": true
+    },
+    "repairer": {
+      "name": "修車的老師傅",
+      "role": "長安街邊擺攤修自行車",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "w4lathe",
+      "scene": "factory",
+      "pos": [-11, -4],
+      "label": "一車間車床・老趙",
+      "start": "w4zhao_1",
+      "npc": "blue"
+    },
+    {
+      "id": "w4locker",
+      "scene": "factory",
+      "pos": [0, 6],
+      "label": "更衣櫃旁・學徒小劉",
+      "start": "w4liu_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "w4board",
+      "scene": "factory",
+      "pos": [10, -12],
+      "label": "車間黑板報與廣播",
+      "start": "w4board_1"
+    },
+    {
+      "id": "w4gate",
+      "scene": "factory",
+      "pos": [0, -18],
+      "label": "機床廠大門",
+      "start": "w4gate_1",
+      "isExit": true
+    },
+    {
+      "id": "w4driver",
+      "scene": "blockade",
+      "pos": [-4, -7],
+      "label": "無軌電車旁的司機老張",
+      "start": "w4driver_1",
+      "npc": "blue"
+    },
+    {
+      "id": "w4auntie",
+      "scene": "blockade",
+      "pos": [8, -5],
+      "label": "端茶缸的大媽",
+      "start": "w4auntie_1",
+      "npc": "red"
+    },
+    {
+      "id": "w4chen",
+      "scene": "blockade",
+      "pos": [-15, 1],
+      "label": "夜色裡的陳立（北大男生）",
+      "start": "w4chen_1",
+      "npc": "navy"
+    },
+    {
+      "id": "w4east",
+      "scene": "blockade",
+      "pos": [28, -9],
+      "label": "往東上長安街",
+      "start": "w4east_1",
+      "isExit": true
+    },
+    {
+      "id": "w4tam",
+      "scene": "changan",
+      "pos": [10, -80],
+      "label": "天安門前空闊的大街",
+      "start": "w4tam_1"
+    },
+    {
+      "id": "w4repair",
+      "scene": "changan",
+      "pos": [-40, -87],
+      "label": "修車攤老師傅",
+      "start": "w4repair_1",
+      "npc": "grey"
+    },
+    {
+      "id": "w4workers",
+      "scene": "changan",
+      "pos": [6, -92],
+      "label": "騎車趕早班的工友",
+      "start": "w4workers_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "w4leave",
+      "scene": "changan",
+      "pos": [0, -78],
+      "label": "天色大亮・路口去向",
+      "start": "w4leave_1",
+      "isExit": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 19 日，星期五，夜。這兩天剛經歷過五月十七、十八日各廠礦單位上百萬市民與工人走上街頭的大遊行，一車間今晚總算靜了些。晚上九點多收音機播報廣場宣布停止絕食改為靜坐；可剛過十點，車間頭頂的喇叭忽然沙沙響起來——北京部分地區將宣布重要決定，街頭已經傳開公交和地鐵要停運。",
+      "event": "1989-05-19-hunger-strike-ends",
+      "variants": [
+        {
+          "requires": "w2:end:lent_thermos",
+          "text": "1989 年 5 月 19 日，夜。五天前借出去的大紅殼暖壺還在廣場那頭，這兩天咱們機床廠和周邊單位的工友剛跟著市民一起上街聲援。晚上九點多廣播裡說廣場停止絕食，大夥兒還沒來得及喘口氣，午夜前後收音機卻突然傳來消息：市裡要實施戒嚴，西郊外頭有車隊往城邊開來。"
+        },
+        {
+          "requires": "w2:end:mung_bean_soup",
+          "text": "1989 年 5 月 19 日，夜。自從五月十五日推著兩大桶綠豆湯去廣場東側分完回來，車間裡每天都在唸叨學生們撐得太苦。今晚九點多廣場剛宣布停止絕食，誰料才過兩個鐘頭，廠裡值班室的電話與短波收音機同時傳開：今晚宣布戒嚴，多條公交馬上停開。"
+        },
+        {
+          "requires": "w2:end:medical_aid",
+          "text": "1989 年 5 月 19 日，夜。這兩天廠裡不少年輕工友才剛參加完十七日聲援大遊行，今晚夜班收音機裡先傳出停止絕食的消息，緊接著午夜前又驟然傳來戒嚴風聲與地鐵停運的消息。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "關掉車床總閘，擦淨手上的切削油聽清消息",
+          "diary": "5/19 夜班。廣場剛宣布停止絕食，後半夜突然傳來戒嚴與公交停運的消息。"
+        }
+      ]
+    },
+    "w4zhao_1": {
+      "speaker": "zhao",
+      "text": "建國，剛才調度室來話了，市裡無軌電車怕是前半夜就要停擺，明早咱們廠早班職工好多住城南城西，還不知道怎麼過路口。前天十七號咱們車間好些人還跟著大隊往長安街走了一趟，轉眼這局勢就繃緊成這樣。",
+      "event": "1989-05-17-worker-citizen-rallies",
+      "variants": [
+        {
+          "requires": "rel:zhao>=1",
+          "text": "建國，你把手裡的卡尺收進抽屜吧。十七號咱們一塊兒在長安街邊看著各廠礦的橫幅過去，心裡還盼著早日對話收場；剛才廣播裡說要實行戒嚴，外頭西三環那邊已經有居民和下夜班的工人站到馬路當中去了。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "跟老趙商量，把車間裡的應急手電和鐵壺檢查一遍",
+          "rel": {
+            "zhao": 1
+          },
+          "set": "wk_checked_tools",
+          "diary": "和老趙收拾好車床量具。老趙擔心明早住得遠的工友沒車坐，叮囑路上留神。",
+          "next": "w4zhao_2"
+        },
+        {
+          "text": "問老趙怎麼看今晚突然宣布戒嚴",
+          "next": "w4zhao_3"
+        }
+      ]
+    },
+    "w4zhao_2": {
+      "speaker": "zhao",
+      "text": "對，手電裝上兩節大號電池。你騎平板三輪出去看看巷口和西單那邊通不通，別往人堆最擠的地方硬鑽，明早還得看大夥兒能不能正常出勤。",
+      "choices": [
+        {
+          "text": "明白，我看清路口狀況就回來通報"
+        }
+      ]
+    },
+    "w4zhao_3": {
+      "speaker": "zhao",
+      "text": "咱們幹了一輩子車工，只希望街面上平平安安，別出亂子。學生和當兵的都是誰家的孩子，這大晚上的誰也不容易。",
+      "event": "1989-05-20-martial-law",
+      "choices": [
+        {
+          "text": "點頭記下老趙的話"
+        }
+      ]
+    },
+    "w4liu_1": {
+      "speaker": "liu",
+      "text": "王師傅！剛才我跑去小賣部買電池，聽門口排隊打電話的人壓低聲音說——地鐵已經拉閘停運了，還有人傳說地鐵隧道裡已經有部隊待命。是真的嗎？",
+      "event": "1989-05-20-rumor-subway-troops",
+      "variants": [
+        {
+          "requires": "wk_liu_clippings",
+          "text": "王師傅！我這兩天又把廠報和街頭訊息剪了兩頁夾進筆記本裡，可剛才去小賣部買電池，聽門口排隊打電話的人壓低聲音說——地鐵已經拉閘停運了，還有人傳說地鐵隧道裡已經有部隊待命。這是真的嗎？"
+        }
+      ],
+      "choices": [
+        {
+          "text": "叮囑小劉別把沒親眼看見的話亂傳，先回院裡守著家裡人",
+          "rel": {
+            "liu": 1
+          },
+          "set": "wk_subway_rumor",
+          "evidence": "ev_w3_subway_rumor",
+          "autoHint": true,
+          "diary": "小劉聽見街面傳言地鐵隧道藏兵；我囑咐他「沒親眼見到的別亂傳」，讓他早些回宿舍。",
+          "next": "w4liu_2"
+        },
+        {
+          "text": "向小劉借過手電筒，說自己騎車出門去西邊路口瞧瞧實情",
+          "set": "wk_subway_rumor",
+          "next": "w4liu_3"
+        }
+      ]
+    },
+    "w4liu_2": {
+      "speaker": "liu",
+      "text": "知道啦師傅，我把剪報本夾進飯盒袋裡就回單身宿舍去。您出去騎慢點，這隻手電筒您先拿著。",
+      "item": "flashlight",
+      "choices": [
+        {
+          "text": "接過手電筒，拍拍他肩膀",
+          "keepsake": "flashlight",
+          "autoHint": true
+        }
+      ]
+    },
+    "w4liu_3": {
+      "speaker": "liu",
+      "text": "行，車棚裡三輪車胎我傍晚剛給打足了氣，您騎著輕快。",
+      "choices": [
+        {
+          "text": "謝謝小劉"
+        }
+      ]
+    },
+    "w4board_1": {
+      "speaker": "narr",
+      "text": "一車間黑板報上還寫著「抓品質・保安全・五月產值衝刺」的粉筆字；旁邊收音機裡正在重複播報北京部分地區實施戒嚴的通告。幾位下夜班的師傅披上藍布工作服，默默站在黑板底下聽完最後一句。",
+      "event": "1989-05-20-martial-law",
+      "choices": [
+        {
+          "text": "記下廣播發布的時間與戒嚴範圍",
+          "evidence": "ev_w3_martial_notice",
+          "autoHint": true,
+          "diary": "5/19 深夜至 5/20 凌晨。車間收音機播出北京部分地區實行戒嚴的通告。"
+        },
+        {
+          "text": "轉身往廠大門走"
+        }
+      ]
+    },
+    "w4gate_1": {
+      "speaker": "narr",
+      "text": "北京第二機床廠的鐵伸縮門半開著，門房老頭兒正往外面大街張望。馬路上已經沒了往常末班車的鈴聲，卻有不少推著自行車的街坊急匆匆往西單和公主墳方向去。",
+      "choices": [
+        {
+          "text": "騎上平板三輪出廠門，往城西主要路口看看",
+          "goto": "blockade",
+          "autoHint": true
+        },
+        {
+          "text": "再在廠門口等一會兒"
+        }
+      ]
+    },
+    "w4driver_1": {
+      "speaker": "driver",
+      "text": "老王，是你呀！這兩輛雙節大通道無軌電車是我剛才跟前頭幾位老師傅商量完，一塊兒橫停在路口當中的。鑰匙都拔下來揣兜裡了。剛從公主墳、六里橋那邊回來的人說，好幾個大路口全是咱們各廠礦工人和街坊，攔著進城卡車跟車斗裡的小戰士說話呢。",
+      "event": "1989-05-20-citizens-block-convoys",
+      "choices": [
+        {
+          "text": "問老張那些被攔住的車隊與年輕士兵現在怎麼樣了",
+          "set": "wk_barricade_watch",
+          "rel": {
+            "driver": 1
+          },
+          "diary": "在無軌電車橫停的路口遇到司機老張。他說從六里橋到公主墳，工人和市民都在馬路上勸說進城車隊。",
+          "next": "w4driver_2"
+        },
+        {
+          "text": "陪老張站在電車陰影裡照看路口秩序",
+          "set": "wk_barricade_watch",
+          "rel": {
+            "driver": 1
+          },
+          "next": "w4driver_3"
+        }
+      ]
+    },
+    "w4driver_2": {
+      "speaker": "driver",
+      "text": "誰也沒動粗！那幫剛入伍的小伙子好多是外地農村來的，坐在卡車斗裡連北京怎麼回事都不知道。咱們車隊的工人給他們遞去暖壺熱水、剛出籠的饅頭，還有當天晚報，一個挨一個拉家常。車上好些戰士接過水缸子直道謝。",
+      "event": "1989-05-20-workers-picket-and-soldiers",
+      "choices": [
+        {
+          "text": "把這幕實情記在心裡",
+          "evidence": "ev_w3_picket_soldiers",
+          "autoHint": true,
+          "diary": "聽老張說，在西邊路口被攔住的軍車旁，工人與街坊給年輕士兵遞水、送饅頭與報紙，彼此說話平和。"
+        }
+      ]
+    },
+    "w4driver_3": {
+      "speaker": "driver",
+      "text": "行，你把三輪車靠邊停好。咱們守在這兒提醒騎車的人減速繞行，別蹭著橫停的電車和電線。",
+      "choices": [
+        {
+          "text": "好，我幫你看著東邊來車"
+        }
+      ]
+    },
+    "w4auntie_1": {
+      "speaker": "auntie",
+      "text": "王師傅吧？你們一車間幾位老師傅平時總從這胡同口過！來，這兩個熱雞蛋和半茶缸白開水拿著暖手。剛才我兒子推著小車往公主墳那邊給攔在路上的戰士和司機們也送了一趟水去，這麼涼的後半夜，誰站在馬路上都凍得慌。",
+      "event": "1989-05-20-workers-picket-and-soldiers",
+      "choices": [
+        {
+          "text": "幫大媽把保溫桶搬上三輪車斗，一道給路口的司機和街坊分熱水",
+          "set": "wk_tea_soldiers",
+          "evidence": "ev_w3_picket_soldiers",
+          "rel": {
+            "auntie": 1
+          },
+          "autoHint": true,
+          "diary": "胡同大媽端出茶缸、熱水和煮雞蛋。街坊們分頭給路口的工人、學生和車隊戰士送水。",
+          "next": "w4auntie_2"
+        },
+        {
+          "text": "謝過大媽，問她附近公用電話亭排隊的人都在說什麼",
+          "next": "w4auntie_3"
+        }
+      ]
+    },
+    "w4auntie_2": {
+      "speaker": "auntie",
+      "text": "對，你車斗平穩，放那兒大夥兒自己倒。不管是穿工裝的、背書包的，還是穿軍裝的小伙子，夜裡喝口熱水總比乾熬強。",
+      "choices": [
+        {
+          "text": "嗯，我替您看著水桶"
+        }
+      ]
+    },
+    "w4auntie_3": {
+      "speaker": "auntie",
+      "text": "都急著給家裡報平安唄。還有人在電話亭前邊傳地鐵裡頭藏了兵，我活了六十歲，沒親眼看見的事兒從不往耳朵裡裝。",
+      "variants": [
+        {
+          "requires": "world:xr:rumor_0520_subway_verified",
+          "text": "都急著給家裡報平安唄。剛才有個晨報記者順著西單路口往地鐵口核實完了回來，說門閘鎖得好好的、壓根沒有人進站藏兵，省得街坊瞎提心吊膽。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "大媽說得實在"
+        }
+      ]
+    },
+    "w4chen_1": {
+      "speaker": "chen",
+      "text": "王師傅！這後半夜您也騎著三輪車出來了？剛才電話亭前頭排隊的人都在傳地鐵已經停運、隧道裡可能有部隊待命。我從海淀騎過來的時候，一路看見各路口都有市民出來。",
+      "event": "1989-05-20-rumor-subway-troops",
+      "variants": [
+        {
+          "requires": "w2:end:lent_thermos",
+          "text": "王師傅！這不是五月十五那天在廣場借給我們大紅殼暖壺的王師傅嗎？那隻壺還好好收在同學那兒呢。這半夜您在電車旁守著呀？剛才六里橋那邊怎麼樣了？"
+        },
+        {
+          "requires": "wk_chen_pushed",
+          "text": "王師傅！這後半夜您也騎著平板三輪出來啦？五月十三號在海淀斜坡上幫您推車把的事我還記著呢！剛才前面路口橫停了兩輛雙節電車，電話亭前頭都在傳地鐵停運、隧道裡可能有部隊待命。"
+        },
+        {
+          "requires": "rel:chen>=1",
+          "text": "王師傅！又碰見您了。前幾天在海淀路上多謝您照應。剛才我在公用電話亭前打完電話報平安，就看見前面這兩輛雙節電車橫過來了。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "讓陳立往後站站，告訴他六里橋那頭都是街坊和工人給戰士遞水、沒人動手",
+          "set": "wk_saw_chen",
+          "rel": {
+            "chen": 1
+          },
+          "diary": "凌晨在無軌電車路障旁又遇見北大男生陳立。我讓他站到亮堂處，別瞎聽地鐵裡的傳言。",
+          "next": "w4chen_2"
+        },
+        {
+          "text": "叮囑他要是去廣場看同學，記得靠邊騎車、天亮前早些回校",
+          "set": "wk_saw_chen",
+          "rel": {
+            "chen": 1
+          },
+          "next": "w4chen_3"
+        }
+      ]
+    },
+    "w4chen_2": {
+      "speaker": "chen",
+      "text": "原來是這樣，那我就放心多了。王師傅，那隻空水桶我幫您扶著，先陪大夥兒在路口亮堂處站一會兒。",
+      "choices": [
+        {
+          "text": "好小伙子，自己注意保暖"
+        }
+      ]
+    },
+    "w4chen_3": {
+      "speaker": "chen",
+      "text": "謝謝王師傅！我過一會兒往東走看看林小梅她們，天亮透了我就騎回海淀。",
+      "choices": [
+        {
+          "text": "路上留神，有事招呼一聲"
+        }
+      ]
+    },
+    "w4east_1": {
+      "speaker": "narr",
+      "text": "東方已經透出一層魚肚白。橫停的雙節無軌電車後面，是難得沒有公交車駛過的寬闊長安街。不少騎二八自行車上班的市民，正沿著護欄外頭慢慢往東騎。",
+      "choices": [
+        {
+          "text": "推三輪車繞過路障，上長安街看一看早上的路況",
+          "goto": "changan",
+          "autoHint": true
+        },
+        {
+          "text": "再在路口站一會兒"
+        }
+      ]
+    },
+    "w4tam_1": {
+      "speaker": "narr",
+      "text": "五月二十日清晨的長安街安靜得有些不尋常。沒有無軌電車的鈴聲，紅牆黃瓦下只有一行行緩緩騎過的自行車。許多趕早班的工人踩著踏板互相打聽哪個廠還在正常開工。",
+      "event": "1989-05-20-martial-law",
+      "choices": [
+        {
+          "text": "沿自行車道慢慢往西側修車攤那邊溜一圈",
+          "diary": "清晨的長安街少了電車鈴聲，只有自行車鈴聲叮叮噹噹響成一片。"
+        },
+        {
+          "text": "看清路況後繼續往前"
+        }
+      ]
+    },
+    "w4repair_1": {
+      "speaker": "repairer",
+      "text": "老哥，這麼早就踩著平板三輪出來啦？今兒早上打氣補胎的全是夜裡沒合眼的人。剛才幾個打西三環、豐台那邊過來的小伙子跟我說，軍車都停在三環四環幾個大路口外頭，街坊正圍著給遞冰棍兒、聊家常呢；至於地鐵裡頭有沒有藏兵，我估摸著十有八九是瞎傳。",
+      "event": "1989-05-20-citizens-block-convoys",
+      "variants": [
+        {
+          "requires": "world:xr:rumor_0520_subway_verified",
+          "text": "老哥，這麼早就踩三輪出來啦？剛才有個《首都晨報》的記者來打氣，說他把西單和木樨地地鐵口全轉了一遍：站口鐵門鎖著斷了電，壓根沒見什麼隧道藏兵，車隊全在三環四環大路口外頭停著呢。"
+        },
+        {
+          "requires": "world:xr:rumor_0520_subway_panic",
+          "text": "老哥，這麼早就踩三輪出來啦？今天清早補胎的人個個都在問電話亭前傳的「地鐵隧道藏兵」，其實車隊全停在三環四環路口外頭，街坊正給戰士遞水呢。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "請老師傅幫忙把三輪車後胎打足氣，好放心騎回海淀",
+          "set": "wk_east_checked",
+          "evidence": "ev_w3_repair_check",
+          "autoHint": true,
+          "diary": "在長安街邊找修車老師傅給三輪車打了氣，也確認了西三環外頭軍民平和對話的近況。",
+          "next": "w4repair_2"
+        },
+        {
+          "text": "謝過老師傅，打聽前面往東王府井口子通不通車",
+          "next": "w4repair_3"
+        }
+      ]
+    },
+    "w4repair_2": {
+      "speaker": "repairer",
+      "text": "氣門芯擰好囉！回去告訴車間裡那些住得遠的師傅，主幹道騎車都走得通，就是坐不上公交了，今兒早班全靠兩條腿蹬車。",
+      "choices": [
+        {
+          "text": "謝過老師傅，這就放心了"
+        }
+      ]
+    },
+    "w4repair_3": {
+      "speaker": "repairer",
+      "text": "東邊自行車照樣過得去，就是機動車全繞開了。街坊們心裡都揪著，但面上倒還平靜。",
+      "choices": [
+        {
+          "text": "明白，您照看好攤子"
+        }
+      ]
+    },
+    "w4workers_1": {
+      "speaker": "narr",
+      "text": "兩三個穿著深藍工裝的中年師傅停下腳撐，互相借火點煙，說起他們廠裡昨晚也有人去路口照應，「咱們工人上班要照樣幹活，街上也得有人看著別出大事」。",
+      "event": "1989-05-20-workers-picket-and-soldiers",
+      "choices": [
+        {
+          "text": "跟幾位工友互報各自廠區門口的情況，互相提醒早點回家歇著",
+          "set": "wk_morning_pedal",
+          "diary": "在長安街邊遇到趕早班的其他廠工友，大家心裡都盼著生活和街面都能穩住。"
+        },
+        {
+          "text": "點頭致意後繼續往回騎"
+        }
+      ]
+    },
+    "w4leave_1": {
+      "speaker": "narr",
+      "text": "朝陽照上天安門的琉璃瓦，藍白護欄在晨風裡顯得筆直。沒有電車和公共汽車的五月二十日清晨，整座城市都在靠無數普通人的雙腳和自行車輪轉動。太陽升高了，你準備先往哪裡去？",
+      "choices": [
+        {
+          "text": "折回西單橫停的無軌電車旁，替司機老張看一會兒白班路口",
+          "requires": "wk_barricade_watch",
+          "diary": "天亮後我騎回電車路障旁，替熬了一宿的司機老張端上一碗早點。",
+          "end": "barricade_watch"
+        },
+        {
+          "text": "回到胡同口接過大媽重新燒滿的開水桶，繼續幫街坊給過路人與戰士送水",
+          "requires": "wk_tea_soldiers",
+          "diary": "五月二十日上午，我和胡同大媽一塊兒守著幾隻熱水桶，沒人多問一句姓名。",
+          "end": "tea_with_soldiers"
+        },
+        {
+          "text": "記準修車老師傅確認的三環外路況，趕回廠裡貼在黑板邊給早班工友看",
+          "requires": "wk_east_checked",
+          "diary": "把沿路打聽到的實情寫進廠區值班室，讓著急家裡人的工友心裡有個底。",
+          "end": "east_check"
+        },
+        {
+          "text": "踩著平板三輪沿原路慢慢騎回海淀廠區和大雜院補覺",
+          "diary": "迎著早班的自行車潮騎回海淀。這漫長的一夜過去了，生活還要照常轉下去。",
+          "end": "morning_pedal"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "barricade_watch": {
+      "title": "電車影裡的白班",
+      "text": "你和司機老張靠在雙節電車車身旁啃完一個燒餅。馬路上來往的人雖然神色凝重，卻井井有條地互相讓道，誰也沒讓這座城市徹底亂了套。"
+    },
+    "tea_with_soldiers": {
+      "title": "茶缸裡的溫熱",
+      "text": "鋁殼水桶添了一輪又一輪的開水。在謠言與戒嚴令交織的五月二十日，街坊們端出來的那一口熱水和煮雞蛋，成了整條街上最踏實的東西。"
+    },
+    "east_check": {
+      "title": "帶回廠裡的消息",
+      "text": "你騎回一車間門口時，早班師傅們正圍著門房問東城和西郊能不能騎車過。你把親眼見著的長安街與三環實情報給大家，廠裡這天的車床照常轉了起來。"
+    },
+    "morning_pedal": {
+      "title": "早班車潮",
+      "text": "沒有公交車的早晨，長安街和海淀路上全是清脆的車鈴聲。你踩著平板三輪往家騎，秀芳一定正站在大雜院煤爐旁等著你報一聲平安。"
+    }
+  },
+  "epilogue": "五月十九日夜至二十日，北京部分地區正式實施戒嚴，市內多條公交與地鐵停運，工人、司機與市民在各路口攔阻進城車隊並給官兵送水遞報。下一章：五月三十日，廠區與院落。",
+  "epilogueEvent": "1989-05-20-workers-picket-and-soldiers"
+}

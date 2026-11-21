@@ -1,0 +1,28 @@
+{
+  "id": "1989-05-28-square-fatigue-debate",
+  "date": "1989-05-28",
+  "place": "天安門廣場帳篷區",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "五月下旬廣場帳篷區的疲態、外地學生增加與去留分歧",
+    "en": "Late May in the Square: camp exhaustion, out-of-town students, and debate over leaving"
+  },
+  "summary": {
+    "zh": "進入五月下旬，長期露宿令廣場帳篷區衛生條件惡化、人員疲憊不堪，許多北京本地學生陸續返校或減少留守，大批外地赴京聲援的學生則成為廣場駐紮主力。5 月 27 日聯席會議曾提出於 5 月 30 日撤離廣場的方案，但 28 日在留守派與外地學生反對下撤離決定遭到推翻，去留分歧愈發尖銳。",
+    "en": "By late May, deteriorating sanitation and exhaustion weighed heavily on the tent camp as many Beijing students returned to campuses while out-of-town students formed the bulk of those staying. On 27 May a joint coalition proposed withdrawing on 30 May, but on 28 May opposition from holdouts and provincial students overturned the plan."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Martial law",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Martial_law"
+    },
+    {
+      "title": "The Tiananmen Papers (excerpt)",
+      "publisher": "The New York Times Books archive",
+      "url": "https://archive.nytimes.com/www.nytimes.com/books/first/l/liang-tiananmen.html",
+      "note": "The authenticity of some Tiananmen Papers documents has been debated; cited alongside secondary histories for late-May withdrawal debates."
+    }
+  ]
+}

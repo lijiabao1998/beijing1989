@@ -1,0 +1,27 @@
+{
+  "id": "1989-05-15-citizens-medical-support",
+  "date": "1989-05-15",
+  "place": "天安門廣場・長安街沿線",
+  "kind": "testimony",
+  "confidence": "documented",
+  "title": {
+    "zh": "北京醫護人員、紅十字會與市民自發維持救護通道並送水支援",
+    "en": "Medical workers, Red Cross teams, and Beijing residents keep ambulance lanes open and bring water"
+  },
+  "summary": {
+    "zh": "絕食進入第三天後，不少學生出現脫水與昏厥。多份目擊證言、使館電報與歷史整理記載，北京各大醫院醫護人員與紅十字會救護車日夜往返搶救，廣場內學生糾察與市民協力劃出並維持救護通道；同時眾多市民自發送來飲水、葡萄糖、綠豆湯與遮陽衣物。遊戲中的王師傅與救護志願者皆為虛構人物，用以承載這類一般性證言。",
+    "en": "By the third day of the hunger strike, dehydration and fainting spread. Eyewitness testimonies, diplomatic reports, and historical accounts record Beijing hospital staff and Red Cross ambulances shuttling students continuously while marshals and residents kept emergency lanes open and brought water, glucose, and shade supplies. Game characters are fictional composites."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Hunger strikes begin",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Hunger_strikes_begin"
+    },
+    {
+      "title": "Tiananmen at 25 Years (Electronic Briefing Book No. 473)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB473/"
+    }
+  ]
+}

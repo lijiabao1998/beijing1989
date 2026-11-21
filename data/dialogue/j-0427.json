@@ -1,0 +1,413 @@
+{
+  "chapter": "j-0427",
+  "title": "第三章　四月二十七日，立交橋與長街",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "newsroom",
+  "spawn": {
+    "newsroom": [0, 6],
+    "overpass": [-26, -3]
+  },
+  "labels": {
+    "newsroom": "1989 年 4 月 27 日・清晨・首都晨報編輯部",
+    "overpass": "1989 年 4 月 27 日・白天・木樨地立交橋與長安街沿線"
+  },
+  "transitions": {
+    "overpass": "上午九點半過後，你和小唐揹起雙反和35mm長鏡趕到西邊立交橋，橋上橋下已站滿看熱鬧與送水的市民……"
+  },
+  "clockStart": 450,
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（顧明遠）",
+      "role": "29歲《首都晨報》市政記者",
+      "fictional": true
+    },
+    "shen": {
+      "name": "老沈",
+      "role": "《首都晨報》夜班主編",
+      "fictional": true
+    },
+    "zhang": {
+      "name": "張大姐",
+      "role": "排字房老師傅",
+      "fictional": true
+    },
+    "tang": {
+      "name": "小唐",
+      "role": "實習攝影記者",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "海淀報刊亭大爺，騎車進城看姪子",
+      "fictional": true
+    },
+    "wang": {
+      "name": "王建國（王師傅）",
+      "role": "北京第二機床廠車工",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "j3_shen_proof",
+      "scene": "newsroom",
+      "pos": [-4.6, 1.8],
+      "label": "老沈・四二六社論清樣與派工",
+      "start": "j3_shen_1",
+      "npc": "blue",
+      "kind": "dispatch",
+      "timeWindow": [420, 720],
+      "deadlineMin": 475,
+      "autoHint": true
+    },
+    {
+      "id": "j3_zhang_type",
+      "scene": "newsroom",
+      "pos": [2.4, 0.6],
+      "label": "排字房・張大姐",
+      "start": "j3_zhang_1",
+      "npc": "red",
+      "kind": "dialogue",
+      "timeWindow": [420, 720],
+      "deadlineMin": 500
+    },
+    {
+      "id": "j3_exit_overpass",
+      "scene": "newsroom",
+      "pos": [0, -6.0],
+      "label": "背上長鏡趕赴立交橋",
+      "start": "j3_exit_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "j3_bridge_vantage",
+      "scene": "overpass",
+      "pos": [-16, 6.8],
+      "label": "立交橋高處取景位・小唐",
+      "start": "j3_vantage_1",
+      "npc": "khaki",
+      "kind": "photo_vantage",
+      "timeWindow": [450, 980],
+      "deadlineMin": 600,
+      "autoHint": true
+    },
+    {
+      "id": "j3_bridge_citizens",
+      "scene": "overpass",
+      "pos": [6, -13.8],
+      "label": "橋邊遞水的市民・孫大爺與王師傅",
+      "start": "j3_citizens_1",
+      "npc": "grey",
+      "kind": "dialogue",
+      "timeWindow": [450, 980],
+      "deadlineMin": 650
+    },
+    {
+      "id": "j3_exit_end",
+      "scene": "overpass",
+      "pos": [34, -4],
+      "label": "黃昏沿長街返報社",
+      "start": "j3_end_1",
+      "kind": "portal",
+      "isExit": true
+    }
+  ],
+  "photoTargets": [
+    {
+      "id": "j3_pt_march_column",
+      "scene": "overpass",
+      "pos3": [-7.46, 7.12, -3.0],
+      "radius": 4.5,
+      "maxDist": 80,
+      "evidenceId": "j3_ev_photo_overpass",
+      "label": "跨街天橋「新聞要說真話・北京市民聲援學生」橫幅與橋下遊行學生長龍",
+      "event": "1989-04-27-april27-march"
+    },
+    {
+      "id": "j3_pt_viaduct_banner",
+      "scene": "overpass",
+      "pos3": [11.84, 10.35, -3.0],
+      "radius": 4.5,
+      "maxDist": 80,
+      "evidenceId": "j3_ev_photo_overpass",
+      "label": "立交橋高架「理解萬歲・理智克制」橫幅與警戒線",
+      "event": "1989-04-27-april27-march"
+    }
+  ],
+  "evidenceCatalog": {
+    "j3_ev_editorial": {
+      "id": "j3_ev_editorial",
+      "kind": "official_print",
+      "title": "四月二十六日《人民日報》頭版社論剪報",
+      "summary": "前一日刊發的〈必須旗幟鮮明地反對動亂〉社論將學生抗議定性為「動亂」，今日一早全市高校與工廠都在討論這篇定調文字。",
+      "sourceLabel": "頭版社論剪報",
+      "dayKey": "1989-04-27",
+      "chapterId": "j-0427",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0427", "社論", "剪報"]
+    },
+    "j3_ev_photo_overpass": {
+      "id": "j3_ev_photo_overpass",
+      "kind": "photo",
+      "title": "35mm 底片：立交橋與長街隊伍",
+      "summary": "從立交橋側俯拍的畫面裡，成排學生挽臂前行、越過多處讓開的警戒線，橋欄與人行道旁站滿揮手鼓掌與遞水的北京市民。",
+      "sourceLabel": "立交橋現場底片",
+      "dayKey": "1989-04-27",
+      "chapterId": "j-0427",
+      "event": "1989-04-27-april27-march",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0427", "底片", "遊行"]
+    },
+    "j3_ev_witness_overpass": {
+      "id": "j3_ev_witness_overpass",
+      "kind": "witness",
+      "title": "沿街市民與職工遞水聲援紀錄",
+      "summary": "孫大爺與王師傅在橋下幫著遞汽水和涼開水，街坊鼓掌夾道，但對遊行究竟五萬還是十餘萬人，過往路人估計相去甚遠。",
+      "sourceLabel": "顧明遠現場筆記",
+      "dayKey": "1989-04-27",
+      "chapterId": "j-0427",
+      "event": "1989-04-27-april27-march",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0427", "市民", "目擊"]
+    },
+    "j3_ev_rumor_numbers": {
+      "id": "j3_ev_rumor_numbers",
+      "kind": "rumor",
+      "title": "橋下口傳的懸殊人數估計",
+      "summary": "橋頭有人喊出「全城學生十萬」，也有人說連同圍觀市民根本數不清幾十萬；因隊伍綿延十餘里且多校分頭會合，單一點位無法精確計數。",
+      "sourceLabel": "街頭口述推估",
+      "dayKey": "1989-04-27",
+      "chapterId": "j-0427",
+      "event": "1989-04-27-april27-march",
+      "route": "journalist",
+      "confidence": "uncertain",
+      "tags": ["0427", "人數", "估計"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "j3_pair_editorial_photo",
+      "cards": ["j3_ev_editorial", "j3_ev_photo_overpass"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "社論將抗議定性為「動亂」，但立交橋底片所見卻是秩序井然、挽臂走過並獲沿途市民鼓掌遞水的和平遊行，兩者情緒與敘事截然相背。",
+      "diary": "把四二六社論剪報和今天立交橋上拍下的手挽手隊伍底片裝進同一個紙袋。",
+      "set": "j3_editorial_contrast"
+    },
+    {
+      "id": "j3_pair_photo_witness",
+      "cards": ["j3_ev_photo_overpass", "j3_ev_witness_overpass"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "底片畫面與橋邊孫大爺、王師傅所述「警戒線未衝突、市民夾道遞水」完全吻合。",
+      "diary": "影像與目擊口述互證：四月二十七日沿線並未爆發嚴重衝突，晚間學生和平返校。"
+    },
+    {
+      "id": "j3_pair_numbers_witness",
+      "cards": ["j3_ev_rumor_numbers", "j3_ev_witness_overpass"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "各公開史料與現場估計多落在五萬至十萬人以上，單憑立交橋一處的視覺計數尚無法精確核定總額。"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 27 日，星期四，清晨七點半。昨天《人民日報》頭版刊出〈必須旗幟鮮明地反對動亂〉社論後，今天一早海淀多所大學的學生已經走出校門，沿大道朝城裡遊行過來。",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "choices": [
+        {
+          "text": "先看老沈桌上的社論剪報與值班表",
+          "diary": "4/27 清晨。四二六社論見報第二天，學生隊伍已從海淀出發往城裡走。",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j3_shen_1": {
+      "speaker": "shen",
+      "text": "明遠，昨天的社論把話說死了，今天外頭一定擠得水泄不通。你帶小唐去西邊立交橋佔個高處看著——別聽人家報個幾萬幾十萬就照抄，看清楚警戒線怎麼過、沿街老百姓什麼表情、晚上有沒有平平安安退回去。",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "choices": [
+        {
+          "text": "收起社論剪報，答應去立交橋實地觀察遊行與市民反應",
+          "evidence": "j3_ev_editorial",
+          "set": "j3_editorial_contrast",
+          "rel": { "shen": 1 },
+          "diary": "老沈把四二六社論剪報遞給我，要我今天只記親眼看見的現場秩序與市民臉色。",
+          "timeCost": 15,
+          "autoHint": true,
+          "next": "j3_shen_2"
+        },
+        {
+          "text": "問老沈今天各報社編輯室是不是都收到統一口徑通知",
+          "evidence": "j3_ev_editorial",
+          "timeCost": 10,
+          "next": "j3_shen_2"
+        }
+      ]
+    },
+    "j3_shen_2": {
+      "speaker": "shen",
+      "text": "口徑是口徑，底片是底片。去了橋上站穩些，別擠到機動車道裡去。",
+      "choices": [
+        {
+          "text": "放心，我知道分寸"
+        }
+      ]
+    },
+    "j3_zhang_1": {
+      "speaker": "zhang",
+      "text": "顧記者，早啊。昨晚我們排字房老師傅邊撿鉛字邊嘆氣，說自家孩子還在大學唸書，怎就成了「動亂」？你要去街上跑，替大姐多看看孩子們平不平安，別光拍口號橫幅，也拍幾張大伙兒互相扶著走路的樣兒。",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "choices": [
+        {
+          "text": "點頭答應張大姐，記下排字房工友對社論的私下心情",
+          "rel": { "zhang": 1, "zhang_typesetter": 1 },
+          "diary": "出門前張大姐在排字台邊嘆氣，托我替大家多看一眼學生平不平安。",
+          "timeCost": 10,
+          "autoHint": true
+        },
+        {
+          "text": "請張大姐照看編輯桌上的備用信件，趕緊往外走",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j3_exit_1": {
+      "speaker": "narr",
+      "text": "九點半，樓下傳來遠處隱約的口號與自行車鈴聲。你抓起攝影包和小唐並肩出門，一路朝西長安街與三環交界的立交橋騎去。",
+      "choices": [
+        {
+          "text": "趕往木樨地立交橋",
+          "goto": "overpass",
+          "timeCost": 25,
+          "autoHint": true
+        },
+        {
+          "text": "在門口再裝上一卷新膠捲",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j3_vantage_1": {
+      "speaker": "tang",
+      "text": "顧老師！站這兒看最清楚了——橋下那兩道警戒線剛才讓人牆和秩序隊伍一步步推開，沒動手也沒流血，橋欄邊全是探身鼓掌的大人孩子！您可以按 F 用取景器看看下面那條長龍，隊尾根本望不見頭。",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "在橋欄邊記錄警戒線讓開與隊伍手挽手前行的畫面，並舉鏡取景",
+          "evidence": "j3_ev_photo_overpass",
+          "set": "j3_shot_overpass",
+          "rel": { "tang": 1 },
+          "mechanic": "viewfinder",
+          "modeOverride": "camera_walk",
+          "diary": "站在立交橋高處拍下四二七大遊行：學生手挽手越過警戒線，欄杆邊市民成排鼓掌。",
+          "timeCost": 30,
+          "autoHint": true
+        },
+        {
+          "text": "估記橋下各校旗幟與過往人群密度，標註僅能確定「數萬至十餘萬以上」",
+          "evidence": "j3_ev_rumor_numbers",
+          "mechanic": "viewfinder",
+          "modeOverride": "camera_walk",
+          "timeCost": 20
+        }
+      ]
+    },
+    "j3_citizens_1": {
+      "speaker": "sun",
+      "text": "哎，顧記者也上橋來看呀？我把攤子托給老伴看半天，特意買兩提汽水順道遞給過路學生。旁邊機床廠王師傅趁換班也趕來搭把手——誰能想到昨日報紙寫得那麼嚇人，今天滿大街卻都是遞水拍掌的老街坊！",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "記下孫大爺與王師傅遞水的實況，以及路人對規模的不同估計",
+          "evidence": "j3_ev_witness_overpass",
+          "set": "j3_witness_water",
+          "rel": { "sun": 1, "wang": 1 },
+          "diary": "橋邊碰見孫大爺與王師傅給過路學生遞水，並聽沿街群眾各報人數估計。",
+          "timeCost": 20,
+          "autoHint": true,
+          "next": "j3_citizens_2"
+        },
+        {
+          "text": "專心追問王師傅廠裡工友今日的議論與心情",
+          "evidence": "j3_ev_witness_overpass",
+          "rel": { "wang": 1 },
+          "timeCost": 15,
+          "next": "j3_citizens_2"
+        }
+      ]
+    },
+    "j3_citizens_2": {
+      "speaker": "wang",
+      "text": "咱們工人沒跟著游，可看著這麼多學生大熱天走了幾十里地，遞瓶汽水總算人之常情。聽說天黑前大伙兒都會整整齊齊回學校去，也算是平安收場。",
+      "choices": [
+        {
+          "text": "把「五萬至十萬以上、各說不一」寫進本子，不瞎寫整數",
+          "evidence": "j3_ev_rumor_numbers",
+          "diary": "各路旁觀者估計差異極大，僅記下「數萬至十萬以上」與「晚間和平返校」。"
+        }
+      ]
+    },
+    "j3_end_1": {
+      "speaker": "narr",
+      "text": "下午接近黃昏，學生隊伍果然按原路陸續折返海淀，市民們也慢慢散去。立交橋面的水泥被夕陽曬得發暖，你收好相機與採訪本準備回報社。",
+      "choices": [
+        {
+          "text": "帶著立交橋廣角底片趕回暗房，留下這一日跨過警戒線的光影",
+          "requires": "j3_shot_overpass",
+          "diary": "底片裡有長街、高架橋與揮手的市民，沒有一行社論能蓋過那片陽光。",
+          "end": "overpass_wide_frame"
+        },
+        {
+          "text": "把四二六社論剪報與今日立交橋筆記夾成對照頁",
+          "requires": "j3_editorial_contrast",
+          "diary": "白紙黑字的社論與長街上和平的掌聲，並排存進四月檔案夾。",
+          "end": "editorial_contrast"
+        },
+        {
+          "text": "記下橋邊孫大爺與王師傅遞出的那幾瓶汽水與祝願",
+          "requires": "j3_witness_water",
+          "diary": "普通北京市民用汽水與掌聲回應了這場長途步行。",
+          "end": "water_line_notes"
+        },
+        {
+          "text": "沿著長安街慢騎回編輯部，準備寫下簡短的日間紀要",
+          "diary": "四月二十七日傍晚平安收場，當局隨後亦釋出展開初步對話接觸的訊號。",
+          "end": "dusk_return_desk"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "overpass_wide_frame": {
+      "title": "立交橋上的廣角底片",
+      "text": "暗房紅燈下，橋上往下俯瞰的 35mm 底片漸漸顯出清晰的線條：人行道上的自行車、挽著手的學生方陣、還有伸出欄杆遞水的手臂。那些瞬間暫時無法見報，卻先在定影液裡站穩了。"
+    },
+    "editorial_contrast": {
+      "title": "剪報與筆記的對照頁",
+      "text": "你將昨天〈旗幟鮮明地反對動亂〉的剪報貼在左頁，把今天「未發生流血、市民夾道相送、晚間和平返校」的現場見聞寫在右頁。歷史的張力就留在這兩頁紙的中縫裡。"
+    },
+    "water_line_notes": {
+      "title": "橋下的汽水與掌聲",
+      "text": "孫大爺和王師傅沒對著任何話筒演講，只是把幾箱汽水與冰棍塞進路過學生手裡。你在日記本記下這段小事：這座城對年輕人的心軟，往往藏在這些不用寫進社論的舉動裡。"
+    },
+    "dusk_return_desk": {
+      "title": "四月底的短暫喘息",
+      "text": "騎回報社時晚霞正好落滿長安街。聽說月底官方已同意展開初步對話接觸，大家心裡暗暗鬆了半口氣，卻還不知道五月的節奏會來得更快。"
+    }
+  },
+  "epilogue": "四月二十七日，北京多所高校學生越過多道警戒線完成和平大遊行並於晚間返校，沿途獲大批市民圍觀聲援，當局隨後於月底展開初步對話接觸。下一章：五月四日，新聞界方陣。",
+  "epilogueEvent": "1989-04-27-april27-march"
+}

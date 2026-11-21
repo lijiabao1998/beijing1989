@@ -1,0 +1,32 @@
+{
+  "id": "1989-04-26-peoples-daily-editorial",
+  "date": "1989-04-26",
+  "place": "北京",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "《人民日報》四二六社論發表與次日學生大遊行",
+    "en": "April 26 People's Daily editorial and the April 27 student march"
+  },
+  "summary": {
+    "zh": "1989 年 4 月 26 日，《人民日報》發表題為〈必須旗幟鮮明地反對動亂〉的頭版社論，將學生悼念與抗議活動定性為「動亂」。次日（4 月 27 日），北京數萬名各高校學生上街遊行抗議社論定性，沿途有大批市民聲援圍觀；遊行規模各來源估計不一（數萬至十萬人以上），社論被普遍視為衝突升級的關鍵轉折。",
+    "en": "On 26 April 1989 the People's Daily published a front-page editorial ('It Is Necessary to Take a Clear-Cut Stand Against Disturbances') branding the student movement 'turmoil'. On 27 April tens of thousands of Beijing students marched in protest as large crowds of residents looked on and voiced support; estimates of crowd size vary across accounts."
+  },
+  "sources": [
+    {
+      "title": "April 26 Editorial",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/April_26_Editorial"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    },
+    {
+      "title": "Tiananmen Square, 1989",
+      "publisher": "U.S. Department of State, Office of the Historian (Milestones)",
+      "url": "https://history.state.gov/milestones/1989-1992/tiananmen-square"
+    }
+  ]
+}

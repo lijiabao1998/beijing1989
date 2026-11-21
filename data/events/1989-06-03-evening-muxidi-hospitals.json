@@ -1,0 +1,37 @@
+{
+  "id": "1989-06-03-evening-muxidi-hospitals",
+  "date": "1989-06-03",
+  "place": "木樨地・西長安街沿線與北京多間醫院",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "六月三日夜至四日凌晨木樨地等路段衝突與北京醫院收治傷患",
+    "en": "Night of 3–4 June: clashes along Muxidi and Chang'an Avenue and casualties brought to Beijing hospitals"
+  },
+  "summary": {
+    "zh": "1989 年 6 月 3 日深夜至 4 日清晨，多路戒嚴部隊沿西長安街、木樨地及復興門等幹道向天安門廣場方向推進並開火驅散路障與人群，造成大量人員死傷。沿線市民與學生以平板三輪車、自行車及救護車將大批傷患送往鄰近的復興醫院及市內多間醫院搶救。關於各醫院實際收治人次與整體傷亡總數，各公開文獻記載與推估差異極大：中國官方其後公布含軍警在內約 241 人死亡（部分說法近 300 人），紅十字會初期報告、駐京外交電報、媒體與學者估計則自數百至數千人不等，「天安門母親」亦持續核實有名有姓之遇難者名錄（逾二百人）。本作品僅並列公開史料差異，不編造單一醫院收治數字，亦不為真實遇難者編寫對白。",
+    "en": "From late night on 3 June into the early hours of 4 June 1989, martial-law troops advancing along West Chang'an Avenue, Muxidi, and Fuxingmen opened fire to clear barricades and crowds, causing heavy casualties. Residents and students carried the wounded by flatbed tricycles, bicycles, and ambulances to nearby Fuxing Hospital and other Beijing hospitals. Because individual hospital tallies and overall casualty figures diverge sharply across public records—from official PRC statements citing roughly 241 deaths (including military and police) to initial Red Cross, diplomatic, journalist, and scholarly estimates ranging from several hundred to several thousand, alongside the Tiananmen Mothers' verification of over 200 named victims—this work presents these documented discrepancies without fabricating hospital admission counts."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Death toll",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Death_toll"
+    },
+    {
+      "title": "Tiananmen Square, 1989: The Declassified History (Electronic Briefing Book No. 16)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB16/"
+    },
+    {
+      "title": "Tiananmen at 25 Years (Electronic Briefing Book No. 473)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB473/"
+    },
+    {
+      "title": "Tiananmen Mothers",
+      "publisher": "Human Rights in China (HRIC)",
+      "url": "https://www.hrichina.org/en/tiananmen-mothers"
+    }
+  ]
+}

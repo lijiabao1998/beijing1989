@@ -1,0 +1,678 @@
+{
+  "chapter": "w4-0530",
+  "title": "第五章　五月三十日，廠區與院落",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "street",
+  "spawn": {
+    "street": [-14, -4],
+    "courtyard": [0, 3],
+    "factory": [0, 12]
+  },
+  "labels": {
+    "street": "1989 年 5 月 30 日・傍晚・海淀街道",
+    "courtyard": "1989 年 5 月 30 日・入夜・大雜院",
+    "factory": "1989 年 5 月 30 日・深夜・北京第二機床廠一車間"
+  },
+  "transitions": {
+    "courtyard": "車後架夾著失而復得的大紅殼暖壺，你拐進胡同推開大雜院那扇熟悉的紅漆門……",
+    "factory": "吃罷晚飯，你拎上鋁飯盒出院門，踩著夏初的夜風趕去車間接夜班……"
+  },
+  "start": "intro",
+  "evidenceCatalog": {
+    "ev_w4_thermos_returned": {
+      "id": "ev_w4_thermos_returned",
+      "kind": "witness",
+      "title": "大紅殼鋁暖壺於五月底完好歸還",
+      "summary": "外校青年專程騎車自廣場將五月十五日借出的大紅殼鋁暖壺送回海淀並交還王師傅。",
+      "sourceLabel": "海淀街頭實物交接",
+      "dayKey": "1989-05-30",
+      "chapterId": "w4-0530",
+      "event": "1989-05-28-square-fatigue-debate",
+      "route": "worker",
+      "confidence": "testimony",
+      "tags": ["暖壺歸還", "互助交會"]
+    },
+    "ev_w4_thankyou_slip": {
+      "id": "ev_w4_thankyou_slip",
+      "kind": "witness",
+      "title": "壺底藍墨水「謝謝」紙條留證",
+      "summary": "暖壺底貼有一張藍墨水手寫「謝謝」的小白紙條，見證這半個月跨越廣場與車間的善意。",
+      "sourceLabel": "王建國大雜院收存",
+      "dayKey": "1989-05-30",
+      "chapterId": "w4-0530",
+      "event": "1989-05-28-square-fatigue-debate",
+      "route": "worker",
+      "confidence": "testimony",
+      "tags": ["暖壺歸還", "謝謝字條"]
+    },
+    "ev_w4_fatigue_street": {
+      "id": "ev_w4_fatigue_street",
+      "kind": "witness",
+      "title": "五月底海淀報攤與車間黑板報氛圍紀錄",
+      "summary": "五月三十日街面購報人潮大減、廠區黑板報重申安全出勤與穩定生產，眾人皆盼五月早日平穩落幕。",
+      "sourceLabel": "孫大爺・黑板報見聞",
+      "dayKey": "1989-05-30",
+      "chapterId": "w4-0530",
+      "event": "1989-05-28-square-fatigue-debate",
+      "route": "worker",
+      "confidence": "documented",
+      "tags": ["五月底廣場", "市井疲態"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "pair_w4_thermos_and_slip",
+      "cards": ["ev_w4_thermos_returned", "ev_w4_thankyou_slip"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "外校學生蹬車送還的實物暖壺與壺底貼著的藍墨水「謝謝」紙條完全互相吻合。",
+      "diary": "看著大紅暖壺與壺底那張「謝謝」紙條對得上號，心頭比任何時候都踏實。"
+    },
+    {
+      "id": "pair_w4_return_and_fatigue",
+      "cards": ["ev_w4_thermos_returned", "ev_w4_fatigue_street"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "五月三十日本地隊伍撤回與暖壺物歸原主，與街坊及車間工友普遍感到的疲憊和盼望歸於常軌彼此一致。",
+      "diary": "街頭人少了、東西送回來了，大家都在盼五月趕緊平安過去。"
+    }
+  ],
+  "characters": {
+    "me": {
+      "name": "我（王建國）",
+      "role": "北京第二機床廠五級車工（俗稱王師傅）",
+      "fictional": true
+    },
+    "youth": {
+      "name": "送回暖壺的外校學生",
+      "role": "從廣場專程騎車到海淀還暖壺的外校青年",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立（北大男生）",
+      "role": "北大物理系二年級學生（第一篇主角的交叉視角人物）",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "海淀報刊亭大爺",
+      "fictional": true
+    },
+    "xiufang": {
+      "name": "秀芳",
+      "role": "妻子，紡織廠擋車工",
+      "fictional": true
+    },
+    "li_auntie": {
+      "name": "大雜院李大媽",
+      "role": "大雜院鄰居",
+      "fictional": true
+    },
+    "zhao": {
+      "name": "老趙",
+      "role": "車間帶班老師傅",
+      "fictional": true
+    },
+    "liu": {
+      "name": "小劉",
+      "role": "機床廠青年學徒，愛抄詩和剪報",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "w5sun",
+      "scene": "street",
+      "pos": [-6, -3.5],
+      "label": "報刊亭孫大爺",
+      "start": "w5sun_1",
+      "npc": "grey"
+    },
+    {
+      "id": "w5youth",
+      "scene": "street",
+      "pos": [2, -4.5],
+      "label": "拿著紅殼暖壺的外校學生",
+      "start": "w5youth_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "w5chen",
+      "scene": "street",
+      "pos": [14, 2],
+      "label": "胡同口・陳立（北大男生）",
+      "start": "w5chen_1",
+      "npc": "navy"
+    },
+    {
+      "id": "w5north",
+      "scene": "street",
+      "pos": [-28, -6],
+      "label": "推車回大雜院",
+      "start": "w5north_1",
+      "isExit": true
+    },
+    {
+      "id": "w5table",
+      "scene": "courtyard",
+      "pos": [0, -2],
+      "label": "院心飯桌・秀芳",
+      "start": "w5xiufang_1",
+      "npc": "red"
+    },
+    {
+      "id": "w5stove",
+      "scene": "courtyard",
+      "pos": [-5, -4],
+      "label": "煤爐旁・大雜院李大媽",
+      "start": "w5auntie_1",
+      "npc": "grey"
+    },
+    {
+      "id": "w5pigeon",
+      "scene": "courtyard",
+      "pos": [6, -5],
+      "label": "鴿籠旁石凳・大紅殼暖壺",
+      "start": "w5bench_1"
+    },
+    {
+      "id": "w5back",
+      "scene": "courtyard",
+      "pos": [0, -14],
+      "label": "出紅漆院門・赴廠夜班",
+      "start": "w5back_1",
+      "isExit": true
+    },
+    {
+      "id": "w5lathe",
+      "scene": "factory",
+      "pos": [-11, -4],
+      "label": "一車間車床・老趙",
+      "start": "w5zhao_1",
+      "npc": "blue"
+    },
+    {
+      "id": "w5board",
+      "scene": "factory",
+      "pos": [10, -12],
+      "label": "車間黑板報・小劉",
+      "start": "w5liu_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "w5shift",
+      "scene": "factory",
+      "pos": [0, 6],
+      "label": "更衣櫃旁・夜班歇腳",
+      "start": "w5shift_1",
+      "isExit": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 30 日，星期二，傍晚。戒嚴已經過去整整十天，市面上的公車漸漸恢復了幾條線路，海淀路兩旁的白楊樹葉長得厚實起來。這十天裡，廣場上的僵持讓人愈發疲憊，許多本地學生已經回校，街坊們最盼望的只是這漫長的五月能早點有個平穩收場。",
+      "event": "1989-05-28-square-fatigue-debate",
+      "variants": [
+        {
+          "requires": "w3:end:barricade_watch",
+          "text": "1989 年 5 月 30 日，傍晚。五月二十日路口電車橫停的那個清晨已經過去十天。這幾日市內部分公車恢復通車，廠裡照常三班倒，街面上卻透著說不出的疲倦與沉悶。"
+        },
+        {
+          "requires": "w3:end:tea_with_soldiers",
+          "text": "1989 年 5 月 30 日，傍晚。自打五月二十日夜裡在西單胡同口給街坊與戰士倒過那輪熱水，轉眼到了月底。天越來越熱，廣場上卻還在為留還是撤吵個沒完。"
+        },
+        {
+          "requires": "w3:end:east_check",
+          "text": "1989 年 5 月 30 日，傍晚。這十天來廠裡的車床一天也沒停，可每天騎車經過海淀路口，都能看出大街上行人的腳步比四月匆忙得多，像是大家都想快點把日子拉回常軌。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "在下班回家前，沿海淀路慢慢推車走一段",
+          "diary": "5/30 傍晚。戒嚴第十天，街上行人疲倦卻仍照常奔忙，大家都在盼五月盡快過去。"
+        }
+      ]
+    },
+    "w5sun_1": {
+      "speaker": "sun",
+      "text": "王師傅下白班準備回家吃飯去啦？這兩天傍晚來買報的人少了一半，大夥兒翻都懶得翻頭版，就問明兒早班車還準點嗎。四月折騰到五月月底，誰家的日子都得接著過呀。",
+      "event": "1989-05-28-square-fatigue-debate",
+      "variants": [
+        {
+          "requires": "rel:sun>=1",
+          "text": "建國來啦！剛才還看見前面有個外校小伙子四處打聽「北京第二機床廠的王師傅住哪條巷子」，手裡拎著個大紅殼暖壺呢，你快去瞧瞧是不是找你的！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "跟孫大爺買份晚報，聊幾句菜價與公車近況",
+          "rel": {
+            "sun": 1
+          },
+          "evidence": "ev_w4_fatigue_street",
+          "autoHint": true,
+          "diary": "報刊亭孫大爺說買報的人比前陣子少了一半，街坊都累了，只盼著日子平穩下來。",
+          "next": "w5sun_2"
+        },
+        {
+          "text": "問大爺剛才有沒有看見什麼熟人打這兒過去",
+          "next": "w5sun_3"
+        }
+      ]
+    },
+    "w5sun_2": {
+      "speaker": "sun",
+      "text": "可不是嘛。前頭兩個小伙子正站在路口那邊，一個手裡拎著紅暖壺，還有一個像是常打這兒騎過的北大學生。",
+      "choices": [
+        {
+          "text": "謝謝大爺，我過去看看"
+        }
+      ]
+    },
+    "w5sun_3": {
+      "speaker": "sun",
+      "text": "有！一個外校學生拎著大紅暖壺站那頭等好一會兒了，說是專程從廣場騎過來還東西的。",
+      "choices": [
+        {
+          "text": "這孩子真有心，我過去接一下"
+        }
+      ]
+    },
+    "w5youth_1": {
+      "speaker": "youth",
+      "text": "請問您是北京第二機床廠的王建國王師傅嗎？這隻大紅殼鋁暖壺是五月十五日您在廣場借給我們那組帳篷裝綠豆湯的！我們隊伍今兒輪換撤回學校了，我怕時間久了找不著人，專程照著當時記下的地址蹬車給您送回來，壺膽還好好的！",
+      "variants": [
+        {
+          "requires": "w2:end:lent_thermos",
+          "text": "王師傅！總算找著您了！五月十五號那天您連借帶送把這隻大紅殼暖壺留給我們打水，說「過陣子方便再還」。今天我們好些同學已經準備撤離了，我特意從廣場騎車一路問著路給您送回來——壺底還貼了張我們幾個寫的紙條！"
+        },
+        {
+          "requires": "wk_thermos_out",
+          "text": "王師傅！總算找著您了！五月十五號那天您把這隻大紅殼鋁暖壺留在廣場東側給我們裝綠豆湯。今天我們好些同學撤回學校了，我專程騎車給您完完整整送回來——壺底還貼了張寫著「謝謝」的紙條！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "雙手接過擦得乾乾淨淨的大紅殼暖壺，看見壺底貼著一張寫著「謝謝」的小紙條",
+          "item": "red_thermos",
+          "keepsake": "red_thermos",
+          "set": "wk_thermos_returned",
+          "evidence": "ev_w4_thermos_returned",
+          "rel": {
+            "youth": 1
+          },
+          "autoHint": true,
+          "diary": "外校小伙子專程蹬車把五月十五日借出的大紅殼暖壺送回來了，壺底貼著一張寫著「謝謝」的紙條。",
+          "next": "w5youth_2"
+        },
+        {
+          "text": "先請小伙子在路邊歇口氣，問問廣場上今天怎樣",
+          "next": "w5youth_3"
+        }
+      ]
+    },
+    "w5youth_2": {
+      "speaker": "youth",
+      "text": "王師傅，還有一件事——那天旁邊棚裡借了個刻著「周」字的舊軍用水壺，也一塊兒收回來了，剛才正好碰見北大的陳立同學，他正從這兒往回走。我這就回學校收拾行李了，謝謝您那天的湯！",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_gauze_tag",
+          "text": "王師傅，幸虧那天有位西城退休護師大媽在把手上繫了條乾淨醫用紗布條作記號，這才一直沒跟別組水壺混了！旁邊棚裡那隻刻「周」字的軍用水壺也一起收回來交給北大的陳立了。謝謝您那天的湯！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "一路騎車小心，好好回學校歇歇",
+          "autoHint": true
+        }
+      ]
+    },
+    "w5youth_3": {
+      "speaker": "youth",
+      "text": "今天一早北邊立了尊白色石膏雕像，可我們好多四月就去的同學實在熬不住了，天天吵著撤還是留。我先把暖壺還給您，東西有借有還，心裡才踏實。旁邊那位北大同學好像也認識您。",
+      "choices": [
+        {
+          "text": "接過暖壺，謝過小伙子這份心意",
+          "item": "red_thermos",
+          "set": "wk_thermos_returned",
+          "diary": "接回大紅殼暖壺，壺底貼著「謝謝」兩個字。小伙子說有借有還心裡才踏實。"
+        }
+      ]
+    },
+    "w5chen_1": {
+      "speaker": "chen",
+      "text": "王師傅！剛下班就碰上您了。這不，前幾天留在廣場那隻刻著「周」字的軍用水壺，外校同學託我順道帶回來——我一看壺蓋還完好無損，正好省得您再跑一趟學校。",
+      "variants": [
+        {
+          "requires": "wk_saw_chen",
+          "text": "王師傅！五月二十號凌晨在西單電車旁一別，十天沒見了。剛才外校同學把那隻「周」字軍用水壺和您的大紅殼暖壺一塊兒交過來，這軍用水壺我正好捎回北大宿舍還給老周。您廠裡最近還穩當吧？"
+        },
+        {
+          "requires": "rel:chen>=1",
+          "text": "王師傅，正想跟您道聲謝呢。上次三輪車和熱湯的事大家都記著。這隻刻著「周」字的軍用水壺剛收回來，我正打算拿回宿舍交給老周。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "把水壺理好遞給陳立，笑著說「東西有借有還，你們學生也早點回學校歇歇」",
+          "set": "wk_returned_canteen",
+          "rel": {
+            "chen": 1
+          },
+          "diary": "把收齊的「周」字軍用水壺交給路過的陳立帶回宿舍，勸他和同學們早些回校園休息。",
+          "next": "w5chen_2"
+        },
+        {
+          "text": "告訴陳立今晚廠裡照常倒班，也問問他這陣子宿舍怎樣",
+          "next": "w5chen_3"
+        }
+      ]
+    },
+    "w5chen_2": {
+      "speaker": "chen",
+      "text": "嗯，我一定親手交還給老周，他過兩天也要回河北老家了。王師傅，天氣越來越熱，您夜班騎車也多保重。",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_returned",
+          "text": "嗯，東西有借有還才算體面——那隻大紅暖壺總算趕在五月底回您家了，這隻軍用水壺我也一定親手交還給老周！王師傅，您夜班騎車多保重。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "好，各自照應好家裡與課堂",
+          "autoHint": true
+        }
+      ]
+    },
+    "w5chen_3": {
+      "speaker": "chen",
+      "text": "宿舍裡已經空了一半，好多外地同學先回老家了。大家心裡都累，誰也不知道僵到六月會怎麼收場。",
+      "choices": [
+        {
+          "text": "別硬撐著，早點回去睡一覺"
+        }
+      ]
+    },
+    "w5north_1": {
+      "speaker": "narr",
+      "text": "暮色四合，海淀路兩旁的路燈漸漸亮起來。車後架上穩穩綁著那隻失而復得的大紅殼暖壺，你拐進熟悉的巷子，準備回家吃頓晚飯再去接夜班。",
+      "choices": [
+        {
+          "text": "推進大雜院的紅漆大門",
+          "goto": "courtyard",
+          "autoHint": true
+        },
+        {
+          "text": "再在街口看一眼"
+        }
+      ]
+    },
+    "w5xiufang_1": {
+      "speaker": "xiufang",
+      "text": "回來啦？飯剛悶上，鍋裡留了半碗炒白菜和棒子麵粥。這都五月三十號了，外頭的僵持到底還要拖多久？我們紡織廠車間這幾天也有人沒來上班，菜市場白麵倒還買得到，就是大家心裡都懸著一塊石頭，怕進了六月又要折騰。",
+      "variants": [
+        {
+          "requires": "w0:end:family_hearth",
+          "text": "建國，快洗手吃飯。四月十七號咱倆坐在這煤爐旁算柴米油鹽的時候，誰能想到一轉眼到了五月底還是這樣懸在半空？你一會兒要是還得去廠裡頂夜班，路上千萬別往熱鬧地方湊。"
+        },
+        {
+          "requires": "rel:xiufang>=1",
+          "text": "快坐下喘口氣，這暖壺怎麼擦得亮晶晶的回來了？我跟李大媽下午剛聊起，大家都盼著早些太平過日子，別再整夜不睡覺地在馬路上耗著。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "把貼著「謝謝」字條的紅暖壺指給秀芳看，陪她安靜吃完這頓晚飯",
+          "set": "wk_courtyard_supper",
+          "rel": {
+            "xiufang": 1
+          },
+          "diary": "和秀芳坐在大雜院飯桌旁吃晚飯。雖然心頭都擔憂六月的局面，這碗熱粥讓人踏實不少。",
+          "next": "w5xiufang_2"
+        },
+        {
+          "text": "幫秀芳把晾在竹竿上的藍工裝收下來疊進包裡",
+          "set": "wk_courtyard_supper",
+          "rel": {
+            "xiufang": 1
+          },
+          "next": "w5xiufang_3"
+        }
+      ]
+    },
+    "w5xiufang_2": {
+      "speaker": "xiufang",
+      "text": "這群孩子倒還算知禮數，還記得寫張紙條送回來。快吃吧，飯盒裡我給你多盛了一勺鹹菜，夜班餓了墊墊肚子。",
+      "choices": [
+        {
+          "text": "嗯，我一會兒帶去車間"
+        }
+      ]
+    },
+    "w5xiufang_3": {
+      "speaker": "xiufang",
+      "text": "衣裳都收進屋裡了。今兒夜裡風涼，記著把領口扣好再出門。",
+      "choices": [
+        {
+          "text": "放心吧，早班下工我馬上回來"
+        }
+      ]
+    },
+    "w5auntie_1": {
+      "speaker": "li_auntie",
+      "text": "建國回來啦！這十來天街面上走來走去的大學生明顯少了，倒是一撥撥外地來的孩子還在火車站外頭轉悠。前院老劉家剛打東城回來，說那邊大夥兒也都累得夠嗆，誰都希望過完五月能安生點。",
+      "event": "1989-05-28-square-fatigue-debate",
+      "choices": [
+        {
+          "text": "幫李大媽把煤爐上燒開的水壺提下來灌滿熱水",
+          "rel": {
+            "li_auntie": 1
+          },
+          "diary": "大雜院裡鄰居們依然各自生煤爐、晾衣裳，用尋常煙火氣撐住這緊繃的五月底。",
+          "next": "w5auntie_2"
+        },
+        {
+          "text": "問問大媽院裡這兩天還缺不缺蜂窩煤",
+          "next": "w5auntie_3"
+        }
+      ]
+    },
+    "w5auntie_2": {
+      "speaker": "li_auntie",
+      "text": "謝啦建國，你那紅暖壺收回來真好。咱們小老百姓圖的無非就是一家老小平平安安、暖壺不丟、煤爐不斷火。",
+      "choices": [
+        {
+          "text": "是啊，這比什麼都強"
+        }
+      ]
+    },
+    "w5auntie_3": {
+      "speaker": "li_auntie",
+      "text": "煤鋪前兩天剛拉來一車，不缺！就是盼著下個月公交車全都恢復正常，大夥兒買菜上班省心點。",
+      "choices": [
+        {
+          "text": "記下了，大媽早些歇著"
+        }
+      ]
+    },
+    "w5bench_1": {
+      "speaker": "narr",
+      "text": "國槐樹下的石凳旁擺著那隻大紅殼鋁暖壺，壺蓋邊緣多了幾道細小的磕痕，底下的白紙條上是用藍墨水鋼筆寫的兩個字：「謝謝」。五月十五日它跟著三輪車跑過半個北京城，半個月後竟然又完好回到了這方小院裡。",
+      "variants": [
+        {
+          "requires": "world:xr:thermos_gauze_tag",
+          "text": "國槐樹下的石凳旁擺著那隻大紅殼鋁暖壺，把手上還繫著半截微微泛黃的乾淨醫用紗布條作記號；壺底的白紙條上是用藍墨水鋼筆寫的兩個字：「謝謝」。半個月來繞過半個北京城，這隻壺還是完好回到了這方小院裡。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "把紙條輕輕揭下來夾進飯盒旁的工作本裡，暖壺擺回門邊桌角",
+          "evidence": "ev_w4_thankyou_slip",
+          "keepsake": "「謝謝」藍墨水紙條",
+          "autoHint": true,
+          "diary": "把紅暖壺壺底那張「謝謝」紙條夾進工作筆記本裡，像留住這半個月來的一點體溫。"
+        },
+        {
+          "text": "提上飯盒準備去接夜班"
+        }
+      ]
+    },
+    "w5back_1": {
+      "speaker": "narr",
+      "text": "紅漆街門外頭靜悄悄的，只有遠處胡同口飄來幾聲收音機播天氣預報的聲音。離廠裡夜班點名還有二十分鐘。",
+      "choices": [
+        {
+          "text": "推起二八自行車，出門趕往機床廠一車間",
+          "goto": "factory",
+          "autoHint": true
+        },
+        {
+          "text": "再回頭望一眼院子裡的燈"
+        }
+      ]
+    },
+    "w5zhao_1": {
+      "speaker": "zhao",
+      "text": "來得剛剛好，換班鈴再過五分鐘響。今兒夜裡這台 C6140 車床主軸剛重新校過，咱們先把這批出口軸承套車出來。外頭怎麼爭怎麼僵，咱們車間的機器一天沒停，家裡老小的口糧就得靠這些鐵屑換回來。",
+      "variants": [
+        {
+          "requires": "rel:zhao>=1",
+          "text": "建國，這批圖紙我留給你最順手那台機床。前陣子大夥兒心浮氣躁，這兩天反而靜下來了——誰也不知道六月會怎樣，眼下把手頭這班活計踏實幹好最要緊。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "繫緊工作服袖口，站上機床踏板開機校刀",
+          "set": "wk_steady_lathe",
+          "rel": {
+            "zhao": 1
+          },
+          "diary": "深夜在機床旁跟老趙一塊兒照常開工。齒輪咬合的嗡鳴聲讓人暫時忘了街面上的僵持。",
+          "next": "w5zhao_2"
+        },
+        {
+          "text": "問老趙廠裡這幾天考勤和原料供應還穩不穩",
+          "next": "w5zhao_3"
+        }
+      ]
+    },
+    "w5zhao_2": {
+      "speaker": "zhao",
+      "text": "好，進刀穩當點，夜半三更別走神。天亮下班前我去開水房給大夥兒再提一壺熱水。",
+      "choices": [
+        {
+          "text": "好咧，老趙師傅"
+        }
+      ]
+    },
+    "w5zhao_3": {
+      "speaker": "zhao",
+      "text": "目前鋼材庫存還夠撐兩週，就是外省調貨的卡車慢了些。咱們只能盼著六月初城裡早日恢復通暢。",
+      "choices": [
+        {
+          "text": "嗯，大家一起頂住這班崗"
+        }
+      ]
+    },
+    "w5liu_1": {
+      "speaker": "liu",
+      "text": "王師傅！您看這黑板報，宣傳科今天特意換了粉筆字，寫著「安全生產・出勤穩定・團結互助」。前兩天好多車間小年輕還互相打聽街上有什麼新消息，今兒大夥兒倒都不怎麼說話了，只低頭擦機器。",
+      "event": "1989-05-28-square-fatigue-debate",
+      "variants": [
+        {
+          "requires": "wk_liu_clippings",
+          "text": "王師傅！前兩天我還天天剪報抄詩，今兒看著黑板報換成了「安全生產・出勤穩定・團結互助」，車間裡小年輕倒都不怎麼說話了，只低頭擦機器。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "提醒小劉下班後老實待在單身宿舍或院裡，別半夜亂跑",
+          "evidence": "ev_w4_fatigue_street",
+          "rel": {
+            "liu": 1
+          },
+          "autoHint": true,
+          "diary": "小劉說車間裡年輕人這兩天話少了，大家都低頭幹活，誰也看不準六月的模樣。",
+          "next": "w5liu_2"
+        },
+        {
+          "text": "看看黑板報角落寫著的明天排班表",
+          "next": "w5liu_3"
+        }
+      ]
+    },
+    "w5liu_2": {
+      "speaker": "liu",
+      "text": "知道，師傅！五月都快過去了，我把借來的詩抄本全壓在床板底下，安安穩穩等發工資。",
+      "choices": [
+        {
+          "text": "這就對了，照顧好自己"
+        }
+      ]
+    },
+    "w5liu_3": {
+      "speaker": "liu",
+      "text": "排班表一直排到六月六號呢，咱們組還是白班夜班兩頭輪。",
+      "choices": [
+        {
+          "text": "記下班次"
+        }
+      ]
+    },
+    "w5shift_1": {
+      "speaker": "narr",
+      "text": "凌晨兩點，一車間的鎢絲天窗燈靜靜照著一排排藍色機床與更衣櫃。五月三十日的最後幾個小時就要過去，車床勻速轉動的聲音在夜裡格外清晰。此刻你心裡記掛著什麼？",
+      "choices": [
+        {
+          "text": "摸摸口袋裡那張從紅殼暖壺底揭下來的「謝謝」紙條，像春天轉了一圈又回到手裡",
+          "requires": "wk_thermos_returned",
+          "diary": "口袋裡收著那張寫著「謝謝」的字條。有些東西走遍半個北京城，最後還是安穩歸位。",
+          "end": "thermos_returned"
+        },
+        {
+          "text": "想著大雜院煤爐旁秀芳留著的那碗熱粥，踏實守完這半宿夜班",
+          "requires": "wk_courtyard_supper",
+          "diary": "想起院子裡煤爐的火光和熱粥，心裡安穩得多。",
+          "end": "courtyard_supper"
+        },
+        {
+          "text": "專心守在 C6140 車床旁把這批零件車完，不讓手底下的進刀走偏半絲",
+          "requires": "wk_steady_lathe",
+          "diary": "在機床穩穩的切削聲裡送走五月最後一夜。",
+          "end": "steady_lathe"
+        },
+        {
+          "text": "靠著鐵皮更衣櫃喝完半缸濃茶，靜靜等天亮換班",
+          "diary": "五月三十日夜。車間裡安靜得只剩車床嗡鳴，像暴風雨前低低的氣壓。",
+          "end": "late_shift"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "thermos_returned": {
+      "title": "歸位的紅暖壺",
+      "text": "大紅殼鋁暖壺安穩地擺在大雜院桌角，壺底那張藍墨水寫的「謝謝」紙條被你收進了工作筆記本。東西有借有還，這份尋常的體面成了這個五月底最踏實的安慰。"
+    },
+    "courtyard_supper": {
+      "title": "院心燈火",
+      "text": "煤爐火口還映著一點暗紅，秀芳在屋裡補好了工裝袖口，院裡鄰居照舊招呼著燒水添煤。外頭的五月拖得又長又疲憊，院子裡的煙火氣卻一直沒散。"
+    },
+    "steady_lathe": {
+      "title": "穩轉的車床",
+      "text": "一卷卷青灰色的鐵屑從刀尖落下。老趙拍拍你的肩說，不管外面風聲怎麼變，把手裡的活計穩穩當當做完，就是車間裡最實在的本分。"
+    },
+    "late_shift": {
+      "title": "五月最後的夜班",
+      "text": "天窗外頭已經響起夏初稀落的蟬鳴。你喝下一口溫茶，隱約覺得這漫長而焦灼的五月，就要走到一個誰也料想不到的盡頭了。"
+    }
+  },
+  "epilogue": "五月底，經歷近一個半月的對峙與戒嚴後，廣場與街市普遍出現疲態，工人與市民在照常輪班與柴米油鹽間憂慮著即將到來的六月。下一章：六月三日夜至五日清晨（尾聲）。",
+  "epilogueEvent": "1989-05-28-square-fatigue-debate"
+}

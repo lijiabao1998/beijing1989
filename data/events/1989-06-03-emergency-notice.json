@@ -1,0 +1,27 @@
+{
+  "id": "1989-06-03-emergency-notice",
+  "date": "1989-06-03",
+  "place": "北京全城（廣播與電視）",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "6月3日傍晚廣播與電視反覆播送緊急通告要求市民留在家中",
+    "en": "Evening of 3 June: radio and television repeatedly broadcast an emergency notice urging residents to stay indoors"
+  },
+  "summary": {
+    "zh": "1989 年 6 月 3 日傍晚六時許起，北京市人民政府與戒嚴部隊指揮部透過廣播電台與電視台反覆播送「緊急通告」，要求全體市民切勿上街、遠離天安門廣場並留在家中以策安全。當夜隨著多路部隊強行向市中心推進，北京街頭多處隨即發生嚴重衝突。",
+    "en": "Beginning around early evening on 3 June 1989, the Beijing Municipal Government and Martial Law Command repeatedly broadcast an emergency notice on radio and television warning citizens to stay off the streets, keep away from Tiananmen Square, and remain indoors, hours before troops pushed into central Beijing."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Military action",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Military_action"
+    },
+    {
+      "title": "Tiananmen Square, 1989: The Declassified History (Electronic Briefing Book No. 16)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB16/"
+    }
+  ]
+}

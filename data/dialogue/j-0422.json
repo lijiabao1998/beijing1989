@@ -1,0 +1,442 @@
+{
+  "chapter": "j-0422",
+  "title": "第二章　四月二十二日，警戒線外",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "beijing_hotel_balcony",
+  "spawn": {
+    "beijing_hotel_balcony": [0, 0],
+    "square": [-20, -262]
+  },
+  "labels": {
+    "beijing_hotel_balcony": "1989 年 4 月 22 日・清晨・北京飯店十樓陽台",
+    "square": "1989 年 4 月 22 日・上午至午後・天安門廣場警戒線外"
+  },
+  "transitions": {
+    "square": "你和小唐收起三腳架下樓，憑採訪證繞到天安門廣場外圍警戒線旁……"
+  },
+  "clockStart": 420,
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（顧明遠）",
+      "role": "29歲《首都晨報》市政記者",
+      "fictional": true
+    },
+    "shen": {
+      "name": "老沈",
+      "role": "《首都晨報》夜班主編（電話聯絡）",
+      "fictional": true
+    },
+    "tang": {
+      "name": "小唐",
+      "role": "實習攝影記者，架設長焦鏡頭",
+      "fictional": true
+    },
+    "shen_aunt": {
+      "name": "沈淑芬",
+      "role": "西單大雜院退休紡織廠醫務室護師",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立",
+      "role": "北大物理系學生",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "j2_wire_desk",
+      "scene": "beijing_hotel_balcony",
+      "pos": [6.2, 4.2],
+      "label": "套間分機與矛盾電訊・老沈來電",
+      "start": "j2_wire_1",
+      "npc": "blue",
+      "kind": "dispatch",
+      "timeWindow": [400, 720],
+      "deadlineMin": 455
+    },
+    {
+      "id": "j2_balcony_lens",
+      "scene": "beijing_hotel_balcony",
+      "pos": [1.2, -1.0],
+      "label": "十樓陽台欄杆・小唐與長焦取景",
+      "start": "j2_balcony_1",
+      "npc": "khaki",
+      "kind": "photo_vantage",
+      "timeWindow": [400, 720],
+      "deadlineMin": 485,
+      "autoHint": true
+    },
+    {
+      "id": "j2_balcony_exit",
+      "scene": "beijing_hotel_balcony",
+      "pos": [0, 5.2],
+      "label": "下樓赴廣場外圍警戒線",
+      "start": "j2_exit_sq_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "j2_broadcast",
+      "scene": "square",
+      "pos": [-30, -280],
+      "label": "廣場高音喇叭與追悼會轉播",
+      "start": "j2_bcast_1",
+      "kind": "inspect",
+      "timeWindow": [420, 900],
+      "deadlineMin": 615
+    },
+    {
+      "id": "j2_cordon",
+      "scene": "square",
+      "pos": [-72, -320],
+      "label": "大會堂東側警戒線・沈淑芬與目擊分歧",
+      "start": "j2_cordon_1",
+      "npc": "red",
+      "kind": "checkpoint",
+      "timeWindow": [420, 900],
+      "deadlineMin": 660,
+      "autoHint": true
+    },
+    {
+      "id": "j2_square_exit",
+      "scene": "square",
+      "pos": [20, -240],
+      "label": "午後收起筆記本返報社",
+      "start": "j2_end_1",
+      "kind": "portal",
+      "isExit": true
+    }
+  ],
+  "photoTargets": [
+    {
+      "id": "j2_pt_balcony_avenue",
+      "scene": "beijing_hotel_balcony",
+      "pos3": [-110, -28, -68],
+      "radius": 18,
+      "maxDist": 220,
+      "evidenceId": "j2_ev_photo_balcony",
+      "label": "十樓陽台俯瞰長安街清晨隊伍與自行車流",
+      "event": "1989-04-22-memorial-broadcast"
+    },
+    {
+      "id": "j2_pt_balcony_tiananmen",
+      "scene": "beijing_hotel_balcony",
+      "pos3": [-190, -14, -24],
+      "radius": 16,
+      "maxDist": 260,
+      "evidenceId": "j2_ev_photo_balcony",
+      "label": "十樓陽台遠眺天安門城樓與晨霧警戒線",
+      "event": "1989-04-22-memorial-broadcast"
+    },
+    {
+      "id": "j2_pt_steps_cordon",
+      "scene": "square",
+      "pos3": [-102, 4.2, -320],
+      "radius": 6,
+      "maxDist": 140,
+      "evidenceId": "j2_ev_photo_steps",
+      "label": "人民大會堂東門台階與廣場警戒線",
+      "event": "1989-04-22-petition-kneeling"
+    }
+  ],
+  "evidenceCatalog": {
+    "j2_ev_wire_hearse": {
+      "id": "j2_ev_wire_hearse",
+      "kind": "official_print",
+      "title": "靈車路線對比電訊抄件",
+      "summary": "通訊社播發「沿街大批群眾送別靈車」；與此同時，廣場外圍卻傳開「靈車不從廣場繞過已由別路離開」的說法，兩條電訊對路線細節互不相合。",
+      "sourceLabel": "清晨電訊摘要",
+      "dayKey": "1989-04-22",
+      "chapterId": "j-0422",
+      "event": "1989-04-22-hearse-route",
+      "route": "journalist",
+      "confidence": "uncertain",
+      "tags": ["0422", "靈車", "電訊"]
+    },
+    "j2_ev_photo_balcony": {
+      "id": "j2_ev_photo_balcony",
+      "kind": "photo",
+      "title": "陽台長焦底片：清晨封鎖線與長安街",
+      "summary": "從十樓高處拍下的晨霧長安街，清楚拍到連夜進駐廣場的人群輪廓與大會堂前數排警衛線，卻難以辨認台上是否有人接見。",
+      "sourceLabel": "北京飯店陽台底片",
+      "dayKey": "1989-04-22",
+      "chapterId": "j-0422",
+      "event": "1989-04-22-memorial-broadcast",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0422", "底片", "追悼會"]
+    },
+    "j2_ev_memorial_audio": {
+      "id": "j2_ev_memorial_audio",
+      "kind": "audio_tape",
+      "title": "上午十時追悼大會廣場轉播錄音",
+      "summary": "袖珍錄音機記下十點整廣場高音喇叭同步轉播追悼大會、數萬人摘帽肅立的長段靜默，過程約四十分鐘。",
+      "sourceLabel": "現場錄音帶",
+      "dayKey": "1989-04-22",
+      "chapterId": "j-0422",
+      "event": "1989-04-22-memorial-broadcast",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0422", "錄音", "追悼會"]
+    },
+    "j2_ev_rumor_official": {
+      "id": "j2_ev_rumor_official",
+      "kind": "rumor",
+      "title": "人海耳語：「會有人出來接見代表」",
+      "summary": "大會結束前後，廣場上口耳相傳「待會兒總理或官員會走出來接下請願書」；事後不同報導對於究竟有沒有官員出面收下清單，說法截然不同。",
+      "sourceLabel": "廣場傳聞與分岐報導",
+      "dayKey": "1989-04-22",
+      "chapterId": "j-0422",
+      "event": "1989-04-22-rumor-meeting",
+      "route": "journalist",
+      "confidence": "uncertain",
+      "tags": ["0422", "請願", "分歧"]
+    },
+    "j2_ev_photo_steps": {
+      "id": "j2_ev_photo_steps",
+      "kind": "witness",
+      "title": "警戒線外目擊：台階請願與市民送水",
+      "summary": "會後遠望見三名學生跪在大會堂東側台階舉著請願書；外圍市民與退休護師沈淑芬正把溫水和饅頭遞進人縫，誰也說不準台階頂端是否走出官員。",
+      "sourceLabel": "顧明遠現場速記",
+      "dayKey": "1989-04-22",
+      "chapterId": "j-0422",
+      "event": "1989-04-22-petition-kneeling",
+      "route": "journalist",
+      "confidence": "documented",
+      "tags": ["0422", "台階", "警戒線"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "j2_pair_rumor_steps",
+      "cards": ["j2_ev_rumor_official", "j2_ev_photo_steps"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "現場只親眼看見三人跪舉請願書、隨後人潮湧動；「會不會有人出來接見」與「究竟有沒有官員收下名單」，各路說法互相出入，記者只能並存兩說。",
+      "diary": "把「有人說官員出來接了」和「沒看見人出來」並排寫進筆記，不作武斷裁定。",
+      "set": "j2_kept_both_sides"
+    },
+    {
+      "id": "j2_pair_balcony_audio",
+      "cards": ["j2_ev_photo_balcony", "j2_ev_memorial_audio"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "陽台俯瞰拍到的肅立人群位置與十點整高音喇叭轉播錄音時段完全吻合，能相互印證追悼大會進行時的廣場實況。",
+      "diary": "影像與聲音時間軸對齊：十點整到十點四十分，廣場幾乎鴉雀無聲。"
+    },
+    {
+      "id": "j2_pair_hearse_balcony",
+      "cards": ["j2_ev_wire_hearse", "j2_ev_photo_balcony"],
+      "verdict": "unverified",
+      "verdictLabel": "尚無旁證",
+      "summary": "從十樓陽台西望僅見天安門前封鎖線與廣場人群，未能拍到靈車改道或繞行的確切路徑，靈車路線細節尚缺直接旁證。"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 22 日，星期六，清晨七點。胡耀邦追悼大會今日上午在人民大會堂舉行，天安門廣場一早已宣布封閉，而數萬名學生連夜徒步進城留駐廣場。你與小唐借到北京飯店東側十樓一處臨時採訪陽台，準備從高處觀察動靜。",
+      "event": "1989-04-21-night-march",
+      "variants": [
+        {
+          "requires": "j1_verified_notes",
+          "text": "1989 年 4 月 22 日清晨七點。四月十七日你分欄記下的夜街筆記還夾在公文包裡。今日廣場宣布封閉舉行追悼大會，數萬學生卻已提前在夜裡走進了廣場。你與小唐登上北京飯店十樓陽台，遠處長安街已在薄霧中拉開警戒線。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "先看套間桌上的電話記錄，再上陽台架起鏡頭",
+          "diary": "4/22 清晨七點。北京飯店十樓陽台能望見大半截長安街與廣場北緣。",
+          "timeCost": 10
+        }
+      ]
+    },
+    "j2_wire_1": {
+      "speaker": "shen",
+      "text": "明遠，聽得清嗎？剛才編輯部收到的電訊全打起架來：一條說靈車會照常經大道送別，另一條說外頭傳靈車根本不繞廣場走；還有人言之鑿鑿說散會後會有人出來見請願學生。你在高處盯緊一點，切忌拿聽來的話當定論！",
+      "event": "1989-04-22-hearse-route",
+      "choices": [
+        {
+          "text": "記下兩條互相牴觸的靈車與會見電訊摘要，承諾會把分歧如實標註來源",
+          "evidence": "j2_ev_wire_hearse",
+          "set": "j2_kept_both_sides",
+          "rel": { "shen": 1 },
+          "diary": "老沈在電話那頭叮囑：靈車路線與是否出來見面兩條電訊彼此打架，寧可並列存疑也別擅自下結論。",
+          "timeCost": 15,
+          "autoHint": true,
+          "next": "j2_wire_2"
+        },
+        {
+          "text": "詢問報社今日版面是否只刊官方追悼通稿",
+          "evidence": "j2_ev_wire_hearse",
+          "timeCost": 10,
+          "next": "j2_wire_2"
+        }
+      ]
+    },
+    "j2_wire_2": {
+      "speaker": "shen",
+      "text": "頭版當然統稿，但跑新聞的人心裡得有一本明白賬。去陽台跟小唐會合，十點前再下來看看外圍警戒線。",
+      "choices": [
+        {
+          "text": "明白，這就去陽台"
+        }
+      ]
+    },
+    "j2_balcony_1": {
+      "speaker": "tang",
+      "text": "顧老師，您看取景器裡——天安門前面已經拉起雙層警戒線，廣場北半邊密密麻麻全是昨晚走進來的學生，可從這個角度完全看不到大會堂西邊門口的靈車通道。要不我換 85mm 長焦試試，您也按 F 親自對焦看一眼？",
+      "event": "1989-04-22-memorial-broadcast",
+      "choices": [
+        {
+          "text": "架穩三腳架拍下晨霧封鎖線，提醒小唐標明拍攝時間與視角限制",
+          "evidence": "j2_ev_photo_balcony",
+          "set": "j2_balcony_frames",
+          "rel": { "tang": 1 },
+          "mechanic": "viewfinder",
+          "modeOverride": "camera_walk",
+          "diary": "在十樓陽台拍下四月二十二日清晨廣場與長安街的距離感——看得見全貌，卻看不清細節。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "拿起相機手動試拍幾格長街車流與自行車剪影",
+          "evidence": "j2_ev_photo_balcony",
+          "set": "j2_balcony_frames",
+          "mechanic": "viewfinder",
+          "modeOverride": "camera_walk",
+          "timeCost": 15
+        }
+      ]
+    },
+    "j2_exit_sq_1": {
+      "speaker": "narr",
+      "text": "接近上午九點半，飯店大廳的電視開始出現大會堂內景。你把袖珍錄音機揣進口袋，決定趁十點開會前走近廣場外圍去聽真實的現場聲音。",
+      "choices": [
+        {
+          "text": "下樓步行赴廣場警戒線外",
+          "goto": "square",
+          "timeCost": 25,
+          "autoHint": true
+        },
+        {
+          "text": "在陽台欄杆邊再望一眼南邊的天際",
+          "timeCost": 5
+        }
+      ]
+    },
+    "j2_bcast_1": {
+      "speaker": "narr",
+      "text": "十點整，廣場上的高音喇叭同步轉播人民大會堂內的追悼大會。原先在寒風中交談的人群忽然全都安靜下來，無數學生與外圍市民摘下帽子肅立，整片廣場在喇叭聲裡持續了約四十分鐘的莊嚴靜默。",
+      "event": "1989-04-22-memorial-broadcast",
+      "choices": [
+        {
+          "text": "按下袖珍錄音機錄下這段廣場同步轉播的聲音與時間",
+          "item": "cassette_tape",
+          "keepsake": "cassette_tape",
+          "evidence": "j2_ev_memorial_audio",
+          "diary": "10:00–10:40，錄音帶記下追悼會轉播與廣場數萬人同時靜默的聲音。",
+          "timeCost": 45,
+          "autoHint": true
+        },
+        {
+          "text": "只在採訪本上抄記轉播起止時間",
+          "evidence": "j2_ev_memorial_audio",
+          "timeCost": 40
+        }
+      ]
+    },
+    "j2_cordon_1": {
+      "speaker": "shen_aunt",
+      "text": "記者同志，你這能寫進報紙不？大老遠看見那三個孩子跪在東門台階上舉著紙卷，前排有人喊「出來人接了」，後面又喊「根本沒人出來」！這兒擠著好多送熱水和饅頭的街坊，剛才我還幫一個叫陳立的北大小伙子往水壺添了點溫水，誰知道台階上頭到底啥情況呢？",
+      "event": "1989-04-22-petition-kneeling",
+      "choices": [
+        {
+          "text": "分別記下「有說法稱官員出面收了清單」與「另說始終無人出來」兩種記載，也記錄市民送水的見聞",
+          "evidence": "j2_ev_photo_steps",
+          "set": "j2_cordon_witness",
+          "rel": { "shen_aunt": 1, "chen": 1 },
+          "diary": "追悼會後遠見三名學生跪於大會堂東階。現場與各路來源就「是否有人出來接見」說法相左，我與沈阿姨外圍所見只記「未見確據、兩說並存」。",
+          "timeCost": 25,
+          "autoHint": true,
+          "next": "j2_cordon_2"
+        },
+        {
+          "text": "追問人群裡「會有人出來見學生」的傳聞最初打哪裡傳開",
+          "evidence": "j2_ev_rumor_official",
+          "set": "j2_kept_both_sides",
+          "rel": { "shen_aunt": 1 },
+          "timeCost": 20,
+          "next": "j2_cordon_2"
+        }
+      ]
+    },
+    "j2_cordon_2": {
+      "speaker": "shen_aunt",
+      "text": "反正我們老百姓不懂你們大報紙怎麼定調，孩子們站一宿凍透了，遞口熱水總錯不了。剛才還有人嚷著靈車已經從別處走了呢，你這記者自己好好核對著寫吧。",
+      "event": "1989-04-22-residents-support",
+      "choices": [
+        {
+          "text": "記下「傳聞有人出來接見」的出處空白與市民遞水細節",
+          "evidence": "j2_ev_rumor_official",
+          "diary": "沈淑芬大姐把熱水遞過警戒線邊；至於請願與靈車細節，這一天留下的是互相衝突的見證。"
+        }
+      ]
+    },
+    "j2_end_1": {
+      "speaker": "narr",
+      "text": "午後，廣場上熬了一宿的人潮帶著疲倦陸續散出。夕陽將人民大會堂的柱廊拉得老長，你翻檢口袋裡的錄音帶、底片與兩欄還沒能合攏的採訪筆記。",
+      "choices": [
+        {
+          "text": "把靈車路線與「是否接見」的兩種說法並排夾進編輯部檔案夾",
+          "requires": "j2_kept_both_sides",
+          "diary": "四月二十二日存檔原則：在缺乏一手證據前，並存兩種互異說法，不替歷史添字。",
+          "end": "two_columns_kept"
+        },
+        {
+          "text": "先送小唐回暗房把十樓陽台的長焦底片印出接觸印樣",
+          "requires": "j2_balcony_frames",
+          "diary": "十樓陽台的長焦底片定格了清晨的距離，提醒著記者視角的邊界。",
+          "end": "balcony_contact_sheet"
+        },
+        {
+          "text": "在手記末段寫下沈淑芬阿姨與街坊送水送饅頭的真實片段",
+          "requires": "j2_cordon_witness",
+          "diary": "警戒線外，普通北京市民拎著暖壺與饅頭站在早春寒風裡。",
+          "end": "cordon_notebook"
+        },
+        {
+          "text": "趕在截稿前帶著筆記步行回報社整理電訊",
+          "diary": "午後離開廣場時，誰也不知傍晚外地又會傳來什麼消息。",
+          "end": "afternoon_dispatch"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "two_columns_kept": {
+      "title": "並存的兩欄檔案",
+      "text": "回到報社後，你把「靈車改道未經廣場」與「沿街群眾送別」兩條互不相容的記錄並排貼在同一頁活頁紙上；旁邊關於大會堂台階請願的兩種說法也一併留白存疑。"
+    },
+    "balcony_contact_sheet": {
+      "title": "十樓陽台的接觸印樣",
+      "text": "顯影盤裡浮出灰白色的天安門屋脊與密密的人點。高處的長鏡頭讓你能看見整個廣場的佈局，卻唯獨拍不到警戒線內輕聲交談的溫度。"
+    },
+    "cordon_notebook": {
+      "title": "警戒線外的暖壺",
+      "text": "在這個眾說紛紜的四月二十二日，沒有官員的答覆被確證，但沈阿姨和鄰居送進人群裡的幾壺開水與熱饅頭，卻真切地留在了你的筆端。"
+    },
+    "afternoon_dispatch": {
+      "title": "午後的截稿鐘",
+      "text": "你和疲憊返校的學生逆向走回王府井方向。傍晚電傳機傳來西安、長沙發生騷亂的急電，報社的夜燈又要亮到天明。"
+    }
+  },
+  "epilogue": "四月二十二日傍晚，西安與長沙發生騷亂，隨後北京高校陸續罷課。當日關於靈車路線與官員是否接見請願學生，各公開來源說法並存。下一章：四月二十七日，立交橋上。",
+  "epilogueEvent": "1989-04-22-xian-changsha"
+}

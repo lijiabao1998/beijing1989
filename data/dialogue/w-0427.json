@@ -1,0 +1,477 @@
+{
+  "chapter": "w-0427",
+  "title": "四月二十七日　廠門內外",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "factory",
+  "clockStart": 480,
+  "spawn": {
+    "factory": [0, 12],
+    "march_day": [-30, -6]
+  },
+  "labels": {
+    "factory": "1989 年 4 月 27 日・清晨・北京第二機床廠一車間",
+    "march_day": "1989 年 4 月 27 日・午休・廠門外大道"
+  },
+  "transitions": {
+    "march_day": "午休哨聲剛吹響，你和幾位師傅拎著幾桶剛晾溫的涼白開走出廠門，馬路對面正傳來綿長的歌聲……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（王建國）",
+      "role": "北京第二機床廠五級車工（俗稱王師傅）",
+      "fictional": true
+    },
+    "zhao": {
+      "name": "老趙",
+      "role": "車間帶班老師傅",
+      "fictional": true
+    },
+    "liu": {
+      "name": "小劉",
+      "role": "機床廠青年學徒，愛抄詩和剪報",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立（北大男生）",
+      "role": "北大物理系二年級學生（第一篇主角的交叉視角人物）",
+      "fictional": true
+    },
+    "worker2": {
+      "name": "二車間老師傅",
+      "role": "廠門口遞水圍觀的老工友",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "海淀報刊亭大爺",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "evidenceCatalog": {
+    "ev_w0427_study_doc": {
+      "id": "ev_w0427_study_doc",
+      "kind": "official_print",
+      "title": "廠內晨間學習會宣讀的四二六社論剪頁",
+      "summary": "四月二十七日早班前，車間按通知組織宣讀昨日《人民日報》社論，工友聽後私下議論卻各自心照不宣。",
+      "sourceLabel": "北京第二機床廠宣讀件",
+      "dayKey": "1989-04-27",
+      "chapterId": "w-0427",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "route": "worker",
+      "confidence": "documented",
+      "tags": ["0426社論", "工廠早班"]
+    },
+    "ev_w0427_liu_sighting": {
+      "id": "ev_w0427_liu_sighting",
+      "kind": "witness",
+      "title": "學徒小劉清晨在海淀路邊見聞",
+      "summary": "小劉早晨騎車上工時，看到大學生隊伍從校門方向排成橫排走上大路，沿街居民已開始出來張望。",
+      "sourceLabel": "小劉口述",
+      "dayKey": "1989-04-27",
+      "chapterId": "w-0427",
+      "event": "1989-04-27-april27-march",
+      "route": "worker",
+      "confidence": "testimony",
+      "tags": ["四二七遊行", "街頭目擊"]
+    },
+    "ev_w0427_gate_water": {
+      "id": "ev_w0427_gate_water",
+      "kind": "witness",
+      "title": "機床廠大門外遞水與警戒線放行見聞",
+      "summary": "王師傅與工友在廠門外給學生隊伍遞涼白開，親眼見數萬乃至逾十萬人和平經過並未發生衝突。",
+      "sourceLabel": "王建國工作筆記",
+      "dayKey": "1989-04-27",
+      "chapterId": "w-0427",
+      "event": "1989-04-27-april27-march",
+      "route": "worker",
+      "confidence": "documented",
+      "tags": ["四二七遊行", "遞水聲援"]
+    },
+    "ev_w0427_factory_rumor": {
+      "id": "ev_w0427_factory_rumor",
+      "kind": "rumor",
+      "title": "路邊聽聞：「廠區午後要戒嚴停水切斷外頭聯繫」",
+      "summary": "報攤旁圍觀路人口耳相傳的消息，並無廠務通知佐證，午後廠內水電與車床均正常運作。",
+      "sourceLabel": "廠門口路邊傳聞",
+      "dayKey": "1989-04-27",
+      "chapterId": "w-0427",
+      "route": "worker",
+      "confidence": "uncertain",
+      "tags": ["四二七遊行", "未經核實"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "pair_w0427_march_corroborated",
+      "cards": ["ev_w0427_liu_sighting", "ev_w0427_gate_water"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "小劉清晨上班路上的所見與午間廠門口遞水時目睹的和平人潮在方向、氣氛與秩序上完全吻合。",
+      "diary": "把小劉清早進廠前說的跟午休在廠門外親眼看見的對一對，一整個上午學生和街坊始終平和。"
+    },
+    {
+      "id": "pair_w0427_rumor_vs_study",
+      "cards": ["ev_w0427_factory_rumor", "ev_w0427_study_doc"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "街邊流傳「午後各廠停水鎖門」的說法與廠內照常輪班開工的實際通知及公開報導存在出入。",
+      "diary": "路上有人傳午後廠裡要斷水封廠，回頭看廠裡鍋爐房和車床全照常運轉，只是謠言瞎起哄。"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "w0427_zhao",
+      "scene": "factory",
+      "pos": [-8, 2],
+      "label": "一車間・老趙談早班學習",
+      "start": "w0427_zhao_1",
+      "npc": "blue",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "w0427_liu",
+      "scene": "factory",
+      "pos": [9, -2],
+      "label": "拿著報紙的小劉",
+      "start": "w0427_liu_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "w0427_boiler",
+      "scene": "factory",
+      "pos": [-11, -9],
+      "label": "開水房・灌涼白開水桶",
+      "start": "w0427_boiler_1",
+      "kind": "inspect",
+      "autoHint": true
+    },
+    {
+      "id": "w0427_gate",
+      "scene": "factory",
+      "pos": [0, -18],
+      "label": "機床廠大門・午休外頭看看",
+      "start": "w0427_gate_1",
+      "kind": "portal",
+      "isExit": true,
+      "autoHint": true
+    },
+    {
+      "id": "w0427_chen",
+      "scene": "march_day",
+      "pos": [-16, -5],
+      "label": "路過隊伍裡的陳立",
+      "start": "w0427_chen_1",
+      "npc": "navy",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "w0427_workers",
+      "scene": "march_day",
+      "pos": [4, -4],
+      "label": "圍觀聲援的老工友與鄰居",
+      "start": "w0427_workers_1",
+      "npc": "grey",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "w0427_sun",
+      "scene": "march_day",
+      "pos": [-6, -3.5],
+      "label": "報刊亭孫大爺",
+      "start": "w0427_sun_1",
+      "npc": "grey",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "w0427_leave",
+      "scene": "march_day",
+      "pos": [28, -8],
+      "label": "午休結束・回車間交接班",
+      "start": "w0427_leave_1",
+      "kind": "portal",
+      "isExit": true,
+      "autoHint": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 27 日，星期四，清晨。昨晚廣播把今天的《人民日報》社論提前念了一遍，今早七點剛進北京第二機床廠一車間，組裡就先開了二十分鐘政治學習會念社論文件。念完以後大家沒多吭聲，各自走回車床旁戴上手套，卻都在悄悄豎起耳朵聽外頭大馬路的動靜。",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "choices": [
+        {
+          "text": "走到一車間卡盤旁邊，聽老趙安排早班活計",
+          "diary": "4/27 清晨。早班前車間照通知念了《人民日報》社論；大夥兒嘴上不作聲，心裡都在惦記今天街上會怎樣。",
+          "timeCost": 15,
+          "autoHint": true
+        }
+      ]
+    },
+    "w0427_zhao_1": {
+      "speaker": "zhao",
+      "text": "建國，上面叫念的稿子我照本念完了。這咱們管不了，但車間裡的規矩咱們得自己拿捏住：第一，機器照常開、手別走神，安全第一；第二，不准在廠區裡拉大字報瞎鬧；第三——開水房那兩桶涼白開，午休時誰要端出去給路過解渴的孩子，我老趙只當沒看見。",
+      "event": "1989-04-26-peoples-daily-editorial",
+      "variants": [
+        {
+          "requires": "rel:zhao>=1",
+          "text": "建國，早班學習會剛散。念報紙是例行公事，車間裡的活計一秒不能出岔子；不過這大太陽的，要是中午街上有年輕孩子經過門口渴著了，開水房晾著的涼白開隨大夥兒倒一兩杯出去，咱們問心無愧。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "記住老趙「機器照開、人情不丟」的叮囑，先把上午的零件車出來",
+          "evidence": "ev_w0427_study_doc",
+          "set": "w0427_zhao_solidarity",
+          "rel": { "zhao": 1 },
+          "diary": "老趙念完社論後悄悄交代：手頭機器穩穩照轉，午休若想給門外學生遞口涼白開他兜著。",
+          "timeCost": 25,
+          "autoHint": true,
+          "next": "w0427_zhao_2"
+        },
+        {
+          "text": "問老趙看得出外頭已經有人上街了嗎",
+          "timeCost": 15,
+          "next": "w0427_zhao_3"
+        }
+      ]
+    },
+    "w0427_zhao_2": {
+      "speaker": "zhao",
+      "text": "對，你穩重，盯著點小劉別讓他午休時一股腦鑽進人堆不回廠。中午十二點鈴響再出去透氣。",
+      "choices": [
+        {
+          "text": "曉得了，趙哥",
+          "autoHint": true
+        }
+      ]
+    },
+    "w0427_zhao_3": {
+      "speaker": "zhao",
+      "text": "小劉早上進門時嚷嚷說看見海淀那邊學生正往大街匯合，估計中午以前就會經過咱們廠這條主幹道外頭。",
+      "choices": [
+        {
+          "text": "我去問問小劉"
+        }
+      ]
+    },
+    "w0427_liu_1": {
+      "speaker": "liu",
+      "text": "王師傅！您看這張今天早上送來的報紙，頭版黑字寫著「動亂」兩個字……可我清晨騎車經過學院路和白石橋那邊，學生們全是挽著手排著方陣慢慢走的，邊上還跟著他們自己的糾察隊，一點沒亂砸沒吵架！",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "讓小劉先把報紙摺起來幹活，答應午休帶他去廠門口看看實情",
+          "evidence": "ev_w0427_liu_sighting",
+          "rel": { "liu": 1 },
+          "set": "w0427_liu_talked",
+          "diary": "小劉早晨上班路上看見學生整齊上街，跟報紙社論裡的字眼完全對不上號。",
+          "timeCost": 20,
+          "autoHint": true,
+          "next": "w0427_liu_2"
+        },
+        {
+          "text": "提醒他先別四處宣揚，站好自己的車床崗位",
+          "timeCost": 15,
+          "next": "w0427_liu_2"
+        }
+      ]
+    },
+    "w0427_liu_2": {
+      "speaker": "liu",
+      "text": "是，師傅！我這就先擦機器幹活，中午您叫我一聲！",
+      "choices": [
+        {
+          "text": "嗯，中午見",
+          "autoHint": true
+        }
+      ]
+    },
+    "w0427_boiler_1": {
+      "speaker": "narr",
+      "text": "開水房裡晾著兩大桶剛放涼的白開水，旁邊一摞乾淨的搪瓷杯和你的鋁飯盒。廠外大街隱隱傳來陣陣響亮的口號與圍觀市民的掌聲。",
+      "choices": [
+        {
+          "text": "拎起兩壺涼白開與一摞紙杯，和飯盒一道放到廠門邊",
+          "item": "lunchbox",
+          "keepsake": "lunchbox",
+          "set": "w0427_packed_water",
+          "diary": "從開水房拎了兩大壺涼白開與紙杯，準備午休端到廠大門邊。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "先喝口熱水歇口氣",
+          "timeCost": 10
+        }
+      ]
+    },
+    "w0427_gate_1": {
+      "speaker": "narr",
+      "text": "十二點午休哨聲響起。打開廠大門的鐵柵欄，門外馬路兩旁早就擠滿了街坊鄰居，對面一列列穿著淺色襯衫與夾克的學生正踏著整齊步子從立交橋那頭緩緩走來。",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "端著涼白開水桶走出廠門，站在人行道邊看看",
+          "goto": "march_day",
+          "timeCost": 30,
+          "autoHint": true
+        },
+        {
+          "text": "再回頭交代小劉看好時間"
+        }
+      ]
+    },
+    "w0427_chen_1": {
+      "speaker": "chen",
+      "text": "哎——前頭廠門口那位拿著水壺的師傅！這不是王師傅嗎！我們一早從海淀出來，剛才前頭在立交橋前面遇到兩道警戒線，大夥兒手挽著手唱著歌往前挪，兩邊橋上和窗口擠滿了街坊喊加油，警察也沒硬攔，隊伍一路走過來了！",
+      "event": "1989-04-27-april27-march",
+      "variants": [
+        {
+          "requires": "wk_saw_chen",
+          "text": "王師傅！上次四月十七和二十二號夜裡見過兩回，今兒大白天在你們廠門口又碰上！剛才在立交橋前頭警察警戒線讓開的時候，橋上全是遞汽水遞麵包的大爺大媽！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "趕緊倒滿幾杯涼白開遞給陳立和旁邊同學，囑咐他們別中暑、天黑早點回校",
+          "evidence": "ev_w0427_gate_water",
+          "set": "w0427_gave_water",
+          "rel": { "chen": 1 },
+          "diary": "在廠門口認出走過來的北大學生陳立。我給他和旁邊同學遞去涼白開，親眼看見遊行隊伍和平有序、並無衝突。",
+          "timeCost": 25,
+          "autoHint": true,
+          "next": "w0427_chen_2"
+        },
+        {
+          "text": "問問陳立隊伍裡今天大概有多少學校出來",
+          "set": "w0427_talked_chen",
+          "rel": { "chen": 1 },
+          "timeCost": 20,
+          "next": "w0427_chen_3"
+        }
+      ]
+    },
+    "w0427_chen_2": {
+      "speaker": "chen",
+      "text": "謝謝王師傅！這水真解渴！您放心，糾察一路盯著秩序，走完這段天黑前我們就整隊回學校去！",
+      "choices": [
+        {
+          "text": "一路保重，平平安安回宿舍",
+          "set": "w0427_talked_chen",
+          "autoHint": true
+        }
+      ]
+    },
+    "w0427_chen_3": {
+      "speaker": "chen",
+      "text": "幾十所高校都匯在一起了！有人說五萬人，也有人說十萬以上，加上兩邊看熱鬧遞水的街坊更是數不清。我們晚上肯定和平回校，您別擔心！",
+      "choices": [
+        {
+          "text": "喝完這杯水再走吧",
+          "set": "w0427_gave_water"
+        }
+      ]
+    },
+    "w0427_workers_1": {
+      "speaker": "worker2",
+      "text": "建國你看這條長街！咱們車間上午念完社論還捏把汗，出來一看——這哪是什麼「動亂」？一個個年輕孩子喊著口號、手挽手走得整整齊齊，沿街大媽還抱著一箱箱冰棍往人群裡塞呢！",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "跟二車間老師傅一起幫著街坊遞水、維持路口騎車人的通行",
+          "set": "w0427_gave_water",
+          "diary": "廠門口站滿了工友和鄰居，大家自發遞水鼓掌，沒人說一句重話。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "點頭嘆口氣，繼續望著路中間的隊伍",
+          "timeCost": 15
+        }
+      ]
+    },
+    "w0427_sun_1": {
+      "speaker": "sun",
+      "text": "王師傅你也趁午休出來看啦？剛才幾個看熱鬧的瞎傳「下午全城工廠都要斷水鎖大門」，我瞧你們廠這不水桶還往外拎呢嘛！倒是剛才聽騎車過來的熟人說，因為今兒上街這麼平和，說不定月底上面就會找幾個學生代表談話啦。",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "笑著搖頭說廠裡車床照常開著，記下這則沒根據的街邊傳言",
+          "evidence": "ev_w0427_factory_rumor",
+          "rel": { "sun": 1 },
+          "diary": "孫大爺說街上還傳「工廠要斷水鎖門」，根本沒影的事；大夥兒更盼著月底真能坐下來談一談。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "謝過大爺，記住午休時間快到了",
+          "timeCost": 10
+        }
+      ]
+    },
+    "w0427_leave_1": {
+      "speaker": "narr",
+      "text": "下午一點半的上工哨聲遠遠從廠院裡響起來。兩桶涼白開已經見底，遠處的學生隊伍仍在朝天安門方向穩穩移動，兩邊掌聲一浪接一浪。拎起空水桶走回工廠大門時，你記住了什麼？",
+      "event": "1989-04-27-april27-march",
+      "choices": [
+        {
+          "text": "想起剛才站在廠門口把一杯杯涼白開遞到年輕人手裡的模樣",
+          "requires": "w0427_gave_water",
+          "diary": "4/27 午休結束回廠。空了的水桶輕飄飄的，可心頭比早上念社論時亮堂許多。",
+          "autoHint": true,
+          "end": "cold_water_at_gate"
+        },
+        {
+          "text": "記起老趙早上在車間裡那句「手頭機器穩穩照轉，心裡有數」",
+          "requires": "w0427_zhao_solidarity",
+          "diary": "4/27 下午進車間接班。不管外頭報紙怎麼寫、街上多少人，車工守住手邊機床與心裡分寸。",
+          "end": "shop_solidarity"
+        },
+        {
+          "text": "回頭再望一眼遠去的白衣學生隊伍，願他們傍晚平平安安回校",
+          "requires": "w0427_talked_chen",
+          "diary": "4/27 下午回車間，聽說晚上所有隊伍都平安走回學校，心裡總算放下石頭。",
+          "end": "watched_the_column"
+        },
+        {
+          "text": "拎起空水桶回一車間戴上手套，照常接午後這班車床",
+          "diary": "4/27 午後照常開機床幹活。機床卡盤轉起來的時候，街上和平遊行的消息正傳遍北京城。",
+          "autoHint": true,
+          "end": "afternoon_shift"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "cold_water_at_gate": {
+      "title": "廠門口的涼白開",
+      "text": "你拎著兩個喝空的鋁水壺走進大門。整個下午車床轉動聲依舊，工友們卻不約而同把中午那條和平而熱鬧的大街記在心裡。"
+    },
+    "shop_solidarity": {
+      "title": "機床照轉・心裡有數",
+      "text": "早上念過的社論、中午遞出的涼水、下午車出的軸承套，都在同一天裡平平靜靜地並排存在著。老趙站在走道盡頭對你點了點頭。"
+    },
+    "watched_the_column": {
+      "title": "目送白衣隊伍",
+      "text": "下晚班回家時聽說遊行學生都已經和平回校了。秀芳聽完你在廠門口的見聞，在燈下嘆了口氣說：「能平平安安回去比什麼都好。」"
+    },
+    "afternoon_shift": {
+      "title": "午後上機床",
+      "text": "切削液的氣味重新漫進車間。四月二十七日的大遊行沒有停下工廠的機器，卻讓車間裡每個人都看得比報紙更清楚。"
+    }
+  },
+  "epilogue": "1989 年 4 月 27 日，北京數萬至十萬名以上大學生走上街頭回應四二六社論，沿街獲大量北京市民與職工鼓掌遞水聲援並於晚間和平返校。下一階段：五月四日。",
+  "epilogueEvent": "1989-04-27-april27-march"
+}

@@ -1,0 +1,114 @@
+{
+  "xr:thermos_lent": {
+    "id": "xr:thermos_lent",
+    "dayKey": "1989-05-15",
+    "sourceRoute": "worker",
+    "defaultVal": false,
+    "kind": "physical_handoff",
+    "description": "王師傅在廣場營地將大紅竹殼暖水壺借給學生與志願者"
+  },
+  "xr:thermos_gauze_tag": {
+    "id": "xr:thermos_gauze_tag",
+    "dayKey": "1989-05-15",
+    "sourceRoute": "resident",
+    "defaultVal": false,
+    "kind": "artifact_left",
+    "description": "沈淑芬在紅暖壺把手上繫上乾淨醫用紗布條記號"
+  },
+  "xr:thermos_returned": {
+    "id": "xr:thermos_returned",
+    "dayKey": "1989-05-30",
+    "sourceRoute": "student",
+    "defaultVal": false,
+    "kind": "physical_handoff",
+    "description": "陳立於五月底將貼著「謝謝」字條的暖壺歸還給王師傅"
+  },
+  "xr:rumor_0514_tv_verified": {
+    "id": "xr:rumor_0514_tv_verified",
+    "dayKey": "1989-05-14",
+    "sourceRoute": "journalist",
+    "defaultVal": false,
+    "kind": "rumor_spread",
+    "description": "顧明遠現場核實五月十四日「電視台今晚直播對話」傳言並作出澄清"
+  },
+  "xr:rumor_0514_tv_panic": {
+    "id": "xr:rumor_0514_tv_panic",
+    "dayKey": "1989-05-14",
+    "sourceRoute": "journalist",
+    "defaultVal": false,
+    "kind": "rumor_spread",
+    "description": "未經核實的五月十四日直播傳言在街頭與鄰里間加速擴散"
+  },
+  "xr:rumor_0520_subway_verified": {
+    "id": "xr:rumor_0520_subway_verified",
+    "dayKey": "1989-05-20",
+    "sourceRoute": "journalist",
+    "defaultVal": false,
+    "kind": "rumor_spread",
+    "description": "顧明遠核對地鐵停運與隧道傳聞，記錄下可查證的目擊界線"
+  },
+  "xr:rumor_0520_subway_panic": {
+    "id": "xr:rumor_0520_subway_panic",
+    "dayKey": "1989-05-20",
+    "sourceRoute": "student",
+    "defaultVal": false,
+    "kind": "rumor_spread",
+    "description": "關於地鐵停運與隧道駐軍的未確認消息在電話亭與街坊間流傳"
+  },
+  "xr:press_0504_published": {
+    "id": "xr:press_0504_published",
+    "dayKey": "1989-05-04",
+    "sourceRoute": "journalist",
+    "defaultVal": false,
+    "kind": "editorial_choice",
+    "description": "五月四日首都新聞界遊行與現場報導得以見報"
+  },
+  "xr:press_0504_internal": {
+    "id": "xr:press_0504_internal",
+    "dayKey": "1989-05-04",
+    "sourceRoute": "journalist",
+    "defaultVal": false,
+    "kind": "editorial_choice",
+    "description": "五月四日採訪紀錄改以內部參考清樣傳閱留存"
+  },
+  "xr:press_0504_spiked": {
+    "id": "xr:press_0504_spiked",
+    "dayKey": "1989-05-04",
+    "sourceRoute": "journalist",
+    "defaultVal": false,
+    "kind": "editorial_choice",
+    "description": "五月四日版面稿件臨時撤下，只餘鉛字校樣"
+  },
+  "xr:slope_push_helped": {
+    "id": "xr:slope_push_helped",
+    "dayKey": "1989-05-15",
+    "sourceRoute": "student",
+    "defaultVal": false,
+    "kind": "witness_overlap",
+    "description": "陳立在街坡幫王師傅推了一把滿載綠豆湯的三輪車"
+  },
+  "xr:clinic_gauze_shared": {
+    "id": "xr:clinic_gauze_shared",
+    "dayKey": "1989-05-15",
+    "sourceRoute": "resident",
+    "defaultVal": false,
+    "kind": "physical_handoff",
+    "description": "沈淑芬將醫務室備用無菌紗布與飲水交給急救站與過路車隊"
+  },
+  "xr:curfew_lane_guarded": {
+    "id": "xr:curfew_lane_guarded",
+    "dayKey": "1989-06-03",
+    "sourceRoute": "worker",
+    "defaultVal": false,
+    "kind": "witness_overlap",
+    "description": "王師傅於六月三日夜守在胡同口勸返往南騎行的年輕人"
+  },
+  "xr:curfew_hospital_warned": {
+    "id": "xr:curfew_hospital_warned",
+    "dayKey": "1989-06-03",
+    "sourceRoute": "journalist",
+    "defaultVal": false,
+    "kind": "witness_overlap",
+    "description": "顧明遠從夜班新聞室及醫院聯絡處傳回繞行避險提醒"
+  }
+}

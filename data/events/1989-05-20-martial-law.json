@@ -1,0 +1,32 @@
+{
+  "id": "1989-05-20-martial-law",
+  "date": "1989-05-20",
+  "place": "北京市部分地區",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "5月20日北京部分地區正式實施戒嚴",
+    "en": "20 May: martial law takes effect in parts of Beijing"
+  },
+  "summary": {
+    "zh": "5 月 19 日深夜首都黨政軍幹部大會召開後，國務院總理李鵬簽署命令，宣布自 1989 年 5 月 20 日上午十時起在北京市部分地區實施戒嚴，並調集外地部隊向北京周邊開進。這是五月對峙局勢轉向軍事戒備的重大轉折。",
+    "en": "Following a late-night leadership meeting on 19 May, Premier Li Peng signed the decree imposing martial law in parts of Beijing starting at 10:00 a.m. on 20 May 1989, as outside army units were ordered to deploy toward the capital."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Martial law",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Martial_law"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    },
+    {
+      "title": "Tiananmen Square, 1989",
+      "publisher": "U.S. Department of State, Office of the Historian (Milestones)",
+      "url": "https://history.state.gov/milestones/1989-1992/tiananmen-square"
+    }
+  ]
+}

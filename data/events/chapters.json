@@ -36,41 +36,145 @@
       "id": "ch2-0513",
       "date": "1989-05-13",
       "title": {
-        "zh": "五月十三日",
-        "en": "13 May"
+        "zh": "第三章　五月十三日至十五日",
+        "en": "Ch.3 13–15 May"
       },
-      "playable": false,
-      "events": []
+      "playable": true,
+      "events": [
+        "1989-04-26-peoples-daily-editorial",
+        "1989-05-13-hunger-strike",
+        "1989-05-14-intellectuals-mediation",
+        "1989-05-14-rumor-tv-broadcast",
+        "1989-05-15-gorbachev-visit",
+        "1989-05-15-citizens-medical-support"
+      ]
     },
     {
       "id": "ch3-0520",
       "date": "1989-05-20",
       "title": {
-        "zh": "五月二十日",
-        "en": "20 May"
+        "zh": "第四章　五月十九日夜至二十日",
+        "en": "Ch.4 19–20 May"
       },
-      "playable": false,
-      "events": []
+      "playable": true,
+      "events": [
+        "1989-05-19-hunger-strike-ends",
+        "1989-05-20-martial-law",
+        "1989-05-20-citizens-block-convoys",
+        "1989-05-20-rumor-subway-troops"
+      ]
     },
     {
       "id": "ch4-0530",
       "date": "1989-05-30",
       "title": {
-        "zh": "五月三十日",
-        "en": "30 May"
+        "zh": "第五章　五月三十日",
+        "en": "Ch.5 30 May"
       },
-      "playable": false,
-      "events": []
+      "playable": true,
+      "events": [
+        "1989-05-28-square-fatigue-debate",
+        "1989-05-30-goddess-of-democracy"
+      ]
     },
     {
       "id": "ch5-0603",
       "date": "1989-06-03",
       "title": {
-        "zh": "六月三日至四日",
-        "en": "3-4 June"
+        "zh": "第六章　六月三日夜至四日（尾聲）",
+        "en": "Ch.6 3–4 June (Epilogue)"
       },
-      "playable": false,
-      "events": []
+      "playable": true,
+      "events": [
+        "1989-06-03-emergency-notice",
+        "1989-06-04-square-clearing"
+      ]
+    }
+  ],
+  "workerChapters": [
+    {
+      "id": "w0-0417",
+      "date": "1989-04-17",
+      "title": {
+        "zh": "第一章　四月十七日，夜班前後",
+        "en": "Ch.1 17 April, Around the Night Shift"
+      },
+      "playable": true,
+      "events": [
+        "1989-04-15-hu-yaobang-death",
+        "1989-04-17-inflation-worker-mood",
+        "1989-04-17-campus-to-square"
+      ]
+    },
+    {
+      "id": "w1-0422",
+      "date": "1989-04-22",
+      "title": {
+        "zh": "第二章　四月二十一日夜至二十二日",
+        "en": "Ch.2 21–22 April"
+      },
+      "playable": true,
+      "events": [
+        "1989-04-21-night-march",
+        "1989-04-22-residents-support"
+      ]
+    },
+    {
+      "id": "w2-0513",
+      "date": "1989-05-13",
+      "title": {
+        "zh": "第三章　五月十三日至十五日",
+        "en": "Ch.3 13–15 May"
+      },
+      "playable": true,
+      "events": [
+        "1989-04-26-peoples-daily-editorial",
+        "1989-05-13-hunger-strike",
+        "1989-05-15-gorbachev-visit",
+        "1989-05-15-citizens-medical-support"
+      ]
+    },
+    {
+      "id": "w3-0520",
+      "date": "1989-05-20",
+      "title": {
+        "zh": "第四章　五月十九日夜至二十日",
+        "en": "Ch.4 19–20 May"
+      },
+      "playable": true,
+      "events": [
+        "1989-05-17-worker-citizen-rallies",
+        "1989-05-19-hunger-strike-ends",
+        "1989-05-20-martial-law",
+        "1989-05-20-citizens-block-convoys",
+        "1989-05-20-workers-picket-and-soldiers"
+      ]
+    },
+    {
+      "id": "w4-0530",
+      "date": "1989-05-30",
+      "title": {
+        "zh": "第五章　五月三十日，廠區與院落",
+        "en": "Ch.5 30 May, Workshop and Courtyard"
+      },
+      "playable": true,
+      "events": [
+        "1989-05-28-square-fatigue-debate"
+      ]
+    },
+    {
+      "id": "w5-0603",
+      "date": "1989-06-03",
+      "title": {
+        "zh": "第六章　六月三日夜至五日清晨（尾聲）",
+        "en": "Ch.6 3–5 June (Epilogue)"
+      },
+      "playable": true,
+      "events": [
+        "1989-06-03-emergency-notice",
+        "1989-06-04-square-clearing",
+        "1989-06-05-workplace-aftermath"
+      ]
     }
   ],
   "viewpoints": [
@@ -84,19 +188,621 @@
       "id": "worker",
       "zh": "工人",
       "en": "Worker",
-      "playable": false
+      "playable": true
     },
     {
       "id": "journalist",
       "zh": "記者",
       "en": "Journalist",
-      "playable": false
+      "playable": true
     },
     {
       "id": "resident",
       "zh": "市民",
       "en": "Resident",
-      "playable": false
+      "playable": true
     }
-  ]
+  ],
+  "routes": {
+    "student": [
+      {
+        "id": "ch0-0417",
+        "date": "1989-04-17",
+        "dayKey": "1989-04-17",
+        "shortId": "ch0",
+        "assetKey": "ch0",
+        "orderIndex": 0,
+        "title": {
+          "zh": "第一章　四月十七日，夜",
+          "en": "Ch.1 17 April, night"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-15-hu-yaobang-death",
+          "1989-04-17-campus-to-square",
+          "1989-04-17-rumor-square-crowd"
+        ]
+      },
+      {
+        "id": "ch1-0422",
+        "date": "1989-04-22",
+        "dayKey": "1989-04-22",
+        "shortId": "ch1",
+        "assetKey": "ch1",
+        "orderIndex": 1,
+        "title": {
+          "zh": "第二章　四月二十一日夜至二十二日",
+          "en": "Ch.2 21–22 April"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-21-night-march",
+          "1989-04-22-memorial-broadcast",
+          "1989-04-22-petition-kneeling",
+          "1989-04-22-residents-support",
+          "1989-04-22-hearse-route",
+          "1989-04-22-rumor-meeting",
+          "1989-04-22-xian-changsha"
+        ]
+      },
+      {
+        "id": "ch-0427",
+        "date": "1989-04-27",
+        "dayKey": "1989-04-27",
+        "shortId": "ch_0427",
+        "assetKey": "ch_0427",
+        "orderIndex": 2,
+        "title": {
+          "zh": "四月二十六日至二十七日　長街人潮",
+          "en": "26–27 April, Avenue March"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-26-peoples-daily-editorial",
+          "1989-04-27-april27-march"
+        ]
+      },
+      {
+        "id": "ch-0504",
+        "date": "1989-05-04",
+        "dayKey": "1989-05-04",
+        "shortId": "ch_0504",
+        "assetKey": "ch_0504",
+        "orderIndex": 3,
+        "title": {
+          "zh": "五月四日　新聞界與新五四宣言",
+          "en": "4 May, Press Banners & Declaration"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-04-may-fourth-press-march",
+          "1989-05-04-rumor-editorial-retraction"
+        ]
+      },
+      {
+        "id": "ch2-0513",
+        "date": "1989-05-13",
+        "dayKey": "1989-05-15",
+        "shortId": "ch2",
+        "assetKey": "ch2",
+        "orderIndex": 4,
+        "title": {
+          "zh": "第三章　五月十三日至十五日",
+          "en": "Ch.3 13–15 May"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-26-peoples-daily-editorial",
+          "1989-05-13-hunger-strike",
+          "1989-05-14-intellectuals-mediation",
+          "1989-05-14-rumor-tv-broadcast",
+          "1989-05-15-gorbachev-visit",
+          "1989-05-15-citizens-medical-support"
+        ]
+      },
+      {
+        "id": "ch3-0520",
+        "date": "1989-05-20",
+        "dayKey": "1989-05-20",
+        "shortId": "ch3",
+        "assetKey": "ch3",
+        "orderIndex": 5,
+        "title": {
+          "zh": "第四章　五月十九日夜至二十日",
+          "en": "Ch.4 19–20 May"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-19-hunger-strike-ends",
+          "1989-05-20-martial-law",
+          "1989-05-20-citizens-block-convoys",
+          "1989-05-20-rumor-subway-troops"
+        ]
+      },
+      {
+        "id": "ch4-0530",
+        "date": "1989-05-30",
+        "dayKey": "1989-05-30",
+        "shortId": "ch4",
+        "assetKey": "ch4",
+        "orderIndex": 6,
+        "title": {
+          "zh": "第五章　五月三十日",
+          "en": "Ch.5 30 May"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-28-square-fatigue-debate",
+          "1989-05-30-goddess-of-democracy"
+        ]
+      },
+      {
+        "id": "ch5-0603",
+        "date": "1989-06-03",
+        "dayKey": "1989-06-05",
+        "shortId": "ch5",
+        "assetKey": "ch5",
+        "orderIndex": 7,
+        "title": {
+          "zh": "第六章　六月三日夜至四日（尾聲）",
+          "en": "Ch.6 3–4 June (Epilogue)"
+        },
+        "playable": true,
+        "events": [
+          "1989-06-03-emergency-notice",
+          "1989-06-04-square-clearing"
+        ]
+      }
+    ],
+    "worker": [
+      {
+        "id": "w0-0417",
+        "date": "1989-04-17",
+        "dayKey": "1989-04-17",
+        "shortId": "w0",
+        "assetKey": "w0",
+        "orderIndex": 0,
+        "title": {
+          "zh": "第一章　四月十七日，夜班前後",
+          "en": "Ch.1 17 April, Around the Night Shift"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-15-hu-yaobang-death",
+          "1989-04-17-inflation-worker-mood",
+          "1989-04-17-campus-to-square"
+        ]
+      },
+      {
+        "id": "w1-0422",
+        "date": "1989-04-22",
+        "dayKey": "1989-04-22",
+        "shortId": "w1",
+        "assetKey": "w1",
+        "orderIndex": 1,
+        "title": {
+          "zh": "第二章　四月二十一日夜至二十二日",
+          "en": "Ch.2 21–22 April"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-21-night-march",
+          "1989-04-22-residents-support"
+        ]
+      },
+      {
+        "id": "w-0427",
+        "date": "1989-04-27",
+        "dayKey": "1989-04-27",
+        "shortId": "w_0427",
+        "assetKey": "w_0427",
+        "orderIndex": 2,
+        "title": {
+          "zh": "四月二十七日　廠門內外",
+          "en": "27 April, Inside and Outside the Factory Gate"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-26-peoples-daily-editorial",
+          "1989-04-27-april27-march"
+        ]
+      },
+      {
+        "id": "w-0504",
+        "date": "1989-05-04",
+        "dayKey": "1989-05-04",
+        "shortId": "w_0504",
+        "assetKey": "w_0504",
+        "orderIndex": 3,
+        "title": {
+          "zh": "五月四日　報刊亭與剪報本",
+          "en": "4 May, Newsstand and Scrapbook"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-04-may-fourth-press-march",
+          "1989-05-04-rumor-editorial-retraction"
+        ]
+      },
+      {
+        "id": "w2-0513",
+        "date": "1989-05-13",
+        "dayKey": "1989-05-15",
+        "shortId": "w2",
+        "assetKey": "w2",
+        "orderIndex": 4,
+        "title": {
+          "zh": "第三章　五月十三日至十五日",
+          "en": "Ch.3 13–15 May"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-26-peoples-daily-editorial",
+          "1989-05-13-hunger-strike",
+          "1989-05-14-rumor-tv-broadcast",
+          "1989-05-15-gorbachev-visit",
+          "1989-05-15-citizens-medical-support"
+        ]
+      },
+      {
+        "id": "w3-0520",
+        "date": "1989-05-20",
+        "dayKey": "1989-05-20",
+        "shortId": "w3",
+        "assetKey": "w3",
+        "orderIndex": 5,
+        "title": {
+          "zh": "第四章　五月十九日夜至二十日",
+          "en": "Ch.4 19–20 May"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-17-worker-citizen-rallies",
+          "1989-05-19-hunger-strike-ends",
+          "1989-05-20-martial-law",
+          "1989-05-20-citizens-block-convoys",
+          "1989-05-20-rumor-subway-troops",
+          "1989-05-20-workers-picket-and-soldiers"
+        ]
+      },
+      {
+        "id": "w4-0530",
+        "date": "1989-05-30",
+        "dayKey": "1989-05-30",
+        "shortId": "w4",
+        "assetKey": "w4",
+        "orderIndex": 6,
+        "title": {
+          "zh": "第五章　五月三十日，廠區與院落",
+          "en": "Ch.5 30 May, Workshop and Courtyard"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-28-square-fatigue-debate"
+        ]
+      },
+      {
+        "id": "w5-0603",
+        "date": "1989-06-03",
+        "dayKey": "1989-06-05",
+        "shortId": "w5",
+        "assetKey": "w5",
+        "orderIndex": 7,
+        "title": {
+          "zh": "第六章　六月三日夜至五日清晨（尾聲）",
+          "en": "Ch.6 3–5 June (Epilogue)"
+        },
+        "playable": true,
+        "events": [
+          "1989-06-03-emergency-notice",
+          "1989-06-04-square-clearing",
+          "1989-06-05-workplace-aftermath"
+        ]
+      }
+    ],
+    "journalist": [
+      {
+        "id": "j-0417",
+        "date": "1989-04-17",
+        "dayKey": "1989-04-17",
+        "shortId": "j0",
+        "assetKey": "j0",
+        "orderIndex": 0,
+        "title": {
+          "zh": "第一章　四月十七日，夜班編輯台",
+          "en": "Ch.1 17 April, Night Desk"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-15-hu-yaobang-death",
+          "1989-04-17-campus-to-square",
+          "1989-04-17-rumor-square-crowd"
+        ]
+      },
+      {
+        "id": "j-0422",
+        "date": "1989-04-22",
+        "dayKey": "1989-04-22",
+        "shortId": "j1",
+        "assetKey": "j1",
+        "orderIndex": 1,
+        "title": {
+          "zh": "第二章　四月二十二日，警戒線外",
+          "en": "Ch.2 22 April, Outside the Cordon"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-21-night-march",
+          "1989-04-22-memorial-broadcast",
+          "1989-04-22-petition-kneeling",
+          "1989-04-22-residents-support",
+          "1989-04-22-hearse-route",
+          "1989-04-22-rumor-meeting",
+          "1989-04-22-xian-changsha"
+        ]
+      },
+      {
+        "id": "j-0427",
+        "date": "1989-04-27",
+        "dayKey": "1989-04-27",
+        "shortId": "j_0427",
+        "assetKey": "j_0427",
+        "orderIndex": 2,
+        "title": {
+          "zh": "第三章　四月二十七日，立交橋與長街",
+          "en": "Ch.3 27 April, Overpass and Avenue"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-26-peoples-daily-editorial",
+          "1989-04-27-april27-march"
+        ]
+      },
+      {
+        "id": "j-0504",
+        "date": "1989-05-04",
+        "dayKey": "1989-05-04",
+        "shortId": "j_0504",
+        "assetKey": "j_0504",
+        "orderIndex": 3,
+        "title": {
+          "zh": "第四章　五月四日，新聞界遊行與版面",
+          "en": "Ch.4 4 May, Press March and Proofs"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-04-may-fourth-press-march",
+          "1989-05-04-rumor-editorial-retraction"
+        ]
+      },
+      {
+        "id": "j-0513",
+        "date": "1989-05-13",
+        "dayKey": "1989-05-15",
+        "shortId": "j2",
+        "assetKey": "j2",
+        "orderIndex": 4,
+        "title": {
+          "zh": "第五章　五月十三日至十五日，陽台與傳言",
+          "en": "Ch.5 13–15 May, Balcony and Wires"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-13-hunger-strike",
+          "1989-05-14-intellectuals-mediation",
+          "1989-05-14-rumor-tv-broadcast",
+          "1989-05-15-gorbachev-visit",
+          "1989-05-15-citizens-medical-support"
+        ]
+      },
+      {
+        "id": "j-0520",
+        "date": "1989-05-20",
+        "dayKey": "1989-05-20",
+        "shortId": "j3",
+        "assetKey": "j3",
+        "orderIndex": 5,
+        "title": {
+          "zh": "第六章　五月十九日夜至二十日，採訪證與磁帶",
+          "en": "Ch.6 19–20 May, Press Pass and Tape"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-18-dialogue-televised",
+          "1989-05-19-hunger-strike-ends",
+          "1989-05-20-martial-law",
+          "1989-05-20-citizens-block-convoys",
+          "1989-05-20-rumor-subway-troops"
+        ]
+      },
+      {
+        "id": "j-0530",
+        "date": "1989-05-30",
+        "dayKey": "1989-05-30",
+        "shortId": "j4",
+        "assetKey": "j4",
+        "orderIndex": 6,
+        "title": {
+          "zh": "第七章　五月三十日，雨後與長鏡",
+          "en": "Ch.7 30 May, Rain and Telephoto"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-23-rainy-rallies-stalled",
+          "1989-05-28-square-fatigue-debate",
+          "1989-05-30-goddess-of-democracy"
+        ]
+      },
+      {
+        "id": "j-0603",
+        "date": "1989-06-03",
+        "dayKey": "1989-06-05",
+        "shortId": "j5",
+        "assetKey": "j5",
+        "orderIndex": 7,
+        "title": {
+          "zh": "第八章　六月三日夜至五日，底片鐵盒（尾聲）",
+          "en": "Ch.8 3–5 June, Film Tin (Epilogue)"
+        },
+        "playable": true,
+        "events": [
+          "1989-06-03-emergency-notice",
+          "1989-06-03-evening-muxidi-hospitals",
+          "1989-06-04-square-clearing",
+          "1989-06-05-press-curfew-silence"
+        ]
+      }
+    ],
+    "resident": [
+      {
+        "id": "r-0417",
+        "date": "1989-04-17",
+        "dayKey": "1989-04-17",
+        "shortId": "r0",
+        "assetKey": "r0",
+        "orderIndex": 0,
+        "title": {
+          "zh": "第一章　四月十七日，西單院燈",
+          "en": "Ch.1 17 April, Courtyard Lantern"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-15-hu-yaobang-death",
+          "1989-04-17-inflation-worker-mood",
+          "1989-04-17-campus-to-square",
+          "1989-04-17-rumor-square-crowd"
+        ]
+      },
+      {
+        "id": "r-0422",
+        "date": "1989-04-22",
+        "dayKey": "1989-04-22",
+        "shortId": "r1",
+        "assetKey": "r1",
+        "orderIndex": 1,
+        "title": {
+          "zh": "第二章　四月二十二日，晨市與街坊",
+          "en": "Ch.2 22 April, Morning Market"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-21-night-march",
+          "1989-04-22-memorial-broadcast",
+          "1989-04-22-petition-kneeling",
+          "1989-04-22-residents-support",
+          "1989-04-22-rumor-meeting"
+        ]
+      },
+      {
+        "id": "r-0427",
+        "date": "1989-04-27",
+        "dayKey": "1989-04-27",
+        "shortId": "r_0427",
+        "assetKey": "r_0427",
+        "orderIndex": 2,
+        "title": {
+          "zh": "四月二十六日至二十七日　立交橋欄杆與涼白開",
+          "en": "26–27 April, Overpass Railing and Boiled Water"
+        },
+        "playable": true,
+        "events": [
+          "1989-04-26-peoples-daily-editorial",
+          "1989-04-27-april27-march"
+        ]
+      },
+      {
+        "id": "r-0504",
+        "date": "1989-05-04",
+        "dayKey": "1989-05-04",
+        "shortId": "r_0504",
+        "assetKey": "r_0504",
+        "orderIndex": 3,
+        "title": {
+          "zh": "五月四日　短波與胡同早市",
+          "en": "4 May, Shortwave and Morning Market"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-04-may-fourth-press-march",
+          "1989-05-04-rumor-editorial-retraction"
+        ]
+      },
+      {
+        "id": "r-0513",
+        "date": "1989-05-13",
+        "dayKey": "1989-05-15",
+        "shortId": "r2",
+        "assetKey": "r2",
+        "orderIndex": 4,
+        "title": {
+          "zh": "第三章　五月十三日至十五日，紗布與茶水",
+          "en": "Ch.3 13–15 May, Gauze and Tea"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-13-hunger-strike",
+          "1989-05-14-rumor-tv-broadcast",
+          "1989-05-15-gorbachev-visit",
+          "1989-05-15-citizens-medical-support"
+        ]
+      },
+      {
+        "id": "r-0520",
+        "date": "1989-05-20",
+        "dayKey": "1989-05-20",
+        "shortId": "r3",
+        "assetKey": "r3",
+        "orderIndex": 5,
+        "title": {
+          "zh": "第四章　五月二十日，公用電話與短波",
+          "en": "Ch.4 20 May, Payphone and Shortwave"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-18-dialogue-televised",
+          "1989-05-19-hunger-strike-ends",
+          "1989-05-20-martial-law",
+          "1989-05-20-citizens-block-convoys",
+          "1989-05-20-rumor-subway-troops"
+        ]
+      },
+      {
+        "id": "r-0530",
+        "date": "1989-05-30",
+        "dayKey": "1989-05-30",
+        "shortId": "r4",
+        "assetKey": "r4",
+        "orderIndex": 6,
+        "title": {
+          "zh": "第五章　五月三十日，糧店排隊",
+          "en": "Ch.5 30 May, Grain Shop Queue"
+        },
+        "playable": true,
+        "events": [
+          "1989-05-23-rainy-rallies-stalled",
+          "1989-05-23-rumor-water-rationing",
+          "1989-05-28-square-fatigue-debate",
+          "1989-05-30-goddess-of-democracy"
+        ]
+      },
+      {
+        "id": "r-0603",
+        "date": "1989-06-03",
+        "dayKey": "1989-06-05",
+        "shortId": "r5",
+        "assetKey": "r5",
+        "orderIndex": 7,
+        "title": {
+          "zh": "第六章　六月三日夜至五日，留著門燈（尾聲）",
+          "en": "Ch.6 3–5 June, Gate Light On (Epilogue)"
+        },
+        "playable": true,
+        "events": [
+          "1989-06-03-emergency-notice",
+          "1989-06-04-square-clearing",
+          "1989-06-05-workplace-aftermath"
+        ]
+      }
+    ]
+  }
 }

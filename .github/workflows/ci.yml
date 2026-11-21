@@ -7,7 +7,11 @@ permissions: { contents: read }
 jobs:
   build-and-smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [render, routes]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -15,9 +19,14 @@ jobs:
       - run: npm ci
       - run: npm run validate
       - run: npm run build
-      - name: Puppeteer smoke test of the 4/17 slice (phone + desktop)
+      - name: "Puppeteer smoke test (${{ matrix.shard }})"
         run: npm run smoke
-        env: { CHROME_PATH: /usr/bin/google-chrome, SHOTS: shots }
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+          SHOTS: shots
+          SMOKE_SHARD: ${{ matrix.shard }}
       - uses: actions/upload-artifact@v4
         if: always()
-        with: { name: smoke-screenshots, path: shots }
+        with:
+          name: smoke-screenshots-${{ matrix.shard }}
+          path: shots

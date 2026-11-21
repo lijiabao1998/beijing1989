@@ -1,0 +1,499 @@
+{
+  "chapter": "w0-0417",
+  "title": "第一章　四月十七日，夜",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "factory",
+  "spawn": {
+    "factory": [0, 12],
+    "courtyard": [0, 3]
+  },
+  "labels": {
+    "factory": "1989 年 4 月 17 日・夜・北京第二機床廠一車間",
+    "street": "1989 年 4 月 17 日・晚・海淀街道",
+    "courtyard": "1989 年 4 月 17 日・深夜・大雜院"
+  },
+  "transitions": {
+    "street": "推著飛鴿車出廠門，夜風吹過海淀街角……",
+    "courtyard": "拐進熟悉的胡同，大雜院的紅漆門還亮著一盞燈……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（王建國）",
+      "role": "北京第二機床廠五級車工（俗稱王師傅）",
+      "fictional": true
+    },
+    "zhao": {
+      "name": "老趙",
+      "role": "車間帶班老師傅",
+      "fictional": true
+    },
+    "liu": {
+      "name": "小劉",
+      "role": "機床廠青年學徒，愛抄詩和剪報",
+      "fictional": true
+    },
+    "xiufang": {
+      "name": "秀芳",
+      "role": "妻子，紡織廠擋車工",
+      "fictional": true
+    },
+    "li_auntie": {
+      "name": "院裡李大媽",
+      "role": "大雜院鄰居",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "海淀報刊亭大爺",
+      "fictional": true
+    },
+    "chen": {
+      "name": "陳立（北大男生）",
+      "role": "北大物理系二年級學生（第一篇主角的交叉視角人物）",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "w1lathe",
+      "scene": "factory",
+      "pos": [-8, 2],
+      "label": "一車間車床・老趙",
+      "start": "zhao_1",
+      "npc": "blue"
+    },
+    {
+      "id": "w1apprentice",
+      "scene": "factory",
+      "pos": [9, -2],
+      "label": "學徒小劉",
+      "start": "liu_1",
+      "npc": "khaki"
+    },
+    {
+      "id": "w1boiler",
+      "scene": "factory",
+      "pos": [-11, -9],
+      "label": "開水房與更衣櫃",
+      "start": "boiler_1"
+    },
+    {
+      "id": "w1board",
+      "scene": "factory",
+      "pos": [10, -12],
+      "label": "車間黑板報",
+      "start": "board_1"
+    },
+    {
+      "id": "w1gate",
+      "scene": "factory",
+      "pos": [0, -18],
+      "label": "機床廠大門",
+      "start": "gate_1"
+    },
+    {
+      "id": "w1kiosk",
+      "scene": "street",
+      "pos": [-6, -3.5],
+      "label": "報刊亭孫大爺",
+      "start": "sun_1",
+      "npc": "grey"
+    },
+    {
+      "id": "w1chen",
+      "scene": "street",
+      "pos": [2, -4.5],
+      "label": "海淀路口・陳立（北大男生）",
+      "start": "chen_1",
+      "npc": "navy"
+    },
+    {
+      "id": "w1speaker",
+      "scene": "street",
+      "pos": [6, -3],
+      "label": "街角高音喇叭",
+      "start": "speaker_1"
+    },
+    {
+      "id": "w1home",
+      "scene": "street",
+      "pos": [14, 2],
+      "label": "胡同口進院",
+      "start": "home_1"
+    },
+    {
+      "id": "w1table",
+      "scene": "courtyard",
+      "pos": [0, -2],
+      "label": "院心飯桌・秀芳",
+      "start": "xiufang_1",
+      "npc": "red"
+    },
+    {
+      "id": "w1stove",
+      "scene": "courtyard",
+      "pos": [-5, -4],
+      "label": "煤爐旁・院裡李大媽",
+      "start": "auntie_1",
+      "npc": "grey"
+    },
+    {
+      "id": "w1bench",
+      "scene": "courtyard",
+      "pos": [6, -5],
+      "label": "鴿籠旁石凳・收音機",
+      "start": "bench_1"
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 4 月 17 日，星期一，夜。北京第二機床廠一車間的鎢絲燈照著幾台 C6140 車床，切削油和鐵屑味混在空氣裡。兩天前胡耀邦逝世的消息傳來後，車間裡說話都比平日低了半截。",
+      "event": "1989-04-15-hu-yaobang-death",
+      "choices": [
+        {
+          "text": "擦淨手上的機油，在車間轉一圈收工",
+          "diary": "4/17 夜班快下班。車間裡這兩天話少，鐵屑掃得比往常還靜。"
+        }
+      ]
+    },
+    "zhao_1": {
+      "speaker": "zhao",
+      "text": "建國，這批法蘭盤的公差量完了？剛才後勤的老李來轉了一圈，說下個月鋼材指標又緊了，菜市場白麵和花生油也比去年貴出一截。咱們這點獎金，趕不上物價漲的步子。",
+      "event": "1989-04-17-inflation-worker-mood",
+      "choices": [
+        {
+          "text": "跟老趙說說家裡的柴米油鹽賬",
+          "rel": { "zhao": 1 },
+          "set": "w0_talked_prices",
+          "diary": "老趙愁鋼材指標和菜價，我也算著秀芳紡織廠的獎金和家裡的副食本。",
+          "next": "zhao_2"
+        },
+        {
+          "text": "問問老趙剛才廣播室說什麼",
+          "next": "zhao_3"
+        }
+      ]
+    },
+    "zhao_2": {
+      "speaker": "zhao",
+      "text": "可不是嘛。雙軌價搞得買什麼都費勁，咱們老老實實站車床的，心裡哪能沒有想法。不過廠裡說了，生產不能停，明天白班還得接著趕活。你早點回去陪秀芳吧。",
+      "choices": [
+        {
+          "text": "嗯，我把刀架清乾淨就走"
+        }
+      ]
+    },
+    "zhao_3": {
+      "speaker": "zhao",
+      "text": "還不是報上那些話——追悼會還沒定日子，收音機裡老播哀樂。倒是對面大學那邊，小劉剛才說晚上好像有學生往城裡騎。你過海淀路口時當心些自行車。",
+      "choices": [
+        {
+          "text": "知道了，謝了趙哥",
+          "rel": { "zhao": 1 }
+        }
+      ]
+    },
+    "liu_1": {
+      "speaker": "liu",
+      "text": "王師傅，您先走啊？我把這盒游標卡尺擦完就鎖櫃子。剛才我拿午休時抄的剪報看了一遍——聽說海淀那幾所大學的布告欄全貼滿了詩和輓聯。",
+      "event": "1989-04-15-hu-yaobang-death",
+      "choices": [
+        {
+          "text": "看一眼他兜裡摺著的剪報和手抄詩",
+          "rel": { "liu": 1 },
+          "set": "wk_liu_clippings",
+          "diary": "學徒小劉兜裡總是揣著剪報和抄詩本，他說大學那邊今晚熱鬧得不尋常。",
+          "next": "liu_2"
+        },
+        {
+          "text": "叮囑他夜班收尾別分心，早點回宿舍睡",
+          "next": "liu_3"
+        }
+      ]
+    },
+    "liu_2": {
+      "speaker": "liu",
+      "text": "師傅您瞧，這兩句是《人民日報》前天發的簡訊邊上我記的日期。咱們雖說是車間學徒，可北京城裡出這麼大事，總想多知道點兒。",
+      "choices": [
+        {
+          "text": "記歸記，明天還要上機床，別熬太晚"
+        }
+      ]
+    },
+    "liu_3": {
+      "speaker": "liu",
+      "text": "放心吧師傅，我守著規矩呢，卡盤上的扳手都拔下來了。",
+      "choices": [
+        {
+          "text": "好，明兒見"
+        }
+      ]
+    },
+    "boiler_1": {
+      "speaker": "narr",
+      "text": "開水房門口掛著一排鐵皮更衣櫃，牆角鋁壺還冒著一點微弱的蒸汽。你的櫃門開著，裡頭放著早晨秀芳裝好菜的鋁製保溫飯盒，還有一支兩節一號電池的手電筒。",
+      "choices": [
+        {
+          "text": "把洗淨的鋁飯盒收進車筐",
+          "item": "lunchbox",
+          "set": "w0_has_lunchbox",
+          "diary": "把早上帶來的保溫飯盒收拾好放進自行車筐裡。"
+        },
+        {
+          "text": "把手電筒別在車把旁邊照路",
+          "item": "flashlight",
+          "set": "w0_has_flashlight",
+          "diary": "拎上老手電筒，夜裡進胡同省得摸黑。"
+        },
+        {
+          "text": "喝口開水，不拿別的"
+        }
+      ]
+    },
+    "board_1": {
+      "speaker": "narr",
+      "text": "車間出口的黑板報上用粉筆寫著「安全生產・抓品質」，角落裡貼著一張廠工會轉抄的廣播簡報，寫著四月十五日胡耀邦逝世的消息與近期出勤紀律。",
+      "event": "1989-04-15-hu-yaobang-death",
+      "choices": [
+        {
+          "text": "看清排班表上的班次，記在心裡",
+          "set": "w0_read_board",
+          "diary": "黑板報寫著四月份的生產指標與安全紀律，角落貼著悼念簡報。"
+        },
+        {
+          "text": "站一會兒就走"
+        }
+      ]
+    },
+    "gate_1": {
+      "speaker": "narr",
+      "text": "機床廠大門口的鐵伸縮門半掩著，門衛室窗戶透出暖黃的燈光，紅底白字「北京第二機床廠」的牌子掛在磚柱旁。你的二八飛鴿車就停在棚下。",
+      "choices": [
+        {
+          "text": "幫門衛和大伙兒帶上伸縮門插銷，這才騎車出門",
+          "set": "w0_checked_gate",
+          "rel": { "zhao": 1 },
+          "goto": "street",
+          "diary": "出廠門時順手幫值班的帶上鐵門插銷，騎上飛鴿車往海淀街口走。"
+        },
+        {
+          "text": "推車出大門，直接往海淀街上騎",
+          "goto": "street"
+        },
+        {
+          "text": "再回車間看一眼"
+        }
+      ]
+    },
+    "sun_1": {
+      "speaker": "sun",
+      "text": "王師傅下夜班啦？今兒《北京晚報》五點鐘就賣光嘍。剛才好幾撥廠裡的老師傅過來買煙，都在抱怨這兩年肉蛋菜價翻著跟頭往上升，廠裡補貼卻就那麼幾塊錢。",
+      "event": "1989-04-17-inflation-worker-mood",
+      "choices": [
+        {
+          "text": "跟孫大爺聊聊這兩年工資與物價的壓力",
+          "rel": { "sun": 1 },
+          "set": "w0_kiosk_mood",
+          "diary": "報刊亭孫大爺說，這幾天晚上來買報的工人大多都在發愁物價和補貼。",
+          "next": "sun_2"
+        },
+        {
+          "text": "問問大爺這會兒街上怎麼這麼多自行車往南去",
+          "next": "sun_3"
+        }
+      ]
+    },
+    "sun_2": {
+      "speaker": "sun",
+      "text": "誰說不是呢。老百姓過日子，最怕手裡那點票子和工資不經花。你媳婦在紡織廠也辛苦，早點家去喝口熱湯吧。",
+      "choices": [
+        {
+          "text": "借您吉言，大爺明兒見"
+        }
+      ]
+    },
+    "sun_3": {
+      "speaker": "sun",
+      "text": "多半是北邊那幾所大學的學生，成群結隊往長安街、天安門那邊騎。聽說的比看見的多，年輕人血氣方剛嘛。",
+      "choices": [
+        {
+          "text": "知道了，謝大爺"
+        }
+      ]
+    },
+    "chen_1": {
+      "speaker": "chen",
+      "text": "師傅，借過一下——哎，您剛下夜班？我們正打算騎車往南邊天安門廣場看看去。這兩天學校裡都在貼字悼念，大伙兒心裡憋著氣，想親自去看看。",
+      "event": "1989-04-17-campus-to-square",
+      "choices": [
+        {
+          "text": "跟他說廠裡也在議論物價，叮囑他夜裡涼、家裡還等著，路上慢點騎",
+          "rel": { "chen": 1 },
+          "set": "wk_saw_chen",
+          "diary": "海淀街口遇見北大物理系的學生陳立，他正推著車準備往南騎。我跟他說起廠裡擔心物價，也提醒他夜裡涼。",
+          "next": "chen_2"
+        },
+        {
+          "text": "問他校園布告欄上大家都寫了些什麼",
+          "rel": { "chen": 1 },
+          "set": "wk_saw_chen",
+          "diary": "跟名叫陳立的北大學生在路口聊了幾句，他剛看完校園布告欄裡的輓聯和詩。",
+          "next": "chen_3"
+        }
+      ]
+    },
+    "chen_2": {
+      "speaker": "chen",
+      "text": "謝謝師傅！我帶了件厚外套，這就跟著同學往長安街去。您也早點回家休息，夜裡騎車當心。",
+      "choices": [
+        {
+          "text": "嗯，照顧好自己"
+        }
+      ]
+    },
+    "chen_3": {
+      "speaker": "chen",
+      "text": "寫得密密麻麻的，有悼念的詩，也有說反腐敗和物價的事兒。師傅，其實你們廠裡擔心的日子難過，我們在學校食堂也聽得見。",
+      "choices": [
+        {
+          "text": "各自看清自己眼前的事吧，早去早回"
+        }
+      ]
+    },
+    "speaker_1": {
+      "speaker": "narr",
+      "text": "街角電線杆上的高音喇叭沙沙響了一陣，報完明天的天氣預報——晴，微風——便轉進了輕音樂。騎車往南的年輕人成群從喇叭底下掠過，車鈴清脆。",
+      "choices": [
+        {
+          "text": "扶穩車把，往胡同方向拐"
+        }
+      ]
+    },
+    "home_1": {
+      "speaker": "narr",
+      "text": "胡同口的老槐樹枝影投在灰磚牆上，前方就是你們住的大雜院紅漆大門。門縫底下透著一點屋裡的燈光。",
+      "choices": [
+        {
+          "text": "推門進院，把自行車支在屋簷下",
+          "goto": "courtyard"
+        },
+        {
+          "text": "再在街上看看"
+        }
+      ]
+    },
+    "xiufang_1": {
+      "speaker": "xiufang",
+      "text": "建國回來啦？今天紡織廠白班紗線老斷頭，我回來得也晚，鍋裡給你留了半鍋白蘿蔔肉丸湯。外面這會兒是不是挺冷？",
+      "variants": [
+        {
+          "requires": "w0_has_lunchbox",
+          "text": "回來啦？把車筐裡的飯盒拿進來我泡水里。今天在紡織廠幹活腿都站酸了，不過煤爐上一直溫著熱湯等你。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "盛一碗熱湯跟秀芳坐在桌旁歇歇腳，說說車間裡的事",
+          "rel": { "xiufang": 1 },
+          "set": "w0_family_warmth",
+          "diary": "秀芳在煤爐上溫著熱湯。院裡雖擠，喝下那碗熱湯心裡就踏實了一半。",
+          "next": "xiufang_2"
+        },
+        {
+          "text": "跟秀芳提起海淀街口看見很多學生騎車往南去",
+          "rel": { "xiufang": 1 },
+          "set": "w0_family_warmth",
+          "diary": "跟秀芳說起海淀路口遇見往南走的學生，她只盼別出亂子，平安就好。",
+          "next": "xiufang_3"
+        }
+      ]
+    },
+    "xiufang_2": {
+      "speaker": "xiufang",
+      "text": "這個月副食又漲了幾毛錢，咱們省著點花總過得去。只要你下夜班平平安安到家，我就放心了。",
+      "choices": [
+        {
+          "text": "嗯，有你在，日子總能撐住"
+        }
+      ]
+    },
+    "xiufang_3": {
+      "speaker": "xiufang",
+      "text": "我聽車間姐妹說，大學那邊這兩天動靜不小。咱們就是本本分分幹活的工人，明兒一早還得趕早班呢。",
+      "choices": [
+        {
+          "text": "明白，咱們早點歇"
+        }
+      ]
+    },
+    "auntie_1": {
+      "speaker": "li_auntie",
+      "text": "建國下夜班啦？我正給小煤爐封火呢。聽說今天副食店買油鹽的隊排到衚衕口外頭去了，大家心裡都毛毛的，生怕下月再漲。",
+      "event": "1989-04-17-inflation-worker-mood",
+      "choices": [
+        {
+          "text": "幫李大媽把幾塊蜂窩煤夾進爐膛邊備著",
+          "rel": { "li_auntie": 1 },
+          "set": "w0_stove_talk",
+          "diary": "幫院裡李大媽歸攏好蜂窩煤，大雜院裡家家戶戶都靠這點火氣過夜。"
+        },
+        {
+          "text": "跟李大媽說外面風涼，早點進屋睡",
+          "set": "w0_stove_talk"
+        }
+      ]
+    },
+    "bench_1": {
+      "speaker": "narr",
+      "text": "鴿籠底下的石凳上擺著一台老式半導體收音機，短波電流裡偶爾夾著新聞重播。夜深了，四下鄰居屋裡的燈火一盞接一盞熄了下去。",
+      "choices": [
+        {
+          "text": "想著白班車間的進度與老趙的話，收拾工具準備睡",
+          "requires": "w0_talked_prices",
+          "end": "stayed_late"
+        },
+        {
+          "text": "望著胡同南邊的夜空，想起路口那個叫陳立的北大學生",
+          "requires": "wk_saw_chen",
+          "end": "met_student"
+        },
+        {
+          "text": "端起桌上剩下的半碗熱湯，回屋陪秀芳歇下",
+          "requires": "w0_family_warmth",
+          "end": "family_hearth"
+        },
+        {
+          "text": "關掉收音機，把大雜院門插銷再檢查一遍",
+          "end": "night_watch"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "stayed_late": {
+      "title": "夜班之後",
+      "text": "你洗去指縫裡的機油味。無論城裡這幾天怎麼議論，明天早上七點半，車間裡的車床照樣要轉起來。"
+    },
+    "met_student": {
+      "title": "海淀路口的一面",
+      "text": "你想起那個背著書包往長安街騎的年輕人。你不懂物理系學生在紙上寫些什麼，但你知道大伙兒都在為同樣的難處發愁。"
+    },
+    "family_hearth": {
+      "title": "爐邊熱湯",
+      "text": "大雜院裡煤爐封好了火，屋裡留著白蘿蔔湯的熱氣。外頭的風聲吹過灰瓦，你和秀芳各自算著明天的班次睡下。"
+    },
+    "night_watch": {
+      "title": "院門夜哨",
+      "text": "收音機合上開關，大雜院安靜下來。胡同外頭偶爾傳來幾聲遠處的自行車鈴，像四月的夜一樣長。"
+    }
+  },
+  "epilogue": "第二篇第一章完。1989 年春天的物價焦慮與胡耀邦逝世後的民間波動，在工場車間與街巷胡同裡同時發酵。下一章：四月二十一日夜。",
+  "epilogueEvent": "1989-04-17-inflation-worker-mood"
+}

@@ -1,0 +1,502 @@
+{
+  "chapter": "ch-0504",
+  "title": "五月四日　新聞界與新五四宣言",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "campus",
+  "clockStart": 510,
+  "spawn": {
+    "campus": [0, 5],
+    "march_day": [-30, -6]
+  },
+  "labels": {
+    "campus": "1989 年 5 月 4 日・上午・北大校園",
+    "march_day": "1989 年 5 月 4 日・午後・長安街遊行沿線"
+  },
+  "transitions": {
+    "march_day": "五四運動七十週年午後的長安街陽光明亮，遊行隊伍中忽然多了一列舉著報社橫幅的陌生面孔……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（陳立）",
+      "role": "北大物理系二年級學生",
+      "fictional": true
+    },
+    "zhou": {
+      "name": "老周",
+      "role": "室友，河北人",
+      "fictional": true
+    },
+    "lin": {
+      "name": "林小梅",
+      "role": "中文系同學",
+      "fictional": true
+    },
+    "reporter": {
+      "name": "舉橫幅的報社記者",
+      "role": "五四當日公開列隊遊行的新聞工作者之一",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "海淀街邊報刊亭大爺",
+      "fictional": true
+    },
+    "stu2": {
+      "name": "外校女生",
+      "role": "宣讀〈新五四宣言〉廣場隊伍旁的學生",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "evidenceCatalog": {
+    "ev_0504_class_debate": {
+      "id": "ev_0504_class_debate",
+      "kind": "witness",
+      "title": "三角地復課與〈新五四宣言〉抄錄",
+      "summary": "五月四日早晨北大校園內同時貼有〈新五四宣言〉與部分院系主張次日復課的布告，氣氛趨向緩和。",
+      "sourceLabel": "陳立筆記本",
+      "dayKey": "1989-05-04",
+      "chapterId": "ch-0504",
+      "event": "1989-05-04-may-fourth-press-march",
+      "route": "student",
+      "confidence": "testimony",
+      "tags": ["五四七十週年", "校園復課"]
+    },
+    "ev_0504_press_banners": {
+      "id": "ev_0504_press_banners",
+      "kind": "witness",
+      "title": "新聞工作者公開遊行橫幅目擊",
+      "summary": "約五百名北京新聞工作者首度公開列隊加入五四遊行，打出「新聞要說真話」等要求如實報導的橫幅。",
+      "sourceLabel": "長安街現場目擊",
+      "dayKey": "1989-05-04",
+      "chapterId": "ch-0504",
+      "event": "1989-05-04-may-fourth-press-march",
+      "route": "student",
+      "confidence": "documented",
+      "tags": ["新聞界遊行", "五四七十週年"]
+    },
+    "ev_0504_retraction_rumor": {
+      "id": "ev_0504_retraction_rumor",
+      "kind": "rumor",
+      "title": "傳言：「報社今晚將發更正啟事收回社論定性」",
+      "summary": "遊行隊伍與報刊亭旁流傳的未證實消息，稱今晚報社將印發正式更正啟事收回四二六社論定性。",
+      "sourceLabel": "街頭聽聞",
+      "dayKey": "1989-05-04",
+      "chapterId": "ch-0504",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "route": "student",
+      "confidence": "uncertain",
+      "tags": ["更正啟事傳言", "未經核實"]
+    },
+    "ev_0504_evening_edition": {
+      "id": "ev_0504_evening_edition",
+      "kind": "official_print",
+      "title": "五月四日當日公開版面查證",
+      "summary": "當日印刷版面並未刊登收回四二六社論的更正啟事；不同報社對新聞界遊行本身的刊載亦各異。",
+      "sourceLabel": "海淀報刊亭售出報份",
+      "dayKey": "1989-05-04",
+      "chapterId": "ch-0504",
+      "event": "1989-05-04-may-fourth-press-march",
+      "route": "student",
+      "confidence": "documented",
+      "tags": ["新聞界遊行", "公開印本"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "pair_0504_rumor_vs_print",
+      "cards": ["ev_0504_retraction_rumor", "ev_0504_evening_edition"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "「今晚發更正啟事收回社論」的街頭傳言與當日實際印出的公開報紙版面並不一致，該傳言屬於遊戲虛構的揣測，未有公開印證。",
+      "diary": "把街邊聽來的「更正啟事」傳言拿去對照報刊亭賣的當日報紙，白紙黑字並無此事。"
+    },
+    {
+      "id": "pair_0504_press_corroborated",
+      "cards": ["ev_0504_press_banners", "ev_0504_class_debate"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "五四七十週年當日學生宣讀〈新五四宣言〉、討論復課，以及約五百名北京新聞工作者首度上街要求如實報導，共同構成當天緩和與轉折的氛圍。",
+      "diary": "校園裡的復課討論與大街上新聞記者的橫幅，把五月四日這天寫得既熱烈又複雜。"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "c0504_zhou",
+      "scene": "campus",
+      "pos": [-6, 3],
+      "label": "老周談復課與實驗課",
+      "start": "c0504_zhou_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0504_board",
+      "scene": "campus",
+      "pos": [2, -4],
+      "label": "布告欄〈新五四宣言〉",
+      "start": "c0504_board_1",
+      "kind": "inspect",
+      "autoHint": true
+    },
+    {
+      "id": "c0504_lin",
+      "scene": "campus",
+      "pos": [5, -2],
+      "label": "拿著宣言油印紙的林小梅",
+      "start": "c0504_lin_1",
+      "npc": "red",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0504_gate",
+      "scene": "campus",
+      "pos": [0, -22],
+      "label": "出西校門赴五四集會",
+      "start": "c0504_gate_1",
+      "kind": "portal",
+      "isExit": true,
+      "autoHint": true
+    },
+    {
+      "id": "c0504_press",
+      "scene": "march_day",
+      "pos": [-12, -5],
+      "label": "新聞工作者遊行方陣",
+      "start": "c0504_press_1",
+      "npc": "navy",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0504_kiosk",
+      "scene": "march_day",
+      "pos": [-6, -3.5],
+      "label": "報刊亭孫大爺・更正傳言",
+      "start": "c0504_kiosk_1",
+      "npc": "grey",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0504_manifesto",
+      "scene": "march_day",
+      "pos": [12, -6],
+      "label": "外校女生・宣言宣讀點",
+      "start": "c0504_manifesto_1",
+      "npc": "khaki",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "c0504_leave",
+      "scene": "march_day",
+      "pos": [30, -8],
+      "label": "暮色走回海淀",
+      "start": "c0504_leave_1",
+      "kind": "portal",
+      "isExit": true,
+      "autoHint": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 4 日，星期四，上午。適逢五四運動七十週年，經過四二七大遊行與月底的初步對話接觸，這兩天校園裡氣氛鬆快了不少。今天一早各系正在整理〈新五四宣言〉準備再走一趟廣場，同時也有好幾個年級貼出了「明日恢復上課」的倡議。",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "到宿舍樓下聽聽老周和同學們的打算",
+          "diary": "5/4 五四七十週年。校園裡既有紀念遊行的橫幅，也有主張明日復課的聲音。",
+          "timeCost": 15,
+          "autoHint": true
+        }
+      ]
+    },
+    "c0504_zhou_1": {
+      "speaker": "zhou",
+      "text": "物理系三、四年級好多同學今天下午參加完集會就準備明天回實驗室做數據了，大家覺得四二七已經把態度表達得夠明白。不過也有人說要看報紙和廣播這幾天會不會跟進鬆口。",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "記下班裡討論復課的情況，說今天去完集會明天一道進實驗室",
+          "evidence": "ev_0504_class_debate",
+          "rel": { "zhou": 1 },
+          "set": "c0504_class_talk",
+          "diary": "老周說許多同學已經打算明天復課，把四月落下的實驗課補起來。",
+          "timeCost": 20,
+          "autoHint": true,
+          "next": "c0504_zhou_2"
+        },
+        {
+          "text": "問老周聽說今天街上有什麼特別的隊伍加入嗎",
+          "timeCost": 15,
+          "next": "c0504_zhou_3"
+        }
+      ]
+    },
+    "c0504_zhou_2": {
+      "speaker": "zhou",
+      "text": "好，電磁學實驗數據表我先替你領回來，下午集會完早點回宿舍。",
+      "choices": [
+        {
+          "text": "謝了，老周",
+          "autoHint": true
+        }
+      ]
+    },
+    "c0504_zhou_3": {
+      "speaker": "zhou",
+      "text": "剛剛聽新聞系的說，今天北京好幾家報社的記者也要拿著橫幅走出來，這可是頭一回。",
+      "choices": [
+        {
+          "text": "那今天長安街上可得親眼去看看"
+        }
+      ]
+    },
+    "c0504_board_1": {
+      "speaker": "narr",
+      "text": "布告欄中間貼著剛油印好的〈新五四宣言〉，談科學、民主與新聞如實報導；旁邊還用粉筆圈著一行剛抄來的口信：「聽說報社今晚要發更正啟事，收回社論定性」，底下有人拿鉛筆寫了個問號。",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "choices": [
+        {
+          "text": "索取一張〈新五四宣言〉油印單，也把這句傳聞標記存疑",
+          "keepsake": "〈新五四宣言〉油印單",
+          "evidence": "ev_0504_retraction_rumor",
+          "set": "c0504_copied_manifesto",
+          "diary": "布告欄除了〈新五四宣言〉，角落還貼著「報社今晚將發更正啟事」的傳聞字條，但沒人寫得出出處。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "細讀宣言全文，記在心裡",
+          "set": "c0504_copied_manifesto",
+          "timeCost": 15
+        }
+      ]
+    },
+    "c0504_lin_1": {
+      "speaker": "lin",
+      "text": "陳立！剛才新聞系那頭騎車過來說，今天首都好幾間大報社和電台的編輯、記者，居然自己打著「新聞要說真話」的旗子要上街！咱們走了這麼幾趟，最憋屈的不就是報紙上只見社論不見實情嗎？",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "幫林小梅清點宣言油印紙，一塊兒趕去大道上看新聞界方陣",
+          "rel": { "lin": 1 },
+          "set": "c0504_helped_lin",
+          "diary": "林小梅聽說北京新聞工作者也要上街，抱起一疊〈新五四宣言〉拉著我往西門跑。",
+          "timeCost": 20,
+          "autoHint": true,
+          "next": "c0504_lin_2"
+        },
+        {
+          "text": "提醒她先別信「今晚一定收回社論」的風聲，走到街上再看",
+          "timeCost": 15,
+          "next": "c0504_lin_2"
+        }
+      ]
+    },
+    "c0504_lin_2": {
+      "speaker": "lin",
+      "text": "嗯，走吧！今天太陽這麼好，大道上肯定能碰見她們。",
+      "choices": [
+        {
+          "text": "出發去西校門",
+          "autoHint": true
+        }
+      ]
+    },
+    "c0504_gate_1": {
+      "speaker": "narr",
+      "text": "西校門外沒有四二七那天那麼緊張，路旁不少騎車市民微笑著揮手讓路。大家沿著熟悉的路線往城裡走去。",
+      "choices": [
+        {
+          "text": "踏上五月四日的長街大道",
+          "goto": "march_day",
+          "timeCost": 45,
+          "autoHint": true
+        },
+        {
+          "text": "等後方中文系同學匯合"
+        }
+      ]
+    },
+    "c0504_press_1": {
+      "speaker": "reporter",
+      "text": "同學們好！我們是首都各報刊與新聞單位的編輯和記者——今天「五四」七十週年，我們寫在橫幅上的只有一句話：「新聞要說真話」！以前版面上印不出來的字，今天咱們一起走在陽光底下說！",
+      "event": "1989-05-04-may-fourth-press-march",
+      "variants": [
+        {
+          "requires": "world:xr:press_0504_published",
+          "text": "同學們好！今天我們約五百名北京新聞工作者正式列隊走上長安街——昨晚我們報社值班主編頂著壓力，已經讓今天現場這條消息發排見報了！以後白紙黑字會留住這個五月的聲音！"
+        },
+        {
+          "requires": "world:xr:press_0504_internal",
+          "text": "同學們好！今天約五百名新聞工作者首度一起上街舉牌「新聞要說真話」！雖然報社高層只准把詳細採訪紀錄留作內部清樣傳閱，沒讓全文上公開頭版，可記者們的鏡頭與筆記本都在這兒！"
+        },
+        {
+          "requires": "world:xr:press_0504_spiked",
+          "text": "同學們好！今天我們約五百名新聞工作者打著橫幅站上街頭！昨晚原本拼好版的採訪稿在印刷前被臨時撤版了，只剩鉛字校樣鎖在抽屜裡——正因為版面印不出來，我們才更要站在大馬路上說話！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "跟著四周學生一起使勁鼓掌喝彩，記下新聞工作者隊伍的橫幅字句",
+          "evidence": "ev_0504_press_banners",
+          "set": "c0504_cheered_press",
+          "rel": { "reporter": 1 },
+          "diary": "午後大道上響起雷鳴般的掌聲——約五百名北京新聞工作者舉著「新聞要說真話」橫幅走進遊行行列。",
+          "timeCost": 30,
+          "autoHint": true,
+          "next": "c0504_press_2"
+        },
+        {
+          "text": "詢問記者隊伍知不知道「今晚報社發更正啟事」是不是真的",
+          "evidence": "ev_0504_press_banners",
+          "set": "c0504_cheered_press",
+          "timeCost": 25,
+          "next": "c0504_press_3"
+        }
+      ]
+    },
+    "c0504_press_2": {
+      "speaker": "reporter",
+      "text": "多謝同學們的掌聲！也別光靠我們，大家把親眼看見的事都寫在自己本子上——往後日子長著呢。",
+      "choices": [
+        {
+          "text": "一定記住您這句話",
+          "autoHint": true
+        }
+      ]
+    },
+    "c0504_press_3": {
+      "speaker": "reporter",
+      "text": "「發更正啟事收回社論」？我在排字房和總編室待了半宿，沒聽說過有這道排字單。別把盼望當成既定消息，一切看白紙黑字怎麼印出來才算。",
+      "choices": [
+        {
+          "text": "謝謝您直接澄清實情",
+          "set": "c0504_checked_retraction"
+        }
+      ]
+    },
+    "c0504_kiosk_1": {
+      "speaker": "sun",
+      "text": "剛才好幾個年輕人圍在這報刊亭前頭搶下午版，嘴裡都嚷著「聽說今晚各報社要發更正啟事收回四二六社論啦」！我這老頭子守攤十幾年了，今兒印出來的報紙我都翻過，上頭可半個字沒提什麼更正啟事！",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "variants": [
+        {
+          "requires": "world:xr:press_0504_published",
+          "text": "這張《首都晨報》你看看——倒真的印上了五四新聞界遊行的訊息，我這兒一下子賣光半捆！可街上人傳的什麼「收回四二六社論更正啟事」，報屁股上可一個字沒有，全是大伙兒自己猜的！"
+        },
+        {
+          "requires": "world:xr:press_0504_spiked",
+          "text": "今天下午的報紙賣得慢，老百姓都在傳「有大新聞被撤版了」，也有人瞎猜今晚會發更正啟事收回社論——其實印出來的報紙上什麼啟事也沒有，全是口傳口越傳越懸！"
+        }
+      ],
+      "choices": [
+        {
+          "text": "翻看亭子上擺著的當日報紙版面，記下公開報導與傳言的落差",
+          "evidence": "ev_0504_evening_edition",
+          "set": "c0504_checked_retraction",
+          "rel": { "sun": 1 },
+          "diary": "在孫大爺報刊亭翻過當日報紙，「發更正啟事收回社論」只是一則沒有印本根據的街頭傳言。",
+          "timeCost": 25,
+          "autoHint": true,
+          "next": "c0504_kiosk_2"
+        },
+        {
+          "text": "跟孫大爺說一聲辛苦了，轉回隊伍裡",
+          "timeCost": 15,
+          "next": "c0504_kiosk_2"
+        }
+      ]
+    },
+    "c0504_kiosk_2": {
+      "speaker": "sun",
+      "text": "小伙子記性好，真事假事得拿眼睛看印出來的字，別讓一陣風把腦袋吹迷糊了。",
+      "choices": [
+        {
+          "text": "記下了，大爺",
+          "autoHint": true
+        }
+      ]
+    },
+    "c0504_manifesto_1": {
+      "speaker": "stu2",
+      "text": "陳立！剛才廣場上剛宣讀完〈新五四宣言〉。好多學校的隊伍都準備今晚回去明天復課了——大家覺得七十週年這天連記者都站在咱們這邊了，這陣子總能好好談出個結果吧？",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "把今天聽到宣言與大家盼著復課的心情記進筆記",
+          "rel": { "stu2": 1 },
+          "diary": "廣場上剛宣讀〈新五四宣言〉。多數高校都在討論明天復課，似乎這場春天的緊張正在緩下來。",
+          "timeCost": 20,
+          "autoHint": true
+        },
+        {
+          "text": "提醒她回校時注意防曬喝水",
+          "timeCost": 10
+        }
+      ]
+    },
+    "c0504_leave_1": {
+      "speaker": "narr",
+      "text": "黃昏的風吹過長安街，今天遊行散場時比四二七更加平和，許多同學嘴裡已經在討論明天的專業課和實驗報告。轉身往回走時，你心裡留下了哪一個畫面？",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "記住約五百名北京新聞工作者舉著「新聞要說真話」橫幅走過時的掌聲",
+          "requires": "c0504_cheered_press",
+          "diary": "5/4 黃昏。永遠記得長安街上那排「新聞要說真話」的橫幅與滿街掌聲。",
+          "autoHint": true,
+          "end": "press_banners"
+        },
+        {
+          "text": "折好書包裡那張印著〈新五四宣言〉的油印單，準備明天進實驗室",
+          "requires": "c0504_copied_manifesto",
+          "diary": "5/4 黃昏。把〈新五四宣言〉油印單夾進筆記本裡，帶著些許期待回學校。",
+          "end": "manifesto_copy"
+        },
+        {
+          "text": "再回頭看一眼報刊亭上的當日報紙，把未經證實的「更正啟事」傳言劃上虛線",
+          "requires": "c0504_checked_retraction",
+          "diary": "5/4 黃昏。白紙黑字沒有更正啟事，分清希望與事實是今天學到的第一課。",
+          "end": "rumor_unprinted"
+        },
+        {
+          "text": "隨宿舍同學一起騎車回北大，準備明日恢復上課",
+          "diary": "5/4 黃昏。許多同學決定明日復課，沒有人料到九天之後局勢又會再度升溫。",
+          "autoHint": true,
+          "end": "back_to_class"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "press_banners": {
+      "title": "新聞要說真話",
+      "text": "那五百名舉著報社牌子走出編輯部的記者與編輯，成了這一天全城最響亮的掌聲來源。回到宿舍後，你把這個日期劃了兩道底線。"
+    },
+    "manifesto_copy": {
+      "title": "新五四宣言",
+      "text": "油印紙上淡淡的油墨味還留在手指上。同學們商量著明天上午八點進實驗樓補課，好像四月底以來的緊繃正慢慢往和平對話的方向靠攏。"
+    },
+    "rumor_unprinted": {
+      "title": "空白與印本",
+      "text": "街頭盛傳的「社論更正啟事」最終沒有出現在任何一張報紙上。孫大爺的那句「眼見白紙黑字才算」替你多留了一份冷靜。"
+    },
+    "back_to_class": {
+      "title": "暫時復課的暮色",
+      "text": "晚飯後教學樓走廊裡難得又響起了抱書本上自習的腳步聲。誰也沒有想到，平靜只持續了短短幾天，五月十三日廣場上又會支起連片的白布條。"
+    }
+  },
+  "epilogue": "1989 年 5 月 4 日五四運動七十週年當日，北京學生宣讀〈新五四宣言〉，約五百名新聞工作者首度公開列隊遊行要求如實報導，隨後部分高校一度復課，局勢曾出現短暫緩和跡象。下一階段：五月十三日。",
+  "epilogueEvent": "1989-05-04-may-fourth-press-march"
+}

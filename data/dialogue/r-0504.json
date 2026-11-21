@@ -1,0 +1,432 @@
+{
+  "chapter": "r-0504",
+  "title": "五月四日　短波與胡同早市",
+  "note": "所有說話角色皆為虛構。真實人物只以遠景與史料條目出現，不為其編寫台詞或動作。All characters are fictional.",
+  "startScene": "siheyuan_room",
+  "clockStart": 450,
+  "spawn": {
+    "siheyuan_room": [0, 2.5],
+    "morning_market": [-12, -3]
+  },
+  "labels": {
+    "siheyuan_room": "1989 年 5 月 4 日・早晨・西單四合院正房",
+    "morning_market": "1989 年 5 月 4 日・午後至傍晚・胡同早市與報刊亭"
+  },
+  "transitions": {
+    "morning_market": "你把短波頻率抄本折進衣袋，提著竹籃走出院門，沿著槐樹蔭走往胡同口報刊亭與糧店……"
+  },
+  "start": "intro",
+  "characters": {
+    "me": {
+      "name": "我（沈淑芬）",
+      "role": "53歲，西單四合院居民、退休紡織廠醫務室護師",
+      "fictional": true
+    },
+    "zhangye": {
+      "name": "張大爺",
+      "role": "西單大雜院裡的長輩老鄰居",
+      "fictional": true
+    },
+    "wangjie": {
+      "name": "王姐",
+      "role": "胡同口國營糧油副食店營業員",
+      "fictional": true
+    },
+    "xiaojun": {
+      "name": "小軍",
+      "role": "18歲技校學生，沈淑芬的外甥",
+      "fictional": true
+    },
+    "sun": {
+      "name": "孫大爺",
+      "role": "報刊亭大爺",
+      "fictional": true
+    },
+    "gu": {
+      "name": "顧明遠",
+      "role": "《首都晨報》市政記者（記者路線主角）",
+      "fictional": true
+    },
+    "narr": {
+      "name": "",
+      "role": "旁白",
+      "fictional": true
+    }
+  },
+  "hotspots": [
+    {
+      "id": "r4_radio",
+      "scene": "siheyuan_room",
+      "pos": [2.6, 2.4],
+      "label": "正房短波收音機・五四播報與頻率調諧",
+      "start": "r4_radio_1",
+      "kind": "inspect",
+      "mechanic": "shortwave_dial",
+      "autoHint": true
+    },
+    {
+      "id": "r4_door",
+      "scene": "siheyuan_room",
+      "pos": [-1.6, -2.8],
+      "label": "提籃出屋去胡同市場與報攤",
+      "start": "r4_door_1",
+      "kind": "portal",
+      "isExit": true
+    },
+    {
+      "id": "r4_kiosk",
+      "scene": "morning_market",
+      "pos": [-6.0, -3.5],
+      "label": "報刊亭・孫大爺談五四新聞界版面",
+      "start": "r4_kiosk_1",
+      "npc": "grey",
+      "kind": "dialogue",
+      "autoHint": true
+    },
+    {
+      "id": "r4_grain_shop",
+      "scene": "morning_market",
+      "pos": [-21.5, -1.6],
+      "label": "糧店棚前・王姐與記者顧明遠對訊",
+      "start": "r4_grain_1",
+      "npc": "red",
+      "kind": "dialogue",
+      "timeWindow": [420, 690]
+    },
+    {
+      "id": "r4_market_stall",
+      "scene": "morning_market",
+      "pos": [0.2, -5.2],
+      "label": "早點攤槐樹下・與小軍核對更正傳言",
+      "start": "r4_xiaojun_1",
+      "npc": "green",
+      "kind": "dialogue",
+      "autoHint": true
+    }
+  ],
+  "nodes": {
+    "intro": {
+      "speaker": "narr",
+      "text": "1989 年 5 月 4 日，星期四，清晨七點半。今天是五四運動七十週年，早間新聞剛播過五四紀念與溫和講話，但屋外的胡同裡卻聽說各校學生又要組織遊行，甚至傳出今天會有首都幾百家新聞單位的記者也舉牌上街。",
+      "event": "1989-05-04-may-fourth-press-march",
+      "variants": [
+        {
+          "requires": "r3_pulled_xiaojun",
+          "text": "1989 年 5 月 4 日，清晨七點半。四二七立交橋那次把小軍拉下欄杆後，這幾天他倒還老實背書，早飯前就只敢站在院門邊聽大街上的廣播。今天是五四七十週年，收音機裡不同波段的口徑聽起來明顯鬆動了一些，叫人摸不準今天街頭和報紙會變成什麼模樣。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "坐在書桌前擰開短波收音機，仔細聽一段早晨的各地播報",
+          "diary": "5/4 五四七十週年。早間電台語氣比四月底緩和些，外頭卻又有新的遊行與報社消息。",
+          "autoHint": true
+        }
+      ]
+    },
+    "r4_radio_1": {
+      "speaker": "narr",
+      "text": "桌上的雙波段收音機亮著微光，短波刻度旁夾著你上個月記滿時間點的抄本。今天早上既播送了五四紀念儀式，也有外間傳聞說北京報刊編輯部的採編人員正在集結響應遊行，更有街巷在傳今晚會有更正社論的啟事。",
+      "event": "1989-05-04-may-fourth-press-march",
+      "choices": [
+        {
+          "text": "轉動短波調頻旋鈕（4.8–15.5 MHz），分別聽清電台紀念播報與新聞界遊行說法",
+          "mechanic": "shortwave_dial",
+          "keepsake": "shortwave_notes",
+          "evidence": "r4_ev_shortwave_may4",
+          "set": "r4_tuned_radio",
+          "timeCost": 20,
+          "diary": "5/4 早間收聽短波：確認今日為五四七十週年，高校學生與首都新聞工作者將於下午遊行；至於社論動向尚無確訊。",
+          "next": "r4_radio_2",
+          "autoHint": true
+        },
+        {
+          "text": "只記下早間中央台的時間與簡要口徑，收拾菜籃準備出門買報紙核對",
+          "keepsake": "shortwave_notes",
+          "evidence": "r4_ev_shortwave_may4",
+          "set": "r4_tuned_radio",
+          "timeCost": 15,
+          "next": "r4_radio_3"
+        }
+      ]
+    },
+    "r4_radio_2": {
+      "speaker": "narr",
+      "text": "你在短波頻率抄本上劃出兩欄：一欄寫電台實況，一欄空著留給街角報刊亭的當日鉛字報紙。光聽收音機還不夠，得去街上看一眼今天報紙究竟印了什麼。",
+      "choices": [
+        {
+          "text": "拿上糧油本和零錢去門口"
+        }
+      ]
+    },
+    "r4_radio_3": {
+      "speaker": "narr",
+      "text": "合上抄本，你打算趁早市與午間報攤還沒收攤，順便替張大爺買斤青菜和晚報。",
+      "choices": [
+        {
+          "text": "走到正房門邊準備出院"
+        }
+      ]
+    },
+    "r4_door_1": {
+      "speaker": "narr",
+      "text": "門外的五月春風暖烘烘的，院心大槐樹已經抽滿嫩綠葉芽，曬衣繩上飄著洗好的藍粗布工裝。",
+      "choices": [
+        {
+          "text": "推開院門走往胡同早市與報刊亭",
+          "goto": "morning_market",
+          "timeCost": 15,
+          "autoHint": true
+        },
+        {
+          "text": "再檢查一遍桌上的茶壺蓋"
+        }
+      ]
+    },
+    "r4_kiosk_1": {
+      "speaker": "sun",
+      "text": "沈大姐！今天五四這新聞可真叫人開眼界——剛才五百來位北京各報社、電台的記者編輯自己打著「新聞要說真話」的橫幅，堂堂正正走上長安街加入遊行隊伍啦！大夥兒都圍著報刊亭等晚上這幾家報紙究竟敢不敢如實登出來。還有人傳說，報社今晚要發更正啟事收回四二六社論定性呢！",
+      "event": "1989-05-04-may-fourth-press-march",
+      "variants": [
+        {
+          "requires": "world:xr:press_0504_published",
+          "text": "沈大姐！您瞧我報攤前排這麼長隊——今天《首都晨報》居然真把五四新聞界大遊行和現場實況大大方方見報了！五百來名記者編輯打出「新聞要說真話」的橫幅，傍晚這份報一擺出來十分鐘就搶了大半疊，街坊還都在傳今晚會不會再有更正社論的啟事呢！"
+        },
+        {
+          "requires": "world:xr:press_0504_internal",
+          "text": "沈大姐！今天五四遊行可熱鬧，連首都各報社約五百名記者都舉牌上街了！不過傍晚擺上櫃的正式版面依舊照印通稿，只是剛才有個熟悉印刷廠的老師傅悄悄說，報社裡頭把現場採訪稿印成了內部參考清樣留存下來；外頭還有人在猜今晚會不會發更正啟事哩。"
+        },
+        {
+          "requires": "world:xr:press_0504_spiked",
+          "text": "沈大姐！明明午後大夥兒親眼看見幾百名新聞工作者舉著「新聞要說真話」的橫幅從街上走過去，結果傍晚《首都晨報》送來的版面還是臨時撤了稿，只剩尋常通稿！排隊買報的人憋了一肚子問號，反而更信「今晚要發更正啟事」的傳言了。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "把「五百名北京新聞工作者舉牌加入五四遊行」的實況和「更正啟事傳言」分開記下",
+          "set": "r4_checked_kiosk",
+          "evidence": "r4_ev_retraction_rumor",
+          "rel": { "sun": 1 },
+          "timeCost": 20,
+          "diary": "孫大爺說今天五四約五百名北京記者舉牌上街要求如實報導；但關於「今晚發更正啟事收回社論」的說法只是街頭猜測，還得問問報社裡頭的人。",
+          "next": "r4_kiosk_2",
+          "autoHint": true
+        },
+        {
+          "text": "買一份今天的新鮮報紙摺進竹籃，跟孫大爺聊聊這幾天部分高校復課的風聲",
+          "set": "r4_bought_paper",
+          "evidence": "r4_ev_retraction_rumor",
+          "rel": { "sun": 1 },
+          "timeCost": 15,
+          "next": "r4_kiosk_3"
+        }
+      ]
+    },
+    "r4_kiosk_2": {
+      "speaker": "sun",
+      "text": "沒錯！報館自己人上街是真的，部分高校今天也宣布暫時復課、氣氛好像緩和了一點兒；可這「今晚發更正啟事」的話，您別光信賣冰棍的嘴。那頭糧店棚邊站著的像是《首都晨報》的顧記者，您過去問問他最準！",
+      "choices": [
+        {
+          "text": "謝謝大爺指路，我過去糧店棚邊問問"
+        }
+      ]
+    },
+    "r4_kiosk_3": {
+      "speaker": "sun",
+      "text": "對呀，好些學校今天都復課了，街坊本來盼著這就能慢慢落停下來。前面糧店那邊顧記者好像正跟王姐講話呢，您過去看看。",
+      "choices": [
+        {
+          "text": "嗯，我去買米麵順便搭句話"
+        }
+      ]
+    },
+    "r4_grain_1": {
+      "speaker": "gu",
+      "text": "沈阿姨！剛在報社忙完趕出來買點吃的，正巧跟王姐說起今天五四遊行的事。我得實話告訴您和各位街坊：今天確實有大約五百名首都新聞工作者公開上街要求如實報導，高層口風也一度緩和；但街上流傳的「報社今晚將發更正啟事收回四二六社論定性」純屬大家的一廂情願，今晚並不會有那樣一份更正啟事。",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "variants": [
+        {
+          "requires": "world:xr:press_0504_published",
+          "text": "沈阿姨、王姐，今天咱們《首都晨報》頭一回把五四新聞界遊行的現場稿發見報了，老沈主編說這就是對「如實報導」最大的交代。不過外頭流傳「報社今晚還要登更正啟事收回社論定性」，那倒確實沒有這道通知——我們記者不能拿沒發生的事安慰讀者。"
+        },
+        {
+          "requires": "world:xr:press_0504_internal",
+          "text": "沈阿姨、王姐，今天我和五百來位同行一塊兒舉牌上街了；雖說正式報紙沒能公開登出整篇現場報導，我們編輯部把稿件印成內部參考清樣留作紀錄。至於街頭都在傳的「今晚將發更正啟事收回社論」，我剛從值班室出來，並沒有這件事。"
+        },
+        {
+          "requires": "world:xr:press_0504_spiked",
+          "text": "沈阿姨您別聽外頭亂傳——今天我們新聞界幾百人走上長安街，可傍晚這版稿子還是被臨時撤下來只餘鉛字校樣。我也多希望今晚真有更正啟事收回社論定性，但事實上並沒有這份啟事，大家別被空歡喜閃了腰。"
+        }
+      ],
+      "choices": [
+        {
+          "text": "謝過顧明遠把報社版面與傳言實情講得透徹，同時幫王姐把糧店今日油鹽價錢對好",
+          "set": "r4_verified_retraction",
+          "evidence": "r4_ev_gu_witness",
+          "rel": { "gu": 1, "wangjie": 1, "wang_clerk": 1 },
+          "timeCost": 20,
+          "diary": "記者顧明遠與糧店王姐都證實：5/4 約五百名北京記者參加五四遊行屬實，但「今晚登更正啟事收回社論」只是未核實的期望與傳聞。",
+          "next": "r4_grain_2",
+          "autoHint": true
+        },
+        {
+          "text": "安慰顧明遠保重身體，別在報社熬太晚；幫張大爺稱兩斤小米放進籃子",
+          "evidence": "r4_ev_gu_witness",
+          "rel": { "gu": 1, "wangjie": 1, "wang_clerk": 1 },
+          "timeCost": 15,
+          "next": "r4_grain_3"
+        }
+      ]
+    },
+    "r4_grain_2": {
+      "speaker": "wangjie",
+      "text": "聽見顧記者這句準話我就放心了！早上一群買早點的小年輕在店門口傳得有鼻子有眼，差點連小軍都跟著起鬨。您快去早點攤槐樹下把小軍叫回家吃飯吧。",
+      "choices": [
+        {
+          "text": "好，我這就過去跟小軍講明白"
+        }
+      ]
+    },
+    "r4_grain_3": {
+      "speaker": "gu",
+      "text": "謝謝阿姨。雖然今晚不會有收回社論的更正啟事，但今天街上也有幾所高校開始復課了，大家都盼著接下來幾天能順順當當談出個眉目。",
+      "choices": [
+        {
+          "text": "嗯，平穩最好，我先過去看看小軍"
+        }
+      ]
+    },
+    "r4_xiaojun_1": {
+      "speaker": "xiaojun",
+      "text": "老姨！今天新聞界叔叔阿姨都打著「新聞要說真話」的橫幅上街啦！我們技校好多同學都在猜，是不是今晚報紙就會登更正啟事把「動亂」兩個字收回去？如果是真的，過兩天街上是不是就徹底太平了？",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "choices": [
+        {
+          "text": "把報社朋友親口確認的實情告訴小軍：「記者們勇敢上街是真的，但今晚不會有更正啟事——盼著好結果沒錯，可不能拿猜測當成既成事實」",
+          "set": "r4_calmed_xiaojun",
+          "rel": { "xiaojun": 1 },
+          "timeCost": 15,
+          "diary": "在早點攤前跟小軍說清楚五四遊行與「更正啟事傳言」的分別：分清希望與事實，心才不會忽冷忽熱。",
+          "next": "r4_end_1",
+          "autoHint": true
+        },
+        {
+          "text": "摸摸他腦袋說今天部分大學已宣布復課確實是緩和跡象，但咱們小老百姓還得穩著來",
+          "rel": { "xiaojun": 1 },
+          "set": "r4_calmed_xiaojun",
+          "timeCost": 15,
+          "next": "r4_end_1"
+        }
+      ]
+    },
+    "r4_end_1": {
+      "speaker": "narr",
+      "text": "傍晚的胡同口漸漸飄起各家炒菜的油煙香。五四運動七十週年的這一天在希望與猜測交錯裡慢慢落幕，今天你在菜籃與本子裡留下了什麼？",
+      "choices": [
+        {
+          "text": "把報刊亭買的報紙與顧明遠核對的筆記夾在一塊兒，讓期待歸期待、事實歸事實",
+          "requires": "r4_verified_retraction",
+          "diary": "5/4 傍晚。把新聞界遊行實況和「無更正啟事」的查證寫在同一頁，替張大爺和街坊留一份明白帳。",
+          "end": "r4_verify_print"
+        },
+        {
+          "text": "摸摸衣兜裡記著今日短波頻率與播報時間的抄本，等夜裡靜了再聽一段電台",
+          "requires": "r4_tuned_radio",
+          "diary": "5/4 傍晚。短波抄本上記著五四這天短暫出現的緩和聲調，夜裡還要留心聽下去。",
+          "end": "r4_shortwave_log"
+        },
+        {
+          "text": "領著不再輕易信口耳相傳的小軍一道走回四合院，趁熱炒兩盤青菜",
+          "requires": "r4_calmed_xiaojun",
+          "diary": "5/4 傍晚。帶著小軍一起回家；這孩子開始學會聽完街上說法後先多問一句「證據呢」。",
+          "end": "r4_calm_xiaojun"
+        },
+        {
+          "text": "提穩裝滿小米和青菜的竹籃拐回紅門，在溫熱的暮色裡準備晚飯",
+          "diary": "5/4 傍晚。五月的空氣一度讓人以為事情會慢慢轉緩，誰料九天後廣場又將升起更緊繃的帳篷。",
+          "end": "r4_quiet_basket"
+        }
+      ]
+    }
+  },
+  "endings": {
+    "r4_verify_print": {
+      "title": "報角與現場筆記",
+      "text": "你把五四當天的報紙折角與顧明遠核實的幾行字夾在一處。希望社論定性收回的人很多，但你沒有隨大流把猜想當成現實——這份清醒，讓你在五月後半程少受許多流言驚嚇。"
+    },
+    "r4_shortwave_log": {
+      "title": "五四頻率紀錄",
+      "text": "短波筆記本翻開第二頁，工整寫著五月四日的時間與波段。當報紙版面、廣播口徑與街坊耳朵互相拉扯時，那支小小的調頻旋鈕成了你對照世界的一把尺。"
+    },
+    "r4_calm_xiaojun": {
+      "title": "分清期盼與事實的小軍",
+      "text": "回院子的路上，小軍主動替你接過裝著小米的布袋。那天早市上他少了一分盲動，多了一句反問：「老姨，這話真見報了嗎？」——十八歲的少年正在這場春天裡慢慢定下性子。"
+    },
+    "r4_quiet_basket": {
+      "title": "五四暮色裡的菜籃",
+      "text": "五月四日的晚風溫和得像平常初夏，部分學校復課的消息讓大雜院裡透出一絲久違的輕鬆。沒人能料到，短短九天之後，絕食與梅雨會把這個春天推向更漫長的僵局。"
+    }
+  },
+  "epilogue": "1989 年 5 月 4 日適逢五四運動七十週年，約五百名北京新聞工作者舉牌加入遊行要求如實報導，部分高校亦短暫復課，局勢出現短暫緩和跡象；然而關於當晚將發更正啟事收回四二六社論定性之說法並未發生。接下來：五月十三日至十五日，紗布與茶水。",
+  "epilogueEvent": "1989-05-04-may-fourth-press-march",
+  "evidenceCatalog": {
+    "r4_ev_shortwave_may4": {
+      "id": "r4_ev_shortwave_may4",
+      "kind": "audio_tape",
+      "title": "五四七十週年晨間廣播實況",
+      "summary": "電台 9.65 MHz 播報五四七十週年紀念與高校秩序微幅緩和動向，同步傳來首都新聞界醞釀公開加入遊行之訊息。",
+      "sourceLabel": "廣播電台 9.65 MHz",
+      "dayKey": "1989-05-04",
+      "chapterId": "r-0504",
+      "event": "1989-05-04-may-fourth-press-march",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["shortwave", "0504", "新聞界遊行"]
+    },
+    "r4_ev_retraction_rumor": {
+      "id": "r4_ev_retraction_rumor",
+      "kind": "rumor",
+      "title": "街頭傳言：「報社今晚將發更正啟事收回社論定性」",
+      "summary": "早市排隊買報與學生間流傳當晚報紙將登出更正啟事撤回「四二六社論」定性，係出於期待之遊戲虛構傳言。",
+      "sourceLabel": "遊戲虛構・街頭傳言 11.85 MHz",
+      "dayKey": "1989-05-04",
+      "chapterId": "r-0504",
+      "event": "1989-05-04-rumor-editorial-retraction",
+      "route": "resident",
+      "confidence": "uncertain",
+      "tags": ["shortwave", "0504", "傳言"]
+    },
+    "r4_ev_gu_witness": {
+      "id": "r4_ev_gu_witness",
+      "kind": "witness",
+      "title": "《首都晨報》記者顧明遠五四現場與版面核實",
+      "summary": "約五百名北京新聞工作者確於五月四日舉牌上街，部分高校一度復課；但編輯部並無「今晚發更正啟事收回社論」之決定。",
+      "sourceLabel": "記者顧明遠・當日現場查證",
+      "dayKey": "1989-05-04",
+      "chapterId": "r-0504",
+      "event": "1989-05-04-may-fourth-press-march",
+      "route": "resident",
+      "confidence": "documented",
+      "tags": ["0504", "記者查證"]
+    }
+  },
+  "evidencePairs": [
+    {
+      "id": "r4_pair_press_rumor",
+      "cards": ["r4_ev_gu_witness", "r4_ev_retraction_rumor"],
+      "verdict": "contradiction",
+      "verdictLabel": "說法存在出入",
+      "summary": "新聞界確於五四當日上街呼籲如實報導，但報社並未刊發任何「收回四二六社論定性」之更正啟事，傳言與編輯部實況相左。",
+      "diary": "比對顧明遠查證與街頭「更正啟事」傳言：兩者存在明顯出入，不能把期盼誤作事實。",
+      "set": "r4_dossier_debunked"
+    },
+    {
+      "id": "r4_pair_radio_gu",
+      "cards": ["r4_ev_shortwave_may4", "r4_ev_gu_witness"],
+      "verdict": "corroborated",
+      "verdictLabel": "兩份紀錄吻合",
+      "summary": "晨間電台動向與記者現場見聞互相印證：五月四日確實出現首都新聞界公開加入遊行與部分高校復課的短暫緩和。",
+      "diary": "兩邊紀錄吻合：這一天確實有新聞界發聲與短暫緩和，只是距離真正撤銷定性還差得遠。",
+      "set": "r4_dossier_corroborated"
+    }
+  ]
+}

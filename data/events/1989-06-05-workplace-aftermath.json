@@ -1,0 +1,37 @@
+{
+  "id": "1989-06-05-workplace-aftermath",
+  "date": "1989-06-05",
+  "place": "北京各工廠車間・居民院落",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "六月四日至七日交通癱瘓漸復，工廠車間冷清與工友互報平安",
+    "en": "4–7 June aftermath: paralyzed transit slowly resumes, quiet factories, and coworkers checking on one another"
+  },
+  "summary": {
+    "zh": "6 月 4 日清晨之後數日間（6 月 4 日至 7 日），北京部分路段仍見路障與燒毀車輛殘骸，公共交通一度停擺、物資供應緊張，不少工廠與單位出現大面積缺勤或停產。隨著戒嚴部隊控制主要幹道並逐步清理路障，部分路線與企業於數日後陸續恢復有限運作，街坊與車間工友之間低調相互打聽親友與同事安危。",
+    "en": "From 4 to 7 June, burned vehicles and barricades blocked parts of Beijing while public transit largely halted, supply chains tightened, and many factories saw heavy absenteeism or temporary stoppages. As troops cleared major avenues and limited transit gradually resumed over the following days, workers quietly checked in on colleagues' and neighbors' safety inside subdued workshops and courtyards."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Immediate aftermath",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Immediate_aftermath"
+    },
+    {
+      "title": "Tiananmen Square incident",
+      "publisher": "Encyclopædia Britannica",
+      "url": "https://www.britannica.com/event/Tiananmen-Square-incident"
+    },
+    {
+      "title": "Tiananmen Square, 1989",
+      "publisher": "U.S. Department of State, Office of the Historian (Milestones)",
+      "url": "https://history.state.gov/milestones/1989-1992/tiananmen-square"
+    },
+    {
+      "title": "Tiananmen at 25 Years (Electronic Briefing Book No. 473)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB473/"
+    }
+  ]
+}

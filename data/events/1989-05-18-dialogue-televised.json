@@ -1,0 +1,32 @@
+{
+  "id": "1989-05-18-dialogue-televised",
+  "date": "1989-05-18",
+  "place": "人民大會堂・長安街與天安門廣場周邊",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "五月十七至十八日百萬市民聲援與電視播出的大會堂對話",
+    "en": "17–18 May: million-strong solidarity rallies and the televised Great Hall meeting"
+  },
+  "summary": {
+    "zh": "5 月 17 日至 18 日，隨著廣場絕食進入第五、六天，北京街頭出現規模空前的聲援人潮，工人、職員、記者、醫護人員與市民估計逾百萬人沿長安街前往天安門廣場周邊示威與支援。5 月 18 日，國務院總理李鵬等官員在人民大會堂與絕食學生代表會面並由電視播出部分實況；會面中雙方圍繞先停止絕食、撤銷「四二六社論」定性及承認學生組織等議題各自陳述立場，未能化解僵局。此段電視畫面隨即成為全市院落、車間與報社反覆議論的焦點。",
+    "en": "On 17–18 May, as the hunger strike entered its fifth and sixth days, unprecedented crowds estimated at over a million—workers, office staff, journalists, medical personnel, and residents—filled Chang'an Avenue and the area around Tiananmen Square. On 18 May, Premier Li Peng and other officials met student hunger-strike representatives at the Great Hall of the People in a session broadcast on television; officials urged an end to the strike while student delegates pressed for retraction of the April 26 editorial and recognition of autonomous unions, leaving the impasse unresolved as residents, workshops, and newsrooms watched closely."
+  },
+  "sources": [
+    {
+      "title": "1989 Tiananmen Square protests and massacre — §Hunger strikes begin",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre#Hunger_strikes_begin"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    },
+    {
+      "title": "Tiananmen Square, 1989: The Declassified History (Electronic Briefing Book No. 16)",
+      "publisher": "The National Security Archive, George Washington University",
+      "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB16/"
+    }
+  ]
+}

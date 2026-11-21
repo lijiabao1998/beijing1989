@@ -1,0 +1,32 @@
+{
+  "id": "1989-05-30-goddess-of-democracy",
+  "date": "1989-05-30",
+  "place": "天安門廣場北側",
+  "kind": "historical",
+  "confidence": "documented",
+  "title": {
+    "zh": "美術院校學生在天安門廣場北側豎立白色石膏雕像",
+    "en": "Art students erect a white plaster statue at the north end of Tiananmen Square"
+  },
+  "summary": {
+    "zh": "1989 年 5 月 30 日，中央美術學院等校學生連夜趕製並在天安門廣場北側中軸線上拼裝豎立一座高約十公尺的白色石膏與泡沫塑料雕像「民主之神」（亦稱民主女神像），面朝天安門城樓。雕像吸引了大批市民與學生前來觀看，成為運動後期最具代表性的視覺象徵之一，於 6 月 4 日清晨清場時被摧毀。",
+    "en": "On 30 May 1989, students from art academies assembled a roughly 10-meter white plaster and foam statue—known as the Goddess of Democracy—on the north axis of Tiananmen Square facing Tiananmen Gate. It drew large crowds before being destroyed during the 4 June clearing."
+  },
+  "sources": [
+    {
+      "title": "Goddess of Democracy",
+      "publisher": "Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/Goddess_of_Democracy"
+    },
+    {
+      "title": "A Brief Chronology of Events at Tiananmen Square (1989)",
+      "publisher": "Columbia University, Asia for Educators",
+      "url": "https://afe.easia.columbia.edu/special/china_1950_tiananmen_timeline.htm"
+    },
+    {
+      "title": "Tiananmen Square incident",
+      "publisher": "Encyclopædia Britannica",
+      "url": "https://www.britannica.com/event/Tiananmen-Square-incident"
+    }
+  ]
+}
