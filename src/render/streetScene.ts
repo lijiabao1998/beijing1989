@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { C, Part, addLayeredParts, glowMat, instanced, litMat, mergeParts, place, rng, textTexture, vertText } from './kit';
 import {
   ambulance, bike, coalAndCabbage, crowdPerson, lampHead, lampPole, person,
@@ -6,8 +7,14 @@ import {
 } from './props';
 import { addRealisticTrees } from './foliage';
 import { asphaltRoadTex, campusPathTex, skyDomeTex } from './materials';
+import {
+  attachStreetMarchProcession,
+  type MarchProcessionHandle,
+  type MarchVariant,
+  type ObstacleCircle,
+} from './marchProcession';
 import type { SceneId } from '../types';
-import type { World } from './scenes';
+import type { World, WorldCollider } from './scenes';
 
 export type StreetMode = 'night' | 'march' | 'blockade' | 'hutong';
 
@@ -39,30 +46,77 @@ function addSodiumLight(s: THREE.Scene, x: number, z: number, intensity = 16, di
   s.add(l);
 }
 
-function addSignPlane(
-  s: THREE.Scene, text: string, x: number, y: number, z: number,
-  w: number, h: number, bg: string, fg: string, ry = Math.PI, vertical = false,
-) {
-  const tex = textTexture(vertical ? 128 : 512, vertical ? 512 : 128, g => {
-    g.fillStyle = bg;
-    g.fillRect(0, 0, g.canvas.width, g.canvas.height);
-    g.strokeStyle = fg;
-    g.lineWidth = 4;
-    g.strokeRect(6, 6, g.canvas.width - 12, g.canvas.height - 12);
-    g.fillStyle = fg;
-    if (vertical) {
-      vertText(g, text, 64, 24, 88);
-    } else {
-      g.font = 'bold 80px "Noto Serif CJK TC","Noto Sans CJK TC",serif';
-      g.textAlign = 'center';
-      g.textBaseline = 'middle';
-      g.fillText(text, 256, 66);
-    }
+function addStreetSignsAtlas(s: THREE.Scene) {
+  const specs: Array<{
+    text: string; x: number; y: number; z: number; w: number; h: number;
+    bg: string; fg: string; ry: number; vertical?: boolean;
+  }> = [
+    { text: '報刊', x: -6, y: 2.38, z: -2.82, w: 1.8, h: 0.42, bg: '#2a3b2f', fg: '#f0e2b0', ry: Math.PI },
+    { text: '五金交電商店', x: -30, y: 3.85, z: 0.32, w: 5.2, h: 0.92, bg: '#1e3d2b', fg: '#f2e2ae', ry: Math.PI },
+    { text: '國營副食店', x: -15, y: 4.25, z: 2.12, w: 6.0, h: 1.05, bg: '#7d2a22', fg: '#f3e3b5', ry: Math.PI },
+    { text: '紅星飯館', x: -1, y: 4.35, z: 0.32, w: 4.4, h: 0.90, bg: '#203a2c', fg: '#f6dd9a', ry: Math.PI },
+    { text: '國營理髮', x: 8.0, y: 3.55, z: 0.32, w: 2.9, h: 0.72, bg: '#d9d0b8', fg: '#8c2a22', ry: Math.PI },
+    { text: '百貨商店', x: 26, y: 3.88, z: 0.34, w: 4.4, h: 0.88, bg: '#8c2a22', fg: '#f4e5b8', ry: Math.PI },
+    { text: '西斜街胡同', x: 11.4, y: 2.55, z: -0.22, w: 0.92, h: 0.34, bg: '#1b4788', fg: '#f2efe6', ry: Math.PI },
+    { text: '公共汽車站', x: -18, y: 2.38, z: -5.02, w: 0.48, h: 1.18, bg: '#efe7d0', fg: '#7d2a22', ry: Math.PI, vertical: true },
+  ];
+  const cols = 2, rows = 4, cellW = 512, cellH = 256, texW = cols * cellW, texH = rows * cellH;
+  const tex = textTexture(texW, texH, g => {
+    g.fillStyle = '#202224';
+    g.fillRect(0, 0, texW, texH);
+    specs.forEach((sp, i) => {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      const cx = col * cellW;
+      const cy = row * cellH;
+      if (sp.vertical) {
+        const vx = cx + 192;
+        const vw = 128;
+        g.fillStyle = sp.bg;
+        g.fillRect(vx, cy, vw, cellH);
+        g.strokeStyle = sp.fg;
+        g.lineWidth = 4;
+        g.strokeRect(vx + 4, cy + 4, vw - 8, cellH - 8);
+        g.fillStyle = sp.fg;
+        vertText(g, sp.text, vx + vw / 2, cy + 16, 42);
+      } else {
+        g.fillStyle = sp.bg;
+        g.fillRect(cx, cy, cellW, cellH);
+        g.strokeStyle = sp.fg;
+        g.lineWidth = 5;
+        g.strokeRect(cx + 6, cy + 6, cellW - 12, cellH - 12);
+        g.fillStyle = sp.fg;
+        g.font = 'bold 78px "Noto Serif CJK TC","Noto Sans CJK TC",serif';
+        g.textAlign = 'center';
+        g.textBaseline = 'middle';
+        g.fillText(sp.text, cx + cellW / 2, cy + cellH / 2 + 2, cellW - 36);
+      }
+    });
   });
-  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex, fog: true }));
-  m.position.set(x, y, z);
-  m.rotation.y = ry;
-  s.add(m);
+  tex.userData.sceneOwned = true;
+
+  const geos: THREE.BufferGeometry[] = [];
+  const padU = 3 / texW;
+  const padV = 3 / texH;
+  specs.forEach((sp, i) => {
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    const u0 = sp.vertical ? (col * cellW + 192) / texW + padU : col / cols + padU;
+    const u1 = sp.vertical ? (col * cellW + 320) / texW - padU : (col + 1) / cols - padU;
+    const vTop = 1 - row / rows - padV;
+    const vBot = 1 - (row + 1) / rows + padV;
+    const q = new THREE.PlaneGeometry(sp.w, sp.h);
+    const uv = q.getAttribute('uv');
+    for (let k = 0; k < uv.count; k++) {
+      uv.setXY(k, u0 + uv.getX(k) * (u1 - u0), vBot + uv.getY(k) * (vTop - vBot));
+    }
+    q.rotateY(sp.ry);
+    q.translate(sp.x, sp.y, sp.z);
+    geos.push(q);
+  });
+  const merged = mergeGeometries(geos)!;
+  for (const q of geos) q.dispose();
+  s.add(new THREE.Mesh(merged, new THREE.MeshBasicMaterial({ map: tex, fog: true })));
 }
 
 /** Add a framed multi-pane window with sill, lintel, and dark or glowing glass. */
@@ -159,22 +213,17 @@ function buildRoadAndSidewalks(s: THREE.Scene, stat: Part[], mode: StreetMode) {
   roadPlane.position.set(0, 0.004, -10);
   s.add(roadPlane);
 
-  // Textured north & south brick sidewalks (z = 3 and z = -22)
-  const northWalk = new THREE.Mesh(
-    new THREE.PlaneGeometry(120, 16),
-    new THREE.MeshLambertMaterial({ map: campusPathTex(30, 4) }),
-  );
-  northWalk.rotation.x = -Math.PI / 2;
-  northWalk.position.set(0, 0.032, 3);
-  s.add(northWalk);
-
-  const southWalk = new THREE.Mesh(
-    new THREE.PlaneGeometry(120, 14),
-    new THREE.MeshLambertMaterial({ map: campusPathTex(30, 4) }),
-  );
-  southWalk.rotation.x = -Math.PI / 2;
-  southWalk.position.set(0, 0.032, -22);
-  s.add(southWalk);
+  // Textured north & south brick sidewalks merged into a single draw call (z = 3 and z = -22)
+  const nWalkGeo = new THREE.PlaneGeometry(120, 16);
+  nWalkGeo.rotateX(-Math.PI / 2);
+  nWalkGeo.translate(0, 0.032, 3);
+  const sWalkGeo = new THREE.PlaneGeometry(120, 14);
+  sWalkGeo.rotateX(-Math.PI / 2);
+  sWalkGeo.translate(0, 0.032, -22);
+  const walksGeo = mergeGeometries([nWalkGeo, sWalkGeo])!;
+  nWalkGeo.dispose();
+  sWalkGeo.dispose();
+  s.add(new THREE.Mesh(walksGeo, new THREE.MeshLambertMaterial({ map: campusPathTex(30, 4) })));
 
   // Solid sub-bases underneath so no edge gaps appear at shallow angles
   stat.push(
@@ -222,18 +271,20 @@ function buildRoadAndSidewalks(s: THREE.Scene, stat: Part[], mode: StreetMode) {
     }
   }
 
-  // Blue-and-white Beijing bike/pedestrian guardrails (clear of crosswalks, hotspots & blockade buses)
-  addGuardrail(stat, -46, -34, -7.2);
-  addGuardrail(stat, -24, -19.5, -7.2);
-  addGuardrail(stat, 22, 38, -7.2);
-  if (!blockade && !march) {
-    addGuardrail(stat, 6.5, 13.5, -7.2);
+  // Blue-and-white Beijing bike/pedestrian guardrails (removed during march so linked pickets define the corridor cleanly)
+  if (!march) {
+    addGuardrail(stat, -46, -34, -7.2);
+    addGuardrail(stat, -24, -19.5, -7.2);
+    addGuardrail(stat, 22, 38, -7.2);
+    if (!blockade) {
+      addGuardrail(stat, 6.5, 13.5, -7.2);
+    }
+    addGuardrail(stat, -46, -32, -13.1);
+    if (!blockade) {
+      addGuardrail(stat, -16, -4, -13.1);
+    }
+    addGuardrail(stat, 21, 37, -13.1);
   }
-  addGuardrail(stat, -46, -32, -13.1);
-  if (!blockade && !march) {
-    addGuardrail(stat, -16, -4, -13.1);
-  }
-  addGuardrail(stat, 21, 37, -13.1);
 }
 
 /** 1. West Brick Apartment & Hardware/Book Shop (x = -30, z = 2.5, w = 14, h = 7.5). */
@@ -845,7 +896,7 @@ function wires(x0: number, x1: number, zs: number[], poleZa: number, poleZb: num
   return p;
 }
 
-export function buildStreet(mode: StreetMode = 'night'): World {
+export function buildStreet(mode: StreetMode = 'night', marchVariant: MarchVariant = 'night422'): World {
   const march = mode === 'march';
   const blockade = mode === 'blockade';
   const hutong = mode === 'hutong';
@@ -932,35 +983,25 @@ export function buildStreet(mode: StreetMode = 'night'): World {
   addLayeredParts(s, stat);
   if (glow.length) s.add(new THREE.Mesh(mergeParts(glow), glowMat()));
 
-  // Crisp period Chinese shop signs (all facing -z south)
-  addSignPlane(s, '報刊', -6, 2.38, -2.82, 1.8, 0.42, '#2a3b2f', '#f0e2b0', Math.PI);
-  addSignPlane(s, '五金交電商店', -30, 3.85, 0.32, 5.2, 0.92, '#1e3d2b', '#f2e2ae', Math.PI);
-  addSignPlane(s, '國營副食店', -15, 4.25, 2.12, 6.0, 1.05, '#7d2a22', '#f3e3b5', Math.PI);
-  addSignPlane(s, '紅星飯館', -1, 4.35, 0.32, 4.4, 0.90, '#203a2c', '#f6dd9a', Math.PI);
-  addSignPlane(s, '國營理髮', 8.0, 3.55, 0.32, 2.9, 0.72, '#d9d0b8', '#8c2a22', Math.PI);
-  addSignPlane(s, '百貨商店', 26, 3.88, 0.34, 4.4, 0.88, '#8c2a22', '#f4e5b8', Math.PI);
-  addSignPlane(s, '西斜街胡同', 11.4, 2.55, -0.22, 0.92, 0.34, '#1b4788', '#f2efe6', Math.PI);
-  addSignPlane(s, '公共汽車站', -18, 2.38, -5.02, 0.48, 1.18, '#efe7d0', '#7d2a22', Math.PI, true);
+  // Crisp period Chinese shop signs packed into 1 atlas texture + 1 merged draw call
+  addStreetSignsAtlas(s);
 
-  // Avenue poplars + Hutong courtyard scholar tree
+  // Avenue poplars + Hutong courtyard scholar tree (set onto curb verges during march so trunks never clip marchers)
   addRealisticTrees(s, [{ x: hutong ? 16.9 : 16.1, z: hutong ? 5.1 : 4.7, ry: 0.4 }], false, false);
   const pops: { x: number; z: number; ry: number }[] = [];
   for (let x = -49; x <= 50; x += 7.5) {
-    pops.push({ x: x + r() * 0.8, z: -5.6, ry: r() * 6 });
-    pops.push({ x: x + r() * 0.8 + 3.5, z: -14.6, ry: r() * 6 });
+    pops.push({ x: x + r() * 0.8, z: march ? -4.35 : -5.6, ry: r() * 6 });
+    pops.push({ x: x + r() * 0.8 + 3.5, z: march ? -15.65 : -14.6, ry: r() * 6 });
   }
-  addRealisticTrees(
-    s,
-    pops.filter(p =>
-      Math.abs(p.x - lpX) > 1.6 &&
-      Math.abs(p.x + 6) > 2.2 &&
-      Math.abs(p.x + 18) > 1.8 &&
-      Math.abs(p.x - 14.5) > 3.6 &&
-      !(hutong && p.x >= -12 && p.x <= 22),
-    ),
-    true,
-    false,
+  const visiblePops = pops.filter(p =>
+    Math.abs(p.x - lpX) > 1.6 &&
+    Math.abs(p.x + 6) > 2.4 &&
+    Math.abs(p.x + 18) > 2.0 &&
+    Math.abs(p.x - 14.5) > 3.8 &&
+    !(march && (Math.abs(p.x - 2) < 2.2 || Math.abs(p.x - 6) < 2.2 || Math.abs(p.x + 14) < 2.0)) &&
+    !(hutong && p.x >= -12 && p.x <= 22),
   );
+  addRealisticTrees(s, visiblePops, true, false);
 
   // Street lamps
   const lamps: { x: number; z: number; ry?: number }[] = [];
@@ -1019,63 +1060,89 @@ export function buildStreet(mode: StreetMode = 'night'): World {
     s.add(bcm);
   }
 
-  // Dynamic traffic (only in regular night street & march)
+  // Dynamic traffic (only in regular night street mode; march carriageway is dedicated to the student procession)
   const o = new THREE.Object3D();
-  const dynamic = !blockade && !hutong;
-  const N = dynamic ? (march ? 2 : 10) : 0;
-  const riders = new THREE.InstancedMesh(mergeParts(bike(C.navy)), litMat(), Math.max(1, N));
-  const rs = Array.from({ length: N }, (_, i) => ({
-    x: -55 + r() * 110,
-    z: march ? (-14.65 + r() * 0.3) : (i % 2 ? (-14.2 + r() * 0.8) : (-8.9 + r() * 0.9)),
-    v: (i % 2 ? 1 : -1) * (3.2 + r() * 1.6),
-  }));
+  const dynamic = !blockade && !hutong && !march;
+  let riders: THREE.InstancedMesh | null = null;
+  let walkers: THREE.InstancedMesh | null = null;
+  const rs: Array<{ x: number; z: number; v: number }> = [];
+  const ws: Array<{ x: number; z: number; v: number }> = [];
   const busMesh = new THREE.Group();
-  const W = dynamic ? 10 : 0;
-  const walkers = new THREE.InstancedMesh(mergeParts(crowdPerson(0x4a4e58)), litMat(), Math.max(1, W));
-  const ws = Array.from({ length: W }, () => ({
-    x: -50 + r() * 100,
-    z: -3.5 + r() * 0.6,
-    v: (r() < 0.6 ? 1 : -1) * (1 + r() * 0.5),
-  }));
   if (dynamic) {
-    s.add(riders, walkers);
-    if (!march) {
-      busMesh.add(new THREE.Mesh(mergeParts(trolleybus()), litMat()), new THREE.Mesh(mergeParts(trolleyWindows()), glowMat()));
-      busMesh.position.set(-40, 0, -11.5);
-      s.add(busMesh);
+    const N = 10;
+    riders = new THREE.InstancedMesh(mergeParts(bike(C.navy)), litMat(), N);
+    for (let i = 0; i < N; i++) {
+      rs.push({
+        x: -55 + r() * 110,
+        z: i % 2 ? (-14.2 + r() * 0.8) : (-8.9 + r() * 0.9),
+        v: (i % 2 ? 1 : -1) * (3.2 + r() * 1.6),
+      });
     }
+    const W = 10;
+    walkers = new THREE.InstancedMesh(mergeParts(crowdPerson(0x4a4e58)), litMat(), W);
+    for (let i = 0; i < W; i++) {
+      ws.push({
+        x: -50 + r() * 100,
+        z: -3.5 + r() * 0.6,
+        v: (r() < 0.6 ? 1 : -1) * (1 + r() * 0.5),
+      });
+    }
+    s.add(riders, walkers);
+    busMesh.add(new THREE.Mesh(mergeParts(trolleybus()), litMat()), new THREE.Mesh(mergeParts(trolleyWindows()), glowMat()));
+    busMesh.position.set(-40, 0, -11.5);
+    s.add(busMesh);
   }
 
-  // Marchers, flags, and instanced picket chains (using lean crowdPerson)
-  const M = march ? 260 : 0;
-  const ms = Array.from({ length: M }, (_, i) => ({
-    x: -60 + (i % 52) * 2.3 + r(),
-    z: -7.2 - Math.floor(i / 52) * 1.35 - r() * 0.25,
-  }));
-  const marchers = new THREE.InstancedMesh(mergeParts(crowdPerson(0x3a3f48)), litMat(), Math.max(1, M));
-  const mcol = [C.navy, C.khaki, 0x2f3540, 0x5d4c3a, 0x4e5a4a, 0x6a2f3a];
-  ms.forEach((_, i) => marchers.setColorAt(i, new THREE.Color(mcol[i % 6]).multiplyScalar(2.2)));
-  const B = march ? 10 : 0;
-  const flags = new THREE.InstancedMesh(
-    mergeParts([
-      { p: [0, 2.2, 0], s: [0.05, 2.6, 0.05], c: 0x6b5a40 },
-      { p: [0.75, 3.1, 0], s: [1.5, 0.9, 0.03], c: 0xb3251c },
-    ]),
-    litMat(),
-    Math.max(1, B),
-  );
+  // Dense zero-clipping 1989 march procession with authentic slogan banners, school flags, linked pickets & residents
+  let marchHandle: MarchProcessionHandle | null = null;
   if (march) {
-    s.add(marchers, flags);
-    const pkPos: { x: number; z: number; ry: number }[] = [];
-    for (let x = -42; x <= 42; x += 2.6) {
-      pkPos.push({ x, z: -5.9, ry: Math.PI / 2 }, { x: x + 0.9, z: -14.1, ry: Math.PI / 2 });
+    const staticExclusions: ObstacleCircle[] = [
+      { x: -15, z: 1.6, r: 1.4 },    // phoneBooth
+      { x: -6, z: -1.5, r: 2.3 },    // newspaper kiosk
+      { x: -18, z: -5.0, r: 1.4 },   // bus stop
+      { x: -19.6, z: -4.15, r: 1.3 }, // waiting bench
+      { x: lpX, z: -2.4, r: 1.2 },   // loudspeaker pole
+      { x: 14.5, z: -1.0, r: 4.2 },  // hutong mouth
+      { x: 14.5, z: -3.5, r: 3.4 },
+      { x: 20.4, z: -0.35, r: 1.9 }, // repair stall
+      { x: 22.9, z: -2.6, r: 1.6 },  // parked bikes
+      // Curb/sidewalk hotspots across march (ch1, w1) and march_day (0427, 0504)
+      { x: -30, z: -6, r: 1.8 },
+      { x: -10, z: -8, r: 1.8 },
+      { x: 6, z: -3.5, r: 1.8 },
+      { x: 2, z: -4.5, r: 1.8 },
+      { x: -20, z: -12, r: 1.8 },
+      { x: -14, z: -5, r: 1.8 },
+      { x: -16, z: -5, r: 1.8 },
+      { x: -12, z: -5, r: 1.8 },
+      { x: -6, z: -3.5, r: 1.8 },
+      { x: 4, z: -4, r: 1.8 },
+      { x: 2, z: -6, r: 1.8 },
+      { x: 12, z: -6, r: 1.8 },
+      { x: 28, z: -8, r: 1.8 },
+      { x: 30, z: -10, r: 1.8 },
+      { x: 30, z: -6, r: 1.8 },
+    ];
+    for (const t of visiblePops) staticExclusions.push({ x: t.x, z: t.z, r: 0.95 });
+    for (const l of lamps) staticExclusions.push({ x: l.x, z: l.z, r: 0.75 });
+    for (let px = -56; px <= 56; px += 16) {
+      staticExclusions.push({ x: px, z: -5.2, r: 0.7 }, { x: px, z: -14.8, r: 0.7 });
     }
-    s.add(instanced(mergeParts(crowdPerson(0xd8d4c8)), litMat(), pkPos));
+    marchHandle = attachStreetMarchProcession(s, marchVariant, staticExclusions);
     addSodiumLight(s, -28, -9, 22, 22);
     addSodiumLight(s, 28, -9, 22, 22);
     addSodiumLight(s, -14, -12, 18, 20);
     addSodiumLight(s, 14, -12, 18, 20);
   }
+
+  const colliders: WorldCollider[] = [
+    { kind: 'box', minX: -50, maxX: -20.8, minZ: -0.1, maxZ: 8 },
+    { kind: 'box', minX: -21.2, maxX: -8.8, minZ: 1.7, maxZ: 8 },
+    { kind: 'box', minX: -9.2, maxX: 11.4, minZ: -0.1, maxZ: 8 },
+    { kind: 'box', minX: 17.6, maxX: 50, minZ: -0.1, maxZ: 8 },
+    { kind: 'box', minX: -7.55, maxX: -4.45, minZ: -2.65, maxZ: -0.35 },
+    { kind: 'box', minX: -50, maxX: 50, minZ: -28, maxZ: -18.5 },
+  ];
 
   const id: SceneId = (march ? 'march' : blockade ? 'blockade' : hutong ? 'hutong' : 'street') as SceneId;
   const spawn: [number, number] = march ? [-30, -6] : blockade ? [-22, -5] : hutong ? [14.5, -2] : [-14, -4];
@@ -1088,27 +1155,10 @@ export function buildStreet(mode: StreetMode = 'night'): World {
     bounds,
     camDist: march ? 12 : blockade ? 13 : undefined,
     cam: march ? { h: 0.55, ahead: 8, y: 0 } : blockade ? { h: 0.50, ahead: 8, y: 0.8 } : undefined,
-    update(dt, t) {
-      if (march) {
-        ms.forEach((m, i) => {
-          m.x += 1.1 * dt;
-          if (m.x > 60) m.x = -60;
-          o.position.set(m.x, Math.abs(Math.sin(t * 5 + i)) * 0.05, m.z);
-          o.rotation.set(0, Math.PI / 2, 0);
-          o.updateMatrix();
-          marchers.setMatrixAt(i, o.matrix);
-        });
-        marchers.instanceMatrix.needsUpdate = true;
-        for (let i = 0; i < B; i++) {
-          const m = ms[i * 26];
-          o.position.set(m.x + 0.3, 0, m.z);
-          o.rotation.set(0, 0, 0);
-          o.updateMatrix();
-          flags.setMatrixAt(i, o.matrix);
-        }
-        flags.instanceMatrix.needsUpdate = true;
-      }
-      if (dynamic) {
+    colliders,
+    update(dt, t, playerX, playerZ) {
+      marchHandle?.update(dt, t, playerX, playerZ);
+      if (dynamic && riders && walkers) {
         rs.forEach((b, i) => {
           b.x += b.v * dt;
           if (b.x > 60) b.x = -60;
@@ -1119,10 +1169,8 @@ export function buildStreet(mode: StreetMode = 'night'): World {
           riders.setMatrixAt(i, o.matrix);
         });
         riders.instanceMatrix.needsUpdate = true;
-        if (!march) {
-          busMesh.position.x += 6 * dt;
-          if (busMesh.position.x > 70) busMesh.position.x = -70;
-        }
+        busMesh.position.x += 6 * dt;
+        if (busMesh.position.x > 70) busMesh.position.x = -70;
         ws.forEach((w, i) => {
           w.x += w.v * dt;
           if (w.x > 50) w.x = -50;

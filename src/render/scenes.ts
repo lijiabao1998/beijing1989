@@ -40,6 +40,7 @@ import {
 import { buildTiananmenSouthAndSkyline } from './imperialSouth';
 import { buildStreet } from './streetScene';
 import { buildCourtyard, buildFactory, workerTricycleRider } from './factoryArch';
+import { attachSquare422Assembly, type SquareAssemblyHandle } from './marchProcession';
 import { SCENE_META } from '../data';
 import type { AtmospherePreset, SceneId, SceneManifestEntry } from '../types';
 
@@ -47,16 +48,21 @@ export { buildStreet, buildFactory, buildCourtyard, workerTricycleRider };
 
 export type AABB6 = [number, number, number, number, number, number];
 
+export type WorldCollider =
+  | { kind: 'box'; minX: number; maxX: number; minZ: number; maxZ: number }
+  | { kind: 'circle'; x: number; z: number; r: number };
+
 export interface World {
   id: SceneId;
   scene: THREE.Scene;
   spawn: [number, number];
   bounds: [number, number, number, number]; // minX,maxX,minZ,maxZ
-  update(dt: number, t: number): void;
+  update(dt: number, t: number, playerX?: number, playerZ?: number): void;
   camDist?: number;
   speed?: number;
   cam?: { h: number; ahead: number; y: number };
   occluders?: AABB6[];
+  colliders?: WorldCollider[];
   atmosphere?: AtmospherePreset;
   dispose?: () => void;
 }
@@ -780,36 +786,12 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
     s.add(halos);
   }
 
+  let squareHandle: SquareAssemblyHandle | null = null;
   if (dawn) {
     [fl, fm].forEach(l => l.visible = false);
-    const crowd: { x: number; z: number; ry: number; colIdx: number }[] = [];
-    for (let i = 0; i < 550; i++) {
-      const x = -88 + r() * 120, z = -235 - r() * 165;
-      if (Math.abs(x) < 36 && z < -295 && z > -365) continue;
-      crowd.push({ x, z, ry: -Math.PI / 2 + (r() - 0.5) * 0.8, colIdx: crowd.length });
-    }
-    const cc = [C.navy, C.khaki, 0x2f3540, 0x5d4c3a, 0x4e5a4a, 0x6a2f3a, 0x8a8a80];
-    const fgCrowd = crowd.filter(p => isNearAny(p.x, p.z, detailAnchors, 15));
-    const bgCrowd = crowd.filter(p => !isNearAny(p.x, p.z, detailAnchors, 15));
-    if (fgCrowd.length) {
-      const cm = instanced(mergeParts(crowdPerson(0x3a3f48)), litMat(), fgCrowd);
-      fgCrowd.forEach((p, i) => cm.setColorAt(i, new THREE.Color(cc[p.colIdx % 7]).multiplyScalar(2.2)));
-      s.add(cm);
-    }
-    if (bgCrowd.length) {
-      const cm = instanced(mergeParts(crowdPersonLod(0x3a3f48)), litMat(), bgCrowd);
-      bgCrowd.forEach((p, i) => cm.setColorAt(i, new THREE.Color(cc[p.colIdx % 7]).multiplyScalar(2.2)));
-      s.add(cm);
-    }
-    const police: { x: number; z: number; ry: number }[] = [];
-    for (let row = 0; row < 2; row++) for (let z = -275; z >= -365; z -= 2.4) police.push({ x: -93 - row * 1.1, z: z - row * 0.3, ry: Math.PI / 2 });
-    s.add(instanced(mergeParts(crowdPersonLod(0x4a5a3a, 0x3a4630)), litMat(), police));
+    squareHandle = attachSquare422Assembly(s, spawn, detailAnchors);
     const kneel: Part[] = []; for (const z of [-321.5, -320, -318.5]) kneel.push({ p: [-102.5, 3.4, z], s: [0.5, 0.8, 0.45], c: 0x3a3f48 }, { p: [-102.2, 3.95, z], s: [0.22, 0.24, 0.22], c: 0xc8a07a }, { p: [-102.0, 4.1, z], s: [0.1, 0.4, 0.5], c: 0xf0ece0 });
     s.add(new THREE.Mesh(mergeParts(kneel), litMat()));
-    for (const [x, z, t] of [[-70, -300, '沉痛悼念'], [-55, -345, '悼念耀邦'], [-30, -270, '民主　自由']] as [number, number, string][]) {
-      const tex = markSceneOwned(textTexture(512, 128, g => { g.fillStyle = '#f2efe6'; g.fillRect(0, 0, 512, 128); g.fillStyle = '#141414'; g.font = 'bold 84px "Noto Serif CJK TC",serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(t, 256, 68); }));
-      const b = new THREE.Mesh(new THREE.PlaneGeometry(8, 2), new THREE.MeshLambertMaterial({ map: tex, side: THREE.DoubleSide })); b.position.set(x, 3.6, z); b.rotation.y = Math.PI / 2; s.add(b);
-    }
     const sp: Part[] = []; for (const [x, z] of [[-30, -282], [20, -260], [-60, -360]]) sp.push({ p: [x, 4, z], s: [0.25, 8, 0.25], c: 0x55554f, cyl: true }, { p: [x, 7.8, z], s: [0.9, 0.6, 0.6], c: 0x6b6f63, cyl: true, rz: 1.2, top: 0.35 });
     s.add(new THREE.Mesh(mergeParts(sp), litMat()));
   }
@@ -837,6 +819,12 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
     speed: 8,
     cam,
     atmosphere: dawn ? 'dawn' : camp ? 'day_spring' : statue ? 'dusk_warm' : 'night',
+    colliders: dawn
+      ? [
+          { kind: 'box', minX: -30, maxX: 30, minZ: -359, maxZ: -301 },
+          { kind: 'box', minX: -110, maxX: -91.5, minZ: -400, maxZ: -240 },
+        ]
+      : undefined,
     occluders: [
       [-34, 34, 0, 34.5, -19, 19],
       [-192, -106, 0, 38, -475, -165],
@@ -848,6 +836,7 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
       [-26, 26, 0, 42, -537, -513],
     ],
     update(dt, t) {
+      squareHandle?.update(dt, t);
       rs.forEach((b, i) => { b.x += b.v * dt; if (b.x > 200) b.x = -200; if (b.x < -200) b.x = 200; o.position.set(b.x, Math.sin(t * 9 + i) * 0.015, b.z); o.rotation.set(0, b.v > 0 ? 0 : Math.PI, 0); o.updateMatrix(); riders.setMatrixAt(i, o.matrix); });
       riders.instanceMatrix.needsUpdate = true;
       tb[0].position.x += 7 * dt; if (tb[0].position.x > 300) tb[0].position.x = -300;
@@ -898,7 +887,7 @@ function buildBuiltinOrVariant(id: string, meta?: SceneManifestEntry): World {
     case 'campus': return buildCampus('night');
     case 'aftermath': return buildCampus('aftermath');
     case 'street': return buildStreet('night');
-    case 'march': return buildStreet('march');
+    case 'march': return buildStreet('march', 'night422');
     case 'blockade': return buildStreet('blockade');
     case 'hutong': return buildStreet('hutong');
     case 'changan': return buildChangan('night');
@@ -909,7 +898,7 @@ function buildBuiltinOrVariant(id: string, meta?: SceneManifestEntry): World {
     case 'factory_dawn': return buildFactory('dawn');
     case 'courtyard': return buildCourtyard();
     case 'march_day': {
-      const w = buildStreet('march');
+      const w = buildStreet('march', 'day0427');
       stripDefaultSceneLights(w.scene);
       applyAtmosphere(w.scene, 'day_spring', { far: meta?.camFar ?? 220 });
       w.id = 'march_day';

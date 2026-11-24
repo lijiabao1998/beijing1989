@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import type { AtmospherePreset, SceneId, SceneManifestEntry } from '../../types';
 import {
   C,
@@ -127,11 +128,23 @@ function addOwnedSignPlane(
 ): THREE.Mesh {
   const tex = markSceneOwned(textTexture(texW, texH, draw));
   res.texs.push(tex);
-  const geo = new THREE.PlaneGeometry(w, h);
+  let geo: THREE.BufferGeometry;
+  if (doubleSide) {
+    const front = new THREE.PlaneGeometry(w, h);
+    front.translate(0, 0, 0.005);
+    const back = new THREE.PlaneGeometry(w, h);
+    back.rotateY(Math.PI);
+    back.translate(0, 0, -0.005);
+    geo = mergeGeometries([front, back])!;
+    front.dispose();
+    back.dispose();
+  } else {
+    geo = new THREE.PlaneGeometry(w, h);
+  }
   const mat = new THREE.MeshBasicMaterial({
     map: tex,
     fog: true,
-    side: doubleSide ? THREE.DoubleSide : THREE.FrontSide,
+    side: THREE.FrontSide,
   });
   const mesh = new THREE.Mesh(geo, mat);
   mesh.position.set(x, y, z);
@@ -922,10 +935,10 @@ function buildMorningMarket(_id: SceneId, meta?: SceneManifestEntry): World {
   return w;
 }
 
-/** 4a. March Day Variant (crisp May Fourth / April 27 spring daylight + bright banners). */
+/** 4a. March Day Variant (crisp May Fourth / April 27 spring daylight + date-authentic procession banners). */
 function buildMarchDay(_id: SceneId, meta?: SceneManifestEntry): World {
   const res = createTracker();
-  const w = buildStreet('march');
+  const w = buildStreet('march', 'day0427');
   const s = w.scene;
   const baseDispose = w.dispose;
 
@@ -933,11 +946,11 @@ function buildMarchDay(_id: SceneId, meta?: SceneManifestEntry): World {
   applyAtmosphere(s, 'day_spring', { far: meta?.camFar ?? 220 });
   tintGlowMeshes(s, 0x465460);
 
-  // Bright overhead cloth banners & bamboo support poles along curb picket edges (clear of marchers & cyclists)
+  // Overhead May-Fourth curb banners positioned outside the -5.82/-14.18 picket lanes (while keeping j4_pt_may4_overhead visible)
   const banners: [number, number, number, string, string, string][] = [
-    [-22, 4.2, -5.5, '弘揚五四精神・說真話', '#b82820', '#fbf4e2'],
-    [-2, 4.3, -14.3, '新聞必須真實・和平請願', '#f4f0e4', '#1a1c1e'],
-    [18, 4.2, -5.5, '四月之春・理性守紀', '#b82820', '#fbf4e2'],
+    [-22, 4.2, -4.95, '弘揚五四精神・說真話', '#b82820', '#fbf4e2'],
+    [-2, 4.3, -15.05, '新聞必須真實・和平請願', '#f4f0e4', '#1a1c1e'],
+    [18, 4.2, -4.95, '四月之春・理性守紀', '#b82820', '#fbf4e2'],
   ];
   const poles: Part[] = [];
   for (const [bx, by, bz, text, bg, fg] of banners) {
@@ -959,15 +972,7 @@ function buildMarchDay(_id: SceneId, meta?: SceneManifestEntry): World {
       g.fillText(text, 320, 66);
     }, true);
   }
-  // Extra daylight vertical accent flags along south curb
-  const flagParts: Part[] = [...poles];
-  for (const fx of [-26, -12, 4, 16, 28]) {
-    flagParts.push(
-      { p: [fx, 2.0, -14.2], s: [0.05, 4.0, 0.05], c: 0x8f7a52, cyl: true, seg: 5 },
-      { p: [fx + 0.55, 3.55, -14.2], s: [1.1, 0.68, 0.03], c: fx % 8 === 0 ? 0xf2ede0 : 0xc22b22 },
-    );
-  }
-  trackLayered(res, s, flagParts);
+  trackLayered(res, s, poles);
 
   w.id = 'march_day';
   w.bounds = meta?.bounds ?? [-40, 40, -18, 8];

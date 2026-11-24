@@ -435,13 +435,85 @@ function dressWorld(w: World) {
     m.name = 'markers';
     w.scene.add(m);
   }
-  const npcs = hs.filter(h => h.npc).map(h => ({ c: NPC[h.npc!] ?? 0x555555, x: h.pos[0] + 0.9, z: h.pos[1] - 0.6 }));
+  const npcs = hs.filter(h => h.npc).map(h => ({
+    c: NPC[h.npc!] ?? 0x555555,
+    x: h.pos[0] + 0.9,
+    z: h.pos[1] - 0.6,
+    hx: h.pos[0],
+    hz: h.pos[1],
+  }));
   if (npcs.length) {
     const parts = npcs.flatMap(n => person(n.c).map(pt => ({ ...pt, p: [pt.p[0] + n.x, pt.p[1], pt.p[2] + n.z] as [number, number, number] })));
     const one = new THREE.Mesh(mergeParts(parts), litMat());
     one.name = 'npcs';
     w.scene.add(one);
   }
+  const obs: Array<{ x: number; z: number; r: number; isBody?: boolean }> = [];
+  for (const n of npcs) {
+    obs.push({ x: n.x, z: n.z, r: 0.78, isBody: true });
+    obs.push({ x: n.hx, z: n.hz, r: 0.62 });
+  }
+  w.scene.userData.__npcObstacles = obs;
+}
+
+function resolvePlayerColliders(w: World, pos: THREE.Vector2, playerR = 0.34): boolean {
+  let pushed = false;
+  const [minX, maxX, minZ, maxZ] = w.bounds;
+  for (const c of w.colliders ?? []) {
+    if (c.kind === 'box') {
+      const cx = Math.max(c.minX, Math.min(c.maxX, pos.x));
+      const cz = Math.max(c.minZ, Math.min(c.maxZ, pos.y));
+      const dx = pos.x - cx;
+      const dz = pos.y - cz;
+      const d2 = dx * dx + dz * dz;
+      if (d2 < playerR * playerR) {
+        if (d2 > 1e-6) {
+          const d = Math.sqrt(d2);
+          pos.x = cx + (dx / d) * playerR;
+          pos.y = cz + (dz / d) * playerR;
+        } else {
+          // Inside box: push out along nearest edge
+          const dL = pos.x - c.minX, dR = c.maxX - pos.x, dB = pos.y - c.minZ, dT = c.maxZ - pos.y;
+          const m = Math.min(dL, dR, dB, dT);
+          if (m === dL) pos.x = c.minX - playerR;
+          else if (m === dR) pos.x = c.maxX + playerR;
+          else if (m === dB) pos.y = c.minZ - playerR;
+          else pos.y = c.maxZ + playerR;
+        }
+        pushed = true;
+      }
+    } else {
+      const dx = pos.x - c.x;
+      const dz = pos.y - c.z;
+      const minD = c.r + playerR;
+      const d2 = dx * dx + dz * dz;
+      if (d2 < minD * minD) {
+        const d = Math.sqrt(d2) || 0.01;
+        pos.x = c.x + (dx / d) * minD;
+        pos.y = c.z + (dz / d) * minD;
+        pushed = true;
+      }
+    }
+  }
+  const npcObs = (w.scene.userData.__npcObstacles as Array<{ x: number; z: number; r: number; isBody?: boolean }> | undefined) ?? [];
+  for (const n of npcObs) {
+    if (!n.isBody) continue;
+    const dx = pos.x - n.x;
+    const dz = pos.y - n.z;
+    const minD = 0.34 + playerR;
+    const d2 = dx * dx + dz * dz;
+    if (d2 < minD * minD) {
+      const d = Math.sqrt(d2) || 0.01;
+      pos.x = n.x + (dx / d) * minD;
+      pos.y = n.z + (dz / d) * minD;
+      pushed = true;
+    }
+  }
+  if (pushed) {
+    pos.x = Math.min(maxX, Math.max(minX, pos.x));
+    pos.y = Math.min(maxZ, Math.max(minZ, pos.y));
+  }
+  return pushed;
 }
 
 function refreshGuide(force = false) {
@@ -1740,6 +1812,9 @@ function stepFrame() {
     const ax = controls.axis();
     if (Math.abs(ax.x) + Math.abs(ax.y) > 0.08) {
       player.step(dt * playSpeed, ax, world.bounds, yaw);
+      if (resolvePlayerColliders(world, player.pos)) {
+        player.sync(0);
+      }
       steppedThisFrame = true;
       playSceneStep(world.id);
     } else if (autoGuide) {
@@ -1839,7 +1914,8 @@ function stepFrame() {
     player.sync(dt);
   }
 
-  world.update(dt * playSpeed, t * playSpeed);
+  world.scene.userData.__playerRadius = (player.getMode() === 'bike' || player.getMode() === 'tricycle') ? 1.05 : 0.64;
+  world.update(dt * playSpeed, t * playSpeed, player.pos.x, player.pos.y);
   updateFoliageWind(t * playSpeed);
   const living = worldLiving.get(world);
   living?.update(dt * playSpeed, t * playSpeed, player.pos.x, player.pos.y);
@@ -1971,6 +2047,8 @@ frame();
     clear(vp);
     start(fresh(vp), true);
   },
+  marchAudit() { return world.scene.userData.__marchAudit ?? null; },
+  squareAudit() { return world.scene.userData.__squareAudit ?? null; },
   perf() { return perfStats(); },
   inspectScene(id: SceneId) {
     if (playing) {
