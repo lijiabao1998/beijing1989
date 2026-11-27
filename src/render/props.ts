@@ -121,17 +121,15 @@ export function bikeBodyParts(rider?: number, includeWheels = true, includeHead 
       { p: [-0.04, 1.37, 0], s: [0.055, 0.15, 0.11], c: 0xe8e2d2, rz: -0.22 },                             // shirt V-neck
       { p: [-0.16, 1.18, 0], s: [0.255, 0.50, 0.04], c: 0x565c3a, rx: 0.55, rz: -0.22 },                   // satchel strap
       ...(includeHead ? [
-        { p: [-0.08, 1.59, 0], s: [0.19, 0.225, 0.175], c: 0xc8a07a, sphere: true, detail: 1 },            // sculpted head
-        { p: [0.022, 1.585, 0], s: [0.026, 0.048, 0.026], c: 0xc29872, wedge: true },                      // nose bridge
-        { p: [-0.10, 1.65, 0], s: [0.208, 0.16, 0.192], c: C.black, sphere: true, detail: 1 },             // hair cap
+        { p: [-0.08, 1.59, 0], s: [0.19, 0.225, 0.175], c: 0xf0ede6, sphere: true, detail: 1 },
       ] as Part[] : []),
       // arms gripping swept-back handlebars
       strut([-0.09, 1.34, 0.20], [0.08, 1.14, 0.23], 0.095, rider, 6),
       strut([0.08, 1.14, 0.23], [0.23, 0.96, 0.23], 0.082, rider, 6),
       strut([-0.09, 1.34, -0.20], [0.08, 1.14, -0.23], 0.095, rider, 6),
       strut([0.08, 1.14, -0.23], [0.23, 0.96, -0.23], 0.082, rider, 6),
-      { p: [0.23, 0.95, 0.23], s: [0.075, 0.078, 0.072], c: 0xc8a07a, sphere: true, detail: 0 },
-      { p: [0.23, 0.95, -0.23], s: [0.075, 0.078, 0.072], c: 0xc8a07a, sphere: true, detail: 0 },
+      { p: [0.23, 0.95, 0.23], s: [0.075, 0.078, 0.072], c: 0xf0ede6, sphere: true, detail: 0 },
+      { p: [0.23, 0.95, -0.23], s: [0.075, 0.078, 0.072], c: 0xf0ede6, sphere: true, detail: 0 },
       // articulated thighs, calves, and shoes meeting crank pedals
       strut([-0.25, 0.88, 0.11], [-0.04, 0.65, 0.11], 0.125, C.navy, 6),
       strut([-0.04, 0.65, 0.11], [-0.04, 0.42, 0.11], 0.105, C.navy, 6),
@@ -149,9 +147,9 @@ export function bike(rider?: number): Part[] {
   return bikeBodyParts(rider, true, true);
 }
 
-/** Sculpted standing / walking character with anatomical proportions & rounded limbs, facing +x. */
-export function person(jacket: number, trousers = C.navy, hair = C.black, headband = false): Part[] {
-  const skin = 0xc8a07a, skinShade = 0xb88f6a;
+/** Sculpted standing / walking character with featureless alabaster-white head & layered jacket, facing +x. */
+export function person(jacket: number, trousers = C.navy, _hair = C.black, headband = false): Part[] {
+  const skin = 0xf0ede6, skinShade = 0xe2ddd2;
   const parts: Part[] = [
     // rounded footwear with pale rubber soles + contoured uppers
     { p: [0.025, 0.015, 0.09], s: [0.23, 0.030, 0.11], c: 0xd8d2c4, cyl: true, seg: 8 },
@@ -182,12 +180,9 @@ export function person(jacket: number, trousers = C.navy, hair = C.black, headba
     { p: [0.028, 1.00, -0.255], s: [0.105, 0.23, 0.095], c: jacket, cyl: true, seg: 6, top: 0.82, rz: 0.18 },
     { p: [0.052, 0.84, 0.255], s: [0.082, 0.105, 0.075], c: skin, sphere: true, detail: 0 },
     { p: [0.052, 0.84, -0.255], s: [0.082, 0.105, 0.075], c: skin, sphere: true, detail: 0 },
-    // neck, sculpted ellipsoid cranium, subtle nose/ears & contoured 1980s hair cap
+    // neck & sculpted featureless matte-white cranium
     { p: [0, 1.46, 0], s: [0.10, 0.09, 0.095], c: skinShade, cyl: true, seg: 6 },
     { p: [0.015, 1.59, 0], s: [0.195, 0.235, 0.178], c: skin, sphere: true, detail: 1 },
-    { p: [0.112, 1.585, 0], s: [0.026, 0.052, 0.026], c: skinShade, wedge: true },
-    { p: [-0.005, 1.655, 0], s: [0.212, 0.165, 0.195], c: hair, sphere: true, detail: 1 },
-    { p: [-0.068, 1.57, 0], s: [0.085, 0.145, 0.17], c: hair, cyl: true, seg: 6, top: 1.08 },
     // cross-body olive canvas student satchel (軍綠色帆布挎包)
     { p: [0, 1.15, 0], s: [0.275, 0.54, 0.04], c: 0x5c6240, rx: 0.58 },
     { p: [-0.05, 0.88, 0.235], s: [0.20, 0.22, 0.085], c: 0x565c3a, bevel: true },
@@ -202,18 +197,21 @@ export function person(jacket: number, trousers = C.navy, hair = C.black, headba
 }
 
 /** Sculpted lean character for medium crowds (march, blockade, foreground Square), facing +x. */
-export function crowdPerson(jacket: number, trousers = C.navy, hair = C.black, headband = false): Part[] {
+export function crowdPerson(jacket: number, trousers = C.navy, _hair = C.black, headband = false): Part[] {
   const parts: Part[] = [
     { p: [0.02, 0.04, 0.09], s: [0.21, 0.075, 0.105], c: 0x1c1b19, cyl: true, seg: 6, top: 0.78 },
     { p: [0.02, 0.04, -0.09], s: [0.21, 0.075, 0.105], c: 0x1c1b19, cyl: true, seg: 6, top: 0.78 },
     { p: [0, 0.43, 0.09], s: [0.145, 0.72, 0.135], c: trousers, cyl: true, seg: 6, top: 1.12 },
     { p: [0, 0.43, -0.09], s: [0.145, 0.72, 0.135], c: trousers, cyl: true, seg: 6, top: 1.12 },
-    { p: [0, 1.12, 0], s: [0.248, 0.62, 0.395], c: jacket, cyl: true, seg: 7, top: 1.12 },
-    { p: [0.015, 1.43, 0], s: [0.19, 0.065, 0.24], c: jacket, cyl: true, seg: 6 },
-    { p: [0.01, 1.14, 0.245], s: [0.115, 0.50, 0.10], c: jacket, cyl: true, seg: 5, top: 0.80, rz: 0.08 },
-    { p: [0.01, 1.14, -0.245], s: [0.115, 0.50, 0.10], c: jacket, cyl: true, seg: 5, top: 0.80, rz: 0.08 },
-    { p: [0.015, 1.58, 0], s: [0.195, 0.23, 0.175], c: 0xc8a07a, sphere: true, detail: 0 },
-    { p: [-0.005, 1.645, 0], s: [0.21, 0.16, 0.19], c: hair, sphere: true, detail: 0 },
+    { p: [0, 0.81, 0], s: [0.252, 0.055, 0.40], c: 0x241d16, cyl: true, seg: 6 },
+    { p: [0, 1.12, 0], s: [0.248, 0.62, 0.395], c: jacket, cyl: true, seg: 7, top: 1.12, tint: true },
+    { p: [0.116, 1.32, 0], s: [0.042, 0.16, 0.105], c: 0xebe7dc },
+    { p: [0.125, 1.30, 0.068], s: [0.026, 0.18, 0.066], c: jacket, rx: -0.24, tint: true },
+    { p: [0.125, 1.30, -0.068], s: [0.026, 0.18, 0.066], c: jacket, rx: 0.24, tint: true },
+    { p: [0.015, 1.43, 0], s: [0.19, 0.065, 0.24], c: jacket, cyl: true, seg: 6, tint: true },
+    { p: [0.01, 1.14, 0.245], s: [0.115, 0.50, 0.10], c: jacket, cyl: true, seg: 5, top: 0.80, rz: 0.08, tint: true },
+    { p: [0.01, 1.14, -0.245], s: [0.115, 0.50, 0.10], c: jacket, cyl: true, seg: 5, top: 0.80, rz: 0.08, tint: true },
+    { p: [0.015, 1.58, 0], s: [0.195, 0.23, 0.175], c: 0xf0ede6, sphere: true, detail: 0 },
     { p: [-0.04, 0.89, 0.225], s: [0.19, 0.21, 0.08], c: 0x565c3a },
   ];
   if (headband) {
@@ -226,7 +224,7 @@ export function crowdPerson(jacket: number, trousers = C.navy, hair = C.black, h
 }
 
 /** Sculpted seated student (for Square sit-in / hunger strike camp), facing +x. */
-export function sitPerson(jacket: number, trousers = C.navy, hair = C.black, headband = true): Part[] {
+export function sitPerson(jacket: number, trousers = C.navy, _hair = C.black, headband = true): Part[] {
   const parts: Part[] = [
     // folded legs + rounded canvas shoes
     { p: [0.16, 0.10, 0.13], s: [0.35, 0.13, 0.135], c: trousers, cyl: true, seg: 6, rz: H, ry: 0.35 },
@@ -237,19 +235,19 @@ export function sitPerson(jacket: number, trousers = C.navy, hair = C.black, hea
     { p: [0.39, 0.02, -0.16], s: [0.16, 0.032, 0.095], c: 0xd8d2c4, cyl: true, seg: 6, ry: 0.9 },
     { p: [0.39, 0.055, 0.16], s: [0.15, 0.052, 0.09], c: 0x1c1b19, cyl: true, seg: 6, ry: -0.9 },
     { p: [0.39, 0.055, -0.16], s: [0.15, 0.052, 0.09], c: 0x1c1b19, cyl: true, seg: 6, ry: 0.9 },
-    // tapered torso, collar, cylindrical sleeves on knees, rounded hands
-    { p: [0, 0.44, 0], s: [0.24, 0.56, 0.39], c: jacket, cyl: true, seg: 7, top: 1.12, rz: -0.08 },
+    // tapered torso, folded lapels, collar, cylindrical sleeves on knees, white hands
+    { p: [0, 0.44, 0], s: [0.24, 0.56, 0.39], c: jacket, cyl: true, seg: 7, top: 1.12, rz: -0.08, tint: true },
     { p: [0.095, 0.65, 0], s: [0.05, 0.14, 0.11], c: 0xe8e2d2, rz: -0.08 },
-    { p: [-0.01, 0.73, 0], s: [0.20, 0.06, 0.25], c: jacket, cyl: true, seg: 6 },
-    { p: [0.12, 0.44, 0.22], s: [0.11, 0.39, 0.10], c: jacket, cyl: true, seg: 6, top: 0.82, rz: 0.48 },
-    { p: [0.12, 0.44, -0.22], s: [0.11, 0.39, 0.10], c: jacket, cyl: true, seg: 6, top: 0.82, rz: 0.48 },
-    { p: [0.25, 0.27, 0.21], s: [0.08, 0.085, 0.075], c: 0xc8a07a, sphere: true, detail: 0 },
-    { p: [0.25, 0.27, -0.21], s: [0.08, 0.085, 0.075], c: 0xc8a07a, sphere: true, detail: 0 },
-    // neck, sculpted head, nose, contoured hair
-    { p: [-0.01, 0.78, 0], s: [0.095, 0.08, 0.09], c: 0xc8a07a, cyl: true, seg: 6 },
-    { p: [0.005, 0.905, 0], s: [0.195, 0.23, 0.18], c: 0xc8a07a, sphere: true, detail: 1 },
-    { p: [0.102, 0.895, 0], s: [0.026, 0.048, 0.026], c: 0xc29872, wedge: true },
-    { p: [-0.012, 0.96, 0], s: [0.21, 0.16, 0.195], c: hair, sphere: true, detail: 1 },
+    { p: [0.105, 0.63, 0.066], s: [0.026, 0.16, 0.064], c: jacket, rx: -0.24, rz: -0.08, tint: true },
+    { p: [0.105, 0.63, -0.066], s: [0.026, 0.16, 0.064], c: jacket, rx: 0.24, rz: -0.08, tint: true },
+    { p: [-0.01, 0.73, 0], s: [0.20, 0.06, 0.25], c: jacket, cyl: true, seg: 6, tint: true },
+    { p: [0.12, 0.44, 0.22], s: [0.11, 0.39, 0.10], c: jacket, cyl: true, seg: 6, top: 0.82, rz: 0.48, tint: true },
+    { p: [0.12, 0.44, -0.22], s: [0.11, 0.39, 0.10], c: jacket, cyl: true, seg: 6, top: 0.82, rz: 0.48, tint: true },
+    { p: [0.25, 0.27, 0.21], s: [0.08, 0.085, 0.075], c: 0xf0ede6, sphere: true, detail: 0 },
+    { p: [0.25, 0.27, -0.21], s: [0.08, 0.085, 0.075], c: 0xf0ede6, sphere: true, detail: 0 },
+    // neck & featureless matte-white head
+    { p: [-0.01, 0.78, 0], s: [0.095, 0.08, 0.09], c: 0xe2ddd2, cyl: true, seg: 6 },
+    { p: [0.005, 0.905, 0], s: [0.195, 0.23, 0.18], c: 0xf0ede6, sphere: true, detail: 1 },
     // enamel mug beside the knee
     { p: [0.35, 0.055, 0.30], s: [0.09, 0.11, 0.09], c: C.enamel, cyl: true, seg: 8 },
     { p: [0.35, 0.108, 0.30], s: [0.094, 0.016, 0.094], c: 0x26446e, cyl: true, seg: 8 },
@@ -788,11 +786,10 @@ export function busWindows(): Part[] {
 export function crowdPersonLod(shirt: number, pants = C.navy): Part[] {
   return [
     { p: [0, 0.40, 0], s: [0.17, 0.80, 0.28], c: pants, cyl: true, seg: 6, open: true },
-    { p: [0, 1.11, 0], s: [0.24, 0.62, 0.39], c: shirt, cyl: true, seg: 6, top: 1.10 },
-    { p: [0.01, 1.12, 0.24], s: [0.11, 0.50, 0.095], c: shirt, cyl: true, seg: 4, top: 0.78, open: true, rz: 0.06 },
-    { p: [0.01, 1.12, -0.24], s: [0.11, 0.50, 0.095], c: shirt, cyl: true, seg: 4, top: 0.78, open: true, rz: 0.06 },
-    { p: [0.01, 1.57, 0], s: [0.19, 0.23, 0.175], c: 0xc8a07a, sphere: true, detail: 0 },
-    { p: [-0.005, 1.64, 0], s: [0.205, 0.155, 0.19], c: C.black, sphere: true, detail: 0 },
+    { p: [0, 1.11, 0], s: [0.24, 0.62, 0.39], c: shirt, cyl: true, seg: 6, top: 1.10, tint: true },
+    { p: [0.01, 1.12, 0.24], s: [0.11, 0.50, 0.095], c: shirt, cyl: true, seg: 4, top: 0.78, open: true, rz: 0.06, tint: true },
+    { p: [0.01, 1.12, -0.24], s: [0.11, 0.50, 0.095], c: shirt, cyl: true, seg: 4, top: 0.78, open: true, rz: 0.06, tint: true },
+    { p: [0.01, 1.57, 0], s: [0.19, 0.23, 0.175], c: 0xf0ede6, sphere: true, detail: 0 },
   ];
 }
 
@@ -802,11 +799,11 @@ export function sitPersonLod(shirt: number, headband = true): Part[] {
     { p: [0.22, 0.09, 0.12], s: [0.36, 0.14, 0.15], c: C.navy, cyl: true, seg: 5, rz: H, ry: 0.38 },
     { p: [0.22, 0.09, -0.12], s: [0.36, 0.14, 0.15], c: C.navy, cyl: true, seg: 5, rz: H, ry: -0.38 },
     { p: [0.38, 0.045, 0], s: [0.15, 0.075, 0.26], c: 0x1c1b19, cyl: true, seg: 6 },
-    { p: [0, 0.44, 0], s: [0.235, 0.56, 0.39], c: shirt, cyl: true, seg: 6, top: 1.10, rz: -0.08 },
-    { p: [0.12, 0.44, 0.22], s: [0.10, 0.39, 0.095], c: shirt, cyl: true, seg: 4, top: 0.80, open: true, rz: 0.48 },
-    { p: [0.12, 0.44, -0.22], s: [0.10, 0.39, 0.095], c: shirt, cyl: true, seg: 4, top: 0.80, open: true, rz: 0.48 },
-    { p: [0, 0.895, 0], s: [0.19, 0.225, 0.175], c: 0xc8a07a, sphere: true, detail: 0 },
-    { p: [-0.01, 0.955, 0], s: [0.205, 0.155, 0.19], c: C.black, sphere: true, detail: 0 },
+    { p: [0, 0.44, 0], s: [0.235, 0.56, 0.39], c: shirt, cyl: true, seg: 6, top: 1.10, rz: -0.08, tint: true },
+    { p: [0.10, 0.64, 0], s: [0.045, 0.14, 0.10], c: 0xebe7dc, rz: -0.08 },
+    { p: [0.12, 0.44, 0.22], s: [0.10, 0.39, 0.095], c: shirt, cyl: true, seg: 4, top: 0.80, open: true, rz: 0.48, tint: true },
+    { p: [0.12, 0.44, -0.22], s: [0.10, 0.39, 0.095], c: shirt, cyl: true, seg: 4, top: 0.80, open: true, rz: 0.48, tint: true },
+    { p: [0, 0.895, 0], s: [0.19, 0.225, 0.175], c: 0xf0ede6, sphere: true, detail: 0 },
     { p: [0.35, 0.06, 0.30], s: [0.09, 0.11, 0.09], c: C.enamel, cyl: true, seg: 6 },
   ];
   if (headband) {
@@ -849,8 +846,7 @@ export function bikeLod(jacket?: number): Part[] {
   } else {
     parts.push(
       { p: [-0.18, 1.17, 0], s: [0.23, 0.56, 0.36], c: jacket, cyl: true, seg: 6, top: 1.10, rz: -0.22 },
-      { p: [-0.08, 1.585, 0], s: [0.185, 0.22, 0.175], c: 0xc8a07a, sphere: true, detail: 0 },
-      { p: [-0.10, 1.645, 0], s: [0.20, 0.155, 0.19], c: C.black, sphere: true, detail: 0 },
+      { p: [-0.08, 1.585, 0], s: [0.185, 0.22, 0.175], c: 0xf0ede6, sphere: true, detail: 0 },
       { p: [0.08, 1.15, 0.20], s: [0.46, 0.085, 0.085], c: jacket, cyl: true, seg: 5, open: true, rz: -0.68 },
       { p: [0.08, 1.15, -0.20], s: [0.46, 0.085, 0.085], c: jacket, cyl: true, seg: 5, open: true, rz: -0.68 },
       { p: [-0.16, 0.62, 0], s: [0.19, 0.56, 0.26], c: C.navy, cyl: true, seg: 6, open: true, rz: 0.24 },

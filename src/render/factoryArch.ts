@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { C, Part, addLayeredParts, glowMat, instanced, litMat, mergeParts, place, rng, textTexture, vertText } from './kit';
+import { C, Part, addLayeredParts, glowMat, instanced, litMat, makeTwoSidedPlaneGeo, mergeParts, place, rng, textTexture, vertText } from './kit';
 import { bike, coalAndCabbage, tableBasin, tricycle, tricycleBodyParts } from './props';
 import { addRealisticTrees } from './foliage';
 import { asphaltRoadTex, campusPathTex, skyDomeTex } from './materials';
@@ -76,6 +76,7 @@ function workshopFloorTex(repeatX = 8, repeatY = 5): THREE.CanvasTexture {
   t.repeat.set(repeatX, repeatY);
   t.colorSpace = THREE.SRGBColorSpace;
   t.anisotropy = 8;
+  t.userData = { sceneOwned: true };
   return t;
 }
 
@@ -113,8 +114,8 @@ function signPlane(
     }
   });
   const m = new THREE.Mesh(
-    new THREE.PlaneGeometry(w, h),
-    new THREE.MeshBasicMaterial({ map: tex, fog: true, side: THREE.DoubleSide }),
+    makeTwoSidedPlaneGeo(w, h),
+    new THREE.MeshBasicMaterial({ map: tex, fog: true, side: THREE.FrontSide }),
   );
   m.position.set(x, y, z);
   m.rotation.y = ry;
@@ -591,6 +592,21 @@ export function buildFactory(mode: 'night' | 'dawn' = 'night'): World {
     spawn: [0, 12],
     bounds: [-24, 24, -22, 16],
     camDist: 12,
+    colliders: [
+      { kind: 'box', minX: -24.5, maxX: -20.6, minZ: -10.4, maxZ: 14.5 },
+      { kind: 'box', minX: 20.6, maxX: 24.5, minZ: -10.4, maxZ: 14.5 },
+      { kind: 'box', minX: -21.2, maxX: -3.4, minZ: -10.50, maxZ: -10.05 },
+      { kind: 'box', minX: 3.4, maxX: 21.2, minZ: -10.50, maxZ: -10.05 },
+      { kind: 'box', minX: -14.2, maxX: -12.6, minZ: -9.35, maxZ: -8.25 },
+      { kind: 'box', minX: -15.0, maxX: -13.4, minZ: -5.2, maxZ: -2.8 },
+      { kind: 'box', minX: -15.0, maxX: -13.4, minZ: 1.4, maxZ: 3.8 },
+      { kind: 'box', minX: 13.4, maxX: 15.0, minZ: -5.2, maxZ: -2.8 },
+      { kind: 'box', minX: 13.4, maxX: 15.0, minZ: 1.4, maxZ: 3.8 },
+      { kind: 'box', minX: -7.3, maxX: -3.5, minZ: -18.8, maxZ: -15.6 },
+      { kind: 'box', minX: -24.5, maxX: -2.6, minZ: -17.95, maxZ: -17.25 },
+      { kind: 'box', minX: 2.6, maxX: 24.5, minZ: -17.95, maxZ: -17.25 },
+      { kind: 'box', minX: 13.9, maxX: 19.3, minZ: -16.1, maxZ: -13.5 },
+    ],
     update() { /* static industrial scene */ },
   };
 }
@@ -887,6 +903,18 @@ export function buildCourtyard(): World {
     spawn: [0, 3],
     bounds: [-15, 15, -16, 12],
     camDist: 11,
+    colliders: [
+      { kind: 'box', minX: -7.5, maxX: 7.5, minZ: 6.8, maxZ: 12.2 },
+      { kind: 'box', minX: -7.5, maxX: -4.1, minZ: 4.5, maxZ: 7.0 },
+      { kind: 'box', minX: -15.0, maxX: -8.3, minZ: -7.0, maxZ: 4.6 },
+      { kind: 'box', minX: 8.3, maxX: 15.0, minZ: -7.0, maxZ: 4.6 },
+      { kind: 'box', minX: -15.2, maxX: -13.2, minZ: -12.9, maxZ: 12.2 },
+      { kind: 'box', minX: 13.2, maxX: 15.2, minZ: -12.9, maxZ: 12.2 },
+      { kind: 'box', minX: -14.0, maxX: -1.15, minZ: -12.95, maxZ: -12.25 },
+      { kind: 'box', minX: 1.15, maxX: 14.0, minZ: -12.95, maxZ: -12.25 },
+      { kind: 'circle', x: -1.4, z: -2.0, r: 0.46 },
+      { kind: 'circle', x: 4.8, z: 2.6, r: 0.35 },
+    ],
     update() { /* static courtyard scene */ },
   };
 }
@@ -894,32 +922,38 @@ export function buildCourtyard(): World {
 /** Detailed worker in indigo factory jacket riding the flatbed cargo tricycle (facing +x). */
 export function workerTricycleRider(includeWheels = true, includeHead = true): Part[] {
   const jacket = 0x284266;
+  const trim = 0x1d314d;
   const trousers = 0x1f2838;
-  const cap = 0x24344c;
-  const skin = 0xc8a07a;
+  const cap = 0x24364e;
+  const faceWhite = 0xf0ede6;
 
   return [
     ...tricycleBodyParts(includeWheels),
     // Torso leaning forward from saddle [0.27, 0.79, 0] toward handlebars [0.66, 0.96, ±0.22]
     { p: [0.35, 1.12, 0], s: [0.26, 0.56, 0.40], c: jacket, cyl: true, seg: 7, top: 1.12, rz: -0.26 },
-    { p: [0.44, 1.40, 0], s: [0.21, 0.06, 0.26], c: jacket, cyl: true, seg: 6, rz: -0.18 },
+    { p: [0.44, 1.40, 0], s: [0.21, 0.06, 0.26], c: trim, cyl: true, seg: 6, rz: -0.18 },
     { p: [0.49, 1.32, 0], s: [0.05, 0.14, 0.12], c: 0xe8e2d2, rz: -0.26 }, // undershirt V-neck
+    // Chest pockets + draped white cotton sweat towel (白毛巾)
+    { p: [0.475, 1.21, 0.10], s: [0.024, 0.095, 0.088], c: trim, rz: -0.26 },
+    { p: [0.475, 1.21, -0.10], s: [0.024, 0.095, 0.088], c: trim, rz: -0.26 },
+    { p: [0.455, 1.425, 0], s: [0.22, 0.048, 0.25], c: 0xf4f1e8, cyl: true, seg: 8, rz: -0.22 },
+    { p: [0.515, 1.24, 0.072], s: [0.028, 0.26, 0.066], c: 0xf4f1e8, rz: -0.26 },
+    { p: [0.515, 1.24, -0.072], s: [0.028, 0.26, 0.066], c: 0xf4f1e8, rz: -0.26 },
     // Olive canvas work satchel strap
     { p: [0.36, 1.13, 0], s: [0.28, 0.50, 0.04], c: 0x565c3a, rx: 0.55, rz: -0.26 },
     ...(includeHead ? [
-      // Head + worker cap (工人鴨舌帽)
-      { p: [0.46, 1.54, 0], s: [0.19, 0.21, 0.185], c: skin, sphere: true, detail: 1 },
-      { p: [0.565, 1.53, 0], s: [0.03, 0.05, 0.03], c: 0xc29872, wedge: true },
-      { p: [0.45, 1.65, 0], s: [0.22, 0.09, 0.21], c: cap, sphere: true, detail: 1 },
-      { p: [0.57, 1.615, 0], s: [0.12, 0.025, 0.19], c: 0x1c283a, rz: -0.15 },
+      // Alabaster-white featureless head + worker duckbill cap (工人鴨舌帽)
+      { p: [0.46, 1.54, 0], s: [0.19, 0.22, 0.18], c: faceWhite, sphere: true, detail: 1 },
+      { p: [0.45, 1.655, 0], s: [0.215, 0.09, 0.205], c: cap, sphere: true, detail: 1 },
+      { p: [0.57, 1.615, 0], s: [0.115, 0.024, 0.185], c: 0x1a2638, rz: -0.15 },
     ] as Part[] : []),
     // Arms gripping tricycle handlebars at [0.66, 0.96, ±0.22]
     strut([0.42, 1.29, 0.21], [0.55, 1.12, 0.23], 0.095, jacket, 6),
     strut([0.55, 1.12, 0.23], [0.65, 0.97, 0.22], 0.082, jacket, 6),
     strut([0.42, 1.29, -0.21], [0.55, 1.12, -0.23], 0.095, jacket, 6),
     strut([0.55, 1.12, -0.23], [0.65, 0.97, -0.22], 0.082, jacket, 6),
-    { p: [0.65, 0.96, 0.22], s: [0.075, 0.075, 0.075], c: skin },
-    { p: [0.65, 0.96, -0.22], s: [0.075, 0.075, 0.075], c: skin },
+    { p: [0.65, 0.96, 0.22], s: [0.075, 0.075, 0.075], c: faceWhite },
+    { p: [0.65, 0.96, -0.22], s: [0.075, 0.075, 0.075], c: faceWhite },
     // Articulated legs & work shoes on crank pedals around [0.36, 0.32, ±0.11]
     strut([0.28, 0.84, 0.11], [0.48, 0.62, 0.11], 0.125, trousers, 6),
     strut([0.48, 0.62, 0.11], [0.46, 0.39, 0.11], 0.105, trousers, 6),

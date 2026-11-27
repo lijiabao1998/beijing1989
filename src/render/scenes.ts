@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { C, Part, addLayeredParts, glowMat, instanced, litMat, mergeParts, place, rng, textTexture, vertText } from './kit';
+import { C, Part, addLayeredParts, glowMat, instanced, litMat, makeTwoSidedPlaneGeo, mergeParts, place, rng, textTexture, tintLitMat, vertText } from './kit';
+import { buildNpcParts } from './npcCharacter';
 import { addRealisticTrees } from './foliage';
 import {
   ambulance,
@@ -9,7 +10,6 @@ import {
   crowdPersonLod,
   lampHead,
   lampPole,
-  person,
   sitPerson,
   sitPersonLod,
   tricycle,
@@ -218,8 +218,8 @@ export function buildCampus(mode: 'night' | 'aftermath' = 'night'): World {
   // 北京大學西校門
   stat.push(...place(pkuWestGate(), 0, -16));
   if (!aftermath) {
-    stat.push(...place(person(C.khaki), -6, 3, -0.6), ...place(person(0x6a2f3a, 0x2d2d33), 5, -2, 2.2));
-    stat.push(...place(person(C.navy), -1, -5.5, 1.5), ...place(person(C.green), 0.2, -6, 1.8), ...place(person(0x5d5a52), 4.6, -6.2, 1.4));
+    stat.push(...place(buildNpcParts('student_male'), -6, 3, -0.6), ...place(buildNpcParts('student_female'), 5, -2, 2.2));
+    stat.push(...place(buildNpcParts('student_male'), -1, -5.5, 1.5), ...place(buildNpcParts('student_overcoat'), 0.2, -6, 1.8), ...place(buildNpcParts('scholar_professor'), 4.6, -6.2, 1.4));
   }
   addLayeredParts(s, stat);
   if (glow.length) s.add(new THREE.Mesh(mergeParts(glow), glowMat()));
@@ -268,6 +268,13 @@ export function buildCampus(mode: 'night' | 'aftermath' = 'night'): World {
     spawn,
     bounds: [-18, 18, -27, 9],
     atmosphere: aftermath ? 'aftermath' : 'night',
+    colliders: [
+      { kind: 'box', minX: -18.5, maxX: -2.25, minZ: -16.9, maxZ: -15.1 },
+      { kind: 'box', minX: 2.25, maxX: 18.5, minZ: -16.9, maxZ: -15.1 },
+      { kind: 'circle', x: -4.4, z: -17.6, r: 0.65 },
+      { kind: 'circle', x: 4.4, z: -17.6, r: 0.65 },
+      { kind: 'box', minX: -18.5, maxX: 18.5, minZ: 8.1, maxZ: 12.0 },
+    ],
     occluders: [
       [-8.2, 8.2, 0, 8.9, -20.5, -11.5],
       [-18.2, 18.2, 0, 18.5, 7.6, 16.5],
@@ -558,14 +565,14 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
 
   // mode-specific square staging
   if (mode === 'night') {
-    stat.push(...place(person(0x2f3540), 6, -95, 2), ...place(person(C.khaki), 8, -96.5, 1.2), ...place(person(0x5b5f3c), 9.5, -94.5, 2.8), ...place(person(C.navy), 12, -96, 3.6));
-    stat.push(...place(person(0x4b4a45, C.black, 0x999999), -40, -88.5, Math.PI / 2), { p: [-41, 0.25, -88.5], s: [0.8, 0.5, 0.5], c: 0x5a3e28 });
+    stat.push(...place(buildNpcParts('worker_master'), 6, -95, 2), ...place(buildNpcParts('student_male'), 8, -96.5, 1.2), ...place(buildNpcParts('student_overcoat'), 9.5, -94.5, 2.8), ...place(buildNpcParts('hutong_elder'), 12, -96, 3.6));
+    stat.push(...place(buildNpcParts('hutong_elder'), -40, -88.5, Math.PI / 2), { p: [-41, 0.25, -88.5], s: [0.8, 0.5, 0.5], c: 0x5a3e28 });
     stat.push(...place(bike(), -38.6, -88.6, 0.2));
     for (let i = 0; i < 26; i++) {
       const px = -60 + r() * 120;
       const pz = -105 - r() * 200;
       const col = [C.navy, C.khaki, 0x2f3540, 0x5d4c3a][i % 4]!;
-      const fig = isNearAny(px, pz, detailAnchors, 15) ? person(col) : crowdPersonLod(col);
+      const fig = isNearAny(px, pz, detailAnchors, 15) ? crowdPerson(col) : crowdPersonLod(col);
       stat.push(...place(fig, px, pz, r() * 6));
     }
   }
@@ -595,7 +602,7 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
         g.fillStyle = red ? '#f7f1e2' : '#141414'; g.font = 'bold 82px "Noto Serif CJK TC",serif';
         g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(bt, 256, 68);
       }));
-      const b = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 1.05), new THREE.MeshLambertMaterial({ map: tex, side: THREE.DoubleSide }));
+      const b = new THREE.Mesh(makeTwoSidedPlaneGeo(4.4, 1.05), new THREE.MeshLambertMaterial({ map: tex, side: THREE.FrontSide }));
       b.position.set(bx, 2.85, bz); b.rotation.y = bry; s.add(b);
       for (const side of [-2.25, 2.25]) {
         stat.push({ p: [bx + Math.cos(bry) * side, 1.78, bz - Math.sin(bry) * side], s: [0.06, 3.56, 0.06], c: 0x8f7a52, cyl: true, seg: 5 });
@@ -636,13 +643,13 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
     const fgSitters = sitters.filter(p => isNearAny(p.x, p.z, detailAnchors, 15));
     const bgSitters = sitters.filter(p => !isNearAny(p.x, p.z, detailAnchors, 15));
     if (fgSitters.length) {
-      const m = instanced(mergeParts(sitPerson(0x3f454e, C.navy, C.black, true)), litMat(), fgSitters);
-      fgSitters.forEach((p, i) => m.setColorAt(i, new THREE.Color(sCols[p.colIdx % sCols.length]).multiplyScalar(1.9)));
+      const m = instanced(mergeParts(sitPerson(0xf4f2ec, C.navy, C.black, true)), tintLitMat(), fgSitters);
+      fgSitters.forEach((p, i) => m.setColorAt(i, new THREE.Color(sCols[p.colIdx % sCols.length])));
       s.add(m);
     }
     if (bgSitters.length) {
-      const m = instanced(mergeParts(sitPersonLod(0x3f454e, true)), litMat(), bgSitters);
-      bgSitters.forEach((p, i) => m.setColorAt(i, new THREE.Color(sCols[p.colIdx % sCols.length]).multiplyScalar(1.9)));
+      const m = instanced(mergeParts(sitPersonLod(0xf4f2ec, true)), tintLitMat(), bgSitters);
+      bgSitters.forEach((p, i) => m.setColorAt(i, new THREE.Color(sCols[p.colIdx % sCols.length])));
       s.add(m);
     }
   }
@@ -678,13 +685,13 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
     const fgStus = stus.filter(p => isNearAny(p.x, p.z, detailAnchors, 15));
     const bgStus = stus.filter(p => !isNearAny(p.x, p.z, detailAnchors, 15));
     if (fgStus.length) {
-      const m = instanced(mergeParts(crowdPerson(0x3a3f48)), litMat(), fgStus);
-      fgStus.forEach((p, i) => m.setColorAt(i, new THREE.Color(stCols[p.colIdx % 5]).multiplyScalar(2.0)));
+      const m = instanced(mergeParts(crowdPerson(0xf4f2ec)), tintLitMat(), fgStus);
+      fgStus.forEach((p, i) => m.setColorAt(i, new THREE.Color(stCols[p.colIdx % 5])));
       s.add(m);
     }
     if (bgStus.length) {
-      const m = instanced(mergeParts(crowdPersonLod(0x3a3f48)), litMat(), bgStus);
-      bgStus.forEach((p, i) => m.setColorAt(i, new THREE.Color(stCols[p.colIdx % 5]).multiplyScalar(2.0)));
+      const m = instanced(mergeParts(crowdPersonLod(0xf4f2ec)), tintLitMat(), bgStus);
+      bgStus.forEach((p, i) => m.setColorAt(i, new THREE.Color(stCols[p.colIdx % 5])));
       s.add(m);
     }
   }
@@ -790,7 +797,7 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
   if (dawn) {
     [fl, fm].forEach(l => l.visible = false);
     squareHandle = attachSquare422Assembly(s, spawn, detailAnchors);
-    const kneel: Part[] = []; for (const z of [-321.5, -320, -318.5]) kneel.push({ p: [-102.5, 3.4, z], s: [0.5, 0.8, 0.45], c: 0x3a3f48 }, { p: [-102.2, 3.95, z], s: [0.22, 0.24, 0.22], c: 0xc8a07a }, { p: [-102.0, 4.1, z], s: [0.1, 0.4, 0.5], c: 0xf0ece0 });
+    const kneel: Part[] = []; for (const z of [-321.5, -320, -318.5]) kneel.push({ p: [-102.5, 3.4, z], s: [0.5, 0.8, 0.45], c: 0x3a3f48 }, { p: [-102.4, 3.68, z], s: [0.22, 0.14, 0.14], c: 0xeeeae0 }, { p: [-102.2, 3.95, z], s: [0.20, 0.24, 0.19], c: 0xf0ede6, sphere: true, detail: 1 }, { p: [-102.0, 4.1, z], s: [0.1, 0.4, 0.5], c: 0xf0ece0 });
     s.add(new THREE.Mesh(mergeParts(kneel), litMat()));
     const sp: Part[] = []; for (const [x, z] of [[-30, -282], [20, -260], [-60, -360]]) sp.push({ p: [x, 4, z], s: [0.25, 8, 0.25], c: 0x55554f, cyl: true }, { p: [x, 7.8, z], s: [0.9, 0.6, 0.6], c: 0x6b6f63, cyl: true, rz: 1.2, top: 0.35 });
     s.add(new THREE.Mesh(mergeParts(sp), litMat()));
@@ -822,9 +829,32 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
     colliders: dawn
       ? [
           { kind: 'box', minX: -30, maxX: 30, minZ: -359, maxZ: -301 },
-          { kind: 'box', minX: -110, maxX: -91.5, minZ: -400, maxZ: -240 },
+          { kind: 'box', minX: -192, maxX: -91.5, minZ: -400, maxZ: -240 },
+          { kind: 'box', minX: 91.5, maxX: 192, minZ: -400, maxZ: -240 },
+          { kind: 'box', minX: -10.2, maxX: 10.2, minZ: -162.2, maxZ: -141.8 },
         ]
-      : undefined,
+      : camp
+        ? [
+            { kind: 'box', minX: -14, maxX: 14, minZ: -344, maxZ: -316 },
+            { kind: 'box', minX: -192, maxX: -91.5, minZ: -400, maxZ: -240 },
+            { kind: 'box', minX: 91.5, maxX: 192, minZ: -400, maxZ: -240 },
+            { kind: 'box', minX: 28.5, maxX: 31.5, minZ: -258, maxZ: -252 },
+            { kind: 'box', minX: 28.5, maxX: 31.5, minZ: -298, maxZ: -292 },
+            { kind: 'box', minX: -10.2, maxX: 10.2, minZ: -162.2, maxZ: -141.8 },
+          ]
+        : statue
+          ? [
+              { kind: 'box', minX: -2.3, maxX: 2.3, minZ: -174.3, maxZ: -169.7 },
+              { kind: 'box', minX: -14, maxX: 14, minZ: -344, maxZ: -316 },
+              { kind: 'box', minX: -192, maxX: -91.5, minZ: -400, maxZ: -240 },
+              { kind: 'box', minX: 91.5, maxX: 192, minZ: -400, maxZ: -240 },
+              { kind: 'box', minX: -10.2, maxX: 10.2, minZ: -162.2, maxZ: -141.8 },
+            ]
+          : [
+              { kind: 'box', minX: -192, maxX: -91.5, minZ: -305, maxZ: -240 },
+              { kind: 'box', minX: 91.5, maxX: 192, minZ: -305, maxZ: -240 },
+              { kind: 'box', minX: -10.2, maxX: 10.2, minZ: -162.2, maxZ: -141.8 },
+            ],
     occluders: [
       [-34, 34, 0, 34.5, -19, 19],
       [-192, -106, 0, 38, -475, -165],

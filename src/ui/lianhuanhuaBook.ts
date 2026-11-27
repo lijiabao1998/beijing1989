@@ -1,6 +1,6 @@
 import { CH, EVENTS, WORLD_FLAGS, assetKeyOf, chapterMetaOf, dayKeyOf, orderForViewpoint, viewpointOfChapter } from '../data';
 import { VIEWPOINT_LABELS, getChapterMeta, type ChapterMeta } from '../data/routeMetas';
-import { loadLedger, type ChapterRecord, type PhotoCaptureRecord, type SaveState, type WorldTimelineLedger } from '../save/save';
+import { load, loadLedger, type ChapterRecord, type PhotoCaptureRecord, type SaveState, type WorldTimelineLedger } from '../save/save';
 import type { ViewpointId } from '../types';
 import { ITEM_LABELS, summarizeCharactersForViewpoint } from './chronicle';
 
@@ -57,22 +57,44 @@ function plateNumeral(n: number): string {
   return String(n);
 }
 
-/** Generate an offline archival HTML commemorative booklet and trigger download. */
-export function downloadPersonalKeepsake(state: SaveState, ledger?: WorldTimelineLedger): void {
-  const activeLedger = ledger ?? (() => { try { return loadLedger(); } catch { return undefined; } })();
-  const vp = state.viewpoint ?? viewpointOfChapter(state.chapter);
-  const vpInfo = VIEWPOINT_LABELS[vp] ?? { short: vp, role: vp, lead: '' };
-  const order = orderForViewpoint(vp);
+function collectStatesByViewpoint(activeState?: SaveState): Partial<Record<ViewpointId, SaveState>> {
+  const map: Partial<Record<ViewpointId, SaveState>> = {};
+  for (const vp of VIEWPOINTS_ORDER) {
+    const saved = load(vp);
+    if (saved) map[vp] = saved;
+  }
+  if (activeState) {
+    const activeVp = activeState.viewpoint ?? viewpointOfChapter(activeState.chapter);
+    map[activeVp] = activeState;
+  }
+  return map;
+}
 
-  const chapterBlocks = order.map((id, i) => {
+function recordForChapter(
+  vp: ViewpointId,
+  chId: string,
+  vpState?: SaveState,
+  ledger?: WorldTimelineLedger,
+): ChapterRecord | undefined {
+  if (vpState) {
+    return chId === vpState.chapter
+      ? { ending: vpState.ending, taken: vpState.taken ?? [] }
+      : vpState.history?.[chId];
+  }
+  return ledger?.routeRecords?.[vp]?.[chId];
+}
+
+function renderRouteChaptersHtml(vp: ViewpointId, vpState?: SaveState, ledger?: WorldTimelineLedger): string {
+  const order = orderForViewpoint(vp);
+  return order.map((id, i) => {
     const ch = CH[id];
     const meta = getChapterMeta(id);
-    const rec: ChapterRecord | undefined = id === state.chapter ? { ending: state.ending, taken: state.taken ?? [] } : state.history?.[id];
+    const rec = recordForChapter(vp, id, vpState, ledger);
     const end = rec?.ending && ch?.endings?.[rec.ending] ? ch.endings[rec.ending] : undefined;
-    const chPhotos = (state.capturedPhotos ?? []).filter(p => p.chapterId === id);
+    const chPhotos = (vpState?.capturedPhotos ?? []).filter(p => p.chapterId === id);
     const photosHtml = chPhotos.length
       ? `<div class="photo-row">${chPhotos.map(p =>
-          `<figure><img src="${p.dataUrl}" alt="${esc(p.caption)}" /><figcaption>#${String(p.frameNo).padStart(2, '0')}A ${p.lensMm}mm ・ ${esc(p.caption)}</figcaption></figure>`
+          `<figure><img src="${esc(p.dataUrl)}" alt="${esc(p.caption)}" /><figcaption>#${String(p.frameNo).padStart(2, '0')}A ${p.lensMm}mm ・ ${esc(p.caption)}</figcaption></figure>`
         ).join('')}</div>`
       : '';
     return `<article class="chap">
@@ -86,31 +108,66 @@ export function downloadPersonalKeepsake(state: SaveState, ledger?: WorldTimelin
       ${photosHtml}
     </article>`;
   }).join('');
+}
 
-  const allSelectedOrLatest = (state.capturedPhotos ?? []).filter(p => p.selectedForPrint);
-  const extraPhotos = (allSelectedOrLatest.length ? allSelectedOrLatest : (state.capturedPhotos ?? []).slice(0, 8));
+/** Generate an offline archival HTML commemorative booklet and trigger download. */
+export function downloadPersonalKeepsake(
+  state: SaveState,
+  ledger?: WorldTimelineLedger,
+  allRoutes = false,
+): void {
+  const activeLedger = ledger ?? (() => { try { return loadLedger(); } catch { return undefined; } })();
+  const vp = state.viewpoint ?? viewpointOfChapter(state.chapter);
+  const vpInfo = VIEWPOINT_LABELS[vp] ?? { short: vp, role: vp, lead: '' };
+  const stateByVp = collectStatesByViewpoint(state);
+  const targetVps: readonly ViewpointId[] = allRoutes ? VIEWPOINTS_ORDER : [vp];
+
+  const routeSectionsHtml = targetVps.map(rVp => {
+    const info = VIEWPOINT_LABELS[rVp] ?? { short: rVp, role: rVp, lead: '' };
+    const vpState = stateByVp[rVp];
+    const prefix = allRoutes ? `<h2 class="route-title">${esc(info.short)}・${esc(info.lead)}</h2>` : '';
+    return `${prefix}${renderRouteChaptersHtml(rVp, vpState, activeLedger)}`;
+  }).join('');
+
+  const combinedPhotos = targetVps.flatMap(rVp => stateByVp[rVp]?.capturedPhotos ?? []);
+  const selectedPhotos = combinedPhotos.filter(p => p.selectedForPrint);
+  const extraPhotos = selectedPhotos.length ? selectedPhotos : combinedPhotos.slice(0, allRoutes ? 16 : 8);
   const darkroomSheetHtml = extraPhotos.length
     ? `<section class="sheet"><h2>35mm 銀鹽底片印樣精選</h2><div class="photo-grid">${extraPhotos.map(p =>
-        `<figure><img src="${p.dataUrl}" alt="${esc(p.caption)}" /><figcaption>#${String(p.frameNo).padStart(2, '0')}A ｜ ${p.lensMm}mm ｜ ${esc(p.caption)}</figcaption></figure>`
+        `<figure><img src="${esc(p.dataUrl)}" alt="${esc(p.caption)}" /><figcaption>#${String(p.frameNo).padStart(2, '0')}A ｜ ${p.lensMm}mm ｜ ${esc(p.caption)}</figcaption></figure>`
       ).join('')}</div></section>`
     : '';
 
-  const diaryHtml = (state.diary ?? []).length
-    ? `<ol class="diary">${state.diary.map(d => `<li>${esc(d)}</li>`).join('')}</ol>`
+  const combinedDiary = targetVps.flatMap(rVp => {
+    const entries = stateByVp[rVp]?.diary ?? [];
+    if (!allRoutes) return entries;
+    const lbl = VIEWPOINT_LABELS[rVp]?.short ?? rVp;
+    return entries.map(line => `【${lbl}】${line}`);
+  });
+  const diaryHtml = combinedDiary.length
+    ? `<ol class="diary">${combinedDiary.map(d => `<li>${esc(d)}</li>`).join('')}</ol>`
     : '<p class="small">這一個春天，筆記本裡留下一頁空白。</p>';
 
-  const keepsakes = [...new Set([...(state.keepsakes ?? []), ...(state.items ?? [])])].map(k => ITEM_LABELS[k] ?? k);
-  const chars = summarizeCharactersForViewpoint(state)
+  const keepsakes = [...new Set(targetVps.flatMap(rVp => [...(stateByVp[rVp]?.keepsakes ?? []), ...(stateByVp[rVp]?.items ?? [])]))]
+    .map(k => ITEM_LABELS[k] ?? k);
+  const chars = targetVps
+    .flatMap(rVp => {
+      const vpState = stateByVp[rVp];
+      return vpState ? summarizeCharactersForViewpoint(vpState) : [];
+    })
     .map(c => `<li><strong>${esc(c.name)}：</strong>${esc(c.status)}</li>`).join('');
   const commits = Object.values(activeLedger?.commits ?? {})
     .filter(c => c.val)
     .map(c => `<li><strong>${esc(c.dayKey)}：</strong>${esc(WORLD_FLAGS[c.id]?.description ?? c.id)}</li>`).join('');
 
+  const subtitle = allRoutes ? '四線三十二章合訂典藏紀念冊（學生・工人・記者・市民）' : `${esc(vpInfo.short)} ・ ${esc(vpInfo.lead)}`;
+  const docTitle = allRoutes ? '北京，一九八九・四線三十二章合訂典藏紀念冊' : `北京，一九八九・個人春日紀念冊（${esc(vpInfo.short)}）`;
+
   const html = `<!doctype html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8" />
-<title>北京，一九八九・個人春日紀念冊（${esc(vpInfo.short)}）</title>
+<title>${docTitle}</title>
 <style>
   body{margin:0;padding:36px 24px;background:#f5efe3;color:#221c15;font-family:"Noto Serif CJK TC","Songti TC","PMingLiU",serif;line-height:1.75}
   .book{max-width:860px;margin:0 auto;background:#fbf7ee;border:2px solid #8a2e22;padding:34px 38px;box-shadow:0 8px 28px rgba(0,0,0,.08)}
@@ -118,6 +175,7 @@ export function downloadPersonalKeepsake(state: SaveState, ledger?: WorldTimelin
   .seal{display:inline-block;padding:4px 12px;border:2px solid #9c2b22;color:#9c2b22;font-weight:bold;letter-spacing:3px;font-size:13px;margin-bottom:10px}
   h1{margin:6px 0;font-size:32px;letter-spacing:6px}
   h2{font-size:19px;color:#7a2b20;border-bottom:1px solid #cbb99a;padding-bottom:4px;margin-top:26px}
+  .route-title{font-size:17px;color:#3d2b18;background:#efe6d4;padding:6px 12px;border-left:4px solid #8a2e22;margin-top:22px}
   .chap{margin:16px 0;padding:12px 16px;border-left:3px solid #9c6f3e;background:#f7f1e4}
   .chap-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
   .chap-head h3{margin:0;font-size:17px}.badge{font-size:12px;padding:1px 7px;background:#8a2e22;color:#fff7e8;border-radius:3px}
@@ -135,14 +193,14 @@ export function downloadPersonalKeepsake(state: SaveState, ledger?: WorldTimelin
   <header class="cover">
     <div class="seal">一九八九・京華個人紀事</div>
     <h1>北京，一九八九</h1>
-    <div>${esc(vpInfo.short)} ・ ${esc(vpInfo.lead)}</div>
+    <div>${subtitle}</div>
     <p class="small">所有對話人物均為虛構，僅以此冊存留你在那個春天走過的巷弄、記下的筆記與定影的底片。</p>
     <button class="print-btn" onclick="window.print()">列印 / 另存 PDF 紀念冊</button>
   </header>
-  <section><h2>一、章節行跡</h2>${chapterBlocks}</section>
+  <section><h2>一、章節行跡</h2>${routeSectionsHtml}</section>
   ${darkroomSheetHtml}
   <section><h2>二、人物聚散與隨身物件</h2><p><strong>隨身物件：</strong>${keepsakes.length ? keepsakes.map(esc).join('、') : '兩手空空，只帶記憶'}</p><ul>${chars}</ul></section>
-  <section><h2>三、春日日記（${state.diary.length} 則）</h2>${diaryHtml}</section>
+  <section><h2>三、春日日記（${combinedDiary.length} 則）</h2>${diaryHtml}</section>
   ${commits ? `<section><h2>四、四線跨線印記</h2><ul>${commits}</ul></section>` : ''}
 </div>
 </body>
@@ -153,7 +211,7 @@ export function downloadPersonalKeepsake(state: SaveState, ledger?: WorldTimelin
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `beijing1989-${vp}-keepsake.html`;
+    a.download = allRoutes ? 'beijing1989-all-routes-keepsake.html' : `beijing1989-${vp}-keepsake.html`;
     a.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 1500);
   } catch { /* ignore */ }
@@ -164,6 +222,7 @@ export function mountLianhuanhuaBook(container: HTMLElement, opts?: BookOptions)
   let allRoutes = Boolean(opts?.allRoutes);
   const ledger = opts?.ledger ?? (() => { try { return loadLedger(); } catch { return undefined; } })();
   const state = opts?.state;
+  const stateByVp = collectStatesByViewpoint(state);
 
   let spreads = buildSpreads(baseVp, allRoutes);
   let spreadIdx = 0;
@@ -206,9 +265,22 @@ export function mountLianhuanhuaBook(container: HTMLElement, opts?: BookOptions)
 
   const renderCoverHtml = (vp: ViewpointId): string => {
     const info = VIEWPOINT_LABELS[vp] ?? { short: vp, role: '', lead: '' };
-    const visitedCount = state ? Object.keys(state.history ?? {}).length + (state.ending ? 1 : 0) : 0;
-    const diaryCount = state?.diary?.length ?? 0;
-    const photoCount = state?.capturedPhotos?.length ?? 0;
+    const statVps: readonly ViewpointId[] = allRoutes ? VIEWPOINTS_ORDER : [vp];
+    const visitedIds = new Set<string>();
+    let diaryCount = 0;
+    let photoCount = 0;
+    for (const rVp of statVps) {
+      const vpState = stateByVp[rVp];
+      if (vpState) {
+        for (const hId of Object.keys(vpState.history ?? {})) visitedIds.add(hId);
+        if (vpState.ending && vpState.chapter) visitedIds.add(vpState.chapter);
+        diaryCount += vpState.diary?.length ?? 0;
+        photoCount += vpState.capturedPhotos?.length ?? 0;
+      } else {
+        for (const hId of Object.keys(ledger?.routeRecords?.[rVp] ?? {})) visitedIds.add(hId);
+      }
+    }
+    const visitedCount = visitedIds.size;
     return `
       <div class="lh-spread lh-cover-spread">
         <div class="lh-page lh-left lh-cover">
@@ -240,19 +312,16 @@ export function mountLianhuanhuaBook(container: HTMLElement, opts?: BookOptions)
     const ch = CH[meta.id];
     const vpLabel = VIEWPOINT_LABELS[vp]?.short ?? vp;
     const dayKey = meta.dayKey ?? dayKeyOf(meta.id);
-    const activeVp = state ? (state.viewpoint ?? viewpointOfChapter(state.chapter)) : baseVp;
-    const rec: ChapterRecord | undefined =
-      state && vp === activeVp
-        ? (meta.id === state.chapter ? { ending: state.ending, taken: state.taken ?? [] } : state.history?.[meta.id])
-        : ledger?.routeRecords?.[vp]?.[meta.id];
+    const vpState = stateByVp[vp];
+    const rec = recordForChapter(vp, meta.id, vpState, ledger);
     const endObj = rec?.ending && ch?.endings?.[rec.ending] ? ch.endings[rec.ending] : undefined;
 
-    const matchingDiary = (state?.diary ?? []).filter(d => {
+    const matchingDiary = (vpState?.diary ?? []).filter(d => {
       const m = meta.shortDate;
-      return d.includes(m) || (meta.id === curChapterId);
+      return d.includes(m) || (meta.id === vpState?.chapter);
     }).slice(0, 5);
 
-    const chPhotos: PhotoCaptureRecord[] = (state?.capturedPhotos ?? []).filter(p => p.chapterId === meta.id);
+    const chPhotos: PhotoCaptureRecord[] = (vpState?.capturedPhotos ?? []).filter(p => p.chapterId === meta.id);
     const dayCommits = Object.values(ledger?.commits ?? {})
       .filter(c => c.val && c.dayKey === dayKey)
       .map(c => WORLD_FLAGS[c.id]?.description ?? c.id);
@@ -337,7 +406,7 @@ export function mountLianhuanhuaBook(container: HTMLElement, opts?: BookOptions)
       }
     });
     stageEl.querySelector<HTMLButtonElement>('#book-export-colophon')?.addEventListener('click', () => {
-      if (state) downloadPersonalKeepsake(state, ledger);
+      if (state) downloadPersonalKeepsake(state, ledger, allRoutes);
     });
 
     thumbsEl.innerHTML = spreads.map((s, i) => {
@@ -378,7 +447,7 @@ export function mountLianhuanhuaBook(container: HTMLElement, opts?: BookOptions)
     render();
   };
   exportBtn.onclick = () => {
-    if (state) downloadPersonalKeepsake(state, ledger);
+    if (state) downloadPersonalKeepsake(state, ledger, allRoutes);
   };
   if (backBtn && opts?.onBack) backBtn.onclick = opts.onBack;
 
