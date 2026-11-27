@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
-import { C, Part, addLayeredParts, glowMat, instanced, litMat, mergeParts, place, rng, textTexture, vertText } from './kit';
+import { C, Part, addLayeredParts, glowMat, instanced, litMat, mergeParts, place, rng, textTexture, tintLitMat, vertText } from './kit';
 import {
-  ambulance, bike, coalAndCabbage, crowdPerson, lampHead, lampPole, person,
+  ambulance, bike, coalAndCabbage, crowdPerson, lampHead, lampPole,
   phoneBooth, radioStool, tableBasin, tricycle, trolleybus, trolleyWindows,
 } from './props';
+import { buildNpcParts } from './npcCharacter';
 import { addRealisticTrees } from './foliage';
 import { asphaltRoadTex, campusPathTex, skyDomeTex } from './materials';
 import {
@@ -953,10 +954,10 @@ export function buildStreet(mode: StreetMode = 'night', marchVariant: MarchVaria
   if (mode === 'night') {
     stat.push(...place(tricycle(), 4.2, -5.8, 0.1));
     stat.push(...place(ambulance(), -17.2, -6.2, 0.02));
-    stat.push(...place(person(0x4b4a45, C.black, 0xbbbbbb), -6, -3.4, Math.PI / 2));
-    stat.push(...place(person(0x3a4a5a), 1.4, -4.4, 2.6));
+    stat.push(...place(buildNpcParts('hutong_elder'), -6, -3.4, Math.PI / 2));
+    stat.push(...place(buildNpcParts('worker_master'), 1.4, -4.4, 2.6));
     stat.push(...place(bike(0x5b5f3c), -3.2, -7.3, Math.PI));
-    stat.push(...place(person(0x7a6a50), -4, -6.4, -0.3), ...place(person(C.navy), -2.2, -6.6, 0.4));
+    stat.push(...place(buildNpcParts('student_male'), -4, -6.4, -0.3), ...place(buildNpcParts('student_female'), -2.2, -6.6, 0.4));
   } else if (blockade) {
     stat.push(...place(tricycle(), 6, -5, -2.5));
     for (const [bx, bz, bry] of [[-11, -10.5, -0.45], [12, -11.2, 0.52]] as [number, number, number][]) {
@@ -1054,9 +1055,9 @@ export function buildStreet(mode: StreetMode = 'night', marchVariant: MarchVaria
       if (Math.hypot(x + 4, z + 7) < 2.2 || Math.hypot(x - 8, z + 5) < 2.2) continue; // keep c4wang & c4auntie clear
       bc.push({ x, z: Math.max(-16.5, Math.min(-4.2, z)), ry: Math.atan2(-(side - x), -11 - z) });
     }
-    const bcm = instanced(mergeParts(crowdPerson(0x454a54)), litMat(), bc);
+    const bcm = instanced(mergeParts(crowdPerson(0xf4f2ec)), tintLitMat(), bc);
     const bcol = [C.navy, C.khaki, 0x3a4a5a, 0x5d4c3a, 0x6a2f3a, 0x4e5a4a];
-    bc.forEach((_, i) => bcm.setColorAt(i, new THREE.Color(bcol[i % 6]).multiplyScalar(2.0)));
+    bc.forEach((_, i) => bcm.setColorAt(i, new THREE.Color(bcol[i % 6])));
     s.add(bcm);
   }
 
@@ -1143,6 +1144,16 @@ export function buildStreet(mode: StreetMode = 'night', marchVariant: MarchVaria
     { kind: 'box', minX: -7.55, maxX: -4.45, minZ: -2.65, maxZ: -0.35 },
     { kind: 'box', minX: -50, maxX: 50, minZ: -28, maxZ: -18.5 },
   ];
+  if (blockade) {
+    // Angled articulated trolleybus barricades at [-11, -10.5, ry=-0.45] & [12, -11.2, ry=0.52]
+    for (const [bx, bz, bry] of [[-11, -10.5, -0.45], [12, -11.2, 0.52]] as [number, number, number][]) {
+      const ca = Math.cos(bry), sa = Math.sin(bry);
+      for (const off of [-5.8, 0, 5.8]) {
+        colliders.push({ kind: 'circle', x: bx + off * ca, z: bz - off * sa, r: 1.25 });
+      }
+    }
+    colliders.push({ kind: 'circle', x: 6, z: -5, r: 0.85 });
+  }
 
   const id: SceneId = (march ? 'march' : blockade ? 'blockade' : hutong ? 'hutong' : 'street') as SceneId;
   const spawn: [number, number] = march ? [-30, -6] : blockade ? [-22, -5] : hutong ? [14.5, -2] : [-14, -4];

@@ -6,10 +6,12 @@ import {
   glowMat,
   instanced,
   litMat,
+  makeTwoSidedPlaneGeo,
   mergeParts,
   place,
   rng,
   textTexture,
+  tintLitMat,
 } from '../kit';
 import {
   bikeLod,
@@ -92,9 +94,10 @@ function addSignPlane(
   const mat = new THREE.MeshBasicMaterial({
     map: tex,
     fog: true,
-    side: doubleSided ? THREE.DoubleSide : THREE.FrontSide,
+    side: THREE.FrontSide,
   });
-  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+  const geo = doubleSided ? makeTwoSidedPlaneGeo(w, h) : new THREE.PlaneGeometry(w, h);
+  const m = new THREE.Mesh(geo, mat);
   m.position.set(x, y, z);
   m.rotation.y = ry;
   s.add(m);
@@ -756,6 +759,14 @@ export function buildBeijingHotelBalcony(id: SceneId = 'beijing_hotel_balcony', 
       camDist: camInfo.camDist,
       cam: camInfo.cam,
       occluders,
+      colliders: [
+        { kind: 'box', minX: 3.55, maxX: 4.15, minZ: -4.7, maxZ: 0.4 },
+        { kind: 'box', minX: 3.55, maxX: 4.15, minZ: 3.6, maxZ: 11.6 },
+        { kind: 'box', minX: 7.35, maxX: 8.35, minZ: 3.4, maxZ: 5.0 },
+        { kind: 'box', minX: 7.95, maxX: 8.85, minZ: -2.35, maxZ: -0.85 },
+        { kind: 'circle', x: 1.6, z: -3.35, r: 0.36 },
+        { kind: 'circle', x: -2.9, z: -3.25, r: 0.36 },
+      ],
       update(dt, t) {
         for (let i = 0; i < N; i++) {
           const b = rs[i]!;
@@ -1033,6 +1044,21 @@ export function buildNewsroom(id: SceneId = 'newsroom', meta?: SceneManifestEntr
       camDist: camInfo.camDist,
       cam: camInfo.cam,
       occluders,
+      colliders: [
+        { kind: 'circle', x: -6.6, z: 1.8, r: 0.36 },
+        { kind: 'box', minX: -1.35, maxX: 1.75, minZ: -0.04, maxZ: 1.24 },
+        { kind: 'box', minX: 7.25, maxX: 8.35, minZ: -1.8, maxZ: 1.2 },
+        { kind: 'box', minX: 11.95, maxX: 13.5, minZ: -6.35, maxZ: -1.1 },
+        { kind: 'box', minX: -7.95, maxX: -7.65, minZ: -8.35, maxZ: -4.4 },
+        { kind: 'box', minX: -13.25, maxX: -10.2, minZ: -4.55, maxZ: -4.25 },
+        { kind: 'box', minX: -13.4, maxX: -11.45, minZ: -3.35, maxZ: 2.35 },
+        { kind: 'circle', x: -9.4, z: 4.4, r: 0.62 },
+        { kind: 'circle', x: -4.6, z: 4.2, r: 0.62 },
+        { kind: 'circle', x: -4.6, z: -1.8, r: 0.62 },
+        { kind: 'circle', x: 3.6, z: -4.4, r: 0.62 },
+        { kind: 'circle', x: -2.2, z: -4.8, r: 0.62 },
+        { kind: 'circle', x: 9.4, z: 4.8, r: 0.62 },
+      ],
       update() { /* static editorial interior */ },
     };
     return world;
@@ -1242,9 +1268,9 @@ export function buildOverpass(id: SceneId = 'overpass', meta?: SceneManifestEntr
       specs.push({ x, y: 0, z: 7.4 + r() * 0.9, ry: Math.PI * 0.5 });
       specs.push({ x: x + 0.8, y: 0, z: -14.2 - r() * 0.9, ry: -Math.PI * 0.5 });
     }
-    const specMesh = instanced(mergeParts(crowdPersonLod(0x3a4250)), litMat(), specs);
+    const specMesh = instanced(mergeParts(crowdPersonLod(0xf4f2ec)), tintLitMat(), specs);
     const sCols = [C.navy, C.khaki, 0x4e5a4a, 0x6a2f3a, 0x7c7460, 0x3b485a];
-    specs.forEach((_, i) => specMesh.setColorAt(i, new THREE.Color(sCols[i % sCols.length]).multiplyScalar(2.0)));
+    specs.forEach((_, i) => specMesh.setColorAt(i, new THREE.Color(sCols[i % sCols.length])));
     s.add(specMesh);
 
     // 16 Moving bikeLod Riders + 2 Animated Trolleybuses along Avenue below
@@ -1305,6 +1331,16 @@ export function buildOverpass(id: SceneId = 'overpass', meta?: SceneManifestEntr
       camDist: camInfo.camDist,
       cam: camInfo.cam,
       occluders,
+      colliders: [
+        { kind: 'circle', x: 14.6, z: -15.5, r: 1.0 },
+        { kind: 'circle', x: 20.4, z: -15.5, r: 1.0 },
+        { kind: 'circle', x: 14.6, z: -3.8, r: 1.0 },
+        { kind: 'circle', x: 20.4, z: -3.8, r: 1.0 },
+        { kind: 'circle', x: 14.6, z: 7.5, r: 1.0 },
+        { kind: 'circle', x: 20.4, z: 7.5, r: 1.0 },
+        { kind: 'circle', x: -6.0, z: 6.8, r: 0.55 },
+        { kind: 'circle', x: -6.0, z: -13.8, r: 0.55 },
+      ],
       update(dt, t) {
         for (let i = 0; i < N; i++) {
           const b = rs[i]!;
@@ -1541,9 +1577,9 @@ export function buildXinhuaGate(id: SceneId = 'xinhua_gate', meta?: SceneManifes
       const sz = 2.0 + Math.floor((i % 12) / 6) * 1.25;
       sitters.push({ x: sx, z: sz, ry: -H + (r() - 0.5) * 0.4 });
     }
-    const sitMesh = instanced(mergeParts(sitPersonLod(0x3a4250, true)), litMat(), sitters);
+    const sitMesh = instanced(mergeParts(sitPersonLod(0xf4f2ec, true)), tintLitMat(), sitters);
     const sitCols = [C.navy, C.khaki, 0x4e5a4a, 0x6a2f3a, 0x5d4c3a];
-    sitters.forEach((_, i) => sitMesh.setColorAt(i, new THREE.Color(sitCols[i % sitCols.length]).multiplyScalar(2.0)));
+    sitters.forEach((_, i) => sitMesh.setColorAt(i, new THREE.Color(sitCols[i % sitCols.length])));
     s.add(sitMesh);
 
     // 16 Moving bikeLod Riders + 2 Animated Trolleybuses on West Chang'an Avenue
@@ -1605,6 +1641,14 @@ export function buildXinhuaGate(id: SceneId = 'xinhua_gate', meta?: SceneManifes
       camDist: camInfo.camDist,
       cam: camInfo.cam,
       occluders,
+      colliders: [
+        { kind: 'box', minX: -25.2, maxX: -8.4, minZ: 3.95, maxZ: 4.45 },
+        { kind: 'box', minX: 8.4, maxX: 25.2, minZ: 3.95, maxZ: 4.45 },
+        { kind: 'box', minX: -58, maxX: -16, minZ: -2.55, maxZ: -2.25 },
+        { kind: 'box', minX: 16, maxX: 58, minZ: -2.55, maxZ: -2.25 },
+        { kind: 'box', minX: -58, maxX: -16, minZ: -16.75, maxZ: -16.45 },
+        { kind: 'box', minX: 16, maxX: 58, minZ: -16.75, maxZ: -16.45 },
+      ],
       update(dt, t) {
         for (let i = 0; i < N; i++) {
           const b = rs[i]!;

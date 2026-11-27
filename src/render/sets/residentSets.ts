@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import type { AtmospherePreset, SceneId, SceneManifestEntry } from '../../types';
 import {
   C,
@@ -8,10 +7,12 @@ import {
   glowMat,
   instanced,
   litMat,
+  makeTwoSidedPlaneGeo,
   mergeParts,
   place,
   rng,
   textTexture,
+  tintLitMat,
 } from '../kit';
 import {
   ambulance,
@@ -128,19 +129,7 @@ function addOwnedSignPlane(
 ): THREE.Mesh {
   const tex = markSceneOwned(textTexture(texW, texH, draw));
   res.texs.push(tex);
-  let geo: THREE.BufferGeometry;
-  if (doubleSide) {
-    const front = new THREE.PlaneGeometry(w, h);
-    front.translate(0, 0, 0.005);
-    const back = new THREE.PlaneGeometry(w, h);
-    back.rotateY(Math.PI);
-    back.translate(0, 0, -0.005);
-    geo = mergeGeometries([front, back])!;
-    front.dispose();
-    back.dispose();
-  } else {
-    geo = new THREE.PlaneGeometry(w, h);
-  }
+  const geo = doubleSide ? makeTwoSidedPlaneGeo(w, h, 0.01) : new THREE.PlaneGeometry(w, h);
   const mat = new THREE.MeshBasicMaterial({
     map: tex,
     fog: true,
@@ -489,9 +478,9 @@ function buildHospitalGate(_id: SceneId, meta?: SceneManifestEntry): World {
     { x: 2.4, z: -7.8, ry: 2.9 },
     { x: 9.6, z: -1.4, ry: -2.1 },
   ];
-  const staffMesh = trackMesh(res, instanced(mergeParts(crowdPersonLod(0xe6e4dc, 0x3b4852)), litMat(), staff));
+  const staffMesh = trackMesh(res, instanced(mergeParts(crowdPersonLod(0xf4f2ec, 0x3b4852)), tintLitMat(), staff));
   [0xf2f0e8, 0xe8ece8, 0x52606b, 0x5e6b58].forEach((c, i) =>
-    staffMesh.setColorAt(i, new THREE.Color(c).multiplyScalar(1.8)),
+    staffMesh.setColorAt(i, new THREE.Color(c)),
   );
   s.add(staffMesh);
 
@@ -519,6 +508,14 @@ function buildHospitalGate(_id: SceneId, meta?: SceneManifestEntry): World {
     cam: meta?.cam && meta.cam.h !== undefined ? { h: meta.cam.h, ahead: meta.cam.ahead ?? 7, y: meta.cam.y ?? 1.2 } : { h: 0.65, ahead: 7, y: 1.2 },
     atmosphere: preset,
     occluders,
+    colliders: [
+      { kind: 'box', minX: -14.8, maxX: 14.8, minZ: -18.5, maxZ: -12.0 },
+      { kind: 'box', minX: -24.5, maxX: -14.8, minZ: -18.5, maxZ: -7.2 },
+      { kind: 'box', minX: 14.8, maxX: 24.5, minZ: -18.5, maxZ: -7.2 },
+      { kind: 'box', minX: 5.5, maxX: 10.1, minZ: -3.9, maxZ: -1.7 },
+      { kind: 'box', minX: -24.5, maxX: -4.2, minZ: 10.9, maxZ: 11.6 },
+      { kind: 'box', minX: 4.2, maxX: 24.5, minZ: 10.9, maxZ: 11.6 },
+    ],
     update() { /* static hospital courtyard */ },
     dispose() {
       disposeTracked(res);
@@ -781,6 +778,12 @@ function buildSiheyuanRoom(_id: SceneId, meta?: SceneManifestEntry): World {
     cam: meta?.cam && meta.cam.h !== undefined ? { h: meta.cam.h, ahead: meta.cam.ahead ?? 3, y: meta.cam.y ?? 1.2 } : { h: 0.72, ahead: 3, y: 1.2 },
     atmosphere: preset,
     occluders,
+    colliders: [
+      { kind: 'circle', x: 0.8, z: -0.6, r: 0.65 },
+      { kind: 'box', minX: 2.15, maxX: 3.45, minZ: 3.45, maxZ: 4.15 },
+      { kind: 'box', minX: -3.5, maxX: -1.7, minZ: 3.78, maxZ: 4.5 },
+      { kind: 'circle', x: -4.3, z: -1.6, r: 0.38 },
+    ],
     update() { /* static room */ },
     dispose() {
       disposeTracked(res);
@@ -906,9 +909,9 @@ function buildMorningMarket(_id: SceneId, meta?: SceneManifestEntry): World {
     { x: 27.8, z: -2.1, ry: 0.0 },
     { x: 29.1, z: -2.1, ry: 0.2 },
   ];
-  const qMesh = trackMesh(res, instanced(mergeParts(crowdPersonLod(0x4a525c)), litMat(), queueSpots));
+  const qMesh = trackMesh(res, instanced(mergeParts(crowdPersonLod(0xf4f2ec)), tintLitMat(), queueSpots));
   const qCols = [C.navy, C.khaki, 0x5c646c, 0x7c5448, 0x4b5c4a, 0x867d6a];
-  queueSpots.forEach((_, i) => qMesh.setColorAt(i, new THREE.Color(qCols[i % qCols.length]!).multiplyScalar(1.9)));
+  queueSpots.forEach((_, i) => qMesh.setColorAt(i, new THREE.Color(qCols[i % qCols.length]!)));
   s.add(qMesh);
 
   const marketBikes = [
@@ -928,6 +931,10 @@ function buildMorningMarket(_id: SceneId, meta?: SceneManifestEntry): World {
   w.spawn = meta?.spawn ?? [-12, -3];
   w.camDist = meta?.cam?.dist ?? 11;
   w.atmosphere = 'day_spring';
+  w.colliders = [
+    ...(w.colliders ?? []),
+    { kind: 'box', minX: 0.75, maxX: 2.85, minZ: -4.6, maxZ: -4.0 },
+  ];
   w.dispose = () => {
     baseDispose?.();
     disposeTracked(res);

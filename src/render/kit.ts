@@ -18,6 +18,7 @@ export interface Part {
   eave?: boolean; curve?: number;
   bevel?: boolean;
   noAO?: boolean;
+  tint?: boolean;
 }
 
 /** Unit symmetric A-frame triangular prism in [-0.5, 0.5]^3 (ridge along Z). */
@@ -196,6 +197,7 @@ export function mergeParts(parts: Part[], texKind?: WallTexKind): THREE.BufferGe
   const col = new THREE.Color();
   const uvSpec = texKind ? getWallTexSpec(texKind) : null;
   const isRoof = texKind === 'roofTile';
+  const hasTint = parts.some(p => p.tint);
 
   for (const pt of parts) {
     let g: THREE.BufferGeometry;
@@ -264,6 +266,11 @@ export function mergeParts(parts: Part[], texKind?: WallTexKind): THREE.BufferGe
       }
     }
     g.setAttribute('color', new THREE.BufferAttribute(arr, 3));
+    if (hasTint) {
+      const tArr = new Float32Array(n);
+      if (pt.tint) tArr.fill(1);
+      g.setAttribute('aTint', new THREE.BufferAttribute(tArr, 1));
+    }
 
     if (uvSpec) {
       const uvs = new Float32Array(n * 2);
@@ -307,6 +314,43 @@ export const litMat = () => new THREE.MeshStandardMaterial({
   roughness: 0.82,
   metalness: 0.05,
 });
+
+/** Standard material that multiplies `instanceColor` ONLY where vertex attribute `aTint > 0.5` (preserving faces, hair & headbands). */
+export function tintLitMat(): THREE.MeshStandardMaterial {
+  const m = litMat();
+  m.customProgramCacheKey = () => 'b89_tint_lit_v1';
+  m.onBeforeCompile = shader => {
+    shader.vertexShader = 'attribute float aTint;\n' + shader.vertexShader.replace(
+      '#include <color_vertex>',
+      `#if defined( USE_COLOR_ALPHA )
+\tvColor = vec4( 1.0 );
+#elif defined( USE_COLOR ) || defined( USE_INSTANCING_COLOR ) || defined( USE_BATCHING_COLOR )
+\tvColor = vec3( 1.0 );
+#endif
+#ifdef USE_COLOR
+\tvColor *= color;
+#endif
+#ifdef USE_INSTANCING_COLOR
+\tvColor.xyz *= mix( vec3( 1.0 ), instanceColor.xyz, clamp( aTint, 0.0, 1.0 ) );
+#endif`,
+    );
+  };
+  return m;
+}
+
+/** Back-to-back non-mirrored plane geometry (FrontSide readable from both front and reverse viewpoints in 1 draw call). */
+export function makeTwoSidedPlaneGeo(w: number, h: number, gap = 0.008): THREE.BufferGeometry {
+  const front = new THREE.PlaneGeometry(w, h);
+  front.translate(0, 0, gap * 0.5);
+  const back = new THREE.PlaneGeometry(w, h);
+  back.rotateY(Math.PI);
+  back.translate(0, 0, -gap * 0.5);
+  const merged = mergeGeometries([front, back])!;
+  front.dispose();
+  back.dispose();
+  return merged;
+}
+
 export const glowMat = () => new THREE.MeshBasicMaterial({ vertexColors: true, fog: true });
 
 /** Partition static parts by optional wall/roof texture kind and add minimal merged draw-call meshes. */
@@ -354,6 +398,7 @@ export function textTexture(w: number, h: number, draw: (g: CanvasRenderingConte
   const c = document.createElement('canvas'); c.width = w; c.height = h;
   const g = c.getContext('2d')!; draw(g);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
+  t.userData = { sceneOwned: true };
   return t;
 }
 

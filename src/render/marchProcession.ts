@@ -51,8 +51,8 @@ interface TaggedPart {
 
 const H = Math.PI / 2;
 const JACKET_BASE = 0xebe9e3;
-const SKIN = 0xd2a680;
-const SKIN_SHADE = 0xc0926c;
+const SKIN = 0xf0ede6;
+const SKIN_SHADE = 0xe2ddd2;
 const PANTS = 0x262e3c;
 const WORK_PANTS = 0x293446;
 
@@ -101,24 +101,23 @@ function buildTaggedFigureGeo(entries: TaggedPart[]): THREE.BufferGeometry {
   return merged;
 }
 
-/** Sculpted core torso + belt + shirt V-neck + mourning paper flower + olive satchel + sculpted head (+X forward). */
+/** Sculpted core torso + belt + lapels + shirt V-neck + mourning paper flower + olive satchel + matte-white head (+X forward). */
 function coreTorsoAndHeadEntries(
   includeSatchel: boolean,
   includeFlower: boolean,
-  hairCol = C.black,
+  _hairCol = C.black,
   hiResHead = false,
 ): TaggedPart[] {
   const entries: TaggedPart[] = [
-    // Continuous tapered spring coat + waist belt + crisp white shirt V-neck
+    // Continuous tapered spring coat + waist belt + crisp white shirt V-neck & folded lapels
     { part: { p: [0, 0.81, 0], s: [0.255, 0.055, 0.405], c: 0x241d16 }, limb: 0, pivotY: 0.8, tintMask: 0 },
     { part: { p: [0, 1.12, 0], s: [0.245, 0.60, 0.40], c: JACKET_BASE, cyl: true, seg: 6, top: 1.08 }, limb: 0, pivotY: 0.8, tintMask: 1 },
     { part: { p: [0.116, 1.32, 0], s: [0.04, 0.16, 0.11], c: 0xf0ece0 }, limb: 0, pivotY: 0.8, tintMask: 0 },
-    // Neck, sculpted cranium, nose bridge & contoured 1980s hair cap
+    { part: { p: [0.125, 1.30, 0.068], s: [0.024, 0.17, 0.062], c: JACKET_BASE, rx: -0.24 }, limb: 0, pivotY: 0.8, tintMask: 1 },
+    { part: { p: [0.125, 1.30, -0.068], s: [0.024, 0.17, 0.062], c: JACKET_BASE, rx: 0.24 }, limb: 0, pivotY: 0.8, tintMask: 1 },
+    // Neck + sculpted featureless matte alabaster-white head
     { part: { p: [0, 1.46, 0], s: [0.095, 0.09, 0.095], c: SKIN_SHADE, cyl: true, seg: 4, open: true }, limb: 0, pivotY: 0.8, tintMask: 0 },
     { part: { p: [0.015, 1.59, 0], s: [0.195, 0.23, 0.178], c: SKIN, sphere: true, detail: hiResHead ? 1 : 0 }, limb: 0, pivotY: 0.8, tintMask: 0 },
-    { part: { p: [0.112, 1.585, 0], s: [0.025, 0.048, 0.024], c: SKIN_SHADE, wedge: true }, limb: 0, pivotY: 0.8, tintMask: 0 },
-    { part: { p: [-0.008, 1.655, 0], s: [0.21, 0.16, 0.194], c: hairCol, sphere: true, detail: 0 }, limb: 0, pivotY: 0.8, tintMask: 0 },
-    { part: { p: [-0.068, 1.565, 0], s: [0.08, 0.135, 0.165], c: hairCol, cyl: true, seg: 4, open: true }, limb: 0, pivotY: 0.8, tintMask: 0 },
   ];
   if (includeFlower) {
     // Crisp white mourning paper flower on left breast
@@ -195,11 +194,15 @@ function makeBearerGeo(): THREE.BufferGeometry {
   ]);
 }
 
-/** Expressive sidewalk resident/worker cheering or holding thermos flask (~224 tris). */
+/** Expressive sidewalk resident/worker with period waist apron + duckbill cap holding thermos flask (~210 tris). */
 function makeCitizenGeo(): THREE.BufferGeometry {
   return buildTaggedFigureGeo([
     ...legEntries(WORK_PANTS),
     ...coreTorsoAndHeadEntries(false, false, 0x262422, false),
+    // Sidewalk citizen cap + cloth waist apron so residents read clearly distinct from marching students
+    { part: { p: [0.008, 1.69, 0], s: [0.205, 0.082, 0.19], c: 0x3b3f44, sphere: true, detail: 0 }, limb: 0, pivotY: 1.59, tintMask: 0 },
+    { part: { p: [0.112, 1.655, 0], s: [0.095, 0.022, 0.165], c: 0x222528, rz: -0.15 }, limb: 0, pivotY: 1.59, tintMask: 0 },
+    { part: { p: [0.128, 0.78, 0], s: [0.032, 0.36, 0.30], c: 0xebe7dc }, limb: 0, pivotY: 0.8, tintMask: 0 },
     // Left arm lowered + right arm raised slightly holding a red thermos flask toward passing students
     { part: { p: [0.01, 1.12, 0.242], s: [0.11, 0.48, 0.10], c: JACKET_BASE, cyl: true, seg: 4, top: 0.82, open: true }, limb: 0, pivotY: 1.34, tintMask: 1 },
     { part: { p: [0.02, 0.85, 0.242], s: [0.076, 0.092, 0.070], c: SKIN }, limb: 0, pivotY: 1.34, tintMask: 0 },
@@ -211,30 +214,45 @@ function makeCitizenGeo(): THREE.BufferGeometry {
   ]);
 }
 
-/** Lean LOD standing crowd silhouette with jacket-only tint mask (~98 tris) — preserves natural skin/hair! */
+/** Lean LOD standing crowd silhouette with jacket-only tint mask & featureless white head (~94 tris). */
 export function makeStandingCrowdLodGeo(): THREE.BufferGeometry {
   return buildTaggedFigureGeo([
     { part: { p: [0, 0.40, 0], s: [0.17, 0.80, 0.28], c: PANTS, cyl: true, seg: 5, open: true }, limb: 0, pivotY: 0, tintMask: 0 },
     { part: { p: [0, 1.11, 0], s: [0.24, 0.62, 0.39], c: JACKET_BASE, cyl: true, seg: 5, top: 1.10 }, limb: 0, pivotY: 0, tintMask: 1 },
+    { part: { p: [0.116, 1.31, 0], s: [0.036, 0.15, 0.095], c: 0xebe7dc }, limb: 0, pivotY: 0, tintMask: 0 },
     { part: { p: [0.01, 1.12, 0.24], s: [0.11, 0.50, 0.095], c: JACKET_BASE, cyl: true, seg: 4, top: 0.78, open: true, rz: 0.06 }, limb: 0, pivotY: 0, tintMask: 1 },
     { part: { p: [0.01, 1.12, -0.24], s: [0.11, 0.50, 0.095], c: JACKET_BASE, cyl: true, seg: 4, top: 0.78, open: true, rz: 0.06 }, limb: 0, pivotY: 0, tintMask: 1 },
     { part: { p: [0.01, 1.57, 0], s: [0.19, 0.23, 0.175], c: SKIN, sphere: true, detail: 0 }, limb: 0, pivotY: 0, tintMask: 0 },
-    { part: { p: [-0.005, 1.64, 0], s: [0.205, 0.155, 0.19], c: C.black, sphere: true, detail: 0 }, limb: 0, pivotY: 0, tintMask: 0 },
     { part: { p: [-0.04, 0.89, 0.22], s: [0.18, 0.20, 0.075], c: 0x565c3a }, limb: 0, pivotY: 0, tintMask: 0 },
   ]);
 }
 
-/** Seated student with jacket-only tint mask + white headband & enamel mug (~126 tris). */
+/** Uniformed cordon officer silhouette with visored peaked cap (大檐帽) & featureless white head (~112 tris). */
+export function makeUniformCordonGeo(): THREE.BufferGeometry {
+  return buildTaggedFigureGeo([
+    { part: { p: [0, 0.40, 0], s: [0.17, 0.80, 0.28], c: 0x3b492e, cyl: true, seg: 5, open: true }, limb: 0, pivotY: 0, tintMask: 0 },
+    { part: { p: [0, 0.81, 0], s: [0.252, 0.055, 0.398], c: 0x261d14 }, limb: 0, pivotY: 0, tintMask: 0 },
+    { part: { p: [0, 1.11, 0], s: [0.24, 0.62, 0.39], c: JACKET_BASE, cyl: true, seg: 5, top: 1.10 }, limb: 0, pivotY: 0, tintMask: 1 },
+    { part: { p: [0.01, 1.12, 0.24], s: [0.11, 0.50, 0.095], c: JACKET_BASE, cyl: true, seg: 4, top: 0.78, open: true, rz: 0.06 }, limb: 0, pivotY: 0, tintMask: 1 },
+    { part: { p: [0.01, 1.12, -0.24], s: [0.11, 0.50, 0.095], c: JACKET_BASE, cyl: true, seg: 4, top: 0.78, open: true, rz: 0.06 }, limb: 0, pivotY: 0, tintMask: 1 },
+    { part: { p: [0.01, 1.57, 0], s: [0.19, 0.23, 0.175], c: SKIN, sphere: true, detail: 0 }, limb: 0, pivotY: 0, tintMask: 0 },
+    { part: { p: [0.01, 1.675, 0], s: [0.215, 0.065, 0.21], c: 0x455436, cyl: true, seg: 6, top: 1.15 }, limb: 0, pivotY: 0, tintMask: 0 },
+    { part: { p: [0.115, 1.645, 0], s: [0.095, 0.02, 0.165], c: 0x1a1c19, rz: -0.15 }, limb: 0, pivotY: 0, tintMask: 0 },
+    { part: { p: [0.115, 1.68, 0], s: [0.016, 0.026, 0.022], c: 0xc8a248 }, limb: 0, pivotY: 0, tintMask: 0 },
+  ]);
+}
+
+/** Seated student with jacket-only tint mask, featureless white head, headband & enamel mug (~118 tris). */
 export function makeSeatedCrowdGeo(headband = true): THREE.BufferGeometry {
   const entries: TaggedPart[] = [
     { part: { p: [0.22, 0.09, 0.12], s: [0.36, 0.14, 0.15], c: PANTS, cyl: true, seg: 4, open: true, rz: H, ry: 0.38 }, limb: 0, pivotY: 0, tintMask: 0 },
     { part: { p: [0.22, 0.09, -0.12], s: [0.36, 0.14, 0.15], c: PANTS, cyl: true, seg: 4, open: true, rz: H, ry: -0.38 }, limb: 0, pivotY: 0, tintMask: 0 },
     { part: { p: [0.38, 0.045, 0], s: [0.15, 0.075, 0.26], c: 0x1c1b19 }, limb: 0, pivotY: 0, tintMask: 0 },
     { part: { p: [0, 0.44, 0], s: [0.235, 0.56, 0.39], c: JACKET_BASE, cyl: true, seg: 5, top: 1.10, rz: -0.08 }, limb: 0, pivotY: 0, tintMask: 1 },
+    { part: { p: [0.098, 0.64, 0], s: [0.038, 0.14, 0.095], c: 0xebe7dc, rz: -0.08 }, limb: 0, pivotY: 0, tintMask: 0 },
     { part: { p: [0.12, 0.44, 0.22], s: [0.10, 0.39, 0.095], c: JACKET_BASE, cyl: true, seg: 4, top: 0.80, open: true, rz: 0.48 }, limb: 0, pivotY: 0, tintMask: 1 },
     { part: { p: [0.12, 0.44, -0.22], s: [0.10, 0.39, 0.095], c: JACKET_BASE, cyl: true, seg: 4, top: 0.80, open: true, rz: 0.48 }, limb: 0, pivotY: 0, tintMask: 1 },
     { part: { p: [0, 0.895, 0], s: [0.19, 0.225, 0.175], c: SKIN, sphere: true, detail: 0 }, limb: 0, pivotY: 0, tintMask: 0 },
-    { part: { p: [-0.01, 0.955, 0], s: [0.205, 0.155, 0.19], c: C.black, sphere: true, detail: 0 }, limb: 0, pivotY: 0, tintMask: 0 },
     { part: { p: [0.35, 0.06, 0.30], s: [0.09, 0.11, 0.09], c: C.enamel, cyl: true, seg: 5, open: true }, limb: 0, pivotY: 0, tintMask: 0 },
   ];
   if (headband) {
@@ -1561,14 +1579,14 @@ export function attachSquare422Assembly(
     scene.add(sitMesh);
   }
 
-  // Police cordon in front of Great Hall steps with skin-preserving material (no tinted faces!)
+  // Police cordon in front of Great Hall steps with visored uniform cap + featureless white head
   const police: Array<{ x: number; z: number; ry: number; colIdx: number }> = [];
   for (let row = 0; row < 2; row++) {
     for (let z = -275; z >= -365; z -= 2.4) {
       police.push({ x: -93 - row * 1.1, z: z - row * 0.3, ry: 0, colIdx: 0 });
     }
   }
-  const policeMesh = new THREE.InstancedMesh(makeStandingCrowdLodGeo(), staticCrowdMat, police.length);
+  const policeMesh = new THREE.InstancedMesh(makeUniformCordonGeo(), staticCrowdMat, police.length);
   policeMesh.receiveShadow = true;
   policeMesh.name = 'squarePoliceCordon';
   applyCrowd(policeMesh, police, [0x4c5d3c]);

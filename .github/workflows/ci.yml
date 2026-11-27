@@ -6,12 +6,16 @@ on:
 permissions: { contents: read }
 jobs:
   build-and-smoke:
+    name: build-and-smoke (${{ matrix.suite }})
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        shard: [render, routes]
+        include:
+          - { suite: render, shard: render, viewport: all }
+          - { suite: routes-phone, shard: routes, viewport: phone }
+          - { suite: routes, shard: routes, viewport: desktop }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,8 +29,9 @@ jobs:
           CHROME_PATH: /usr/bin/google-chrome
           SHOTS: shots
           SMOKE_SHARD: ${{ matrix.shard }}
+          SMOKE_ROUTE_VIEWPORT: ${{ matrix.viewport }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: smoke-screenshots-${{ matrix.shard }}
+          name: smoke-screenshots-${{ matrix.suite }}
           path: shots

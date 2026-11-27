@@ -851,6 +851,10 @@ export function isAudioOn(): boolean {
   return enabled;
 }
 
+export function isAudioUnlocked(): boolean {
+  return ctx?.state === 'running';
+}
+
 export function getActiveScoreTrack(): string | null {
   return enabled ? (activeDeck?.cue ?? targetCueForState()) : null;
 }

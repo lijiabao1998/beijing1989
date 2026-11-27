@@ -65,6 +65,10 @@ if (ALL_SCENE_IDS.length < 24) {
 }
 
 const SHARDS = parseShards();
+const routeViewport = process.env.SMOKE_ROUTE_VIEWPORT || 'all';
+if (!['all', 'phone', 'desktop'].includes(routeViewport)) throw new Error('Unknown route viewport: ' + routeViewport);
+const runPhoneRoutes = routeViewport !== 'desktop';
+const runDesktopRoutes = routeViewport !== 'phone';
 const shots = process.env.SHOTS;
 if (shots) mkdirSync(shots, { recursive: true });
 
@@ -87,17 +91,20 @@ const browser = await puppeteer.launch({
   ],
 });
 
-async function openHarness(name, viewport, { clearStorage = true } = {}) {
+async function openHarness(name, viewport, { clearStorage = true, showOpening = false } = {}) {
   const page = await browser.newPage();
   await page.setViewport(viewport);
-  page.on('pageerror', e => errors.push(`${name}: ${e.message}`));
+  page.on('pageerror', e => {
+    errors.push(`${name}: ${e.message}`);
+    console.error(`${name} browser exception`, e.stack || e.message);
+  });
   page.on('console', m => {
     if (m.type() === 'error') errors.push(`${name} console: ${m.text()}`);
   });
   const origWait = page.waitForFunction.bind(page);
   page.waitForFunction = (fn, opts = {}, ...args) => origWait(fn, { polling: 100, timeout: 30000, ...opts }, ...args);
 
-  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.goto(showOpening ? url : url + '?skipIntro=1', { waitUntil: 'domcontentloaded', timeout: 60000 });
   if (clearStorage) {
     await page.evaluate(() => localStorage.clear());
     await page.reload({ waitUntil: 'domcontentloaded', timeout: 60000 });
@@ -239,6 +246,39 @@ async function openHarness(name, viewport, { clearStorage = true } = {}) {
     page, ev, waitFade, waitTrack, pick, go, nextChapter, shot,
     assertPerfMap, exitViewfinderIfActive, tuneShortwaveAndConfirm, assertRectsClean, close,
   };
+}
+
+async function runOpening() {
+  const h = await openHarness('opening', PHONE_VIEWPORT, { clearStorage: false, showOpening: true });
+  const { page, ev } = h;
+  try {
+    await page.waitForSelector('#opening-prelude:modal');
+    await page.keyboard.press('Tab');
+    if (!await ev(() => !!document.activeElement.closest('#opening-prelude'))) throw new Error('Keyboard focus escaped the opening');
+    await page.focus('#op-pause');
+    await page.keyboard.press('Enter');
+    if (!await ev(() => window.__b89.openingActive && document.querySelector('#op-pause').textContent === '繼續')) {
+      throw new Error('Enter on Pause skipped the opening');
+    }
+    await page.tap('.op-dot[data-mv="1"]');
+    if (!await ev(() => Number(getComputedStyle(document.querySelector('.op-line')).opacity) > 0.5)) {
+      throw new Error('Paused chapter selection left the prelude text invisible');
+    }
+    await h.shot('phone-opening.png', 200);
+    await page.tap('#op-skip');
+    await page.waitForFunction(() => document.querySelector('#opening-prelude').hidden);
+    await page.setViewport(DESKTOP_VIEWPORT);
+    await page.click('#b-opening');
+    await page.waitForFunction(() => document.querySelector('#op-counter').textContent.includes('02'));
+    await h.shot('desktop-opening.png', 1500);
+    await page.waitForFunction(() => document.querySelector('#opening-prelude').hidden, { timeout: 45000 });
+    await page.click('#vp-worker');
+    await page.waitForFunction(() => window.__b89.scene === 'factory');
+    await page.click('#b-opening');
+    await ev(() => { window.__b89.skipOpening(); window.__b89.skipOpening(); });
+    await page.waitForFunction(() => document.querySelector('#opening-prelude').hidden);
+    console.log('opening ok: mobile touch and keyboard, automatic ending, title preview and repeated skip');
+  } finally { await h.close(); }
 }
 
 async function assertAllFourViewpointsOnTitle(h) {
@@ -1678,14 +1718,15 @@ async function runResident(name, viewport, { clearStorage = false } = {}) {
 
 try {
   if (SHARDS.render) {
+    await runOpening();
     await runRenderAndLeakAudit('phone', PHONE_VIEWPORT);
     await runRenderAndLeakAudit('desktop', DESKTOP_VIEWPORT);
   }
 
-  if (SHARDS.student) {
+  if (runPhoneRoutes && SHARDS.student) {
     await runStudent('phone', PHONE_VIEWPORT);
   }
-  if (SHARDS.journalist) {
+  if (runPhoneRoutes && SHARDS.journalist) {
     await runJournalistPhoneParity();
   }
 
@@ -1698,17 +1739,17 @@ try {
     return false;
   };
 
-  if (SHARDS.student) {
+  if (runDesktopRoutes && SHARDS.student) {
     await runStudent('desktop', DESKTOP_VIEWPORT);
     desktopCleared = true;
   }
-  if (SHARDS.worker) {
+  if (runDesktopRoutes && SHARDS.worker) {
     await runWorker('desktop', DESKTOP_VIEWPORT, { clearStorage: takeDesktopClearFlag() });
   }
-  if (SHARDS.journalist) {
+  if (runDesktopRoutes && SHARDS.journalist) {
     await runJournalist('desktop', DESKTOP_VIEWPORT, { clearStorage: takeDesktopClearFlag() });
   }
-  if (SHARDS.resident) {
+  if (runDesktopRoutes && SHARDS.resident) {
     await runResident('desktop', DESKTOP_VIEWPORT, { clearStorage: takeDesktopClearFlag() });
   }
 

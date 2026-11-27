@@ -22,8 +22,8 @@ import { applyRealismLighting, makeRainSystem, type RainSystem } from './render/
 import { FilmicPostProcessor } from './render/postProcess';
 import { updateFoliageWind } from './render/foliage';
 import { attachLivingWorld, type LivingWorldHandle } from './render/livingWorld';
-import { glowMat, instanced, litMat, mergeParts } from './render/kit';
-import { person } from './render/props';
+import { glowMat, instanced, litMat, mergeParts, place } from './render/kit';
+import { buildNpcParts, resolveNpcArchetype } from './render/npcCharacter';
 import { flowHtml, flowMultiChapterHtml } from './ui/flow';
 import { findNextTarget, isInTimeWindow, pickAutoChoice } from './engine/autoGuide';
 import { fullSpringChronicleHtml } from './ui/chronicle';
@@ -50,6 +50,7 @@ import { CinemaCamera, CAM_MODE_LABELS, isPhotoTargetInViewfinder, type CamMode,
 import {
   getActiveScoreTrack,
   isAudioOn,
+  isAudioUnlocked,
   playBell,
   playEndingStinger,
   playPaper,
@@ -92,6 +93,7 @@ import {
   type SnapshotDriftResult,
 } from './save/save';
 import { allSourcesHtml, eventHtml } from './ui/sources';
+import { mountOpeningPrelude } from './ui/openingPrelude';
 import type { Choice, Hotspot, PhotoTarget, PlayerMode, SceneId, ViewpointId } from './types';
 
 const $ = (id: string) => document.getElementById(id)!;
@@ -192,14 +194,6 @@ const hotspots = () =>
   chap().hotspots.filter(
     h => h.scene === world?.id && (!h.requires || story.has(h.requires)) && isInTimeWindow(h, state.clockMin),
   );
-const NPC: Record<string, number> = {
-  khaki: 0x8a7a55,
-  red: 0x6a2f3a,
-  navy: 0x2f3a52,
-  blue: 0x3a4a5a,
-  green: 0x4e5a3a,
-  grey: 0x5a5a55,
-};
 const seen = new Set<string>(loadLedger().seenEvents);
 let world!: World;
 let near: Hotspot | null = null;
@@ -224,6 +218,8 @@ const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2, 3, 4, 6, 8];
 let autoGuide = false;
 let playSpeed = 1;
 let isFading = false;
+let fadeCoversScene = false;
+let fadeSequence = 0;
 let curNodeId = '';
 let dlgAutoElapsed = 0;
 let dlgAutoDuration = 3.0;
@@ -435,15 +431,20 @@ function dressWorld(w: World) {
     m.name = 'markers';
     w.scene.add(m);
   }
-  const npcs = hs.filter(h => h.npc).map(h => ({
-    c: NPC[h.npc!] ?? 0x555555,
-    x: h.pos[0] + 0.9,
-    z: h.pos[1] - 0.6,
-    hx: h.pos[0],
-    hz: h.pos[1],
-  }));
+  const npcs = hs.filter(h => h.npc).map(h => {
+    const nx = h.pos[0] + 0.9;
+    const nz = h.pos[1] - 0.6;
+    return {
+      arch: resolveNpcArchetype({ id: h.id, label: h.label, npc: h.npc, scene: w.id }),
+      x: nx,
+      z: nz,
+      ry: Math.atan2(-(h.pos[1] - nz), h.pos[0] - nx),
+      hx: h.pos[0],
+      hz: h.pos[1],
+    };
+  });
   if (npcs.length) {
-    const parts = npcs.flatMap(n => person(n.c).map(pt => ({ ...pt, p: [pt.p[0] + n.x, pt.p[1], pt.p[2] + n.z] as [number, number, number] })));
+    const parts = npcs.flatMap(n => place(buildNpcParts(n.arch, w.id), n.x, n.z, n.ry));
     const one = new THREE.Mesh(mergeParts(parts), litMat());
     one.name = 'npcs';
     w.scene.add(one);
@@ -578,6 +579,7 @@ function findLockedPhotoTargets(): PhotoTarget[] {
 }
 
 function renderActiveScene(timeSec = clock.elapsedTime) {
+  if (fadeCoversScene) return;
   const atmo = SCENE_META[world.id]?.atmosphere ?? world.atmosphere ?? 'night';
   postProcess.setOptions({ atmosphere: atmo, look: visualLook });
   postProcess.render(renderer, world.scene, cam, timeSec);
@@ -655,6 +657,9 @@ function syncSceneView(id: SceneId, pos?: [number, number], snapCam = false) {
   const meta = SCENE_META[world.id] ?? SCENE_META[id];
   const p = pos ?? meta?.spawn ?? world.spawn;
   player.place(p[0], p[1]);
+  if (pos && resolvePlayerColliders(world, player.pos)) {
+    player.sync(0);
+  }
   yaw = meta?.defaultYaw ?? 0;
   controls.resetOrbit();
   cam.far = meta?.camFar ?? 160;
@@ -698,19 +703,30 @@ function enter(id: SceneId, pos?: [number, number], modeOverride?: PlayerMode) {
 }
 
 function fade(text: string, ms: number, mid: () => void) {
+  const sequence = ++fadeSequence;
+  const cover = $('fade');
   isFading = true;
+  fadeCoversScene = false;
   document.body.classList.remove('letterbox-on');
   const inMs = Math.max(180, Math.round(900 / playSpeed));
   const outMs = Math.max(200, Math.round(ms / playSpeed));
   $('fadetxt').textContent = text;
-  $('fade').classList.add('on');
+  cover.style.transitionDuration = Math.min(800, inMs) + 'ms';
+  cover.classList.add('on');
+  // Both deadlines start with the transition. Loading a cold scene can take
+  // longer than its caption on a software renderer.
   setTimeout(() => {
+    if (sequence !== fadeSequence) return;
+    fadeCoversScene = true;
     mid();
-    setTimeout(() => {
-      $('fade').classList.remove('on');
-      isFading = false;
-    }, outMs);
   }, inMs);
+  setTimeout(() => {
+    if (sequence !== fadeSequence) return;
+    fadeCoversScene = false;
+    cover.style.transitionDuration = Math.min(800, outMs) + 'ms';
+    cover.classList.remove('on');
+    isFading = false;
+  }, inMs + outMs);
 }
 
 function highlightAutoChoice() {
@@ -1024,7 +1040,7 @@ function openLianhuanhuaBookModal(onBack?: () => void) {
   });
 }
 
-function openReel(chapterId: string, onBack?: () => void, playAll = false) {
+function openReel(chapterId: string, onBack?: () => void, playAll = false, mode?: 'chapter' | 'route' | 'interwoven') {
   openModal('<p class="small">正在載入連環畫紀錄短片……</p>', true);
   setAudioMood('reel');
   const req = modalReqToken;
@@ -1033,11 +1049,12 @@ function openReel(chapterId: string, onBack?: () => void, playAll = false) {
     if (req !== modalReqToken || $('modal').hidden) return;
     modalCleanup = mountDocumentaryReel($('mbody'), chapterId, reelState?.diary ?? state.diary, onBack, {
       playAll,
+      mode,
       speed: playSpeed,
       ledger: loadLedger(),
       state: reelState,
       onSpeedChange: s => setPlaySpeed(s),
-      onOpenBook: () => openLianhuanhuaBookModal(() => openReel(chapterId, onBack, playAll)),
+      onOpenBook: () => openLianhuanhuaBookModal(() => openReel(chapterId, onBack, playAll, mode)),
     });
   });
 }
@@ -1444,7 +1461,9 @@ $('b-menu').onclick = () => {
        <button id="mart-radio" type="button">牡丹牌短波收音機</button>
      </div>
      <div class="row">
+       <button id="mopening" type="button">重播電影序幕</button>
        <button id="mwatchall">觀看本篇全${countWord}章影片</button>
+       <button id="minterwoven">🎞 四線交織編年長片</button>
        <button id="mreel">播放本章紀錄短片</button>
        <button id="mbook">翻閱連環畫冊</button>
        <button id="mdarkroom">暗房底片（${state.capturedPhotos?.length ?? 0}）</button>
@@ -1463,7 +1482,13 @@ $('b-menu').onclick = () => {
   $('mart-bulletin').onclick = () => void openArtifactModal('bulletin');
   $('mart-typeset').onclick = () => void openArtifactModal('typesetting');
   $('mart-radio').onclick = () => void openArtifactModal('shortwave');
+  $('mopening').onclick = () => {
+    unlockAudio();
+    closeModal(false);
+    openingPrelude.play(0);
+  };
   $('mwatchall').onclick = () => openReel(ord[0]!, undefined, true);
+  $('minterwoven').onclick = () => openReel(ord[0]!, undefined, true, 'interwoven');
   $('mreel').onclick = () => openReel(state.chapter);
   $('mbook').onclick = () => openLianhuanhuaBookModal();
   $('mdarkroom').onclick = () => openDiaryModal('darkroom');
@@ -1517,6 +1542,9 @@ $('b-guide').onclick = () => {
     const tx = Math.max(minX + 0.5, Math.min(maxX - 0.5, h.pos[0]));
     const tz = Math.max(minZ + 0.5, Math.min(maxZ - 0.5, h.pos[1] - 1.2));
     player.place(tx, tz);
+    if (resolvePlayerColliders(world, player.pos)) {
+      player.sync(0);
+    }
     snap = false;
     playSceneStep(world.id);
     refreshGuide(true);
@@ -1545,6 +1573,7 @@ controls.onInteract = () => {
 };
 
 addEventListener('keydown', e => {
+  if (openingPrelude.isActive()) return;
   unlockAudio();
   if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
   const el = e.target as HTMLElement | null;
@@ -1685,6 +1714,21 @@ function renderViewpointButtons() {
   }
 }
 
+function previewTitleViewpoint(vp: ViewpointId) {
+  const previewMap: Record<ViewpointId, [SceneId, number, number]> = {
+    student: ['campus', 0, 5],
+    worker: ['factory', 0, 10],
+    journalist: ['newsroom', 0, 5],
+    resident: ['courtyard', 0, 2],
+  };
+  const [sid, px, pz] = previewMap[vp];
+  if (world) world.scene.remove(player.mesh);
+  world = getWorld(sid);
+  world.scene.add(player.mesh);
+  player.setRoleMode(vp, resolveScenePlayerMode(sid, vp));
+  syncSceneView(sid, [px, pz], true);
+}
+
 function renderTitleViewpoint() {
   const playableVps = VIEWPOINTS.filter(v => v.playable && orderForViewpoint(v.id).length > 0);
   if (playableVps.length && !playableVps.some(v => v.id === activeViewpoint)) {
@@ -1703,6 +1747,7 @@ function renderTitleViewpoint() {
   $('vp-desc').textContent = vpDescFor(activeViewpoint);
   $('b-watch-all').textContent = `觀看全${countWord}章故事影片`;
   $('b-cont').hidden = !saved;
+  if (!playing && world) previewTitleViewpoint(activeViewpoint);
 
   const st0 = starts();
   const sel = ord.filter(id => st0[id]);
@@ -1768,6 +1813,45 @@ renderTitleViewpoint();
 syncCamUi();
 syncLensBtn();
 
+const openingDialog = document.querySelector<HTMLDialogElement>('#opening-prelude')!;
+const openingPrelude = mountOpeningPrelude(openingDialog, {
+  onUnlockAudio: () => {
+    unlockAudio();
+    if (!playing) setAudioMood('title');
+  },
+  onToggleAudio: () => {
+    const on = toggleAudio();
+    $('b-audio').textContent = on ? '聲音：開' : '聲音：關';
+    return on;
+  },
+  isAudioOn,
+  isAudioUnlocked,
+  onStart: () => {
+    if (!playing) {
+      $('title').classList.add('under-opening');
+      setAudioMood('title');
+      if (world) previewTitleViewpoint(activeViewpoint);
+    }
+  },
+  onFinish: () => {
+    $('title').classList.remove('under-opening');
+  },
+});
+
+$('b-opening').onclick = () => {
+  unlockAudio();
+  openingPrelude.play(0);
+};
+
+const bootParams = new URLSearchParams(location.search);
+const introParam = bootParams.get('intro') ?? bootParams.get('opening');
+const skipIntroParam = bootParams.get('skipIntro');
+const skipIntro =
+  introParam === '0' ||
+  introParam === 'false' ||
+  skipIntroParam === '1' ||
+  skipIntroParam === 'true';
+
 function resize() {
   const w = innerWidth;
   const h = innerHeight;
@@ -1781,9 +1865,10 @@ addEventListener('resize', resize);
 resize();
 
 const clock = new THREE.Clock();
-world = getWorld('campus');
-world.scene.add(player.mesh);
-player.place(0, 5);
+previewTitleViewpoint(activeViewpoint);
+if (!skipIntro) {
+  openingPrelude.play(0);
+}
 void started;
 
 function perfStats() {
@@ -1802,6 +1887,10 @@ function perfStats() {
 function stepFrame() {
   const dt = Math.min(clock.getDelta(), 0.09);
   const t = clock.elapsedTime;
+  if (openingPrelude.isActive()) {
+    if (!openingDialog.classList.contains('reveal-3d')) return;
+    if (playing) { renderActiveScene(t); return; }
+  }
   const reach = SCENE_META[world.id]?.reach ?? 2.4;
 
   player.setLookTarget(inDialog ? activeDialogTarget : (near ? near.pos : null));
@@ -2000,8 +2089,14 @@ function stepFrame() {
 }
 
 function frame() {
+  const t0 = performance.now();
   stepFrame();
-  requestAnimationFrame(frame);
+  const renderMs = performance.now() - t0;
+  if (renderMs > 90) {
+    setTimeout(() => requestAnimationFrame(frame), 0);
+  } else {
+    requestAnimationFrame(frame);
+  }
 }
 frame();
 
@@ -2018,6 +2113,10 @@ frame();
   get audioOn() { return isAudioOn(); },
   get audioTrack() { return getActiveScoreTrack(); },
   get letterbox() { return document.body.classList.contains('letterbox-on'); },
+  get openingActive() { return openingPrelude.isActive(); },
+  playOpening(startSec = 0) { openingPrelude.play(startSec); },
+  seekOpening(sec: number) { openingPrelude.seek(sec); },
+  skipOpening() { openingPrelude.skip(); },
   get speeds() { return [...SPEEDS]; },
   setAuto(on: boolean) { setAutoGuide(on); stepFrame(); },
   setSpeed(s: number) { setPlaySpeed(s); stepFrame(); },
@@ -2117,6 +2216,9 @@ frame();
     const h = chap().hotspots.find(x => x.id === id)!;
     if (world.id !== h.scene) enter(h.scene);
     player.place(h.pos[0], h.pos[1] - 1.2);
+    if (resolvePlayerColliders(world, player.pos)) {
+      player.sync(0);
+    }
     snap = true;
     cinemaCam.snapNow();
     stepFrame();

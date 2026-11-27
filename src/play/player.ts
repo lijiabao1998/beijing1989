@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { getCharacterFaceTexture, getFabricNormalTexture, getFabricRoughnessTexture } from '../render/characterTextures';
+import { getFabricNormalTexture, getFabricRoughnessTexture } from '../render/characterTextures';
+import { FACE_SHADE, FACE_WHITE } from '../render/npcCharacter';
 import { C, litMat, mergeParts, type Part } from '../render/kit';
 import { SharedTexPool } from '../render/materials';
 import { bikeBodyParts, bikeWheelLocal, tricycleRearWheelsLocal } from '../render/props';
@@ -43,24 +44,52 @@ function strut(a: [number, number, number], b: [number, number, number], thick: 
   };
 }
 
-/** Articulated leg mesh parts relative to hip pivot (y = 0.80, z = ±0.09). */
-function legLimbParts(trousers: number): Part[] {
-  return [
+/** Articulated leg + character-authentic footwear mesh parts relative to hip pivot (y = 0.80, z = ±0.09). */
+function legLimbParts(viewpoint: ViewpointId, trousers: number): Part[] {
+  const isJournalist = viewpoint === 'journalist';
+  const isStudent = viewpoint === 'student';
+  const isResident = viewpoint === 'resident';
+  const isWorker = viewpoint === 'worker';
+  const soleCol = isJournalist ? 0x161412 : isWorker ? 0x1a1a1c : 0xe4dfd2;
+  const upperCol = isJournalist ? 0x2b1c16 : isStudent ? 0xf2efe6 : 0x1a1a1d;
+
+  const parts: Part[] = [
     { p: [0, -0.18, 0], s: [0.16, 0.36, 0.145], c: trousers, cyl: true, seg: 7, top: 1.12 },
     { p: [0, -0.53, 0], s: [0.135, 0.40, 0.125], c: trousers, cyl: true, seg: 7, top: 1.15 },
-    { p: [0.02, -0.748, 0], s: [0.21, 0.052, 0.105], c: 0x1c1b19, cyl: true, seg: 8, top: 0.78 },
-    { p: [0.025, -0.785, 0], s: [0.23, 0.030, 0.11], c: 0xd8d2c4, cyl: true, seg: 8 },
+    { p: [0.02, -0.748, 0], s: [0.21, 0.052, 0.105], c: upperCol, cyl: true, seg: 8, top: 0.78 },
+    { p: [0.025, -0.785, 0], s: [0.23, 0.030, 0.11], c: soleCol, cyl: true, seg: 8 },
   ];
+  if (isJournalist) {
+    parts.push({ p: [-0.045, -0.778, 0], s: [0.068, 0.024, 0.095], c: 0x141212 });
+  }
+  if (isStudent) {
+    parts.push(
+      { p: [0.095, -0.772, 0], s: [0.068, 0.022, 0.092], c: 0xf0ece2, cyl: true, seg: 6 },
+      { p: [0.015, -0.752, 0.054], s: [0.082, 0.016, 0.012], c: 0xa82820, rz: 0.22 },
+      { p: [0.015, -0.752, -0.054], s: [0.082, 0.016, 0.012], c: 0xa82820, rz: 0.22 },
+    );
+  }
+  if (isResident) {
+    parts.push({ p: [0.03, -0.728, 0], s: [0.024, 0.014, 0.102], c: 0x161618 });
+  }
+  if (isWorker) {
+    parts.push({ p: [0, -0.68, 0], s: [0.144, 0.055, 0.136], c: 0x1c212a, cyl: true, seg: 7 });
+  }
+  return parts;
 }
 
 /** Articulated arm mesh parts relative to shoulder pivot (y = 1.36, z = ±0.245). */
-function armLimbParts(jacket: number): Part[] {
-  return [
+function armLimbParts(jacket: number, cuffCol?: number): Part[] {
+  const parts: Part[] = [
     { p: [0, -0.01, 0], s: [0.135, 0.13, 0.12], c: jacket, sphere: true, detail: 0 },
     { p: [0.005, -0.14, 0], s: [0.12, 0.26, 0.11], c: jacket, cyl: true, seg: 6, top: 0.88, open: true },
     { p: [0.028, -0.36, 0], s: [0.105, 0.23, 0.095], c: jacket, cyl: true, seg: 6, top: 0.82, rz: 0.18 },
-    { p: [0.052, -0.52, 0], s: [0.082, 0.105, 0.075], c: 0xc8a07a, sphere: true, detail: 0 },
+    { p: [0.052, -0.52, 0], s: [0.080, 0.098, 0.072], c: FACE_WHITE, sphere: true, detail: 0 },
   ];
+  if (cuffCol !== undefined) {
+    parts.push({ p: [0.044, -0.455, 0], s: [0.112, 0.045, 0.102], c: cuffCol, cyl: true, seg: 6, rz: 0.18 });
+  }
+  return parts;
 }
 
 /** Woven fabric PBR material with cotton/twill micro-normal & roughness maps (shared textures, zero leak). */
@@ -75,25 +104,26 @@ function fabricLitMat(): THREE.MeshStandardMaterial {
   });
 }
 
-/** Sculpted expressive head/face sphere (+ optional worker cap) oriented toward +x. */
-function buildHeadGroup(viewpoint: ViewpointId, withWorkerCap = false): THREE.Group {
+/** Matte alabaster-white featureless plaster head (+ worker duckbill cap when active) oriented toward +X. */
+function buildHeadGroup(withWorkerCap = false): THREE.Group {
   const hg = new THREE.Group();
-  const faceGeo = new THREE.SphereGeometry(1, 16, 12);
-  faceGeo.scale(0.100, 0.118, 0.090);
-  const faceMat = new THREE.MeshStandardMaterial({
-    map: getCharacterFaceTexture(viewpoint),
-    roughness: 0.72,
-    metalness: 0.02,
-  });
-  const faceMesh = new THREE.Mesh(faceGeo, faceMat);
-  faceMesh.castShadow = false;
-  faceMesh.receiveShadow = true;
-  hg.add(faceMesh);
+  const headParts: Part[] = [
+    { p: [0, 0, 0], s: [0.195, 0.232, 0.178], c: FACE_WHITE, sphere: true, detail: 1 },
+    { p: [0.016, -0.052, 0], s: [0.135, 0.088, 0.132], c: FACE_WHITE, cyl: true, seg: 7, top: 1.15 },
+  ];
+  const headMesh = new THREE.Mesh(
+    mergeParts(headParts),
+    new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.88, metalness: 0.02 }),
+  );
+  headMesh.castShadow = false;
+  headMesh.receiveShadow = true;
+  hg.add(headMesh);
 
   if (withWorkerCap) {
     const capParts: Part[] = [
-      { p: [-0.008, 0.098, 0], s: [0.215, 0.088, 0.200], c: 0x24344c, sphere: true, detail: 1 },
-      { p: [0.102, 0.068, 0], s: [0.105, 0.024, 0.175], c: 0x1c283a, rz: -0.14 },
+      { p: [-0.008, 0.102, 0], s: [0.215, 0.092, 0.200], c: 0x24364e, sphere: true, detail: 1 },
+      { p: [0, 0.072, 0], s: [0.206, 0.032, 0.192], c: 0x1c2b40, cyl: true, seg: 8 },
+      { p: [0.104, 0.068, 0], s: [0.105, 0.024, 0.175], c: 0x1a2638, rz: -0.14 },
     ];
     const capMesh = new THREE.Mesh(mergeParts(capParts), fabricLitMat());
     capMesh.castShadow = false;
@@ -103,29 +133,71 @@ function buildHeadGroup(viewpoint: ViewpointId, withWorkerCap = false): THREE.Gr
   return hg;
 }
 
-/** Sculpted upper body (pelvis, torso, collar, neck, optional satchel; head mounted separately) facing +x. */
+/** Sculpted upper body (pelvis, belt, tailored jacket, lapels, buttons & neck; head mounted separately) facing +X. */
 function upperBodyParts(
   jacket: number,
-  includeSatchel = true,
+  jacketShade: number,
+  innerCol = 0xeeeae0,
+  buttons = 4,
 ): Part[] {
-  const skinShade = 0xb88f6a;
   const parts: Part[] = [
-    { p: [0, 0.81, 0], s: [0.255, 0.065, 0.41], c: 0x241d16, cyl: true, seg: 8 },
-    { p: [0.128, 0.81, 0], s: [0.018, 0.052, 0.068], c: C.brass },
-    { p: [0, 0.90, 0], s: [0.268, 0.16, 0.42], c: jacket, cyl: true, seg: 8, top: 0.94 },
-    { p: [0, 1.18, 0], s: [0.245, 0.44, 0.39], c: jacket, cyl: true, seg: 8, top: 1.14 },
-    { p: [0.115, 1.32, 0], s: [0.045, 0.17, 0.115], c: 0xe8e2d2 },
-    { p: [0.125, 1.30, 0.072], s: [0.028, 0.20, 0.072], c: jacket, rx: -0.25 },
-    { p: [0.125, 1.30, -0.072], s: [0.028, 0.20, 0.072], c: jacket, rx: 0.25 },
-    { p: [-0.01, 1.415, 0], s: [0.21, 0.065, 0.26], c: jacket, cyl: true, seg: 8, top: 0.85 },
-    { p: [0, 1.46, 0], s: [0.10, 0.09, 0.095], c: skinShade, cyl: true, seg: 6 },
+    { p: [0, 0.81, 0], s: [0.256, 0.065, 0.41], c: 0x241d16, cyl: true, seg: 8 },
+    { p: [0.129, 0.81, 0], s: [0.018, 0.052, 0.068], c: C.brass },
+    { p: [0, 0.90, 0], s: [0.268, 0.16, 0.42], c: jacketShade, cyl: true, seg: 8, top: 0.94 },
+    { p: [0, 1.18, 0], s: [0.246, 0.44, 0.39], c: jacket, cyl: true, seg: 8, top: 1.14 },
+    { p: [0.115, 1.32, 0], s: [0.045, 0.17, 0.115], c: innerCol },
+    { p: [0.125, 1.30, 0.072], s: [0.028, 0.20, 0.072], c: jacketShade, rx: -0.25 },
+    { p: [0.125, 1.30, -0.072], s: [0.028, 0.20, 0.072], c: jacketShade, rx: 0.25 },
+    { p: [0.134, 1.04, 0], s: [0.012, 0.34, 0.022], c: jacketShade },
+    { p: [-0.01, 1.415, 0], s: [0.21, 0.065, 0.26], c: jacketShade, cyl: true, seg: 8, top: 0.85 },
+    { p: [0, 1.46, 0], s: [0.095, 0.095, 0.092], c: FACE_SHADE, cyl: true, seg: 7 },
   ];
-  if (includeSatchel) {
-    parts.push(
-      { p: [0, 1.15, 0], s: [0.275, 0.54, 0.04], c: 0x5c6240, rx: 0.58 },
-      { p: [-0.05, 0.88, 0.235], s: [0.20, 0.22, 0.085], c: 0x565c3a, bevel: true },
-    );
+  for (let i = 0; i < buttons; i++) {
+    parts.push({ p: [0.141, 1.22 - i * 0.105, 0], s: [0.012, 0.022, 0.022], c: 0x22201d, cyl: true, rz: H, seg: 6 });
   }
+  return parts;
+}
+
+function studentUpperParts(): Part[] {
+  const trim = 0x323b2e;
+  const parts = upperBodyParts(JACKET, trim, 0xf0ece2, 4);
+  parts.push(
+    // Navy V-neck sweater vest inside olive youth jacket
+    { p: [0.120, 1.24, 0], s: [0.032, 0.16, 0.106], c: 0x24334b },
+    // Rectangular PKU pin badge + silver fountain pen clip
+    { p: [0.138, 1.31, 0.088], s: [0.012, 0.022, 0.056], c: 0xf4f1ea },
+    { p: [0.141, 1.31, 0.088], s: [0.013, 0.010, 0.042], c: 0xb8241c },
+    { p: [0.136, 1.26, -0.092], s: [0.014, 0.068, 0.014], c: C.chrome },
+    // Breast pocket flaps
+    { p: [0.132, 1.20, 0.105], s: [0.024, 0.095, 0.088], c: trim, bevel: true },
+    { p: [0.132, 1.20, -0.105], s: [0.024, 0.095, 0.088], c: trim, bevel: true },
+    // Cross-body olive canvas student satchel (軍挎包) with stitched flap & brass buckle
+    { p: [0, 1.15, 0], s: [0.275, 0.54, 0.042], c: 0x5c6240, rx: 0.58 },
+    { p: [-0.05, 0.88, 0.238], s: [0.21, 0.22, 0.088], c: 0x565c3a, bevel: true },
+    { p: [-0.05, 0.94, 0.242], s: [0.216, 0.065, 0.094], c: 0x626942 },
+    { p: [-0.05, 0.89, 0.29], s: [0.028, 0.034, 0.012], c: C.brass },
+  );
+  return parts;
+}
+
+function workerUpperParts(): Part[] {
+  const trim = 0x1e2d3e;
+  const parts = upperBodyParts(WORKER_JACKET, trim, 0xe8e2d2, 5);
+  parts.push(
+    // Dual factory work-jacket chest pockets + brass vernier rule / pen tip
+    { p: [0.132, 1.22, 0.105], s: [0.024, 0.10, 0.090], c: trim, bevel: true },
+    { p: [0.132, 1.22, -0.105], s: [0.024, 0.10, 0.090], c: trim, bevel: true },
+    { p: [0.136, 1.26, -0.094], s: [0.014, 0.074, 0.014], c: C.brass },
+    // Signature 1980s machinist white cotton sweat towel (白毛巾) with crimson stripes draped on shoulders
+    { p: [0.01, 1.445, 0], s: [0.225, 0.048, 0.255], c: 0xf4f1e8, cyl: true, seg: 8 },
+    { p: [0.128, 1.27, 0.072], s: [0.028, 0.28, 0.068], c: 0xf4f1e8, rx: -0.08 },
+    { p: [0.128, 1.27, -0.072], s: [0.028, 0.28, 0.068], c: 0xf4f1e8, rx: 0.08 },
+    { p: [0.132, 1.155, 0.072], s: [0.030, 0.022, 0.070], c: 0xa82a22 },
+    { p: [0.132, 1.155, -0.072], s: [0.030, 0.022, 0.070], c: 0xa82a22 },
+    // Heavy olive tool/lunch satchel
+    { p: [0, 1.15, 0], s: [0.275, 0.54, 0.042], c: 0x4b5136, rx: 0.58 },
+    { p: [-0.05, 0.88, 0.238], s: [0.21, 0.22, 0.092], c: 0x42472e, bevel: true },
+  );
   return parts;
 }
 
@@ -160,18 +232,26 @@ function trenchCoatParts(): Part[] {
 }
 
 function journalistUpperParts(raisedCamera: boolean): Part[] {
-  const parts = upperBodyParts(JOURNALIST_COAT, false);
-  parts.push(...trenchCoatParts(), ...cameraBagParts());
+  const parts = upperBodyParts(JOURNALIST_COAT, JOURNALIST_COAT_SHADE, 0xeeeae0, 0);
+  parts.push(
+    ...trenchCoatParts(),
+    ...cameraBagParts(),
+    // Crimson necktie + shoulder epaulets + chest Press Card (記者證)
+    { p: [0.128, 1.24, 0], s: [0.016, 0.18, 0.036], c: 0x6e2422 },
+    { p: [0, 1.42, 0.18], s: [0.065, 0.018, 0.11], c: JOURNALIST_COAT_SHADE },
+    { p: [0, 1.42, -0.18], s: [0.065, 0.018, 0.11], c: JOURNALIST_COAT_SHADE },
+    { p: [0.138, 1.29, 0.098], s: [0.012, 0.042, 0.064], c: 0xf4f1ea },
+    { p: [0.141, 1.30, 0.098], s: [0.013, 0.014, 0.052], c: 0x9c2820 },
+  );
 
   if (raisedCamera) {
-    // Raised arms cradling the 35mm SLR at eye height
     parts.push(
       strut([0, 1.33, 0.24], [0.16, 1.36, 0.20], 0.11, JOURNALIST_COAT, 6),
       strut([0.16, 1.36, 0.20], [0.25, 1.54, 0.10], 0.095, JOURNALIST_COAT, 6),
       strut([0, 1.33, -0.24], [0.16, 1.36, -0.20], 0.11, JOURNALIST_COAT, 6),
       strut([0.16, 1.36, -0.20], [0.25, 1.54, -0.10], 0.095, JOURNALIST_COAT, 6),
-      { p: [0.26, 1.55, 0.095], s: [0.075, 0.075, 0.075], c: 0xc8a07a, sphere: true, detail: 0 },
-      { p: [0.26, 1.55, -0.095], s: [0.075, 0.075, 0.075], c: 0xc8a07a, sphere: true, detail: 0 },
+      { p: [0.26, 1.55, 0.095], s: [0.075, 0.075, 0.075], c: FACE_WHITE, sphere: true, detail: 0 },
+      { p: [0.26, 1.55, -0.095], s: [0.075, 0.075, 0.075], c: FACE_WHITE, sphere: true, detail: 0 },
       ...slrCameraParts(0.285, 1.56, 0),
     );
   } else {
@@ -184,12 +264,14 @@ function journalistUpperParts(raisedCamera: boolean): Part[] {
 }
 
 function residentUpperParts(): Part[] {
-  const parts = upperBodyParts(RESIDENT_CARDIGAN, false);
+  const parts = upperBodyParts(RESIDENT_CARDIGAN, RESIDENT_CARDIGAN_TRIM, 0x7a3438, 4);
   parts.push(
-    { p: [0.132, 1.07, 0], s: [0.018, 0.38, 0.055], c: RESIDENT_CARDIGAN_TRIM },
-    { p: [0.142, 1.18, 0], s: [0.014, 0.022, 0.022], c: 0x282a2e },
-    { p: [0.142, 1.09, 0], s: [0.014, 0.022, 0.022], c: 0x282a2e },
-    { p: [0.142, 1.00, 0], s: [0.014, 0.022, 0.022], c: 0x282a2e },
+    // Knit shawl collar & vertical button placket + side patch pockets + folded gauze kerchief corner
+    { p: [0.005, 1.42, 0], s: [0.222, 0.068, 0.275], c: RESIDENT_CARDIGAN_TRIM, cyl: true, seg: 8 },
+    { p: [0.132, 1.07, 0], s: [0.018, 0.38, 0.058], c: RESIDENT_CARDIGAN_TRIM },
+    { p: [0.136, 0.90, 0.12], s: [0.024, 0.115, 0.11], c: RESIDENT_CARDIGAN_TRIM, bevel: true },
+    { p: [0.136, 0.90, -0.12], s: [0.024, 0.115, 0.11], c: RESIDENT_CARDIGAN_TRIM, bevel: true },
+    { p: [0.142, 0.955, 0.12], s: [0.014, 0.032, 0.054], c: 0xf4f1ea },
   );
   return parts;
 }
@@ -243,7 +325,7 @@ function buildRigGroup(viewpoint: ViewpointId, mode: PlayerMode): THREE.Group {
     bodyMesh.receiveShadow = true;
     group.add(bodyMesh);
 
-    const head = buildHeadGroup(viewpoint, viewpoint === 'worker');
+    const head = buildHeadGroup(viewpoint === 'worker');
     if (mode === 'tricycle') {
       head.position.set(0.46, 1.54, 0);
     } else {
@@ -281,6 +363,11 @@ function buildRigGroup(viewpoint: ViewpointId, mode: PlayerMode): THREE.Group {
     : viewpoint === 'journalist' ? JOURNALIST_COAT
     : viewpoint === 'resident' ? RESIDENT_CARDIGAN
     : JACKET;
+  const cuffCol =
+    viewpoint === 'worker' ? 0x1e2d3e
+    : viewpoint === 'journalist' ? JOURNALIST_COAT_SHADE
+    : viewpoint === 'resident' ? RESIDENT_CARDIGAN_TRIM
+    : 0x323b2e;
   const trousers =
     viewpoint === 'worker' ? 0x242830
     : viewpoint === 'journalist' ? JOURNALIST_TROUSERS
@@ -292,39 +379,42 @@ function buildRigGroup(viewpoint: ViewpointId, mode: PlayerMode): THREE.Group {
     if (viewpoint === 'journalist') {
       bodyParts = journalistUpperParts(true);
     } else {
-      bodyParts = upperBodyParts(coat, viewpoint === 'student' || viewpoint === 'worker');
+      bodyParts =
+        viewpoint === 'worker' ? workerUpperParts()
+        : viewpoint === 'resident' ? residentUpperParts()
+        : studentUpperParts();
       bodyParts.push(
         strut([0, 1.33, 0.24], [0.16, 1.36, 0.20], 0.11, coat, 6),
         strut([0.16, 1.36, 0.20], [0.25, 1.54, 0.10], 0.095, coat, 6),
         strut([0, 1.33, -0.24], [0.16, 1.36, -0.20], 0.11, coat, 6),
         strut([0.16, 1.36, -0.20], [0.25, 1.54, -0.10], 0.095, coat, 6),
-        { p: [0.26, 1.55, 0.095], s: [0.075, 0.075, 0.075], c: 0xc8a07a, sphere: true, detail: 0 },
-        { p: [0.26, 1.55, -0.095], s: [0.075, 0.075, 0.075], c: 0xc8a07a, sphere: true, detail: 0 },
+        { p: [0.26, 1.55, 0.095], s: [0.075, 0.075, 0.075], c: FACE_WHITE, sphere: true, detail: 0 },
+        { p: [0.26, 1.55, -0.095], s: [0.075, 0.075, 0.075], c: FACE_WHITE, sphere: true, detail: 0 },
         ...slrCameraParts(0.285, 1.56, 0),
       );
     }
   } else if (viewpoint === 'worker') {
-    bodyParts = upperBodyParts(WORKER_JACKET, true);
+    bodyParts = workerUpperParts();
   } else if (viewpoint === 'journalist') {
     bodyParts = journalistUpperParts(false);
   } else if (viewpoint === 'resident') {
     bodyParts = residentUpperParts();
   } else {
-    bodyParts = upperBodyParts(JACKET, true);
+    bodyParts = studentUpperParts();
   }
 
   const bodyMesh = new THREE.Mesh(mergeParts(bodyParts), fabricLitMat());
   bodyMesh.castShadow = true;
   group.add(bodyMesh);
 
-  const head = buildHeadGroup(viewpoint, viewpoint === 'worker');
+  const head = buildHeadGroup(viewpoint === 'worker');
   head.position.set(0.015, 1.59, 0);
   group.add(head);
 
-  const legL = new THREE.Mesh(mergeParts(legLimbParts(trousers)), fabricLitMat());
+  const legL = new THREE.Mesh(mergeParts(legLimbParts(viewpoint, trousers)), fabricLitMat());
   legL.position.set(0, 0.80, 0.09);
   legL.castShadow = true;
-  const legR = new THREE.Mesh(mergeParts(legLimbParts(trousers)), fabricLitMat());
+  const legR = new THREE.Mesh(mergeParts(legLimbParts(viewpoint, trousers)), fabricLitMat());
   legR.position.set(0, 0.80, -0.09);
   legR.castShadow = true;
   group.add(legL, legR);
@@ -332,11 +422,11 @@ function buildRigGroup(viewpoint: ViewpointId, mode: PlayerMode): THREE.Group {
   const anim: RigAnimParts = { body: bodyMesh, head, legL, legR };
   if (mode === 'walk') {
     const leftArmParts = viewpoint === 'resident'
-      ? [...armLimbParts(coat), ...residentToteParts()]
-      : armLimbParts(coat);
+      ? [...armLimbParts(coat, cuffCol), ...residentToteParts()]
+      : armLimbParts(coat, cuffCol);
     const armL = new THREE.Mesh(mergeParts(leftArmParts), fabricLitMat());
     armL.position.set(0, 1.36, 0.245);
-    const armR = new THREE.Mesh(mergeParts(armLimbParts(coat)), fabricLitMat());
+    const armR = new THREE.Mesh(mergeParts(armLimbParts(coat, cuffCol)), fabricLitMat());
     armR.position.set(0, 1.36, -0.245);
     group.add(armL, armR);
     anim.armL = armL;
