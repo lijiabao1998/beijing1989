@@ -1885,7 +1885,8 @@ function perfStats() {
 }
 
 function stepFrame() {
-  const dt = Math.min(clock.getDelta(), 0.09);
+  const elapsed = clock.getDelta();
+  const dt = Math.min(elapsed, 0.09);
   const t = clock.elapsedTime;
   if (openingPrelude.isActive()) {
     if (!openingDialog.classList.contains('reveal-3d')) return;
@@ -1926,7 +1927,10 @@ function stepFrame() {
           const stopDist = Math.max(1.8, reach * 0.78);
           const initDist = Math.hypot(tx - player.pos.x, tz - player.pos.y);
           const sceneBoost = initDist > 25 ? 2.4 : initDist > 10 ? 1.55 : 1.15;
-          let remaining = player.speed * sceneBoost * playSpeed * dt;
+          // A guide walks toward a fixed point in bounded substeps. Use
+          // visible elapsed time when the renderer cannot sustain 11 FPS.
+          const walkingTime = document.hidden ? dt : Math.min(elapsed, 0.5);
+          let remaining = player.speed * sceneBoost * playSpeed * walkingTime;
           let arrived = false;
           let movedAny = false;
           let lastNx = 0;
