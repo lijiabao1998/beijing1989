@@ -218,6 +218,8 @@ const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2, 3, 4, 6, 8];
 let autoGuide = false;
 let playSpeed = 1;
 let isFading = false;
+let fadeCoversScene = false;
+let fadeSequence = 0;
 let curNodeId = '';
 let dlgAutoElapsed = 0;
 let dlgAutoDuration = 3.0;
@@ -577,6 +579,7 @@ function findLockedPhotoTargets(): PhotoTarget[] {
 }
 
 function renderActiveScene(timeSec = clock.elapsedTime) {
+  if (fadeCoversScene) return;
   const atmo = SCENE_META[world.id]?.atmosphere ?? world.atmosphere ?? 'night';
   postProcess.setOptions({ atmosphere: atmo, look: visualLook });
   postProcess.render(renderer, world.scene, cam, timeSec);
@@ -700,19 +703,30 @@ function enter(id: SceneId, pos?: [number, number], modeOverride?: PlayerMode) {
 }
 
 function fade(text: string, ms: number, mid: () => void) {
+  const sequence = ++fadeSequence;
+  const cover = $('fade');
   isFading = true;
+  fadeCoversScene = false;
   document.body.classList.remove('letterbox-on');
   const inMs = Math.max(180, Math.round(900 / playSpeed));
   const outMs = Math.max(200, Math.round(ms / playSpeed));
   $('fadetxt').textContent = text;
-  $('fade').classList.add('on');
+  cover.style.transitionDuration = Math.min(800, inMs) + 'ms';
+  cover.classList.add('on');
+  // Both deadlines start with the transition. Loading a cold scene can take
+  // longer than its caption on a software renderer.
   setTimeout(() => {
+    if (sequence !== fadeSequence) return;
+    fadeCoversScene = true;
     mid();
-    setTimeout(() => {
-      $('fade').classList.remove('on');
-      isFading = false;
-    }, outMs);
   }, inMs);
+  setTimeout(() => {
+    if (sequence !== fadeSequence) return;
+    fadeCoversScene = false;
+    cover.style.transitionDuration = Math.min(800, outMs) + 'ms';
+    cover.classList.remove('on');
+    isFading = false;
+  }, inMs + outMs);
 }
 
 function highlightAutoChoice() {

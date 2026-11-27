@@ -65,6 +65,10 @@ if (ALL_SCENE_IDS.length < 24) {
 }
 
 const SHARDS = parseShards();
+const routeViewport = process.env.SMOKE_ROUTE_VIEWPORT || 'all';
+if (!['all', 'phone', 'desktop'].includes(routeViewport)) throw new Error('Unknown route viewport: ' + routeViewport);
+const runPhoneRoutes = routeViewport !== 'desktop';
+const runDesktopRoutes = routeViewport !== 'phone';
 const shots = process.env.SHOTS;
 if (shots) mkdirSync(shots, { recursive: true });
 
@@ -90,7 +94,10 @@ const browser = await puppeteer.launch({
 async function openHarness(name, viewport, { clearStorage = true, showOpening = false } = {}) {
   const page = await browser.newPage();
   await page.setViewport(viewport);
-  page.on('pageerror', e => errors.push(`${name}: ${e.message}`));
+  page.on('pageerror', e => {
+    errors.push(`${name}: ${e.message}`);
+    console.error(`${name} browser exception`, e.stack || e.message);
+  });
   page.on('console', m => {
     if (m.type() === 'error') errors.push(`${name} console: ${m.text()}`);
   });
@@ -1716,10 +1723,10 @@ try {
     await runRenderAndLeakAudit('desktop', DESKTOP_VIEWPORT);
   }
 
-  if (SHARDS.student) {
+  if (runPhoneRoutes && SHARDS.student) {
     await runStudent('phone', PHONE_VIEWPORT);
   }
-  if (SHARDS.journalist) {
+  if (runPhoneRoutes && SHARDS.journalist) {
     await runJournalistPhoneParity();
   }
 
@@ -1732,17 +1739,17 @@ try {
     return false;
   };
 
-  if (SHARDS.student) {
+  if (runDesktopRoutes && SHARDS.student) {
     await runStudent('desktop', DESKTOP_VIEWPORT);
     desktopCleared = true;
   }
-  if (SHARDS.worker) {
+  if (runDesktopRoutes && SHARDS.worker) {
     await runWorker('desktop', DESKTOP_VIEWPORT, { clearStorage: takeDesktopClearFlag() });
   }
-  if (SHARDS.journalist) {
+  if (runDesktopRoutes && SHARDS.journalist) {
     await runJournalist('desktop', DESKTOP_VIEWPORT, { clearStorage: takeDesktopClearFlag() });
   }
-  if (SHARDS.resident) {
+  if (runDesktopRoutes && SHARDS.resident) {
     await runResident('desktop', DESKTOP_VIEWPORT, { clearStorage: takeDesktopClearFlag() });
   }
 
