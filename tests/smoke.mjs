@@ -566,17 +566,51 @@ async function runStudent(name, viewport) {
       }
     }
 
-    // Verify Auto-Guide 8x high-speed pathfinding reaches zhou without overshooting
-    await ev(() => { window.__b89.placeAt(15, 7); window.__b89.setSpeed(8); window.__b89.setAuto(true); });
-    const autoReached = await (await page.waitForFunction(() => {
-      if (!window.__b89.dialog) return false;
-      const n = window.__b89.near;
-      window.__b89.setAuto(false);
-      window.__b89.setSpeed(1);
-      return n || '__none__';
-    }, { polling: 'raf', timeout: 15000 })).jsonValue();
-    if (autoReached !== 'zhou') {
-      throw new Error('auto-guide 8x pathfinding overshot or missed zhou: near=' + autoReached);
+    // Observe the first actual dialog before starting. At 8x the player can
+    // open and leave a dialog between two out-of-process animation polls.
+    await ev(slowFrame => {
+      const game = window.__b89;
+      const dialog = document.getElementById('dlg');
+      const toggle = document.getElementById('b-auto');
+      game.placeAt(15, 7);
+      game.setSpeed(8);
+      const raf = window.requestAnimationFrame;
+      let collecting = true;
+      const receipt = window.__guideArrival = { id: null, frames: 0, reading: '' };
+      const observer = new MutationObserver(() => {
+        if (dialog.hidden || !game.dialog) return;
+        receipt.id = game.near || '__none__';
+        receipt.reading = document.getElementById('txt').textContent;
+        if (game.auto) toggle.click();
+        window.__finishGuideArrival();
+      });
+      window.__finishGuideArrival = () => {
+        collecting = false;
+        observer.disconnect();
+        window.requestAnimationFrame = raf;
+      };
+      observer.observe(dialog, { attributes: true, attributeFilter: ['hidden'] });
+      if (slowFrame) {
+        window.requestAnimationFrame = cb => raf.call(window, t => {
+          if (!collecting) return cb(t);
+          setTimeout(() => { receipt.frames++; cb(performance.now()); }, slowFrame);
+        });
+      }
+      toggle.click();
+    }, name === 'desktop' ? 3000 : 0);
+    try {
+      await page.waitForFunction(() => window.__guideArrival.id !== null, { polling: 100, timeout: 15000 });
+      const arrival = await ev(() => window.__guideArrival);
+      if (arrival.id !== 'zhou' || !arrival.reading || (name === 'desktop' && !arrival.frames)) {
+        throw new Error('8x guide opened the wrong dialog: ' + JSON.stringify(arrival));
+      }
+    } catch (error) {
+      const details = await ev(() => ({ ...window.__guideArrival, scene: window.__b89.scene, near: window.__b89.near,
+        auto: window.__b89.auto, speed: window.__b89.speed, dialog: window.__b89.dialog,
+        modal: !document.getElementById('modal').hidden, hint: document.getElementById('guide-txt').textContent }));
+      throw new Error('8x guide did not reach 老周 within 15s: ' + JSON.stringify(details), { cause: error });
+    } finally {
+      await ev(() => { window.__finishGuideArrival(); window.__b89.setSpeed(1); });
     }
     await pick(0); await pick(0);
     await go('lin'); await pick(1); await pick(0);
