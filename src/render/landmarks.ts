@@ -16,6 +16,8 @@ export const L = {
 export {
   imperialRoof as roof,
   tiananmen,
+  stoneLion,
+  huabiao,
   monument,
   greatHall,
   huadengPole,

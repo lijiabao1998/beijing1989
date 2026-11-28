@@ -82,7 +82,7 @@ function balustradeRun(
 }
 
 /** Sculpted imperial marble guardian stone lion (石獅子) facing -Z toward Tiananmen Square. */
-function stoneLion(x: number, z: number, facingSign = -1): Part[] {
+export function stoneLion(x: number, z: number, facingSign = -1): Part[] {
   const m = IMP.marbleBright;
   const mw = IMP.marbleWarm;
   const dark = IMP.stoneDark;
@@ -363,7 +363,7 @@ function goldenWaterBridge(bw: number): Part[] {
 }
 
 /** One ornate white marble Huabiao (華表) at origin (placed at x = ±22, z = -34). */
-function huabiao(): Part[] {
+export function huabiao(): Part[] {
   const m = IMP.marbleBright;
   const mw = IMP.marbleWarm;
   const p: Part[] = [
@@ -447,7 +447,7 @@ function huabiao(): Part[] {
 }
 
 /** 天安門城樓: battered red fortress podium, 5 vaulted archways, terraced viewing stands & banners, 9-bay double-eave hall, Golden Water Bridges, and twin Huabiao. */
-export function tiananmen(): Part[] {
+export function tiananmen(includeHeroProps = true): Part[] {
   const p: Part[] = [
     // Battered Red Fortress Podium (城台): Sumeru granite plinth, lower/upper battered walls, frieze, marble + glazed coping
     { p: [0, 0.60, 0], s: [67.4, 1.2, 37.8], c: IMP.stone, tex: 'ashlarStone' },
@@ -649,14 +649,16 @@ export function tiananmen(): Part[] {
   for (const bx of [-16, -8, 0, 8, 16]) {
     p.push(...place(goldenWaterBridge(bx === 0 ? 6.2 : 4.2), bx, 0));
   }
-  // Twin carved imperial stone lions (石獅子) flanking the central Golden Water Bridge entrance
-  for (const sx of [-1, 1]) {
-    p.push(...stoneLion(sx * 7.6, -32.4, -1));
-  }
+  if (includeHeroProps) {
+    // Twin carved imperial stone lions (石獅子) flanking the central Golden Water Bridge entrance
+    for (const sx of [-1, 1]) {
+      p.push(...stoneLion(sx * 7.6, -32.4, -1));
+    }
 
-  // Twin Ornate Huabiao (華表) at x = ±22, z = -34
-  for (const hx of [-22, 22]) {
-    p.push(...place(huabiao(), hx, -34));
+    // Twin Ornate Huabiao (華表) at x = ±22, z = -34
+    for (const hx of [-22, 22]) {
+      p.push(...place(huabiao(), hx, -34));
+    }
   }
 
   return p;

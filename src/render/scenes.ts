@@ -20,14 +20,17 @@ import {
   campusSceneArchitecture,
   democracyStatue,
   greatHall,
+  huabiao,
   huadengGlobes,
   huadengPole,
   monument,
   pkuWestGate,
+  stoneLion,
   tiananmen,
   trolleybus,
   trolleyWindows,
 } from './landmarks';
+import { attachGlbReplacement } from './glbCache';
 import {
   SharedTexPool,
   applyAtmosphere,
@@ -540,8 +543,26 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
   );
   for (let x = -85; x <= 85; x += 10) stat.push({ p: [x, 0.0, -260], s: [0.25, 0.03, 340], c: 0x6b665c });
 
-  // landmarks (100% foreground detailed)
-  flood.push(...tiananmen());
+  // landmarks (100% foreground detailed; distant square dawn mode uses merged procedural hero props for LOD budget)
+  flood.push(...tiananmen(dawn));
+  if (!dawn) {
+    for (const sx of [-1, 1]) {
+      const lg = new THREE.Group();
+      const lm = new THREE.Mesh(mergeParts(stoneLion(0, 0, -1)), litMat());
+      lg.add(lm);
+      lg.position.set(sx * 7.6, 0, -32.4);
+      s.add(lg);
+      attachGlbReplacement(lg, '/models/colab_hq/bj89_stone_lion.glb', { hideOnLoad: [lm], yaw: Math.PI });
+    }
+    for (const hx of [-22, 22]) {
+      const hg = new THREE.Group();
+      const hm = new THREE.Mesh(mergeParts(huabiao()), litMat());
+      hg.add(hm);
+      hg.position.set(hx, 0, -34);
+      s.add(hg);
+      attachGlbReplacement(hg, '/models/colab_hq/bj89_huabiao.glb', { hideOnLoad: [hm], scaleVec: [0.58, 1.0, 0.58] });
+    }
+  }
   flood.push(...place(monument(), 0, -330));
   flood.push(...place(greatHall(), -150, -320), ...place(greatHall(true), 150, -320, Math.PI));
   stat.push({ p: [0, 15, -112], s: [0.35, 30, 0.35], c: 0xc8c8c0, cyl: true }, { p: [1.8, 28.5, -112], s: [3.6, 2.4, 0.05], c: 0xc21f1a }); // flagpole
@@ -567,7 +588,13 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
   if (mode === 'night') {
     stat.push(...place(buildNpcParts('worker_master'), 6, -95, 2), ...place(buildNpcParts('student_male'), 8, -96.5, 1.2), ...place(buildNpcParts('student_overcoat'), 9.5, -94.5, 2.8), ...place(buildNpcParts('hutong_elder'), 12, -96, 3.6));
     stat.push(...place(buildNpcParts('hutong_elder'), -40, -88.5, Math.PI / 2), { p: [-41, 0.25, -88.5], s: [0.8, 0.5, 0.5], c: 0x5a3e28 });
-    stat.push(...place(bike(), -38.6, -88.6, 0.2));
+    const bg = new THREE.Group();
+    const bm = new THREE.Mesh(mergeParts(bike()), litMat());
+    bg.add(bm);
+    bg.position.set(-38.6, 0, -88.6);
+    bg.rotation.y = 0.2;
+    s.add(bg);
+    attachGlbReplacement(bg, '/models/colab_hq/bj89_bicycle_28.glb', { hideOnLoad: [bm], yaw: Math.PI / 2 });
     for (let i = 0; i < 26; i++) {
       const px = -60 + r() * 120;
       const pz = -105 - r() * 200;
@@ -581,7 +608,15 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
     // broadcast station at [-20, -265], 2 ambulance vans & corded emergency lane on east side, tricycle water carts
     stat.push(...place(broadcastStation(), -20, -265, 0.35));
     stat.push(...place(ambulance(), 30, -255, -Math.PI / 2), ...place(ambulance(), 30, -295, Math.PI / 2));
-    stat.push(...place(tricycle(), 22, -248, -Math.PI / 2), ...place(tricycle(), -9, -258, 0.3));
+    for (const [tx, tz, tryy] of [[22, -248, -Math.PI / 2], [-9, -258, 0.3]] as [number, number, number][]) {
+      const tg = new THREE.Group();
+      const tm = new THREE.Mesh(mergeParts(tricycle()), litMat());
+      tg.add(tm);
+      tg.position.set(tx, 0, tz);
+      tg.rotation.y = tryy;
+      s.add(tg);
+      attachGlbReplacement(tg, '/models/colab_hq/bj89_cargo_tricycle.glb', { hideOnLoad: [tm], yaw: Math.PI / 2 });
+    }
     // corded-off emergency lane barriers (x = 24 and x = 36, z = -130..-340)
     for (const cx of [24, 36]) {
       stat.push({ p: [cx, 0.85, -235], s: [0.06, 0.06, 210], c: 0xd83228 });
@@ -812,7 +847,19 @@ export function buildChangan(mode: 'night' | 'dawn' | 'camp' | 'statue' = 'night
   const riders = new THREE.InstancedMesh(mergeParts(riderParts), litMat(), N);
   const rs = Array.from({ length: N }, (_, i) => ({ x: -200 + r() * 400, z: (i % 2 ? -42.5 : -82.5) + r() * 2.5, v: (i % 2 ? -1 : 1) * (3 + r() * 2) }));
   s.add(riders);
-  const tb = [0, 1].map(i => { const g = new THREE.Group(); g.add(new THREE.Mesh(mergeParts(trolleybus()), litMat()), new THREE.Mesh(mergeParts(trolleyWindows()), glowMat())); g.position.set(i ? 60 : -90, 0, i ? -58 : -68); if (i) g.rotation.y = Math.PI; s.add(g); return g; });
+  const tb = [0, 1].map(i => {
+    const g = new THREE.Group();
+    const bMesh = new THREE.Mesh(mergeParts(trolleybus()), litMat());
+    const wMesh = new THREE.Mesh(mergeParts(trolleyWindows()), glowMat());
+    g.add(bMesh, wMesh);
+    g.position.set(i ? 60 : -90, 0, i ? -58 : -68);
+    if (i) g.rotation.y = Math.PI;
+    s.add(g);
+    if (!dawn) {
+      attachGlbReplacement(g, '/models/colab_hq/bj89_trolleybus.glb', { hideOnLoad: [bMesh, wMesh], yaw: Math.PI / 2, scale: 1.0 });
+    }
+    return g;
+  });
 
   const bounds: [number, number, number, number] = dawn ? [-95, 60, -400, -95] : camp ? [-95, 60, -360, -110] : statue ? [-95, 60, -340, -95] : [-200, 200, -300, -38];
   const camDist = dawn ? 20 : (camp || statue) ? 22 : 30;
