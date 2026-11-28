@@ -3,6 +3,7 @@ import { C, Part, addLayeredParts, glowMat, instanced, litMat, makeTwoSidedPlane
 import { bike, coalAndCabbage, tableBasin, tricycle, tricycleBodyParts } from './props';
 import { addRealisticTrees } from './foliage';
 import { asphaltRoadTex, campusPathTex, skyDomeTex } from './materials';
+import { attachGlbReplacement } from './glbCache';
 import type { SceneId } from '../types';
 import type { World } from './scenes';
 
@@ -399,7 +400,13 @@ export function buildFactory(mode: 'night' | 'dawn' = 'night'): World {
     [14.2, 2.6, Math.PI],
   ] as [number, number, number][]) {
     const [lStat, lGlow] = c6140Lathe(!dawn);
-    stat.push(...place(lStat, lx, lz, lry));
+    const lg = new THREE.Group();
+    const lm = new THREE.Mesh(mergeParts(lStat), litMat());
+    lg.add(lm);
+    lg.position.set(lx, 0, lz);
+    lg.rotation.y = lry;
+    s.add(lg);
+    attachGlbReplacement(lg, '/models/colab_hq/bj89_c6140_lathe.glb', { hideOnLoad: [lm] });
     if (lGlow.length) glow.push(...place(lGlow, lx, lz, lry));
   }
 
